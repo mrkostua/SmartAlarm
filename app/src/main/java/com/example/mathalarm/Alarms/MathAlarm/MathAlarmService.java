@@ -75,7 +75,7 @@ public class MathAlarmService extends Service {
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition", false);
 
-        String defaultAlarmMessageText = "\"" + "Good morning sir" + "\"";
+        String defaultAlarmMessageText = "\"" + "Good morning sir." + "\"";
         alarmMessageText = intent.getExtras().getString("alarmMessageText", defaultAlarmMessageText);
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
