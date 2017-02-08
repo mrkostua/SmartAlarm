@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_started_alarm_activty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.mathalarm.Alarms.MathAlarm.DisplayAlarmActivity"
+    android:background="#6a5fbe">
+
+
+
+    <Button
+        android:text="Stop Alarm"
+        android:textSize="35dp"
+        android:textColor="#ffffff"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bStopAlarm"
+        android:background="#de4545"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:onClick="bCheckAnswerInClickListener"
+        android:clickable="true"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="If false answers more then 2 show new task"
+        android:id="@+id/tvCounterInformation"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="5"
+        android:id="@+id/etAnswer"
+        android:textSize="40sp"
+        android:textColor="#1dec0f"
+        android:maxLength="4"
+        android:text=""
+        android:gravity="center"
+        android:layout_above="@+id/scrollViewContainerStartedAlarmMessage"
+        android:layout_toRightOf="@+id/tvMathSign"
+        android:layout_toEndOf="@+id/tvMathSign" />
+
+    <TextView
+        android:text="(22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvNumber1"
+        android:layout_marginTop="85dp"
+        android:textColor="#ff0000"
+        android:textSize="35sp"
+        android:layout_below="@+id/tvCounterInformation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="+"
+        android:layout_margin="10dp"
+        android:id="@+id/tvMathSign"
+        android:textSize="40sp"
+        android:textColor="#ffff"
+        android:layout_alignBaseline="@+id/tvNumber1"
+        android:layout_alignBottom="@+id/tvNumber1"
+        android:layout_toRightOf="@+id/tvNumber1"
+        android:layout_toEndOf="@+id/tvNumber1" />
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="104dp"
+    android:id="@+id/scrollViewContainerStartedAlarmMessage"
+    android:layout_above="@+id/bStopAlarm"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" >
+    <TextView
+        android:text="Alarm message"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#14ff4b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvStartedAlarmMessageText"
+       />
+    </ScrollView>
+
+    <TextView
+        android:rotation="90"
+        android:text="="
+        android:textStyle="bold"
+        android:textSize="50dp"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_above="@+id/etAnswer"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvNumber3"
+        android:textColor="#580043"
+        android:textSize="35sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvNumber2"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/tvMathSign"
+        android:layout_alignBottom="@+id/tvMathSign"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="22)"
+        android:id="@+id/tvNumber2"
+        android:textColor="#21d5f9"
+        android:textSize="35sp"
+        android:layout_alignBaseline="@+id/tvMathSign"
+        android:layout_alignBottom="@+id/tvMathSign"
+        android:layout_toRightOf="@+id/tvMathSign"
+        android:layout_toEndOf="@+id/tvMathSign" />
+</RelativeLayout>

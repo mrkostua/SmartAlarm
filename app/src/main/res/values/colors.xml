@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#e90000</color>
+
+    <color name="transparet">#ffff</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="solid_color">#c20909</color>
+    <color name="activity_main_math_alarm_backgroundBlack">#000000</color>
+    <color name="activity_main_math_alarm_textColorWhite">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffff</color>
+    <color name="green_correct_choose">#68de82</color>
+    <color name="navigationBarColor">#262626</color>
+
+</resources>

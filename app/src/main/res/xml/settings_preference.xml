@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <PreferenceCategory
+       android:title="@string/preference_sound">
+       <ListPref1erence
+           android:icon="@drawable/ic_queue_music_white_24dp"
+           android:key="pref_sound"
+           android:summary="@string/pref_sum_music"
+           android:title="@string/pref_music"
+           android:entries="@array/listArray_of_music"
+           android:entryValues="@array/listValues_of_music"
+           android:dialogIcon="@drawable/ic_queue_music_white_24dp"
+           android:dialogTitle="@string/preference_dialog_title_music"
+           android:negativeButtonText="@string/pref_back"/>
+
+       <CheckBoxPreference
+           android:title="@string/pref_volume"
+           android:key="pref_volumue"
+           android:icon="@drawable/ic_volume_up_white_24dp"
+           android:summaryOff="@string/pref_volume_on"
+           android:summaryOn="@string/pref_volume_off"
+           />
+   </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Internet">
+        <CheckBoxPreference
+            android:title="Use only Wi-fi"
+            android:key="pref_wifi"
+            android:summaryOff="Chose - on , to use internet only with Wi-fi"
+            android:summaryOn="Chose - off , to use internet with mobile data"
+            />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Styles">
+
+        <ListPreference
+            android:key="pref_background"
+            android:summary="Click to chose wallpaper colors"
+            android:title="Change wallpaper"
+            android:entries="@array/listArray_background"
+            android:entryValues="@array/listValues_background"
+
+            android:dialogTitle="List of colors"
+            android:negativeButtonText="@string/pref_back"/>
+        <PreferenceScreen
+            android:persistent="false"
+            android:title="Themes"
+            >
+            <ListPreference
+                android:key="pref_themes"
+                android:summary="Press to change language "
+                android:title="Language"
+                android:entries="@array/listArray_of_themes"
+                android:entryValues="@array/listValues_of_themes"/>
+
+        </PreferenceScreen>
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="Time and Date">
+
+            <EditTextPreference
+                android:title="Change Time"
+                android:icon="@drawable/ic_av_timer_white_24dp"
+                android:dialogTitle="time"
+                android:defaultValue="@string/Preferencetimeinukraine"/>
+
+            <EditTextPreference
+                android:title="Change Date"
+                android:icon="@drawable/ic_date_range_white_24dp"
+                android:dialogTitle="date"
+                android:defaultValue="Correct date in Earth 09.04.2016"/>
+        </PreferenceCategory>
+
+
+
+
+</PreferenceScreen>

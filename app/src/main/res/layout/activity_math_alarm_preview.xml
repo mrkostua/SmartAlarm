@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_math_alarm_preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ccc672"
+    tools:context="com.example.mathalarm.Alarms.MathAlarm.MathAlarmPreview">
+
+    <TextView
+        android:text="Alarm ON 12:33 "
+        android:textColor="#759af9"
+        android:textSize="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tvAlarmTimeInformation"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="time ot boom"
+        android:textSize="20dp"
+        android:textColor="#ef0202"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTimeToAlarmBoom"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_below="@+id/tvAlarmTimeInformation"
+        android:layout_alignRight="@+id/tvAlarmTimeInformation"
+        android:layout_alignEnd="@+id/tvAlarmTimeInformation" />
+
+    <Button
+        android:text="Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="MathAlarmButtonOnClickListener"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:text="Change Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:text="Music:"
+        android:textSize="32dp"
+        android:textColor="#e5e906"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTimeToAlarmBoom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp"
+        android:id="@+id/tvMusicInformation" />
+    <TextView
+        android:text="Complexity Level"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:textColor="#37ff00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPreviewComplexityLevel"
+        android:layout_below="@+id/scrollViewContainerPreviewAlarmMessage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:id="@+id/scrollViewContainerPreviewAlarmMessage"
+    android:layout_below="@+id/tvMusicInformation"
+    android:layout_alignLeft="@+id/button"
+    android:layout_alignStart="@+id/button"
+    android:layout_marginTop="40dp">
+    <TextView
+        android:text="Alarm message"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#5e0641"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/tvPreviewAlarmMessageText"
+         />
+
+    </ScrollView>
+
+
+</RelativeLayout>

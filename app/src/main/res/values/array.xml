@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="music_list">
+        <item>ringtone1</item>
+        <item>ringtone2</item>
+    </string-array>
+
+    <string-array name="alarm_complexity_list">
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
+        <item>unbelievably hard</item>
+    </string-array>
+
+    <string-array name="listArray_of_music">
+        <item>Демони_Один в каноє</item>
+        <item>I like Birds_Eels</item>
+        <item>Turn Away_Beck</item>
+    </string-array>
+
+    <string-array name="listValues_of_music">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="listArray_of_themes">
+        <item>English</item>
+        <item>Ukraine</item>
+        <item>Russian</item>
+    </string-array>
+
+    <string-array name="listValues_of_themes">
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+
+    <string-array name="listArray_background">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+    <string-array name="listValues_background">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+</resources>

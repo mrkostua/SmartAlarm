@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MathAlarm</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="preference_settings">Settings</string>
+
+
+
+    <string name="MenuBusPoints">2</string>
+    <string name="MenuBusIcon">MenuBusIcon</string>
+    <string name="KindOfBuSIcon">Kind of Bus icons</string>
+    <string name="adBusPoint100"><![CDATA[100 -> ∞]]></string>
+    <string name="adBusPoint50"><![CDATA[50->100 points]]></string>
+    <string name="adBusPoint10"><![CDATA[10->20 points]]></string>
+    <string name="adBusPoint0"><![CDATA[0->10 points]]></string>
+    <string name="generate_qr_round">Touch to generate a QR code (round device)</string>
+    <string name="generate_qr_square">Touch to generate a QR code (square device)</string>
+    <string name="string_to_encode"></string>
+    <string name="encode_error">Unable to generate QR Code</string>
+    <string name="qr_image_description">QR Code Image</string>
+    <string name="view_navigation_close">Close</string>
+    <string name="view_navigation_open">Open</string>
+
+    <string name="preference_sound">Sound</string>
+    <string name="preference_dialog_title_music">List of Music</string>
+    <string name="pref_sum_music">Chose music that will play repeating</string>
+    <string name="pref_volume">Volume</string>
+    <string name="pref_back">Back</string>
+    <string name="pref_volume_on">Check - on ,to turn on volume</string>
+    <string name="pref_volume_off">Check - off ,to turn off volume</string>
+    <string name="pref_music">Music</string>
+    <string name="Preferencetimeinukraine">Correct time in Ukraine 13:33</string>
+</resources>
