@@ -22,32 +22,16 @@ public class WakeLockService extends Service
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.i(TAG,"WakeLockService  onCreate");
-    }
-
-    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG,"WakeLockService  onStartCommand");
-        Boolean wakeKey = intent.getBooleanExtra("wakeKey",true);
-
         // Called implicitly when device is about to sleep or application is backgrounded
-        if(wakeKey) {
             createWakeLocks();
             wakeDevice("partialWakeLock");
-        }
-        // Called implicitly when device is about to wake up or foregrounded
-        else {
-            Log.i(TAG,"WakeLockService wakeKey - " + wakeKey);
-            ReleaseWakeLocks();
-            //Stop the service, if it was previously started.This is the same as calling stopService(Intent)
-            stopSelf();
-    }
+
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.
          * This mode makes sense for things that will be explicitly started and stopped
         * to run for arbitrary periods of time, such as a service performing background music playback. */
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void ReleaseWakeLocks() {

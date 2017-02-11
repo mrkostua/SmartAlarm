@@ -65,7 +65,6 @@ public class MathAlarmPreview extends AppCompatActivity
         super.onPause();
         Log.i(TAG,"MathAlarmPreview " + "onPause");
         Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
-        wakeLockIntent.putExtra("wakeKey",true);
         startService(wakeLockIntent);
     }
 
@@ -73,6 +72,7 @@ public class MathAlarmPreview extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"MathAlarmPreview "+"onDestroy");
+
     }
 
     private void DisplayAllViews() {

@@ -1,7 +1,5 @@
 package com.example.mathalarm.Alarms.MathAlarm;
 
-import android.app.KeyguardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,16 +63,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         Log.i(TAG,"DisplayAlarmActivity "+"onResume");
-        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
-        wakeLockIntent.putExtra("wakeKey",false);
-        startService(wakeLockIntent);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -183,12 +172,15 @@ public class DisplayAlarmActivity extends AppCompatActivity
         OnOffRemember = intent.getBooleanExtra("AlarmCreatedKey",false);
         //cancel the alarm  Only if Alarm was set (button On pressed)
         if (OnOffRemember) {
+            ////stop MathService and playing music
             stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
             Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
+            //stop WakeLock Service
+            //this stops the service no matter how many times it was started.
+            stopService (new Intent(DisplayAlarmActivity.this,WakeLockService.class));
 
             Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
             startActivity(intent_startMainActivity);
-            //AlarmOffMethod();
             OnOffRemember = false;
         }
         else{
@@ -196,19 +188,6 @@ public class DisplayAlarmActivity extends AppCompatActivity
             Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
         }
     }
-
-        private void AlarmOffMethod() {
-        Intent intent_AlarmReceiverStop = new Intent(DisplayAlarmActivity.this, Alarm_Receiver.class);
-        // sending the condition of alarm if true - alarm on , if false - alarm off
-        intent_AlarmReceiverStop.putExtra("Alarm condition", false);
-        intent_AlarmReceiverStop.putExtra("Alarm name", 2);
-        sendBroadcast(intent_AlarmReceiverStop);
-
-        Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
-        startActivity(intent_startMainActivity);
-
-    }
-
     private void tvAlarmMessageText_EditorMethod() {
         Intent intent = getIntent();
         String defaultAlarmMessageText = "\"" +"Good morning sir" +"\"";
