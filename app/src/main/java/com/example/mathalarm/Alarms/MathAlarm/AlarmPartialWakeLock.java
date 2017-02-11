@@ -10,7 +10,7 @@ import android.util.Log;
         static void acquireCpuWakeLock (Context context) {
         //Check if WakeLock is acquired
     if(sCpuWakeLock != null) {
-        Log.i(TAG," AlarmPartialWakeLock releaseCpuWakeLock already set");
+        Log.i(TAG," AlarmPartialWakeLock acquireCpuWakeLock already set");
         return;
     }
             Log.i(TAG," AlarmPartialWakeLock acquireCpuWakeLock started");

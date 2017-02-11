@@ -36,10 +36,9 @@ public class MathAlarmPreview extends AppCompatActivity
     private PendingIntent pendingIntent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        Log.i(TAG,"MathAlarmPreview "+"onCreate");
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Log.i(TAG,"MathAlarmPreview "+"onCreate");
         setContentView(R.layout.activity_math_alarm_preview);
 
         //get values pickedMinute and pickedHour from MainMathAlarm
@@ -62,12 +61,12 @@ public class MathAlarmPreview extends AppCompatActivity
 
     //grab a partial wake lock when the device goes into the background (which is done in the onPause method)
     @Override
-    protected void onPause() {
+     protected void onPause() {
         super.onPause();
-        //Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
-       // wakeLockIntent.putExtra("wakeKey",true);
-        //startService(wakeLockIntent);
         Log.i(TAG,"MathAlarmPreview " + "onPause");
+        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
+        wakeLockIntent.putExtra("wakeKey",true);
+        startService(wakeLockIntent);
     }
 
     @Override
@@ -76,8 +75,7 @@ public class MathAlarmPreview extends AppCompatActivity
         Log.i(TAG,"MathAlarmPreview "+"onDestroy");
     }
 
-    private void DisplayAllViews()
-        {
+    private void DisplayAllViews() {
         // Method that shows calculate - How much time left until alarm start
         CountsTimeToAlarmStart countsTimeToAlarmStart = new CountsTimeToAlarmStart();
         countsTimeToAlarmStart.HowMuchTimeToStart(currentHour, currentMinute, pickedHour, pickedMinute);
@@ -101,22 +99,26 @@ public class MathAlarmPreview extends AppCompatActivity
         assert tvAlarmTimeInformation != null;
         tvAlarmTimeInformation.setText("Alarm ON " + pickedHour + ":" + sMinute);
     }
+
         private void tvTimeToAlarmBoom_TextEditorMethod() {
         TextView tvTimeToAlarmBoom = (TextView) findViewById(R.id.tvTimeToAlarmBoom);
         tvTimeToAlarmBoom.setText("Until boom "
                 + hoursToAlarmBoom + " : " + minutesToAlarmBoom);
     }
+
         private void tvMusicName_TextEditorMethod() {
         String[] musicList = getResources().getStringArray(R.array.music_list);
 
         TextView tvMusicInformation = (TextView) findViewById(R.id.tvMusicInformation);
         tvMusicInformation.setText(musicList[selectedMusic]);
     }
+
         private void tvPreviewAlarmMessageText_TextEditorMethod() {
         TextView tvPreviewAlarmMessageText = (TextView) findViewById(R.id.tvPreviewAlarmMessageText);
         tvPreviewAlarmMessageText.setText(alarmMessageText);
     }
-        private void tvPReviewSelectedAlarmComplexity_TextEditorMethod() {
+
+    private void tvPReviewSelectedAlarmComplexity_TextEditorMethod() {
             TextView tvPreviewComplexityLevel = (TextView) findViewById(R.id.tvPreviewComplexityLevel);
 
             String[] complexityList = getResources().getStringArray(R.array.alarm_complexity_list);
@@ -124,8 +126,7 @@ public class MathAlarmPreview extends AppCompatActivity
         }
 
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
-    public void MathAlarmButtonOnClickListener(View v)
-    {
+    public void MathAlarmButtonOnClickListener(View v) {
         OnOffAlarm_Remember =true;
         //set the alarm for pickedHour and pickedMinute
         AlarmOnMethod(pickedHour, pickedMinute);
@@ -134,8 +135,7 @@ public class MathAlarmPreview extends AppCompatActivity
      * @param hour   - current hour picked on the TimePicker
      * @param minute - current hour minute on the TimePicker
      */
-    private void AlarmOnMethod(int hour, int minute)
-    {
+    private void AlarmOnMethod(int hour, int minute) {
         Log.i(TAG, "MathAlarmPreview "+"AlarmOnMethod start");
         //create an Intent to the  Alarm_Receiver class
         alarmReceiverIntent = new Intent(MathAlarmPreview.this,Alarm_Receiver.class);
@@ -215,8 +215,7 @@ public class MathAlarmPreview extends AppCompatActivity
     }
 
     //Alarm Off private method sending pendingIntent to receiver (to stop creating service)
-    public void MathAlarmOff_Method()
-    {
+    public void MathAlarmOff_Method() {
         Log.i(TAG,"Alarm is :" + OnOffAlarm_Remember);
         if(OnOffAlarm_Remember)
         {

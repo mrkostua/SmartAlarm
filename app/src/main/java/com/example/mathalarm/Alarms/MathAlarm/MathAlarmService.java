@@ -65,7 +65,7 @@ public class MathAlarmService extends Service {
         telephonyManager.listen(
                 phoneStateListener,
                 phoneStateListener.LISTEN_CALL_STATE);
-        AlarmPartialWakeLock.acquireCpuWakeLock(this);
+        //AlarmPartialWakeLock.acquireCpuWakeLock(this);
     }
 
     @Override
@@ -81,7 +81,6 @@ public class MathAlarmService extends Service {
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
         String[] musicList = getResources().getStringArray(R.array.music_list);
         musicResourceID = getPackageName() + "/raw/" + musicList[selectedMusic];
-
         if (alarmCondition) {
             AlarmStartPlayingMusic();
             Start_DisplayAlarmActivity();
@@ -97,7 +96,7 @@ public class MathAlarmService extends Service {
             //stop listen for incoming calls
             //To unregister a listener, pass the listener object and set the events argument to LISTEN_NONE (0).
             telephonyManager.listen(phoneStateListener,0);
-            AlarmPartialWakeLock.releaseCpuWakeLock();
+            //AlarmPartialWakeLock.releaseCpuWakeLock();
         DisableServiceSilentKiller();
         AlarmStopPlayingMusic();
     }

@@ -30,8 +30,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     private int iFalseAnswerCounter=0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG,"DisplayAlarmActivity "+"onCreate");
         setContentView(R.layout.activity_display_alarm);
@@ -66,37 +65,20 @@ public class DisplayAlarmActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         Log.i(TAG,"DisplayAlarmActivity "+"onResume");
-//        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
-//        wakeLockIntent.putExtra("wakeKey",false);
-//        startService(wakeLockIntent);
-
+        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
+        wakeLockIntent.putExtra("wakeKey",false);
+        startService(wakeLockIntent);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //ReenableCreate_Keyguard();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"DisplayAlarmActivity "+"onDestroy");
-    }
-
-    protected void ReenableCreate_Keyguard(){
-        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("TAG");
-        try {
-            /** @reenableKeyguard ()
-            Reenable the keyguard. The keyguard will reappear if the previous call to disableKeyguard() caused
-            it to be hidden. A good place to call this is from onPause() Note: This call has no effect while
-            any DevicePolicyManager is enabled that requires a password. */
-            keyguardLock.reenableKeyguard();
-            Log.i(TAG,"DisplayAlarmActivity" + "reenableKeyguard work?");
-        }catch (Exception e){
-            Log.i(TAG,"DisplayAlarmActivity" + "reenableKeyguard Exception" + e.getMessage());
-        }
     }
 
     private void getAlarmComplexityLevel_Method() {

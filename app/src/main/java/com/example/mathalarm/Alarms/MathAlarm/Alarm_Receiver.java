@@ -20,7 +20,8 @@ public class Alarm_Receiver extends BroadcastReceiver
 
         //Maintain a cpu partial WakeLock until the MathAlarmService
         // (service fr playing music) can pick it up.
-        AlarmPartialWakeLock.acquireCpuWakeLock(context);
+
+        //AlarmPartialWakeLock.acquireCpuWakeLock(context);
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition",false);
         int alarmName = intent.getExtras().getInt("Alarm name",0);
