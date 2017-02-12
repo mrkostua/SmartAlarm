@@ -58,6 +58,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
         tvAlarmMessageText_EditorMethod();
         getAlarmComplexityLevel_Method();
+        //stop WakeLock Service
+        //this stops the service no matter how many times it was started.
+        stopService (new Intent(this,WakeLockService.class));
     }
     @Override
     protected void onResume() {
@@ -67,6 +70,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        stopServices();
         Log.i(TAG,"DisplayAlarmActivity "+"onDestroy");
     }
 
@@ -171,23 +175,23 @@ public class DisplayAlarmActivity extends AppCompatActivity
         Intent intent = getIntent();
         OnOffRemember = intent.getBooleanExtra("AlarmCreatedKey",false);
         //cancel the alarm  Only if Alarm was set (button On pressed)
-        if (OnOffRemember) {
-            ////stop MathService and playing music
-            stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
-            Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
-            //stop WakeLock Service
-            //this stops the service no matter how many times it was started.
-            stopService (new Intent(DisplayAlarmActivity.this,WakeLockService.class));
-
-            Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
-            startActivity(intent_startMainActivity);
-            OnOffRemember = false;
-        }
+        if (OnOffRemember)
+            stopServices();
         else{
             Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
             Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
         }
     }
+    private void stopServices() {
+        ////stop MathService and playing music
+        stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
+        Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
+
+        Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
+        startActivity(intent_startMainActivity);
+        OnOffRemember = false;
+    }
+
     private void tvAlarmMessageText_EditorMethod() {
         Intent intent = getIntent();
         String defaultAlarmMessageText = "\"" +"Good morning sir" +"\"";

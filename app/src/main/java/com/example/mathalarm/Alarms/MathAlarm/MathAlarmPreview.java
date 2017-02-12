@@ -65,6 +65,8 @@ public class MathAlarmPreview extends AppCompatActivity
         super.onPause();
         Log.i(TAG,"MathAlarmPreview " + "onPause");
         Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
+        String time = pickedHour +" " + pickedMinute;
+        wakeLockIntent.putExtra("alarmTimeKey",time);
         startService(wakeLockIntent);
     }
 

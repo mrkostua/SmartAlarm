@@ -1,18 +1,23 @@
 package com.example.mathalarm.Alarms.MathAlarm;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+
+import com.example.mathalarm.R;
 
 
 public class WakeLockService extends Service
 {
+    private static final int  NOTIFICATION_ID = 25;
     private final String TAG = "AlarmProcess";
-     private PowerManager.WakeLock fullWakeLock;
      private PowerManager.WakeLock partialWakeLock;
 
     @Nullable
@@ -27,6 +32,8 @@ public class WakeLockService extends Service
         // Called implicitly when device is about to sleep or application is backgrounded
             createWakeLocks();
             wakeDevice("partialWakeLock");
+        String timeToAlarmStart = intent.getExtras().getString("alarmTimeKey","00-00");
+        NotificationInForeground(timeToAlarmStart);
 
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.
          * This mode makes sense for things that will be explicitly started and stopped
@@ -35,11 +42,6 @@ public class WakeLockService extends Service
     }
 
     private void ReleaseWakeLocks() {
-        if(fullWakeLock.isHeld()){
-            fullWakeLock.release();
-            fullWakeLock = null;
-            Log.i(TAG,"WakeLockService  fullWakeLock released");
-        }
         if(partialWakeLock.isHeld()){
             partialWakeLock.release();
             partialWakeLock = null;
@@ -57,9 +59,7 @@ public class WakeLockService extends Service
 
     protected void createWakeLocks(){
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        partialWakeLock=null; fullWakeLock=null;
-        fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
-                PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
+        partialWakeLock=null;
         //Wake lock flag: Turn the screen on when the wake lock is acquired.
         partialWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK|PowerManager.ACQUIRE_CAUSES_WAKEUP, "Loneworker - PARTIAL WAKE LOCK");
     }
@@ -68,7 +68,6 @@ public class WakeLockService extends Service
     private void wakeDevice(String wakeLockType) {
         //keyguardLock.disableKeyguard();
         switch (wakeLockType) {
-
             case "partialWakeLock":
                 /*Wake lock level: Ensures that the CPU is running; the screen and keyboard backlight will be allowed to go off.
                 *If the user presses the power button, then the screen will be turned off but the
@@ -76,17 +75,21 @@ public class WakeLockService extends Service
                 partialWakeLock.acquire();
                 Log.i(TAG,"WakeLockService   partialWakeLock.acquire()");
                 break;
-
-            /*This constant was deprecated in API level 17.
-            Most applications should use FLAG_KEEP_SCREEN_ON instead of this type of wake lock, as it will be
-            correctly managed by the platform as the user moves between applications and doesn't require a special permission.
-            Wake lock level: Ensures that the screen and keyboard backlight are on at full brightness.
-            If the user presses the power button, then the FULL_WAKE_LOCK will be implicitly released by the system,
-            causing both the screen and the CPU to be turned off. Contrast with PARTIAL_WAKE_LOCK.*/
-            case "fullWakeLock":
-                fullWakeLock.acquire();
-                Log.i(TAG,"WakeLockService   fullWakeLock.acquire()");
-                break;
         }
     }
+
+    private void NotificationInForeground(String time) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        builder
+                .setContentText("Alarm was set on " +time)
+                .setContentTitle("MathAlarm")
+                .setSmallIcon(R.drawable.ic_av_timer_white_24dp)
+                .setTicker("Alarm was set on " + time)
+                .setLargeIcon(BitmapFactory.decodeResource(getApplication().getResources(),R.drawable.logo_math_alarm))
+                .setWhen(System.currentTimeMillis());
+        Notification notification = builder.build();
+
+        startForeground(NOTIFICATION_ID,notification);
+    }
+
 }
