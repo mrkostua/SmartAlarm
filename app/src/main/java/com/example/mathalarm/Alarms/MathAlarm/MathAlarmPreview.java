@@ -12,25 +12,19 @@ import android.widget.Toast;
 
 import com.example.mathalarm.CountsTimeToAlarmStart;
 import com.example.mathalarm.R;
+import com.example.mathalarm.firstsScreens.MainActivity;
 
 import java.util.Calendar;
 
-public class MathAlarmPreview extends AppCompatActivity
-{
+public class MathAlarmPreview extends AppCompatActivity {
     private int pickedHour, pickedMinute;
-
     private int selectedMusic;
-
     private String alarmMessageText;
-
     private int alarmComplexityLevel;
     private int hoursToAlarmBoom, minutesToAlarmBoom;
     private int currentHour , currentMinute;
-
     private Calendar calendar;
     private static final String TAG = "AlarmProcess";
-    private boolean OnOffAlarm_Remember = false;
-
     private AlarmManager alarmManager;
     private Intent alarmReceiverIntent;
     private PendingIntent pendingIntent;
@@ -59,22 +53,10 @@ public class MathAlarmPreview extends AppCompatActivity
         DisplayAllViews();
     }
 
-    //grab a partial wake lock when the device goes into the background (which is done in the onPause method)
-    @Override
-     protected void onPause() {
-        super.onPause();
-        Log.i(TAG,"MathAlarmPreview " + "onPause");
-        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
-        String time = pickedHour +" " + pickedMinute;
-        wakeLockIntent.putExtra("alarmTimeKey",time);
-        startService(wakeLockIntent);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"MathAlarmPreview "+"onDestroy");
-
     }
 
     private void DisplayAllViews() {
@@ -90,6 +72,7 @@ public class MathAlarmPreview extends AppCompatActivity
         tvPreviewAlarmMessageText_TextEditorMethod();
         tvPReviewSelectedAlarmComplexity_TextEditorMethod();
     }
+
     //method thar changes the text in the TextView tvActions
         private void tvAlarmTimeInformation_TextEditorMethod() {
         String sMinute = String.valueOf(pickedMinute);
@@ -129,10 +112,20 @@ public class MathAlarmPreview extends AppCompatActivity
 
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
     public void MathAlarmButtonOnClickListener(View v) {
-        OnOffAlarm_Remember =true;
         //set the alarm for pickedHour and pickedMinute
         AlarmOnMethod(pickedHour, pickedMinute);
+
+        //start service with PartialWakeLock
+        Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
+        String time = pickedHour +" " + pickedMinute;
+        wakeLockIntent.putExtra("alarmTimeKey",time);
+        startService(wakeLockIntent);
+
+        //after confirming alarm configurations, user will be moved to main activity
+        Intent intent  = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
     /**
      * @param hour   - current hour picked on the TimePicker
      * @param minute - current hour minute on the TimePicker
@@ -215,20 +208,5 @@ public class MathAlarmPreview extends AppCompatActivity
             }
         }
     }
-
-    //Alarm Off private method sending pendingIntent to receiver (to stop creating service)
-    public void MathAlarmOff_Method() {
-        Log.i(TAG,"Alarm is :" + OnOffAlarm_Remember);
-        if(OnOffAlarm_Remember)
-        {
-            // sending the condition of alarm if true - alarm on , if false - alarm off
-            alarmReceiverIntent.putExtra("Alarm condition", false);
-            alarmReceiverIntent.putExtra("Alarm name", 2);
-            sendBroadcast(alarmReceiverIntent);
-            //Cancel the alarm
-            alarmManager.cancel(pendingIntent);
-        }
-    }
-
 }
 

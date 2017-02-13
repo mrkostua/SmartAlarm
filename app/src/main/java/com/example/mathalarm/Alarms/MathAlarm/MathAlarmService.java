@@ -28,6 +28,9 @@ public class MathAlarmService extends Service {
     private int initialCallState;
     private TelephonyManager telephonyManager;
 
+    private static final int NOTIFICATION_ID = 2;
+    private AlarmNotifications alarmNotifications = new AlarmNotifications();
+
     private static final int KILLER_HANDLE_MESSAGE = 1;
     private Handler handler = new Handler() {
         @Override
@@ -65,7 +68,8 @@ public class MathAlarmService extends Service {
         telephonyManager.listen(
                 phoneStateListener,
                 phoneStateListener.LISTEN_CALL_STATE);
-        //AlarmPartialWakeLock.acquireCpuWakeLock(this);
+        //notification for snooze or stop alarm ( started in foreground what gives service higher priority to not be destroyed by system )
+        startForeground(NOTIFICATION_ID,alarmNotifications.NewNotification(this));
     }
 
     @Override
@@ -99,6 +103,8 @@ public class MathAlarmService extends Service {
             //AlarmPartialWakeLock.releaseCpuWakeLock();
         DisableServiceSilentKiller();
         AlarmStopPlayingMusic();
+
+        alarmNotifications.CancelNotification(this,NOTIFICATION_ID);
     }
 
     private void AlarmStartPlayingMusic() {

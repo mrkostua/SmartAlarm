@@ -20,8 +20,7 @@ import java.util.Random;
 public class DisplayAlarmActivity extends AppCompatActivity
 {
     private static final String TAG = "AlarmProcess";
-    private Boolean OnOffRemember = false;
-
+    private Boolean onOffRemember;
     private TextView tvNumber1,tvNumber2, tvMathSign,tvNumber3;
     private EditText etAnswer;
     private int iAnswer = 0;
@@ -33,6 +32,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
         Log.i(TAG,"DisplayAlarmActivity "+"onCreate");
         setContentView(R.layout.activity_display_alarm);
 
+        onOffRemember = false;
         final Window window = getWindow();
         /**@FLAG_DISMISS_KEYGUARD
          * Window flag: when set the window will cause the keyguard to be dismissed, only if it is
@@ -62,15 +62,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
         //this stops the service no matter how many times it was started.
         stopService (new Intent(this,WakeLockService.class));
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG,"DisplayAlarmActivity "+"onResume");
-    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopServices();
+        checkAlarmState_Method();
         Log.i(TAG,"DisplayAlarmActivity "+"onDestroy");
     }
 
@@ -173,9 +169,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
         private void checkAlarmState_Method() {
         Intent intent = getIntent();
-        OnOffRemember = intent.getBooleanExtra("AlarmCreatedKey",false);
+        onOffRemember = intent.getBooleanExtra("AlarmCreatedKey",false);
         //cancel the alarm  Only if Alarm was set (button On pressed)
-        if (OnOffRemember)
+        if (onOffRemember)
             stopServices();
         else{
             Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
@@ -189,7 +185,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
         Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
         startActivity(intent_startMainActivity);
-        OnOffRemember = false;
+        onOffRemember = false;
     }
 
     private void tvAlarmMessageText_EditorMethod() {

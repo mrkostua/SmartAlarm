@@ -43,8 +43,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="#000"
-        android:padding="10dp"
-        android:onClick="bMainSettings_OnClickMethod" />
+        android:padding="10dp"/>
+        <!--android:onClick="bMainSettings_OnClickMethod" -->
 
 </RelativeLayout>
 

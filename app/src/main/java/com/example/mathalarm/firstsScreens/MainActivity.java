@@ -42,18 +42,6 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this,"Nothing happened",Toast.LENGTH_LONG).show();
     }
 
-    private void completedAlarm_onStart()
-{
-    Intent intentGet = getIntent();
-    Boolean AlarmCompletedState;
-    AlarmCompletedState = intentGet.getExtras().getBoolean("AlarmCompletedKey",false);
-    if(AlarmCompletedState) {
-        Toast toast = Toast.makeText(MainActivity.this, "Victory my friend you are awake", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP | Gravity.START, 0, 0);
-        toast.show();
-    }
-}
-
     public void bMathAlarmOnClickMethod(View view)
     {
         bMathAlarm.startAnimation(animationShake);
