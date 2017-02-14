@@ -27,6 +27,10 @@ Button b1Line,b2Line,b3Line,b4Line;
 TextView tvPickedTime,tvChooseMusic, tvAlarmMessageText, tvChangeAlarmComplexity;
 EditText etGetAlarmMessageText;
 
+    public static final String ALARM_SNOOZE_ACTION = "alarm_snooze";
+    public static final String ALARM_SNOOZE_DISMISS = "alarm_dismiss";
+
+
 private int currentHour, currentMinute;
 private int pickedHour,pickedMinute;
 private boolean timePickerStatus =false;

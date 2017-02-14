@@ -55,8 +55,14 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
         <receiver android:name=".Alarms.MathAlarm.Alarm_Receiver"
-            android:enabled="true"/>
+            android:enabled="true">
+        <intent-filter>
+            <action android:name="alarm_snooze"/>
+            <action android:name="alarm_dismiss"/>
+            </intent-filter>
+        </receiver>
 
         <service android:name=".Alarms.MathAlarm.MathAlarmService"
             android:enabled="true"/>

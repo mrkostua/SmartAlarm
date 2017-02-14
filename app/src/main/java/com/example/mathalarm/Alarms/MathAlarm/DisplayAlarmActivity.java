@@ -20,7 +20,7 @@ import java.util.Random;
 public class DisplayAlarmActivity extends AppCompatActivity
 {
     private static final String TAG = "AlarmProcess";
-    private Boolean onOffRemember;
+    private Boolean onOffMusicPlayingRemember;
     private TextView tvNumber1,tvNumber2, tvMathSign,tvNumber3;
     private EditText etAnswer;
     private int iAnswer = 0;
@@ -32,7 +32,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
         Log.i(TAG,"DisplayAlarmActivity "+"onCreate");
         setContentView(R.layout.activity_display_alarm);
 
-        onOffRemember = false;
+        onOffMusicPlayingRemember = true;
         final Window window = getWindow();
         /**@FLAG_DISMISS_KEYGUARD
          * Window flag: when set the window will cause the keyguard to be dismissed, only if it is
@@ -68,6 +68,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
         super.onDestroy();
         checkAlarmState_Method();
         Log.i(TAG,"DisplayAlarmActivity "+"onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private void getAlarmComplexityLevel_Method() {
@@ -154,7 +159,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
                     iFalseAnswerCounter = 0;
                     Log.i(TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
-
+                    onOffMusicPlayingRemember =false;
                 } else if (iGetUserAnswer != iAnswer) {
                     Log.i(TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
@@ -168,11 +173,10 @@ public class DisplayAlarmActivity extends AppCompatActivity
         }
 
         private void checkAlarmState_Method() {
-        Intent intent = getIntent();
-        onOffRemember = intent.getBooleanExtra("AlarmCreatedKey",false);
         //cancel the alarm  Only if Alarm was set (button On pressed)
-        if (onOffRemember)
+        if (onOffMusicPlayingRemember)
             stopServices();
+        //probably it is unreachable statement , because onOffMusicPlayingRemember can be false only (if user gave right answer for task) after what the activity will be finished
         else{
             Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
             Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
@@ -184,8 +188,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
         Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
 
         Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
+        intent_startMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent_startMainActivity);
-        onOffRemember = false;
+        finish();
     }
 
     private void tvAlarmMessageText_EditorMethod() {
