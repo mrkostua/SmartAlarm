@@ -61,6 +61,7 @@
         <intent-filter>
             <action android:name="alarm_snooze"/>
             <action android:name="alarm_dismiss"/>
+            <action android:name="alarm_start_new"/>
             </intent-filter>
         </receiver>
 

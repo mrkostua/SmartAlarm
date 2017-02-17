@@ -29,6 +29,7 @@ EditText etGetAlarmMessageText;
 
     public static final String ALARM_SNOOZE_ACTION = "alarm_snooze";
     public static final String ALARM_SNOOZE_DISMISS = "alarm_dismiss";
+    public static final String ALARM_START_NEW = "alarm_start_new";
 
 
 private int currentHour, currentMinute;

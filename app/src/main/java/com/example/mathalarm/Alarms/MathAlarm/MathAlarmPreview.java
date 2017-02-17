@@ -1,7 +1,7 @@
 package com.example.mathalarm.Alarms.MathAlarm;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+
 import android.content.Intent;
+import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +16,7 @@ import com.example.mathalarm.firstsScreens.MainActivity;
 
 import java.util.Calendar;
 
+
 public class MathAlarmPreview extends AppCompatActivity {
     private int pickedHour, pickedMinute;
     private int selectedMusic;
@@ -25,9 +26,6 @@ public class MathAlarmPreview extends AppCompatActivity {
     private int currentHour , currentMinute;
     private Calendar calendar;
     private static final String TAG = "AlarmProcess";
-    private AlarmManager alarmManager;
-    private Intent alarmReceiverIntent;
-    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,13 +41,11 @@ public class MathAlarmPreview extends AppCompatActivity {
         String defaultAlarmMessageText = "\"" +"Good morning sir" +"\"";
         alarmMessageText = intentGetValuesFrom_MathAlarm.getExtras().getString("alarmMessageText",defaultAlarmMessageText);
         alarmComplexityLevel = intentGetValuesFrom_MathAlarm.getExtras().getInt("selectedComplexityLevel",0);
-
         //refresh an instant of calendar to get the exact hour
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
          currentHour = calendar.get(Calendar.HOUR_OF_DAY);
          currentMinute = calendar.get(Calendar.MINUTE);
-
         DisplayAllViews();
     }
 
@@ -57,6 +53,12 @@ public class MathAlarmPreview extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"MathAlarmPreview "+"onDestroy");
+    }
+    private void ShowToast() {
+        Toast Toast_timeLeftToAlarmStart = Toast.makeText(MathAlarmPreview.this, "   Until boom    "
+                + hoursToAlarmBoom + " hours :" + minutesToAlarmBoom + "  minutes", Toast.LENGTH_LONG);
+        Toast_timeLeftToAlarmStart.setGravity(Gravity.TOP | Gravity.START, 0, 0);
+        Toast_timeLeftToAlarmStart.show();
     }
 
     private void DisplayAllViews() {
@@ -112,9 +114,16 @@ public class MathAlarmPreview extends AppCompatActivity {
 
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
     public void MathAlarmButtonOnClickListener(View v) {
-        //set the alarm for pickedHour and pickedMinute
-        AlarmOnMethod(pickedHour, pickedMinute);
+        Log.i(TAG, "MathAlarmPreview "+"MathAlarmButtonOnClickListener start");
 
+        final OnOffAlarm onOffAlarm = new OnOffAlarm(this,pickedHour,pickedMinute,alarmComplexityLevel,selectedMusic,true,alarmMessageText);
+        onOffAlarm.SetNewAlarm();
+
+        ShowToast();
+        LastActions();
+    }
+
+    private void LastActions() {
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(getBaseContext(),WakeLockService.class);
         String time = pickedHour +" " + pickedMinute;
@@ -124,89 +133,8 @@ public class MathAlarmPreview extends AppCompatActivity {
         //after confirming alarm configurations, user will be moved to main activity
         Intent intent  = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
 
-    /**
-     * @param hour   - current hour picked on the TimePicker
-     * @param minute - current hour minute on the TimePicker
-     */
-    private void AlarmOnMethod(int hour, int minute) {
-        Log.i(TAG, "MathAlarmPreview "+"AlarmOnMethod start");
-        //create an Intent to the  Alarm_Receiver class
-        alarmReceiverIntent = new Intent(MathAlarmPreview.this,Alarm_Receiver.class);
-
-        //initialize alarmManager
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        /**duplicate in the OnCreate Method (but it is necessary to refresh an instant of calendar
-         * and when setting alarm on choose right type of alarm(what is based on the current and
-         * picked time)
-         */
-         calendar = Calendar.getInstance();
-         calendar.setTimeInMillis(System.currentTimeMillis());
-         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-         currentMinute = calendar.get(Calendar.MINUTE);
-
-        //setting calendar instance with the hour and minute that we picked on the timerPicker
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-
-        Toast Toast_timeLeftToAlarmStart = Toast.makeText(MathAlarmPreview.this, "   Until boom    "
-                + hoursToAlarmBoom + " hours :" + minutesToAlarmBoom + "  minutes", Toast.LENGTH_LONG);
-        Toast_timeLeftToAlarmStart.setGravity(Gravity.TOP | Gravity.START, 0, 0);
-        Toast_timeLeftToAlarmStart.show();
-
-        // sending the condition of alarm if true - alarm on , if false - alarm off
-        alarmReceiverIntent.putExtra("alarmCondition", true);
-
-        //sending the type of alarm 2(math)
-        alarmReceiverIntent.putExtra("Alarm name", 2)
-        .putExtra("selectedMusic",selectedMusic)
-        .putExtra("alarmMessageText",alarmMessageText)
-        .putExtra("alarmComplexityLevel",alarmComplexityLevel);
-
-
-        //pendingIntent that delays the intent until the specified calendar time
-        pendingIntent = PendingIntent.getBroadcast(MathAlarmPreview.this, 0, alarmReceiverIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // If the hour picked in the TimePicker longer than hour of Current time or equal
-        //and if a minute is longer or equal than the  current minute (because hour may be same , but the minute less )
-        if (hour > currentHour)
-        {
-            Log.i(TAG, "MathAlarmPreview "+"h current: " + currentHour + " alarm hour: " + hour + "  Today");
-            Log.i(TAG, "MathAlarmPreview "+"min current: " + currentMinute + " alarm min: " + minute + "  Today");
-            //set the alarm manager
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
-        //All other cases  alarmManager.setInexactRepeating  AlarmManager.INTERVAL_DAY
-        if (hour < currentHour) {
-            Log.i(TAG, "MathAlarmPreview "+"h current: " + currentHour + " alarm hour: " + hour + "Next Day");
-            Log.i(TAG, "MathAlarmPreview "+"min current: " + currentMinute + " alarm min: " + minute + "  Next Day");
-
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
-        if (hour == currentHour) {
-            if (minute < currentMinute) {
-                Log.i(TAG, "MathAlarmPreview "+"h current: " + currentHour + " alarm hour: " + hour + " Next Day ");
-                Log.i(TAG, "MathAlarmPreview "+"min current: " + currentMinute + " alarm min: " + minute + "  Next Day");
-
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            } else {
-                Log.i(TAG, "MathAlarmPreview "+"h current: " + currentHour + " alarm hour: " + hour + "  Today");
-                Log.i(TAG, "MathAlarmPreview "+"min current: " + currentMinute + " alarm min: " + minute + "  Today");
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-        }
-    }
 }
 

@@ -19,17 +19,11 @@ import com.example.mathalarm.R;
     //notification for MathService
     Notification NewNotification(Context context) {
         // snooze button
-        Intent snoozeIntent = new Intent(context,Alarm_Receiver.class);
-        snoozeIntent.setAction(MainMathAlarm.ALARM_SNOOZE_ACTION);
+        Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
         PendingIntent piSnooze = PendingIntent.getBroadcast(context,0,snoozeIntent,0);
-        //dismiss button
-        Intent dismissIntent = new Intent(context,Alarm_Receiver.class);
-        dismissIntent.setAction(MainMathAlarm.ALARM_SNOOZE_DISMISS);
-        PendingIntent piDismiss = PendingIntent.getBroadcast(context,0,dismissIntent,0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder
-
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentText("Touch to stop alarm")
@@ -39,13 +33,17 @@ import com.example.mathalarm.R;
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setWhen(System.currentTimeMillis())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-
+                .addAction(R.drawable.ic_av_timer_white_24dp,"snooze",piSnooze)
                 .setAutoCancel(true);
         Notification notification = builder.build();
         return notification;
     }
+
     //notification for WakeLock Service
     Notification NewNotification(Context context, String time) {
+        //dismiss button
+        Intent dismissIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_DISMISS);
+        PendingIntent piDismiss = PendingIntent.getBroadcast(context,0,dismissIntent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -54,7 +52,7 @@ import com.example.mathalarm.R;
                 .setContentTitle("MathAlarm")
                 .setSmallIcon(R.drawable.ic_av_timer_white_24dp)
                 .setTicker("Alarm was set on " + time)
-
+                .addAction(R.drawable.ic_queue_music_white_24dp,"dismiss",piDismiss)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis());
