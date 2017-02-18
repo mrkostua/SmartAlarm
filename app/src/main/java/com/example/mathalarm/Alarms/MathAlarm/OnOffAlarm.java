@@ -30,8 +30,9 @@ public class OnOffAlarm {
         this.alarmMessageText = alarmMessageText;
     }
 
-    public OnOffAlarm(int alarmComplexityLevel,
+    public OnOffAlarm(Context alarmContext,int alarmComplexityLevel,
                       int selectedMusic, boolean alarmCondition, String alarmMessageText) {
+        this.alarmContext = alarmContext;
         //alarm additional data
         this.alarmComplexityLevel = alarmComplexityLevel;
         this.selectedMusic = selectedMusic;
@@ -59,6 +60,8 @@ public class OnOffAlarm {
     }
 
     public void SetNewAlarm() {
+        Log.i(TAG, "OnOffAlarm" +"  SetNewAlarm");
+
         //refresh an instant of calendar to get the exact hour
         Calendar calendar = null;
         int currentHour,currentMinute = 0;
@@ -119,24 +122,34 @@ public class OnOffAlarm {
         }
     }
 
+
+
     public void CancelSetAlarm() {
+        Log.i(TAG, "OnOffAlarm" +"  CancelSetAlarm");
+
         PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext,0,new Intent(MainMathAlarm.ALARM_START_NEW),PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.cancel(cancelPendingIntent);
     }
     //snooze alarm for 5 minutes
     public void SnoozeSetAlarm(int snoozeTime) {
+        Log.i(TAG, "OnOffAlarm" +"  SnoozeSetAlarm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(alarmContext, 0, GetAlarmIntentExtras(),
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        calendar.set(Calendar.HOUR_OF_DAY,currentHour);
-        calendar.set(Calendar.MINUTE,currentMinute + snoozeTime);
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + snoozeTime);
+
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+
+        //start service with PartialWakeLock
+        Intent wakeLockIntent = new Intent(alarmContext,WakeLockService.class);
+        String time = calendar.get(Calendar.HOUR_OF_DAY) + " " + calendar.get(Calendar.MINUTE) + snoozeTime;
+        wakeLockIntent.putExtra("alarmTimeKey",time);
+        alarmContext.startService(wakeLockIntent);
     }
 
 }

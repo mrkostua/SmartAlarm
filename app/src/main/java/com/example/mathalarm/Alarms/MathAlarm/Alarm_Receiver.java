@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.mathalarm.firstsScreens.MainActivity;
+
 
 public class Alarm_Receiver extends BroadcastReceiver
 {
-    private int selectedMusic,alarmComplexityLevel;
+    private int selectedMusic,alarmComplexityLevel ;
     private boolean alarmCondition;
     private String alarmMessageText;
     //Keys for SharedPreferences
@@ -19,22 +21,34 @@ public class Alarm_Receiver extends BroadcastReceiver
     private static final String MUSICKey = "MUSICKey";
     private static final String MESSAGETEXTKey = "MESSAGETEXTKey";
     private static final String COMPLEXITYLEVELKey = "COMPLEXITYLEVELKey";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "Alarm_Receiver started");
-
-
+        //snooze alarm for 5 minutes and stop current alarm
         if(intent.getAction().equals(MainMathAlarm.ALARM_SNOOZE_ACTION)) {
+            //this stops the service no matter how many times it was started.
+            context.stopService(new Intent(context,MathAlarmService.class));
+
             GetAlarmData(context);
-             OnOffAlarm onOffAlarmSnooze = new OnOffAlarm(alarmComplexityLevel,selectedMusic,alarmCondition,alarmMessageText);
+            OnOffAlarm onOffAlarmSnooze = new OnOffAlarm(context,alarmComplexityLevel,selectedMusic,alarmCondition,alarmMessageText);
             // snooze alarm for 5 minutes
             int snoozeTime =5;
             onOffAlarmSnooze.SnoozeSetAlarm(snoozeTime);
+
+            //start MainMathActivity to hide DisplayAlarmActivity (because user had snooze alarm)
+            Intent intent1 = new Intent(context,MainActivity.class);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent1);
         }
-        if(intent.getAction().equals(MainMathAlarm.ALARM_SNOOZE_DISMISS)) {
+        //dismiss last creating alarm and stop WakeLock service
+        if(intent.getAction().equals(MainMathAlarm.ALARM_DISMISS_ACTION)) {
             OnOffAlarm onOffAlarmDisable = new OnOffAlarm(context);
             //disable alarm
             onOffAlarmDisable.CancelSetAlarm();
+
+            //this stops the service no matter how many times it was started.
+            context.stopService(new Intent(context,WakeLockService.class));
         }
         if(intent.getAction().equals(MainMathAlarm.ALARM_START_NEW)) {
              alarmCondition = intent.getExtras().getBoolean("alarmCondition",false);
@@ -58,6 +72,7 @@ public class Alarm_Receiver extends BroadcastReceiver
                         .putExtra("alarmCondition", alarmCondition);
                 context.startService(serviceIntent);
     }
+
     private void SaveAlarmData(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PEREFERENCEFileKey,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -65,6 +80,7 @@ public class Alarm_Receiver extends BroadcastReceiver
         editor.putInt(COMPLEXITYLEVELKey,alarmComplexityLevel);
         editor.putBoolean(CONDITIONKey,alarmCondition);
         editor.putString(MESSAGETEXTKey,alarmMessageText);
+        editor.commit();
     }
 
     private void GetAlarmData(Context context){
@@ -74,5 +90,4 @@ public class Alarm_Receiver extends BroadcastReceiver
         alarmCondition = sharedPreferences.getBoolean(CONDITIONKey,false);
         alarmMessageText = sharedPreferences.getString(MESSAGETEXTKey,null);
     }
-
 }

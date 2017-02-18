@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         //doing nothing
-        Toast.makeText(this,"Nothing happened",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Nothing happened",Toast.LENGTH_SHORT).show();
     }
 
     public void bMathAlarmOnClickMethod(View view)

@@ -89,6 +89,11 @@ public class MathAlarmService extends Service {
             AlarmStartPlayingMusic();
             Start_DisplayAlarmActivity();
         }
+        //if condition false
+        else
+        {
+
+        }
         initialCallState = telephonyManager.getCallState();
         return START_STICKY;
     }

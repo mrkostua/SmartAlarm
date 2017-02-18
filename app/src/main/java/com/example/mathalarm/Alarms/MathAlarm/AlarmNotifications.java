@@ -26,10 +26,10 @@ import com.example.mathalarm.R;
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setContentText("Touch to stop alarm")
+                .setContentText("Hello I am alarm")
                 .setContentTitle("MathAlarm")
                 .setSmallIcon(R.drawable.ic_av_timer_white_24dp)
-                .setTicker("MathAlarm touch to stop")
+                .setTicker("MathAlarm touch to snooze")
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setWhen(System.currentTimeMillis())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -42,7 +42,7 @@ import com.example.mathalarm.R;
     //notification for WakeLock Service
     Notification NewNotification(Context context, String time) {
         //dismiss button
-        Intent dismissIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_DISMISS);
+        Intent dismissIntent = new Intent(MainMathAlarm.ALARM_DISMISS_ACTION);
         PendingIntent piDismiss = PendingIntent.getBroadcast(context,0,dismissIntent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder
