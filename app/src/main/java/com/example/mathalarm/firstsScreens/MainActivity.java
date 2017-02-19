@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
 {
     private Button bMathAlarm;
     Animation animationShake;
+    private static final String TAG = "AlarmProcess";
 
 
     @Override
@@ -34,6 +36,12 @@ public class MainActivity extends AppCompatActivity
 
         animationShake = AnimationUtils.loadAnimation(this,R.anim.incorrect_button_shake);
         animationShake.setRepeatCount(3);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "MainActivity onResume");
     }
 
     @Override

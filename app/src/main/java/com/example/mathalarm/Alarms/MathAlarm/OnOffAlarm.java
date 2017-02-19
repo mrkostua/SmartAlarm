@@ -147,7 +147,7 @@ public class OnOffAlarm {
 
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(alarmContext,WakeLockService.class);
-        String time = calendar.get(Calendar.HOUR_OF_DAY) + " " + calendar.get(Calendar.MINUTE) + snoozeTime;
+        String time = calendar.get(Calendar.HOUR_OF_DAY) + " " + calendar.get(Calendar.MINUTE);
         wakeLockIntent.putExtra("alarmTimeKey",time);
         alarmContext.startService(wakeLockIntent);
     }

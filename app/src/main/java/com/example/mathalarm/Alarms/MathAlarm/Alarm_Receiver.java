@@ -38,7 +38,7 @@ public class Alarm_Receiver extends BroadcastReceiver
 
             //start MainMathActivity to hide DisplayAlarmActivity (because user had snooze alarm)
             Intent intent1 = new Intent(context,MainActivity.class);
-            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent1);
         }
         //dismiss last creating alarm and stop WakeLock service
@@ -89,5 +89,9 @@ public class Alarm_Receiver extends BroadcastReceiver
         alarmComplexityLevel = sharedPreferences.getInt(COMPLEXITYLEVELKey,0);
         alarmCondition = sharedPreferences.getBoolean(CONDITIONKey,false);
         alarmMessageText = sharedPreferences.getString(MESSAGETEXTKey,null);
+    //clear data after receiving
+        sharedPreferences.edit().clear(). commit();
     }
+
+
 }

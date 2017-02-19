@@ -32,6 +32,7 @@ EditText etGetAlarmMessageText;
     public static final String ALARM_START_NEW = "alarm_start_new";
 
 
+
 private int currentHour, currentMinute;
 private int pickedHour,pickedMinute;
 private boolean timePickerStatus =false;
