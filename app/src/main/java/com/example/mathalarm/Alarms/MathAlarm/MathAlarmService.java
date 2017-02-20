@@ -20,7 +20,6 @@ import java.io.IOException;
 
 public class MathAlarmService extends Service {
     private static final int ALARM_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
-    private static final String TAG = "AlarmProcess";
     private int alarmComplexityLevel;
     private String musicResourceID;
     private String alarmMessageText;
@@ -36,7 +35,7 @@ public class MathAlarmService extends Service {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == KILLER_HANDLE_MESSAGE) {
-                Log.i(TAG, "stopSelf, stopped music after 5 min without response");
+                Log.i(MainMathAlarm.TAG, "stopSelf, stopped music after 5 min without response");
                 stopSelf();
             }
         }
@@ -60,7 +59,7 @@ public class MathAlarmService extends Service {
     };
     @Override
     public void onCreate() {
-        Log.i(TAG, "MathAlarmService " + " onCreate");
+        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onCreate");
         super.onCreate();
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         //Registers a listener object to receive notification of changes in specified telephony states.
@@ -74,7 +73,7 @@ public class MathAlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "MathAlarmService " + " onStartCommand");
+        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onStartCommand");
         alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel", 0);
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition", false);
@@ -101,7 +100,7 @@ public class MathAlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "MathAlarmService " + " onDestroy");
+        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onDestroy");
             //stop listen for incoming calls
             //To unregister a listener, pass the listener object and set the events argument to LISTEN_NONE (0).
             telephonyManager.listen(phoneStateListener,0);
@@ -129,7 +128,7 @@ public class MathAlarmService extends Service {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.i(TAG,"MathAlarmService Error occurred while playing audio.");
+                    Log.i(MainMathAlarm.TAG,"MathAlarmService Error occurred while playing audio.");
                     mp.stop();
                     mp.release();
                     mediaPlayer = null;
@@ -142,9 +141,9 @@ public class MathAlarmService extends Service {
             mediaPlayer.prepare();
             mediaPlayer.start();
             EnableServiceSilentKiller();
-            Log.i(TAG, "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + mediaPlayer.isPlaying());
+            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + mediaPlayer.isPlaying());
         } catch (IOException e) {
-            Log.i(TAG, "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
+            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
         }
     }
 
@@ -152,14 +151,14 @@ public class MathAlarmService extends Service {
         if (mediaPlayer.isPlaying()) {
                 try {
                     mediaPlayer.stop();
-                    Log.i(TAG, "MathAlarmService " + "AlarmStopPlayingMusic " + "isPlaying=" + mediaPlayer.isPlaying());
+                    Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic " + "isPlaying=" + mediaPlayer.isPlaying());
                     mediaPlayer.release();
                     mediaPlayer = null;
                 } catch (Exception e) {
-                    Log.i(TAG, "MathAlarmService " + "AlarmStopPlayingMusic error " + e.getMessage());
+                    Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic error " + e.getMessage());
                 }
         } else
-            Log.i(TAG, "MathAlarmService " + "AlarmStopPlayingMusic isPlaying()=" + mediaPlayer.isPlaying());
+            Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic isPlaying()=" + mediaPlayer.isPlaying());
     }
 
     private void Start_DisplayAlarmActivity() {
@@ -176,12 +175,12 @@ public class MathAlarmService extends Service {
     private void EnableServiceSilentKiller() {
         handler.sendMessageDelayed(handler.obtainMessage(KILLER_HANDLE_MESSAGE),
                 ALARM_TIMEOUT_MILLISECONDS);
-        Log.i(TAG, "MathAlarmService " + "EnableServiceSilentKiller");
+        Log.i(MainMathAlarm.TAG, "MathAlarmService " + "EnableServiceSilentKiller");
     }
 
     private void DisableServiceSilentKiller() {
         handler.removeMessages(KILLER_HANDLE_MESSAGE);
-        Log.i(TAG, "MathAlarmService " + "DisableServiceSilentKiller");
+        Log.i(MainMathAlarm.TAG, "MathAlarmService " + "DisableServiceSilentKiller");
     }
 
     @Nullable

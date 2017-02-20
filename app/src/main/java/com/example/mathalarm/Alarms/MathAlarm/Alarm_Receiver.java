@@ -15,7 +15,6 @@ public class Alarm_Receiver extends BroadcastReceiver
     private boolean alarmCondition;
     private String alarmMessageText;
     //Keys for SharedPreferences
-    private static final String TAG = "AlarmProcess";
     private static final String PEREFERENCEFileKey = "com.example.mathalarm.Alarms.MathAlarm.AlarmReceiverAlarmData";
     private static final String CONDITIONKey = "CONDITIONKey";
     private static final String MUSICKey = "MUSICKey";
@@ -24,7 +23,7 @@ public class Alarm_Receiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG, "Alarm_Receiver started");
+        Log.i(MainMathAlarm.TAG, "Alarm_Receiver started");
         //snooze alarm for 5 minutes and stop current alarm
         if(intent.getAction().equals(MainMathAlarm.ALARM_SNOOZE_ACTION)) {
             //this stops the service no matter how many times it was started.

@@ -3,7 +3,7 @@
 
    <PreferenceCategory
        android:title="@string/preference_sound">
-       <ListPref1erence
+       <ListPreference
            android:icon="@drawable/ic_queue_music_white_24dp"
            android:key="pref_sound"
            android:summary="@string/pref_sum_music"
@@ -14,9 +14,10 @@
            android:dialogTitle="@string/preference_dialog_title_music"
            android:negativeButtonText="@string/pref_back"/>
 
+
        <CheckBoxPreference
            android:title="@string/pref_volume"
-           android:key="pref_volumue"
+           android:key="pref_volume"
            android:icon="@drawable/ic_volume_up_white_24dp"
            android:summaryOff="@string/pref_volume_on"
            android:summaryOn="@string/pref_volume_off"
@@ -68,7 +69,7 @@
                 android:title="Change Time"
                 android:icon="@drawable/ic_av_timer_white_24dp"
                 android:dialogTitle="time"
-                android:defaultValue="@string/Preferencetimeinukraine"/>
+                android:defaultValue="@string/Preference_time_in_ukraine"/>
 
             <EditTextPreference
                 android:title="Change Date"

@@ -2,12 +2,20 @@ package com.example.mathalarm;
 
 import android.util.Log;
 
+import java.util.Calendar;
+
 
 public class CountsTimeToAlarmStart {
     private int resultHours, resultMinutes;
     private static final String TAG = "CountsTimeToAlarmStart";
 
-    public void HowMuchTimeToStart(int currentHour, int currentMinute, int pickedHour, int pickedMinute) {
+    public void HowMuchTimeToStart( int pickedHour, int pickedMinute) {
+        //
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+
         // day in minutes
         final int dayInMinutes = 1440;
         // Difference between current hour or minute and picked hour or minute

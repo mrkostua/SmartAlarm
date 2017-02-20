@@ -10,10 +10,6 @@ import android.support.v7.app.NotificationCompat;
 
 import com.example.mathalarm.R;
 
-/**
- * Created by Администратор on 13.02.2017.
- */
-
   class AlarmNotifications {
 
     //notification for MathService

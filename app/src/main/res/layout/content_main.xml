@@ -5,26 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_main"
-    tools:context="com.example.mathalarm.firstsScreens.MainActivity"
-    >
+    tools:context="com.example.mathalarm.firstsScreens.MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/firstLayout"
         android:layout_toLeftOf="@+id/secondView"
-        android:orientation="vertical"
-        >
-
+        android:orientation="vertical">
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Math Alarm"
-            android:textSize="35dp"
+            android:text="@string/mathAlarm_buttonName"
+            android:textSize="35sp"
             android:background="#ffffff"
             android:id="@+id/bMathAlarm"
             android:layout_gravity="start"
-            android:onClick="bMathAlarmOnClickMethod"
-            />
+            android:onClick="bMathAlarmOnClickMethod" />
     </RelativeLayout>
 
     <View
@@ -38,20 +35,19 @@
         android:layout_height="match_parent"
         android:id="@+id/thirdLayout"
         android:layout_toRightOf="@+id/secondView"
-        android:orientation="vertical"
-        >
-
+        android:layout_toEndOf="@id/secondView"
+        android:orientation="vertical">
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Logic Alarm"
-            android:textSize="35dp"
+            android:text="@string/setFromHistory_buttonName"
+            android:textSize="35sp"
             android:textColor="#ffff"
             android:background="#000000"
             android:id="@+id/button2"
-            android:layout_gravity="end" />
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
-
-
-
 </RelativeLayout>

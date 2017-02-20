@@ -31,5 +31,7 @@
     <string name="pref_volume_on">Check - on ,to turn on volume</string>
     <string name="pref_volume_off">Check - off ,to turn off volume</string>
     <string name="pref_music">Music</string>
-    <string name="Preferencetimeinukraine">Correct time in Ukraine 13:33</string>
+    <string name="Preference_time_in_ukraine">Correct time in Ukraine 13:33</string>
+    <string name="mathAlarm_buttonName">New Math Alarm</string>
+    <string name="setFromHistory_buttonName">Set from history</string>
 </resources>

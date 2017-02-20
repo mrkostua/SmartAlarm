@@ -19,7 +19,6 @@ import java.util.Random;
 
 public class DisplayAlarmActivity extends AppCompatActivity
 {
-    private static final String TAG = "AlarmProcess";
     private Boolean onOffMusicPlayingRemember;
     private TextView tvNumber1,tvNumber2, tvMathSign,tvNumber3;
     private EditText etAnswer;
@@ -29,7 +28,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG,"DisplayAlarmActivity "+"onCreate");
+        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"onCreate");
         setContentView(R.layout.activity_display_alarm);
 
         onOffMusicPlayingRemember = true;
@@ -67,7 +66,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         checkAlarmState_Method();
-        Log.i(TAG,"DisplayAlarmActivity "+"onDestroy");
+        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"onDestroy");
     }
 
     @Override
@@ -83,14 +82,14 @@ public class DisplayAlarmActivity extends AppCompatActivity
             case 0:
                 //for Easy complexity 4 sign (1)
                 CreateMathEasyTask_Method(1);
-                Log.i(TAG,"DisplayAlarmActivity "+"Easy:" + iAnswer);
+                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"Easy:" + iAnswer);
                 break;
             case 1:
                 CreateMathMediumTask_Method();
-                Log.i(TAG,"DisplayAlarmActivity "+"Medium:" + iAnswer);
+                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"Medium:" + iAnswer);
                 break;
             default:
-                Log.i(TAG,"DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
+                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
                 break;
         }
     }
@@ -157,11 +156,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
                 if (iGetUserAnswer == iAnswer) {
                     iFalseAnswerCounter = 0;
-                    Log.i(TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
+                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
                     onOffMusicPlayingRemember =false;
                 } else if (iGetUserAnswer != iAnswer) {
-                    Log.i(TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
+                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
 
                     if (iFalseAnswerCounter > 2) {
@@ -178,14 +177,14 @@ public class DisplayAlarmActivity extends AppCompatActivity
             stopServices();
         //probably it is unreachable statement , because onOffMusicPlayingRemember can be false only (if user gave right answer for task) after what the activity will be finished
         else{
-            Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
+            Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
             Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
         }
     }
     private void stopServices() {
         ////stop MathService and playing music
         stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
-        Log.i(TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
+        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
 
         Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
         intent_startMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity
 {
     private Button bMathAlarm;
     Animation animationShake;
-    private static final String TAG = "AlarmProcess";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,44 +39,30 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "MainActivity onResume");
+        Log.i(MainMathAlarm.TAG, "MainActivity onResume");
     }
 
     @Override
     public void onBackPressed() {
         //doing nothing
-        Toast.makeText(this,"Nothing happened",Toast.LENGTH_SHORT).show();
     }
 
-    public void bMathAlarmOnClickMethod(View view)
-    {
+    public void bMathAlarmOnClickMethod(View view) {
         bMathAlarm.startAnimation(animationShake);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                int i=0;
-                while(i>10)
-                {
-                    i++;
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                }
-            }
-        }).start();
         Intent iMathAlarm;
         iMathAlarm = new Intent(this, MainMathAlarm.class);
         startActivity(iMathAlarm);
-
     }
-    public void bMainSettings_OnClickMethod(View view)
-    {
-        Intent intent = new Intent(MainActivity.this,Settings_Preference.class);
-        startActivity(intent);
+    public void bMainSettings_OnClickMethod(View view) {
+        Log.i(MainMathAlarm.TAG,"MainActivity bMainSettings_OnClickMethod");
+        try {
+            Intent intent = new Intent(MainActivity.this, Settings_Preference.class);
+            startActivity(intent);
+        }catch (Exception e) {
+            Log.i(MainMathAlarm.TAG," bMainSettings_OnClickMethod" + e.getMessage());
+
+        }
     }
 
 }
