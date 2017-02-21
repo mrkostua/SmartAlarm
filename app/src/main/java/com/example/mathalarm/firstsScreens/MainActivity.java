@@ -56,13 +56,9 @@ public class MainActivity extends AppCompatActivity
     }
     public void bMainSettings_OnClickMethod(View view) {
         Log.i(MainMathAlarm.TAG,"MainActivity bMainSettings_OnClickMethod");
-        try {
+
             Intent intent = new Intent(MainActivity.this, Settings_Preference.class);
             startActivity(intent);
-        }catch (Exception e) {
-            Log.i(MainMathAlarm.TAG," bMainSettings_OnClickMethod" + e.getMessage());
-
-        }
     }
 
 }

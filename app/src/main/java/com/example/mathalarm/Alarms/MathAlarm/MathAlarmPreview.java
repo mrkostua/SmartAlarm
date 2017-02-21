@@ -32,7 +32,7 @@ import com.example.mathalarm.firstsScreens.MainActivity;
         onOffAlarm.SetNewAlarm();
 
         ShowToast_TimeToAlarmBoom();
-        LastActions();
+        StartWakeLockAndMainActivity();
     }
 
     private void ShowToast_TimeToAlarmBoom() {
@@ -47,7 +47,7 @@ import com.example.mathalarm.firstsScreens.MainActivity;
         Toast_timeLeftToAlarmStart.show();
     }
 
-    private void LastActions() {
+    private void StartWakeLockAndMainActivity() {
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(activityContext,WakeLockService.class);
         String time = pickedHour +" " + pickedMinute;

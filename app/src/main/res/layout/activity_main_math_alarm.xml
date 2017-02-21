@@ -47,7 +47,6 @@
                 android:layout_marginLeft="30dp"
                 android:id="@+id/bSetTime"
                 android:onClick="bSetAlarmTime_ClickMethod"/>
-
         </TableRow>
 
         <Button
@@ -55,7 +54,6 @@
     android:layout_width="wrap_content"
     android:background="#f79e9e"
     android:id="@+id/b1Line"/>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -79,7 +77,6 @@
                 android:layout_marginLeft="30dp"
                 android:onClick="bChooseMusic_ClickMethod"
                  />
-
         </TableRow>
 
         <Button
