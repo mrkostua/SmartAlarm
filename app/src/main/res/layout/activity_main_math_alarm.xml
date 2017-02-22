@@ -24,7 +24,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-        <TableRow>
+
+        <TableRow android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/trChangeTime"
+            android:background="@color/black">
 
             <TextView
                 android:layout_column="2"
@@ -40,23 +46,23 @@
             <Button
                 android:layout_width="match_parent"
                 android:text="Change Time"
+                android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
                 android:padding="20dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:id="@+id/bSetTime"
-                android:onClick="bSetAlarmTime_ClickMethod"/>
+                android:onClick="bSetAlarmTime_ClickMethod" />
         </TableRow>
 
-        <Button
-    android:layout_height="30dp"
-    android:layout_width="wrap_content"
-    android:background="#f79e9e"
-    android:id="@+id/b1Line"/>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/trChooseMusic"
+            android:background="@color/black">
 
             <TextView
                 android:id="@+id/tvChooseMusic"
@@ -71,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:text="Choose music"
                 android:layout_column="2"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:padding="20dp"
                 android:layout_marginStart="30dp"
@@ -79,15 +86,13 @@
                  />
         </TableRow>
 
-        <Button
-            android:layout_height="30dp"
-            android:layout_width="wrap_content"
-            android:background="#f79e9e"
-            android:id="@+id/b2Line"/>
-
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/trChangeMessage"
+            android:background="@color/black">
 
             <TextView
                 android:id="@+id/tvChangeMessage"
@@ -102,6 +107,7 @@
                 android:id="@+id/bChangeMessageForAlarm"
                 android:layout_width="wrap_content"
                 android:text="Change message"
+                android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
                 android:padding="20dp"
@@ -111,15 +117,13 @@
                  />
         </TableRow>
 
-        <Button
-            android:layout_height="30dp"
-            android:layout_width="wrap_content"
-            android:background="#f79e9e"
-            android:id="@+id/b3Line"/>
-
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/trChangeComplexity"
+            android:background="@color/black">
 
             <TextView
                 android:id="@+id/tvChangeComplexity"
@@ -134,6 +138,7 @@
                 android:id="@+id/bChangeAlarmComplexity"
                 android:layout_width="wrap_content"
                 android:text="Change complexity"
+                android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
                 android:padding="20dp"
@@ -143,11 +148,36 @@
                  />
         </TableRow>
 
-        <Button
-            android:layout_height="30dp"
-            android:layout_width="wrap_content"
-            android:background="#f79e9e"
-            android:id="@+id/b4Line"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/trDeepSleepMusic"
+            android:background="@color/black">
+
+            <TextView
+                android:id="@+id/tvDeepSleepMusic"
+                android:layout_column="2"
+                android:text="off"
+                android:paddingBottom="40dip"
+                android:textColor="@color/white"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/bDeepSleepMusic"
+                android:layout_width="wrap_content"
+                android:text="deep Sleep music"
+                android:textStyle="bold"
+                android:layout_column="2"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:onClick="bDeepSleepMusic_ClickMethod"
+                />
+        </TableRow>
+
 
     </TableLayout>
 </RelativeLayout>
