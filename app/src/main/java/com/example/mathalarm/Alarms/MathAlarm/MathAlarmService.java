@@ -14,12 +14,13 @@ import android.support.annotation.Nullable;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mathalarm.R;
 import java.io.IOException;
 
 public class MathAlarmService extends Service {
-    private static final int ALARM_TIMEOUT_MILLISECONDS = 1 * 60 * 1000;
+    private static final int ALARM_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
 
     private int alarmComplexityLevel,selectedDeepSleepMusic;
     private String alarmMessageText;
@@ -44,7 +45,7 @@ public class MathAlarmService extends Service {
                 Log.i(MainMathAlarm.TAG, "handleMessage, silentKiller msg");
                 //start receiver with action Snooze
                 Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
-                startActivity(snoozeIntent);
+                sendBroadcast(snoozeIntent);
                 stopSelf();
             }
             //stop playing deepSleepMusic and start playing alarmMusic
@@ -70,8 +71,10 @@ public class MathAlarmService extends Service {
             // which kills the alarm. Check against the initial call state so
             // we don't kill the alarm during a call.
             if(state != TelephonyManager.CALL_STATE_IDLE && state !=initialCallState) {
-                //method to save alarm
-                // and than snooze
+                Log.i(MainMathAlarm.TAG, "phoneStateListener true (snooze alarm)");
+                //start receiver with action Snooze
+                Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
+                startActivity(snoozeIntent);
                 stopSelf();
             }
         }
@@ -86,8 +89,6 @@ public class MathAlarmService extends Service {
         telephonyManager.listen(
                 phoneStateListener,
                 phoneStateListener.LISTEN_CALL_STATE);
-        //notification for snooze or stop alarm ( started in foreground what gives service higher priority to not be destroyed by system )
-        startForeground(NOTIFICATION_ID,alarmNotifications.NewNotification(this));
     }
 
     @Override
@@ -103,7 +104,6 @@ public class MathAlarmService extends Service {
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
         String[] musicList = getResources().getStringArray(R.array.music_list);
         musicResourceID = getPackageName() + "/raw/" + musicList[selectedMusic];
-
          selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic",0);
 
         if (alarmCondition) {
@@ -122,8 +122,9 @@ public class MathAlarmService extends Service {
             }
         }//if condition false
         else {
-
+            Toast.makeText(this,"alarmCondition" +" false",Toast.LENGTH_LONG).show();
         }
+        startForeground(NOTIFICATION_ID,alarmNotifications.NewNotification(this));
         initialCallState = telephonyManager.getCallState();
         return START_STICKY;
     }
@@ -165,8 +166,9 @@ public class MathAlarmService extends Service {
                 break;
 
             case "deepSleepMusic":
+                musicResourceID = getPackageName() + "/raw/" + R.raw.free;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)/3, AudioManager.FLAG_SHOW_UI);
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)/2, AudioManager.FLAG_SHOW_UI);
                 break;
         }
 

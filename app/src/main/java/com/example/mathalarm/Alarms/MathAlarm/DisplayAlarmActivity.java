@@ -1,8 +1,11 @@
 package com.example.mathalarm.Alarms.MathAlarm;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,8 +23,7 @@ import java.util.Random;
 public class DisplayAlarmActivity extends AppCompatActivity
 {
     private Boolean onOffMusicPlayingRemember;
-    private TextView tvNumber1,tvNumber2, tvMathSign,tvNumber3;
-    private EditText etAnswer;
+    private TextView tvTaskToSolve,tvNumber3;
     private int iAnswer = 0;
     private int iFalseAnswerCounter=0;
 
@@ -49,11 +51,8 @@ public class DisplayAlarmActivity extends AppCompatActivity
         |WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
         |WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        tvNumber1 = (TextView) findViewById(R.id.tvNumber1);
-        tvMathSign = (TextView) findViewById(R.id.tvMathSign);
-        tvNumber2 = (TextView) findViewById(R.id.tvNumber2);
+        tvTaskToSolve = (TextView) findViewById(R.id.tvTaskToSolve);
         tvNumber3 = (TextView) findViewById(R.id.tvNumber3);
-        etAnswer = (EditText) findViewById(R.id.etAnswer);
 
         tvAlarmMessageText_EditorMethod();
         getAlarmComplexityLevel_Method();
@@ -67,11 +66,6 @@ public class DisplayAlarmActivity extends AppCompatActivity
         super.onDestroy();
         checkAlarmState_Method();
         Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"onDestroy");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     private void getAlarmComplexityLevel_Method() {
@@ -97,9 +91,8 @@ public class DisplayAlarmActivity extends AppCompatActivity
     private void CreateMathEasyTask_Method(int complexityLevel) {
         Random random = new Random();
         int iNumber1 = random.nextInt(100 - 1) + 1;
-        int iNumber2 = random.nextInt(100 - 1) + 1;
-        tvNumber1.setText("("+iNumber1);
-        tvNumber2.setText(iNumber2 + ")");
+        int iNumber2 = random.nextInt(10) + 1;
+
 
         int[] randomCharacterEasy = new int[2];
         //for medium complexity only 2 sign
@@ -110,19 +103,19 @@ public class DisplayAlarmActivity extends AppCompatActivity
         switch (randomCharacterEasy[complexityLevel]) {
                 case 1: { // /
                     iAnswer = iNumber1 / iNumber2;
-                    tvMathSign.setText("/");
+                    tvTaskToSolve.setText("("+iNumber1 +" / "+ iNumber2+")");
                 }break;
                 case 2: { // *
                     iAnswer = iNumber1 * iNumber2;
-                    tvMathSign.setText("*");
+                    tvTaskToSolve.setText("("+iNumber1 +" * "+ iNumber2+")");
                 }break;
                 case 3: { // +
                     iAnswer = iNumber1 + iNumber2;
-                    tvMathSign.setText("+");
+                    tvTaskToSolve.setText("("+iNumber1 +" + "+ iNumber2+")");
                 }break;
                 case 4: { // -
                     iAnswer = iNumber1 - iNumber2;
-                    tvMathSign.setText("-");
+                    tvTaskToSolve.setText("("+iNumber1 +" - "+ iNumber2+")");
                 }break;
             }
     }
@@ -140,27 +133,50 @@ public class DisplayAlarmActivity extends AppCompatActivity
         switch (randomCharacterMedium){
             case 1: { // +
                 iAnswer = iAnswer + iNumber3;
-                tvNumber3.setText("+" + iNumber3);
+                tvNumber3.setText("+ " + iNumber3);
             }break;
             case 2: { // -
                 iAnswer = iAnswer - iNumber3;
-                tvNumber3.setText("-" + iNumber3);
+                tvNumber3.setText("- " + iNumber3);
             }break;
         }
     }
 
-    public void bCheckAnswerInClickListener(View v) {
-            String getUserAnswer = etAnswer.getText().toString();
-            if(!getUserAnswer.equals("")) {
-                int iGetUserAnswer = Integer.parseInt(getUserAnswer);
+
+    public void bStopAlarm_OnClickListener(View view) {
+        final EditText etAnswer = new EditText(this);
+        etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("your answer is ? ")
+                .setView(etAnswer)
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CheckAnswer_Method(etAnswer.getText().toString());
+                    }
+                })
+                .setNegativeButton("back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+
+
+    }
+
+    private void CheckAnswer_Method(String answer) {
+
+            if( answer !=null && !answer.equals("")) {
+                int iGetUserAnswer = Integer.parseInt(answer);
 
                 if (iGetUserAnswer == iAnswer) {
                     iFalseAnswerCounter = 0;
-                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
+                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
                     onOffMusicPlayingRemember =false;
                 } else if (iGetUserAnswer != iAnswer) {
-                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity bCheckAnswerInClickListener "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
+                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
 
                     if (iFalseAnswerCounter > 2) {
@@ -170,6 +186,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
                 }
             }
         }
+
+
+
 
         private void checkAlarmState_Method() {
         //cancel the alarm  Only if Alarm was set (button On pressed)
@@ -181,6 +200,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
             Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void stopServices() {
         ////stop MathService and playing music
         stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
@@ -220,6 +240,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
             default:
                 return super.onKeyDown(keyCode, event);
         }
+    }
+
+    public void bSnoozeAlarm_OnClickListener(View view){
+        Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
+        sendBroadcast(snoozeIntent);
     }
 }
 
