@@ -9,16 +9,17 @@ import android.util.Log;
 import java.util.Calendar;
 
  class OnOffAlarm {
-
     private int pickedHour, pickedMinute;
     private Context alarmContext;
     private int alarmComplexityLevel, selectedMusic;
     private boolean alarmCondition;
     private String alarmMessageText;
+    private int selectedDeepSleepMusic;
 
+    //constructor for SetNewAlarm
      OnOffAlarm(Context alarmContext,int pickedHour,int pickedMinute,
                       int alarmComplexityLevel, int selectedMusic,
-                      boolean alarmCondition, String alarmMessageText) {
+                      boolean alarmCondition, String alarmMessageText,int selectedDeepSleepMusic) {
         this.pickedHour = pickedHour;
         this.pickedMinute = pickedMinute;
         this.alarmContext = alarmContext;
@@ -27,18 +28,22 @@ import java.util.Calendar;
         this.selectedMusic = selectedMusic;
         this.alarmCondition = alarmCondition;
         this.alarmMessageText = alarmMessageText;
+         this.selectedDeepSleepMusic = selectedDeepSleepMusic;
     }
 
+    //constructor for SnoozeSetAlarm method( with all alarm settings)
      OnOffAlarm(Context alarmContext,int alarmComplexityLevel,
-                      int selectedMusic, boolean alarmCondition, String alarmMessageText) {
+                      int selectedMusic, boolean alarmCondition, String alarmMessageText, int selectedDeepSleepMusic) {
         this.alarmContext = alarmContext;
         //alarm additional data
         this.alarmComplexityLevel = alarmComplexityLevel;
         this.selectedMusic = selectedMusic;
         this.alarmCondition = alarmCondition;
         this.alarmMessageText = alarmMessageText;
+         this.selectedDeepSleepMusic = selectedDeepSleepMusic;
     }
 
+    //constructor for CancelSetAlarm
      OnOffAlarm(Context alarmContext) {
         this.alarmContext = alarmContext;
     }
@@ -54,7 +59,8 @@ import java.util.Calendar;
                 .putExtra("alarmMessageText",alarmMessageText)
                 .putExtra("alarmComplexityLevel",alarmComplexityLevel)
                 // sending the condition of alarm if true - alarm on , if false - alarm off
-                .putExtra("alarmCondition", alarmCondition);
+                .putExtra("alarmCondition", alarmCondition)
+                .putExtra("selectedDeepSleepMusic",selectedDeepSleepMusic);
         return receiverIntent;
     }
 
@@ -126,6 +132,7 @@ import java.util.Calendar;
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.cancel(cancelPendingIntent);
     }
+
     //snooze alarm for 5 minutes
      void SnoozeSetAlarm(int snoozeTime) {
         Log.i(MainMathAlarm.TAG, "OnOffAlarm" +"  SnoozeSetAlarm");

@@ -13,22 +13,24 @@ import com.example.mathalarm.firstsScreens.MainActivity;
     private int selectedMusic;
     private String alarmMessageText;
     private int alarmComplexityLevel;
+     private int selectedDeepSleepMusic;
     private Context activityContext;
 
      MathAlarmPreview(Context activityContext,int pickedHour,int pickedMinute,int selectedMusic,
-                            int alarmComplexityLevel,String alarmMessageText) {
+                            int alarmComplexityLevel,String alarmMessageText,int selectedDeepSleepMusic) {
         this.pickedHour = pickedHour;
         this.pickedMinute = pickedMinute;
         this.selectedMusic = selectedMusic;
         this.alarmComplexityLevel = alarmComplexityLevel;
         this.alarmMessageText = alarmMessageText;
         this.activityContext = activityContext;
+         this.selectedDeepSleepMusic = selectedDeepSleepMusic;
     }
 
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
       void ConfirmAlarmPreview_Method() {
         Log.i(MainMathAlarm.TAG, "MathAlarmPreview "+" ConfirmAlarmPreview_Method");
-        OnOffAlarm onOffAlarm = new OnOffAlarm(activityContext,pickedHour,pickedMinute,alarmComplexityLevel,selectedMusic,true,alarmMessageText);
+        OnOffAlarm onOffAlarm = new OnOffAlarm(activityContext,pickedHour,pickedMinute,alarmComplexityLevel,selectedMusic,true,alarmMessageText,selectedDeepSleepMusic);
         onOffAlarm.SetNewAlarm();
 
         ShowToast_TimeToAlarmBoom();

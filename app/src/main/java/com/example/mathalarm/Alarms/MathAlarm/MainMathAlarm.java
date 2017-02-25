@@ -119,7 +119,7 @@ public class MainMathAlarm extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             MathAlarmPreview mathAlarmPreview = new MathAlarmPreview(MainMathAlarm.this, pickedHour, pickedMinute, selectedMusic,
-                                    selectedComplexityLevel, alarmMessageText);
+                                    selectedComplexityLevel, alarmMessageText, selectedDeepSleepMusic);
                             mathAlarmPreview.ConfirmAlarmPreview_Method();
                         }
                     })
