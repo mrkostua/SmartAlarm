@@ -1,5 +1,6 @@
-<resources>
-    <string name="app_name">MathAlarm</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<string name="app_name">MathAlarm</string>
     <string name="action_settings">Settings</string>
 
     <string name="dummy_button">Dummy Button</string>
@@ -34,4 +35,12 @@
     <string name="Preference_time_in_ukraine">Correct time in Ukraine 13:33</string>
     <string name="mathAlarm_buttonName">New Math Alarm</string>
     <string name="setFromHistory_buttonName">Set from history</string>
+    <string name="false_answers_display_alarm_activity">If false answers more then 2 show new task.</string>
+    <string name="displayAlarmActivity_bStopAlarm">Stop Alarm</string>
+    <string name="displayAlarmActivity_bSnooze">Snooze</string>
+    <string name="displayAlarmActivity_tvTaskHint">solve the equation to stop alarm</string>
+    <string name="displayAlarmActivity_bStopAlarmAlertDialog">Your Answer?</string>
+    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
+    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+
 </resources>

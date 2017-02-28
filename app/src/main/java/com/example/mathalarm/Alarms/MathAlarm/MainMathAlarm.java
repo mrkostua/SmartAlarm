@@ -113,7 +113,7 @@ public class MainMathAlarm extends AppCompatActivity {
                 alarmComplexityList[selectedComplexityLevel], alarmMessageText, deepSleepMusicList[selectedDeepSleepMusic]};
         //Check if the time was Picked by user
         if (timePickerStatus) {
-            AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this);
+            AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
             alertDialogAlarmPreview.setTitle("Preview")
                     .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
@@ -192,7 +192,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmComplexity_AlertDialogBuilder() {
-        AlertDialog.Builder alarmComplexity_alertDialog = new AlertDialog.Builder(MainMathAlarm.this);
+        AlertDialog.Builder alarmComplexity_alertDialog = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
         alarmComplexity_alertDialog.setTitle("complexity of the task")
                 .setSingleChoiceItems(R.array.alarm_complexity_list, 0, new DialogInterface.OnClickListener() {
                     @Override
@@ -211,7 +211,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmMessageText_AlertDialogBuilder() {
-        AlertDialog.Builder adBuilder_GetMessageForAlarm = new AlertDialog.Builder(MainMathAlarm.this);
+        AlertDialog.Builder adBuilder_GetMessageForAlarm = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
 
         RelativeLayout relativeLayoutView = (RelativeLayout) getLayoutInflater().inflate(R.layout.custom_layout_bchange_text, null);
         etGetAlarmMessageText = (EditText) relativeLayoutView.findViewById(R.id.etGetAlarmMessageText);
@@ -238,7 +238,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmMusic_AlertDialogBuilder() {
-        AlertDialog.Builder alertDialog_ChooseMusic = new AlertDialog.Builder(MainMathAlarm.this);
+        AlertDialog.Builder alertDialog_ChooseMusic = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
         alertDialog_ChooseMusic.setTitle("Choose music for Alarm")
                 .setSingleChoiceItems(R.array.music_list, 0, new DialogInterface.OnClickListener() {
                     @Override
@@ -291,12 +291,11 @@ public class MainMathAlarm extends AppCompatActivity {
                 }
             }
         });
-
         return alertDialog_ChooseMusic;
     }
 
     private AlertDialog.Builder AlarmDeepSleepMusic_AlertDialogBuilder() {
-        AlertDialog.Builder alertDialog_DeepSleepMusic = new AlertDialog.Builder(MainMathAlarm.this);
+        AlertDialog.Builder alertDialog_DeepSleepMusic = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
         alertDialog_DeepSleepMusic.setTitle("Choose music for Alarm")
                 .setSingleChoiceItems(R.array.deepSleepMusic_list, 0, new DialogInterface.OnClickListener() {
                     @Override

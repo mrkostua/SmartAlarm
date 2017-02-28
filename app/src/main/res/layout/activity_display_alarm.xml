@@ -17,7 +17,6 @@
     android:layout_height="104dp"
     android:id="@+id/scrollViewContainerStartedAlarmMessage"
         android:layout_marginTop="18dp"
-        android:layout_below="@+id/tvCounterInformation"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -29,24 +28,14 @@
         android:textColor="#202e62"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvStartedAlarmMessageText"
-       />
+        android:id="@+id/tvStartedAlarmMessageText" />
     </ScrollView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="If false answers more then 2 show new task."
-        android:id="@+id/tvCounterInformation"
-        android:textColor="#3d3c3c"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <Button
-        android:text="Stop Alarm"
-        android:textSize="35dp"
+        android:text="@string/displayAlarmActivity_bStopAlarm"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_width="wrap_content"
@@ -65,8 +54,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Snooze"
-        android:textSize="20dp"
+        android:text="@string/displayAlarmActivity_bSnooze"
+        android:textSize="20sp"
         android:background="#786ec2"
         android:textColor="#afafaf"
         android:id="@+id/bSnoozeAlarm"
@@ -82,11 +71,23 @@
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="60sp"
+        android:layout_height="wrap_content"
         android:id="@+id/tvTaskToSolve"
         android:layout_below="@+id/scrollViewContainerStartedAlarmMessage"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="57dp" />
+
+    <TextView
+        android:text="@string/displayAlarmActivity_tvTaskHint"
+        android:textColor="#561111"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_above="@+id/tvNumber3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text=""
@@ -94,7 +95,7 @@
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="60sp"
+        android:layout_height="wrap_content"
         android:id="@+id/tvNumber3"
         android:layout_alignBaseline="@+id/tvTaskToSolve"
         android:layout_alignBottom="@+id/tvTaskToSolve"

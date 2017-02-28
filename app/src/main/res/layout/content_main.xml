@@ -17,6 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/mathAlarm_buttonName"
+            android:textColor="@color/black"
             android:textSize="35sp"
             android:background="#ffffff"
             android:id="@+id/bMathAlarm"

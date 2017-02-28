@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#e90000</color>
+    <color name="colorAccent">#004505</color>
 
     <color name="transparet">#ffff</color>
     <color name="black_overlay">#66000000</color>
@@ -11,7 +11,14 @@
     <color name="activity_main_math_alarm_textColorWhite">#ffffff</color>
     <color name="black">#000000</color>
     <color name="white">#ffff</color>
-    <color name="green_correct_choose">#68de82</color>
+    <color name="green_correct_choose">#004f07</color>
     <color name="navigationBarColor">#262626</color>
+
+    <color name="alertDialogMainMathAlarmBackgroundColor">#003f06</color>
+    <color name="alertDialogMainMathAlarmAccentColor">#212121</color>
+    <color name="alertDialogMainMathAlarmTextPrimaryColor">#9e9e9e</color>
+    <color name="alertDialogMainMathAlarmTitleColor">#455a64</color>
+    <color name="alertDialogMainMathAlarmTextColorSecondary">#827717</color>
+    <color name="alertDialogMainMathAlarmTextColorAlertDialogListItem">#9e9e9e</color>
 
 </resources>

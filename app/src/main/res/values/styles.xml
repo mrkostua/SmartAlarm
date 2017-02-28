@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextPrimaryColor</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -33,5 +34,20 @@
         <item name="android:background">@color/navigationBarColor</item>
         <item name="android:selectable">true</item>
     </style>
+
+    <style name="alertDialogMainMathAlarmStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
+        <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
+        <item name="textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextColorAlertDialogListItem</item>
+        <item name="android:textColorSecondary">@color/alertDialogMainMathAlarmTextColorSecondary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:windowTitleStyle">@style/alertDialogTitleStyle</item>
+    </style>
+    <style name="alertDialogTitleStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/alertDialogMainMathAlarmTitleColor</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+
 
 </resources>

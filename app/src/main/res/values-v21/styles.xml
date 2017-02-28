@@ -5,4 +5,14 @@
             <item name="android:windowDrawsSystemBarBackgrounds">true</item>
             <item name="android:statusBarColor">@android:color/transparent</item>
         </style>
+
+    <style name="alertDialogMainMathAlarmStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
+        <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
+        <item name="android:textColorPrimary">@color/alertDialogMainMathAlarmTextPrimaryColor</item>
+        <item name="colorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
+
+    </style>
+
+
 </resources>

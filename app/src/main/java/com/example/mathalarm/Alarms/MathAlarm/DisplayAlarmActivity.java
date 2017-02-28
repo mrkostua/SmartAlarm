@@ -133,11 +133,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
         switch (randomCharacterMedium){
             case 1: { // +
                 iAnswer = iAnswer + iNumber3;
-                tvNumber3.setText("+ " + iNumber3);
+                tvNumber3.setText(getString(R.string.number3Add,iNumber3));
             }break;
             case 2: { // -
                 iAnswer = iAnswer - iNumber3;
-                tvNumber3.setText("- " + iNumber3);
+                tvNumber3.setText(getString(R.string.number3Subtract,iNumber3));
             }break;
         }
     }
@@ -147,9 +147,10 @@ public class DisplayAlarmActivity extends AppCompatActivity
         final EditText etAnswer = new EditText(this);
         etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("your answer is ? ")
+        builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
+                .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString())
                 .setView(etAnswer)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("try", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         CheckAnswer_Method(etAnswer.getText().toString());
@@ -161,12 +162,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
                         dialog.dismiss();
                     }
                 }).create().show();
-
-
     }
 
     private void CheckAnswer_Method(String answer) {
-
             if( answer !=null && !answer.equals("")) {
                 int iGetUserAnswer = Integer.parseInt(answer);
 
@@ -175,7 +173,8 @@ public class DisplayAlarmActivity extends AppCompatActivity
                     Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
                     onOffMusicPlayingRemember =false;
-                } else if (iGetUserAnswer != iAnswer) {
+                }
+                else {
                     Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
 
@@ -186,9 +185,6 @@ public class DisplayAlarmActivity extends AppCompatActivity
                 }
             }
         }
-
-
-
 
         private void checkAlarmState_Method() {
         //cancel the alarm  Only if Alarm was set (button On pressed)
