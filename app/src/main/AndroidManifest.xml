@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".firstsScreens.WelcomeActivity"
             android:configChanges="keyboard|orientation|screenSize"
@@ -25,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Settings_Preference"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -44,27 +42,31 @@
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Alarms.MathAlarm.DisplayAlarmActivity"
+        <activity
+            android:name=".Alarms.MathAlarm.DisplayAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        </activity>
-
-        <receiver android:name=".Alarms.MathAlarm.Alarm_Receiver"
+        <receiver
+            android:name=".Alarms.MathAlarm.Alarm_Receiver"
             android:enabled="true">
-        <intent-filter>
-            <action android:name="alarm_snooze"/>
-            <action android:name="alarm_dismiss"/>
-            <action android:name="alarm_start_new"/>
+            <intent-filter>
+                <action android:name="alarm_snooze" />
+                <action android:name="alarm_dismiss" />
+                <action android:name="alarm_start_new" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".Alarms.MathAlarm.MathAlarmService"
-            android:enabled="true"/>
-        <service android:name=".Alarms.MathAlarm.WakeLockService"
-            android:enabled="true"/>
+        <service
+            android:name=".Alarms.MathAlarm.MathAlarmService"
+            android:enabled="true" />
+        <service
+            android:name=".Alarms.MathAlarm.WakeLockService"
+            android:enabled="true" />
+
+        <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
+        <activity android:name=".Alarms.MathAlarm.FragmentSetFromHistory"></activity>
     </application>
 
 </manifest>

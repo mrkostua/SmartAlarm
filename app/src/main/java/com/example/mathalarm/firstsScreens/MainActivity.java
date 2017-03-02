@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
+import com.example.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.example.mathalarm.R;
 import com.example.mathalarm.Settings_Preference;
 
@@ -54,9 +51,12 @@ public class MainActivity extends AppCompatActivity
         iMathAlarm = new Intent(this, MainMathAlarm.class);
         startActivity(iMathAlarm);
     }
+    public void bSetFromHistoryMethod(View view){
+        Log.i(MainMathAlarm.TAG,"MainActivity bSetFromHistoryMethod");
+        startActivity(new Intent(this, SetAlarmFromHistory.class));
+    }
     public void bMainSettings_OnClickMethod(View view) {
         Log.i(MainMathAlarm.TAG,"MainActivity bMainSettings_OnClickMethod");
-
             Intent intent = new Intent(MainActivity.this, Settings_Preference.class);
             startActivity(intent);
     }
