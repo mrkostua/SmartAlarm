@@ -41,5 +41,6 @@
     <string name="displayAlarmActivity_bStopAlarmAlertDialog">Your Answer?</string>
     <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
     <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+    <string name="SAFH_Button_Set">set</string>
 
 </resources>

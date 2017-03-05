@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import com.example.mathalarm.R;
+import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -31,7 +32,7 @@ public class MainMathAlarm extends AppCompatActivity {
     private TextView tvPickedTime, tvChooseMusic, tvAlarmMessageText, tvChangeAlarmComplexity, tvDeepSleepMusic;
     private EditText etGetAlarmMessageText;
     //values for setting on alarm
-    private int pickedHour, pickedMinute;
+    private int pickedHour, pickedMinute =0;
     private boolean timePickerStatus = false;
     //values for setting music
     private int selectedMusic = 0;
@@ -47,6 +48,7 @@ public class MainMathAlarm extends AppCompatActivity {
     private int selectedDeepSleepMusic = 0;
     private String[] deepSleepMusicList;
 
+    private  AlarmDBAdapter alarmDBAdapter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class MainMathAlarm extends AppCompatActivity {
 
         musicList = getResources().getStringArray(R.array.music_list);
         alarmComplexityList = getResources().getStringArray(R.array.alarm_complexity_list);
+
+        openAlarmDB();
     }
 
     @Override
@@ -72,6 +76,12 @@ public class MainMathAlarm extends AppCompatActivity {
         trChangeMessage.setBackgroundColor(getResources().getColor(R.color.black));
         trChooseMusic.setBackgroundColor(getResources().getColor(R.color.black));
         trDeepSleepMusic.setBackgroundColor(getResources().getColor(R.color.black));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        alarmDBAdapter.closeAlarmDB();
     }
 
     /**
@@ -118,9 +128,14 @@ public class MainMathAlarm extends AppCompatActivity {
                     .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //Class for setting alarm with specific alarm data
                             MathAlarmPreview mathAlarmPreview = new MathAlarmPreview(MainMathAlarm.this, pickedHour, pickedMinute, selectedMusic,
                                     selectedComplexityLevel, alarmMessageText, selectedDeepSleepMusic);
                             mathAlarmPreview.ConfirmAlarmPreview_Method();
+
+                            //every new set alarm will be saved in SQL DB
+                            alarmDBAdapter.GetDataToSaveAlarmDB(pickedHour,pickedMinute,selectedMusic,alarmMessageText,selectedComplexityLevel,selectedDeepSleepMusic);
+                            alarmDBAdapter.InsertRowAlarmDB();
                         }
                     })
                     .setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -312,5 +327,10 @@ public class MainMathAlarm extends AppCompatActivity {
         return alertDialog_DeepSleepMusic;
     }
 
+
+    private void openAlarmDB(){
+         alarmDBAdapter = new AlarmDBAdapter(MainMathAlarm.this);
+            alarmDBAdapter.OpenAlarmDB();
+    }
 
 }
