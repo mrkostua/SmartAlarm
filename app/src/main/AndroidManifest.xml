@@ -66,7 +66,7 @@
             android:enabled="true" />
 
         <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
-        <activity android:name=".Alarms.MathAlarm.FragmentSetFromHistory"></activity>
+
     </application>
 
 </manifest>

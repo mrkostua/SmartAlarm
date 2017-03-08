@@ -10,14 +10,14 @@ import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 
 //manage database creation and version management.
 public class AlarmDBAdapter {
-    private SQLiteOpenHelper sqLiteOpenHelper;
     private Context context;
     private SQLiteDatabase sqLiteDatabase;
     private DataBaseHelper dataBaseHelper;
 
+
     public AlarmDBAdapter(Context context){
         this.context = context;
-        dataBaseHelper = new DataBaseHelper(context);
+        dataBaseHelper = new DataBaseHelper(this.context);
     }
 
     private  int hour,minute,ringtoneName,complexityLevel,deepSleepMusicStatus;
@@ -64,11 +64,14 @@ public class AlarmDBAdapter {
     }
 
     public AlarmDBAdapter OpenAlarmDB(){
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"OpenAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         return this;
     }
 
     public long InsertRowAlarmDB(){
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"InsertRowAlarmDB");
+        sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(AlarmDBValues.COLUMN_HOUR,hour);
         contentValues.put(AlarmDBValues.COLUMN_MINUTE,minute);
@@ -83,16 +86,22 @@ public class AlarmDBAdapter {
 
     private String where = null;
     public boolean DeleteRowAlarmDB(long rowIDtoDelete){
-         where = AlarmDBValues._ID + "=" + rowIDtoDelete;
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
+        sqLiteDatabase = dataBaseHelper.getWritableDatabase();
+        where = AlarmDBValues._ID + "=" + rowIDtoDelete;
         return sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, where,null) !=0;
     }
 
     public void DeleteAllRowsAlarmDB(){
-         where = null;
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
+        sqLiteDatabase = dataBaseHelper.getWritableDatabase();
+        where = null;
         sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, where,null);
     }
 
     public Cursor GetAllRowsAlarmDB(){
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"GetAllRowsAlarmDB");
+        sqLiteDatabase = dataBaseHelper.getReadableDatabase();
          where = null;
         Cursor cursor = sqLiteDatabase.query(true, AlarmDBValues.TABLE_NAME, AlarmDBValues.ALL_COLUMNS_KEYS,
                 where,null,null,null,null,null);
@@ -104,6 +113,7 @@ public class AlarmDBAdapter {
     }
 
     public Cursor GetRowAlarmDB(long rowIdToGet){
+        sqLiteDatabase = dataBaseHelper.getReadableDatabase();
         where = AlarmDBValues._ID + "=" + rowIdToGet;
         Cursor cursor = sqLiteDatabase.query(true, AlarmDBValues.TABLE_NAME, AlarmDBValues.ALL_COLUMNS_KEYS,
                 where,null,null,null,null,null);
@@ -114,6 +124,8 @@ public class AlarmDBAdapter {
     }
 
     public boolean UpdateRowAlarmDB(long rowIdToUpdate){
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"UpdateRowAlarmDB");
+        sqLiteDatabase = dataBaseHelper.getReadableDatabase();
         where = AlarmDBValues._ID + "=" + rowIdToUpdate;
 
         ContentValues contentValues = new ContentValues();
@@ -131,6 +143,7 @@ public class AlarmDBAdapter {
 
 
     public void closeAlarmDB(){
+        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"closeAlarmDB");
         dataBaseHelper.close();
     }
 

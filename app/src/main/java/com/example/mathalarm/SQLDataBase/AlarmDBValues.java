@@ -20,8 +20,6 @@ public final class AlarmDBValues implements BaseColumns{
         public static final String COLUMN_COMPLEXITY_LEVEL = "complexity_level";
         public static final String COLUMN_DEEP_SLEEP_MUSIC_STATUS= "deep_sleep_music_status";
         public static final int DATA_BASE_VERSION = 1;
-        public static final String[] ALL_COLUMNS_KEYS = new String [] {COLUMN_HOUR,COLUMN_MINUTE,COLUMN_RINGTONE_NAME,
+        public static final String[] ALL_COLUMNS_KEYS = {_ID,COLUMN_HOUR,COLUMN_MINUTE,COLUMN_RINGTONE_NAME,
                 COLUMN_MESSAGE_TEXT,COLUMN_COMPLEXITY_LEVEL,COLUMN_DEEP_SLEEP_MUSIC_STATUS};
-
-
     }

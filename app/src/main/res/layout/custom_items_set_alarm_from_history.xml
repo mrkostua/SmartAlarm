@@ -2,47 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:weightSum="1">
+    android:gravity="left"
+    android:weightSum="1"
+    android:background="#6e6c6c">
 
     <TextView
-        android:text="//"
-        android:textColor="#fff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/tvHistoryAlarmName"
-        android:layout_alignBottom="@+id/ibHistoryDeleteAlarm"
-        android:layout_toLeftOf="@+id/ibHistoryDeleteAlarm"
-        android:layout_toStartOf="@+id/ibHistoryDeleteAlarm"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"/>
-
-
-
-    <TextView
-        android:text="//"
-        android:textColor="#fff"
-
+        android:text="2"
+        android:textSize="30sp"
+        android:textColor="#030170"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginRight="15dp"
+      />
+    <TextView
         android:id="@+id/tvHistoryAlarmHour"
-        android:layout_alignBottom="@+id/bHistorySetAlarm"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="30dp"
-        android:layout_marginLeft="10dp" />
-
-    <TextView
-        android:text="//"
-        android:textColor="#fff"
-
+        android:text="14"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#002d07"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+         />
+    <TextView
         android:id="@+id/tvHistoryAlarmMinute"
-        android:paddingRight="30dp"
-        android:layout_marginRight="10dp"/>
+        android:text="22"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#002d07"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
 
 </LinearLayout>
