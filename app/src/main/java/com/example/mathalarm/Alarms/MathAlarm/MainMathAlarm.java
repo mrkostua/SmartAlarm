@@ -2,6 +2,7 @@ package com.example.mathalarm.Alarms.MathAlarm;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -333,4 +334,18 @@ public class MainMathAlarm extends AppCompatActivity {
             alarmDBAdapter.OpenAlarmDB();
     }
 
+
+
+    private boolean UpdateRow_Method(){
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra("updateKey",false)){
+
+
+
+
+            return true;
+        }
+        return false;
+    }
 }
+

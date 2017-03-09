@@ -9,25 +9,59 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#4d4c4c"
     tools:context="com.example.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory">
+
+    <TextView
+        android:text="Delete all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_delete"
-        android:layout_alignParentTop="true"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:id="@+id/ibHistoryDeleteAllAlarms"
+        android:onClick="imHistoryDeleteAllAlarms_OnClickMethod"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/imHistoryDeleteAllAlarms"
-        android:onClick="imHistoryDeleteAllAlarms_OnClickMethod"/>
+        android:background="#4d4c4c"
+        />
 
     <ListView
         android:id="@+id/lvAllSetAlarms"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:layout_below="@+id/ibHistoryDeleteAllAlarms"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imHistoryDeleteAllAlarms"
-        android:clickable="true" />
+        android:divider="@android:drawable/button_onoff_indicator_off"
+        android:isScrollContainer="true" />
+
+    <TextView
+        android:text="delete chosen row "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView3" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_delete"
+        android:id="@+id/ibDeleteChosenRow"
+        android:onClick="imDeleteChosenRow_OnClickListener"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#4d4c4c"
+        />
 </RelativeLayout>
