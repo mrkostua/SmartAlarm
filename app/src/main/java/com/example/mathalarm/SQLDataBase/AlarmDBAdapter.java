@@ -125,7 +125,7 @@ public class AlarmDBAdapter {
 
     public boolean UpdateRowAlarmDB(long rowIdToUpdate){
         Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"UpdateRowAlarmDB");
-        sqLiteDatabase = dataBaseHelper.getReadableDatabase();
+        sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         where = AlarmDBValues._ID + "=" + rowIdToUpdate;
 
         ContentValues contentValues = new ContentValues();

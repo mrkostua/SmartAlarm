@@ -73,13 +73,11 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(MainMathAlarm.TAG,"SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
         AlarmDataPreviewAlertDialog_Method(id);
-
     }
-
-
 
     private  int hour,minute,ringtoneName,complexityLevel,deepSleepMusicStatus= 0;
     private String messageText ="";
+
     private void ReplaceCursorDataToValues(long id) {
          cursor =alarmDBAdapter.GetRowAlarmDB(id);
         //if cursor is not empty get data from it
@@ -96,7 +94,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     private void AlarmDataPreviewAlertDialog_Method(final long id){
         ReplaceCursorDataToValues(id);
         final CharSequence[] alarmSettingsItems = {hour + " : " + minute, musicList[ringtoneName],
-                alarmComplexityList[complexityLevel], messageText, deepSleepMusicList[deepSleepMusicStatus]};
+                alarmComplexityList[complexityLevel], "\"" +messageText +"\"", deepSleepMusicList[deepSleepMusicStatus]};
 
         AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(SetAlarmFromHistory.this,
                 R.style.alertDialogMainMathAlarmStyle);
@@ -123,23 +121,8 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intentUpdateRow = UpdateRowStartMainMathAlarm(id);
-                         switch (which) {
-                            case 0:
-                                intentUpdateRow.putExtra("alertDialogKey",0);
-                                break;
-                             case 1:
-                                intentUpdateRow.putExtra("alertDialogKey",1);
-                                break;
-                            case 2:
-                                intentUpdateRow.putExtra("alertDialogKey",2);
-                                break;
-                            case 3:
-                                intentUpdateRow.putExtra("alertDialogKey",3);
-                                break;
-                            case 4:
-                                intentUpdateRow.putExtra("alertDialogKey",4);
-                                break;
-                        }
+                        //0 timePicker , 1 alarmMusic, 2 alarmComplexity, 3 alarmMessage, 4 alarmDeepSleepMusic
+                        intentUpdateRow.putExtra("alertDialogKey",which);
                         startActivity(intentUpdateRow);
                     }
                 }).create().show();
@@ -154,14 +137,9 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
         intentUpdateRow.putExtra("ringtoneName",ringtoneName);
         intentUpdateRow.putExtra("complexityLevel",complexityLevel);
         intentUpdateRow.putExtra("messageText",messageText);
-        intentUpdateRow.putExtra("deepSleepMusicList",deepSleepMusicList);
+        intentUpdateRow.putExtra("deepSleepMusicStatus",deepSleepMusicStatus);
         return intentUpdateRow;
     }
-
-
-
-
-
 
     public void imDeleteChosenRow_OnClickListener(View view) {
         HideAllViewsMethod(true);

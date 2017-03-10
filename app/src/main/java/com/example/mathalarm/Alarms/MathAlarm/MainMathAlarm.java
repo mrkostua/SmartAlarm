@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 public class MainMathAlarm extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class MainMathAlarm extends AppCompatActivity {
     public static final String TAG = "AlarmProcess";
 
     private TableRow trChangeTime, trChooseMusic, trChangeMessage, trChangeComplexity, trDeepSleepMusic;
-    private TextView tvPickedTime, tvChooseMusic, tvAlarmMessageText, tvChangeAlarmComplexity, tvDeepSleepMusic;
+    private TextView  tvChooseMusic, tvChangeAlarmComplexity, tvDeepSleepMusic;
     private EditText etGetAlarmMessageText;
     //values for setting on alarm
     private int pickedHour, pickedMinute =0;
@@ -50,10 +48,15 @@ public class MainMathAlarm extends AppCompatActivity {
     private String[] deepSleepMusicList;
 
     private  AlarmDBAdapter alarmDBAdapter ;
+    private long rowIdToUpdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_math_alarm);
+
+        tvChooseMusic = (TextView) findViewById(R.id.tvChooseMusic);
+        tvChangeAlarmComplexity = (TextView) findViewById(R.id.tvChangeComplexity);
+        tvDeepSleepMusic = (TextView) findViewById(R.id.tvDeepSleepMusic);
 
         trChangeTime = (TableRow) findViewById(R.id.trChangeTime);
         trChooseMusic = (TableRow) findViewById(R.id.trChooseMusic);
@@ -62,21 +65,31 @@ public class MainMathAlarm extends AppCompatActivity {
         trDeepSleepMusic = (TableRow) findViewById(R.id.trDeepSleepMusic);
 
         deepSleepMusicList = getResources().getStringArray(R.array.deepSleepMusic_list);
-
         musicList = getResources().getStringArray(R.array.music_list);
         alarmComplexityList = getResources().getStringArray(R.array.alarm_complexity_list);
 
         openAlarmDB();
+        if(UpdateRow_Method()){
+            timePickerStatus=true;
+            TvTimePickerSetTextMethod(pickedMinute,pickedHour);
+            tvChooseMusic.setText(musicList[selectedMusic]);
+            tvAlarmMessageTextSetTextMethod(alarmMessageText);
+            tvChangeAlarmComplexity.setText(alarmComplexityList[selectedComplexityLevel]);
+            tvDeepSleepMusic.setText(deepSleepMusicList[selectedDeepSleepMusic]);
+            TableRowChangeColorMethod(R.color.green_correct_choose);
+
+            //if user touched some of items in SetAlarmFromHistory open selected alertDialog
+            int whichAlertDialogOpen;
+            if((whichAlertDialogOpen=getIntent().getIntExtra("alertDialogKey",-1)) != -1){
+                OpenAlertDialogToUpdate(whichAlertDialogOpen);
+            }
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        trChangeComplexity.setBackgroundColor(getResources().getColor(R.color.black));
-        trChangeTime.setBackgroundColor(getResources().getColor(R.color.black));
-        trChangeMessage.setBackgroundColor(getResources().getColor(R.color.black));
-        trChooseMusic.setBackgroundColor(getResources().getColor(R.color.black));
-        trDeepSleepMusic.setBackgroundColor(getResources().getColor(R.color.black));
+        TableRowChangeColorMethod(R.color.black);
     }
 
     @Override
@@ -89,39 +102,30 @@ public class MainMathAlarm extends AppCompatActivity {
      * @param view public methods for onClick events
      */
     public void bSetAlarmTime_ClickMethod(View view) {
-        timePickerStatus = false;
-        tvPickedTime = (TextView) findViewById(R.id.tvSetTime);
         //show timePickerDialog
         TimePickerMethod().show();
     }
 
     public void bChooseMusic_ClickMethod(View view) {
-        tvChooseMusic = (TextView) findViewById(R.id.tvChooseMusic);
-
         //show alertDialog with music list
         AlarmMusic_AlertDialogBuilder().create().show();
     }
 
     public void bAlarmMessageText_OnClickListener(View view) {
-        tvAlarmMessageText = (TextView) findViewById(R.id.tvChangeMessage);
-
         AlarmMessageText_AlertDialogBuilder().create().show();
     }
 
     public void bChangeAlarmComplexity_ClickMethod(View view) {
-        tvChangeAlarmComplexity = (TextView) findViewById(R.id.tvChangeComplexity);
-
         AlarmComplexity_AlertDialogBuilder().create().show();
     }
 
     public void bDeepSleepMusic_ClickMethod(View view) {
-        tvDeepSleepMusic = (TextView) findViewById(R.id.tvDeepSleepMusic);
         AlarmDeepSleepMusic_AlertDialogBuilder().create().show();
     }
 
     public void bCreateMathAlarm_ClickMethod(View view) {
         final CharSequence[] alarmSettingsItems = {pickedHour + " : " + pickedMinute, musicList[selectedMusic],
-                alarmComplexityList[selectedComplexityLevel], alarmMessageText, deepSleepMusicList[selectedDeepSleepMusic]};
+                alarmComplexityList[selectedComplexityLevel],"\"" +alarmMessageText +"\"", deepSleepMusicList[selectedDeepSleepMusic]};
         //Check if the time was Picked by user
         if (timePickerStatus) {
             AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
@@ -136,7 +140,13 @@ public class MainMathAlarm extends AppCompatActivity {
 
                             //every new set alarm will be saved in SQL DB
                             alarmDBAdapter.GetDataToSaveAlarmDB(pickedHour,pickedMinute,selectedMusic,alarmMessageText,selectedComplexityLevel,selectedDeepSleepMusic);
-                            alarmDBAdapter.InsertRowAlarmDB();
+                            if(getIntent().getBooleanExtra("updateKey",false)) {
+                                Boolean updateState = alarmDBAdapter.UpdateRowAlarmDB(rowIdToUpdate);
+                                Log.i(TAG,"MainMathAlarm  UpdateRow id=" + updateState);
+                            }
+                            else
+                                alarmDBAdapter.InsertRowAlarmDB();
+
                         }
                     })
                     .setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -150,23 +160,8 @@ public class MainMathAlarm extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //close alertDialog to clean display area for another( to show another alertDialog)
                             dialog.dismiss();
-                            switch (which) {
-                                case 0:
-                                    TimePickerMethod().show();
-                                    break;
-                                case 1:
-                                    AlarmMusic_AlertDialogBuilder().create().show();
-                                    break;
-                                case 2:
-                                    AlarmComplexity_AlertDialogBuilder().create().show();
-                                    break;
-                                case 3:
-                                    AlarmMessageText_AlertDialogBuilder().create().show();
-                                    break;
-                                case 4:
-                                    AlarmDeepSleepMusic_AlertDialogBuilder().create().show();
-                                    break;
-                            }
+
+                            OpenAlertDialogToUpdate(which);
                         }
                     }).create().show();
         } else
@@ -190,13 +185,8 @@ public class MainMathAlarm extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                //convert minute from 2:5 to  2:05
-                // change text of tvPickedTime to show picked time
-                if (minute < 10) {
-                    tvPickedTime.setText("hour: " + hourOfDay + " minute: " + "0" + String.valueOf(minute));
-                } else {
-                    tvPickedTime.setText("hour: " + hourOfDay + " minute: " + minute);
-                }
+
+                TvTimePickerSetTextMethod(minute,hourOfDay);
                 pickedHour = hourOfDay;
                 pickedMinute = minute;
                 timePickerStatus = true;
@@ -238,16 +228,7 @@ public class MainMathAlarm extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         alarmMessageText = etGetAlarmMessageText.getText().toString();
-                        String defaultAlarmMessageText = "\"" + "Good morning" + "\"";
-                        if (!alarmMessageText.equals("")) {
-                            if (alarmMessageText.length() <= 15)
-                                tvAlarmMessageText.setText(alarmMessageText);
-                            else
-                                tvAlarmMessageText.setText(alarmMessageText.substring(0, 12) + "...");
-                            trChangeMessage.setBackgroundColor(getResources().getColor(R.color.green_correct_choose));
-                        } else {
-                            tvAlarmMessageText.setText(alarmMessageText = defaultAlarmMessageText);
-                        }
+                        tvAlarmMessageTextSetTextMethod(alarmMessageText);
                     }
                 });
         return adBuilder_GetMessageForAlarm;
@@ -334,18 +315,75 @@ public class MainMathAlarm extends AppCompatActivity {
             alarmDBAdapter.OpenAlarmDB();
     }
 
-
-
     private boolean UpdateRow_Method(){
         Intent intent = getIntent();
         if(intent.getBooleanExtra("updateKey",false)){
-
-
-
-
+            rowIdToUpdate = intent.getLongExtra("rowIdToUpdate",0);
+            pickedHour = intent.getIntExtra("hour",0);
+            pickedMinute = intent.getIntExtra("minute",0);
+            selectedMusic = intent.getIntExtra("ringtoneName",0);
+            selectedComplexityLevel = intent.getIntExtra("complexityLevel",0);
+            selectedDeepSleepMusic = intent.getIntExtra("deepSleepMusicList",0);
+            alarmMessageText = intent.getStringExtra("messageText");
             return true;
         }
         return false;
     }
-}
+
+    private void TvTimePickerSetTextMethod(int minute,int hourOfDay){
+        TextView tvPickedTime;
+        tvPickedTime = (TextView) findViewById(R.id.tvSetTime);
+        //convert minute from 2:5 to  2:05
+        // change text of tvPickedTime to show picked time
+        if (minute < 10) {
+            tvPickedTime.setText("hour: " + hourOfDay + " minute: " + "0" + String.valueOf(minute));
+        } else {
+            tvPickedTime.setText("hour: " + hourOfDay + " minute: " + minute);
+        }
+    }
+
+    private void tvAlarmMessageTextSetTextMethod(String text){
+        TextView tvAlarmMessageText = (TextView) findViewById(R.id.tvChangeMessage);
+        String defaultAlarmMessageText = "\"" + "Good morning" + "\"";
+        if (!text.equals("")) {
+            if (text.length() <= 15)
+                tvAlarmMessageText.setText(text);
+            else
+                tvAlarmMessageText.setText(alarmMessageText.substring(0, 12) + "...");
+            trChangeMessage.setBackgroundColor(getResources().getColor(R.color.green_correct_choose));
+        } else {
+            tvAlarmMessageText.setText(defaultAlarmMessageText);
+            alarmMessageText = defaultAlarmMessageText;
+        }
+    }
+
+    private void TableRowChangeColorMethod(int color){
+        trChangeComplexity.setBackgroundColor(getResources().getColor(color));
+        trChangeTime.setBackgroundColor(getResources().getColor(color));
+        trChangeMessage.setBackgroundColor(getResources().getColor(color));
+        trChooseMusic.setBackgroundColor(getResources().getColor(color));
+        trDeepSleepMusic.setBackgroundColor(getResources().getColor(color));
+    }
+
+    private void OpenAlertDialogToUpdate(int itemSelected){
+        switch (itemSelected) {
+            case 0:
+                TimePickerMethod().show();
+                break;
+            case 1:
+                AlarmMusic_AlertDialogBuilder().create().show();
+                break;
+            case 2:
+                AlarmComplexity_AlertDialogBuilder().create().show();
+                break;
+            case 3:
+                AlarmMessageText_AlertDialogBuilder().create().show();
+                break;
+            case 4:
+                AlarmDeepSleepMusic_AlertDialogBuilder().create().show();
+                break;
+            default:
+                Log.i(TAG,"MainMathAlarm OpenAlertDialogToUpdate, error 5th argument");
+        }
+    }}
 
