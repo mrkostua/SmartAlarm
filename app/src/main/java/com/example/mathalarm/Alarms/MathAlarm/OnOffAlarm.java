@@ -127,10 +127,13 @@ import java.util.Calendar;
 
      void CancelSetAlarm() {
         Log.i(MainMathAlarm.TAG, "OnOffAlarm" +"  CancelSetAlarm");
-
-        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext,0,new Intent(MainMathAlarm.ALARM_START_NEW),PendingIntent.FLAG_CANCEL_CURRENT);
+    try {
+        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(MainMathAlarm.ALARM_START_NEW), PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.cancel(cancelPendingIntent);
+    }catch (Exception e){
+        Log.i(MainMathAlarm.TAG,"cancel error" + e.getMessage());
+    }
     }
 
     //snooze alarm for 5 minutes

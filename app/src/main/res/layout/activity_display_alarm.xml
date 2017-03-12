@@ -80,7 +80,7 @@
 
     <TextView
         android:text="@string/displayAlarmActivity_tvTaskHint"
-        android:textColor="#561111"
+        android:textColor="#98202e62"
         android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
 
     <TextView
         android:text=""
-        android:textColor="#8ceb00"
+        android:textColor="#3e2723"
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"

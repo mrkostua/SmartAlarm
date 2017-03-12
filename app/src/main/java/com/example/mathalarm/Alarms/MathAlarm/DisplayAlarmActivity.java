@@ -144,8 +144,8 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
 
     public void bStopAlarm_OnClickListener(View view) {
-        final EditText etAnswer = new EditText(this);
-        etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        final EditText etAnswer = new EditText(DisplayAlarmActivity.this);
+        etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString())
@@ -193,7 +193,6 @@ public class DisplayAlarmActivity extends AppCompatActivity
         //probably it is unreachable statement , because onOffMusicPlayingRemember can be false only (if user gave right answer for task) after what the activity will be finished
         else{
             Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
-            Toast.makeText(this, "Alarm wasn't set", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -210,11 +209,11 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
     private void tvAlarmMessageText_EditorMethod() {
         Intent intent = getIntent();
-        String defaultAlarmMessageText = "\"" +"Good morning sir" +"\"";
+        String defaultAlarmMessageText = "Good morning sir" ;
         String alarmMessageText = intent.getExtras().getString("alarmMessageText",defaultAlarmMessageText);
 
         TextView tvStartedAlarmMessageText = (TextView) findViewById(R.id.tvStartedAlarmMessageText);
-        tvStartedAlarmMessageText.setText(alarmMessageText);
+        tvStartedAlarmMessageText.setText("\"" + alarmMessageText +"\"");
     }
 
     @Override

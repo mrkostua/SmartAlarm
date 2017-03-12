@@ -30,6 +30,10 @@ import com.example.mathalarm.firstsScreens.MainActivity;
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
       void ConfirmAlarmPreview_Method() {
         Log.i(MainMathAlarm.TAG, "MathAlarmPreview "+" ConfirmAlarmPreview_Method");
+//          //stop set alarm if exist
+//          Intent dismissIntent = new Intent(MainMathAlarm.ALARM_DISMISS_ACTION);
+//         activityContext.sendBroadcast(dismissIntent);
+
         OnOffAlarm onOffAlarm = new OnOffAlarm(activityContext,pickedHour,pickedMinute,alarmComplexityLevel,selectedMusic,true,alarmMessageText,selectedDeepSleepMusic);
         onOffAlarm.SetNewAlarm();
 

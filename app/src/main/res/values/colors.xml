@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#004505</color>
-    <color name="colorListViewBackgroundDeleteRow">#7b3b3b</color>
+    <color name="colorAccent">#E0E0E0</color>
+    <color name="colorListViewBackgroundDeleteRow">#590909</color>
     <color name="colorListViewBackground">#5b5a5a</color>
     <color name="transparet">#ffff</color>
     <color name="black_overlay">#66000000</color>
@@ -12,14 +12,17 @@
     <color name="activity_main_math_alarm_textColorWhite">#ffffff</color>
     <color name="black">#000000</color>
     <color name="white">#ffff</color>
-    <color name="green_correct_choose">#004f07</color>
+    <color name="green_correct_choose">#7b004f07</color>
     <color name="navigationBarColor">#262626</color>
 
-    <color name="alertDialogMainMathAlarmBackgroundColor">#003f06</color>
-    <color name="alertDialogMainMathAlarmAccentColor">#212121</color>
-    <color name="alertDialogMainMathAlarmTextPrimaryColor">#9e9e9e</color>
-    <color name="alertDialogMainMathAlarmTitleColor">#455a64</color>
-    <color name="alertDialogMainMathAlarmTextColorSecondary">#827717</color>
-    <color name="alertDialogMainMathAlarmTextColorAlertDialogListItem">#9e9e9e</color>
+    <color name="alertDialogMainMathAlarmBackgroundColor">#212121</color>
+    <color name="alertDialogMainMathAlarmAccentColor">#BF360C</color>
+    <color name="alertDialogMainMathAlarmTextPrimaryColor">#ffffff</color>
+    <color name="alertDialogMainMathAlarmTitleColor">#004479</color>
+    <color name="alertDialogMainMathAlarmTextColorSecondary">#a8ffffff</color>
+    <color name="alertDialogMainMathAlarmTextColorAlertDialogListItem">#ffffff</color>
+
+    <color name="alertDialogButtonTextStyle">#050400</color>
+    <color name="alertDialogButtonBackground">#ffff</color>
 
 </resources>

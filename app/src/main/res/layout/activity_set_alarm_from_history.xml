@@ -22,6 +22,7 @@
         android:layout_alignParentEnd="true" />
 
     <ImageButton
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_delete"
@@ -54,6 +55,7 @@
         android:id="@+id/textView3" />
 
     <ImageButton
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_delete"

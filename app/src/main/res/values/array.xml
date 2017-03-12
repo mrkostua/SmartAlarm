@@ -16,50 +16,18 @@
         <item>unbelievably hard</item>
     </string-array>
 
-    <string-array name="listArray_of_music">
-        <item>Демони_Один в каноє</item>
-        <item>I like Birds_Eels</item>
-        <item>Turn Away_Beck</item>
+
+    <string-array name="listArray_ofLanguages">
+        <item>English</item>
+        <item>Українська</item>
+        <item>Русский</item>
+        <item>Polski</item>
     </string-array>
 
-    <string-array name="listValues_of_music">
+    <string-array name="listValues_ofLanguages">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
-    </string-array>
-
-    <string-array name="listArray_of_themes">
-        <item>English</item>
-        <item>Ukraine</item>
-        <item>Russian</item>
-    </string-array>
-
-    <string-array name="listValues_of_themes">
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-    </string-array>
-
-    <string-array name="listArray_background">
-        <item>Black</item>
-        <item>Blue</item>
-        <item>Brown</item>
-        <item>Gray</item>
-        <item>Green</item>
-        <item>Orange</item>
-        <item>Red</item>
-        <item>White</item>
-        <item>Yellow</item>
-    </string-array>
-    <string-array name="listValues_background">
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
     </string-array>
 </resources>

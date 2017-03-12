@@ -158,17 +158,17 @@ public class MathAlarmService extends Service {
                 //FLAG_SHOW_UI Show a toast containing the current volume.
                 if (!audioManager.isVolumeFixed())
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                            audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_SHOW_UI);
+                            audioManager.getStreamVolume(AudioManager.STREAM_ALARM), 0);
             } else
                 /*other method to increase volume for API < LOLLIPOP 21*/
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                        audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_SHOW_UI);
+                        audioManager.getStreamVolume(AudioManager.STREAM_ALARM), 0);
                 break;
 
             case "deepSleepMusic":
                 musicResourceID = getPackageName() + "/raw/" + R.raw.free;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)/2, AudioManager.FLAG_SHOW_UI);
+                    audioManager.getStreamVolume(AudioManager.STREAM_ALARM)/2, 0);
                 break;
         }
 

@@ -39,7 +39,7 @@ public class MainMathAlarm extends AppCompatActivity {
     private boolean mpIsPlaying = false;
     private MediaPlayer mediaPlayer;
 
-    private String alarmMessageText = "\"" + "Good morning sir" + "\"";
+    private String alarmMessageText = "Good morning";
 
     private String[] alarmComplexityList;
     private int selectedComplexityLevel = 0;
@@ -125,7 +125,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
     public void bCreateMathAlarm_ClickMethod(View view) {
         final CharSequence[] alarmSettingsItems = {pickedHour + " : " + pickedMinute, musicList[selectedMusic],
-                alarmComplexityList[selectedComplexityLevel],"\"" +alarmMessageText +"\"", deepSleepMusicList[selectedDeepSleepMusic]};
+                alarmComplexityList[selectedComplexityLevel],"\"" + alarmMessageText + "\"", deepSleepMusicList[selectedDeepSleepMusic]};
         //Check if the time was Picked by user
         if (timePickerStatus) {
             AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
@@ -344,7 +344,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
     private void tvAlarmMessageTextSetTextMethod(String text){
         TextView tvAlarmMessageText = (TextView) findViewById(R.id.tvChangeMessage);
-        String defaultAlarmMessageText = "\"" + "Good morning" + "\"";
+        String defaultAlarmMessageText =  "Good morning" ;
         if (!text.equals("")) {
             if (text.length() <= 15)
                 tvAlarmMessageText.setText(text);
@@ -352,7 +352,7 @@ public class MainMathAlarm extends AppCompatActivity {
                 tvAlarmMessageText.setText(alarmMessageText.substring(0, 12) + "...");
             trChangeMessage.setBackgroundColor(getResources().getColor(R.color.green_correct_choose));
         } else {
-            tvAlarmMessageText.setText(defaultAlarmMessageText);
+            tvAlarmMessageText.setText("\"" + defaultAlarmMessageText + "\"");
             alarmMessageText = defaultAlarmMessageText;
         }
     }
