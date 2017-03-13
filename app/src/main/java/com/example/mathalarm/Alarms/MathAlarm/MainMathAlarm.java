@@ -349,7 +349,7 @@ public class MainMathAlarm extends AppCompatActivity {
             if (text.length() <= 15)
                 tvAlarmMessageText.setText(text);
             else
-                tvAlarmMessageText.setText(alarmMessageText.substring(0, 12) + "...");
+                tvAlarmMessageText.setText(text.substring(0, 12) + "...");
             trChangeMessage.setBackgroundColor(getResources().getColor(R.color.green_correct_choose));
         } else {
             tvAlarmMessageText.setText("\"" + defaultAlarmMessageText + "\"");

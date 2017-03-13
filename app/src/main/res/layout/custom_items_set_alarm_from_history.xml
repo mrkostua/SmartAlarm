@@ -10,28 +10,33 @@
 
     <TextView
         android:id="@+id/tvHistoryAlarmName"
-        android:text="2"
-        android:textSize="30sp"
+        android:text="Good Morning"
+        android:textSize="20sp"
+        android:maxLength="14"
         android:textColor="#030170"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:layout_marginRight="15dp"
       />
+
     <TextView
         android:id="@+id/tvHistoryAlarmHour"
-        android:text="14"
+        android:text="14 "
+        android:layout_marginLeft="20dp"
         android:textStyle="bold"
+        android:maxLength="5"
         android:textSize="20sp"
         android:textColor="#002d07"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
          />
+
     <TextView
         android:id="@+id/tvHistoryAlarmMinute"
-        android:text="22"
-        android:layout_marginLeft="20dp"
+        android:text=": 22"
+        android:layout_marginRight="20dp"
+        android:maxLength="5"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="#002d07"

@@ -111,7 +111,6 @@ public class AlarmDBAdapter {
 
         return cursor;
     }
-
     public Cursor GetRowAlarmDB(long rowIdToGet){
         sqLiteDatabase = dataBaseHelper.getReadableDatabase();
         where = AlarmDBValues._ID + "=" + rowIdToGet;

@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.mathalarm.R;
@@ -62,11 +60,9 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     private void PopulateListViewAlarmDB(){
         Log.i(MainMathAlarm.TAG,"SetAlarmFromHistory "+"PopulateListViewAlarmDB");
         cursor = alarmDBAdapter.GetAllRowsAlarmDB();
-        String [] fromColumns = {AlarmDBValues._ID,AlarmDBValues.COLUMN_HOUR,AlarmDBValues.COLUMN_MINUTE};
-        int [] toViews = {R.id.tvHistoryAlarmName,R.id.tvHistoryAlarmHour,R.id.tvHistoryAlarmMinute};
 
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(SetAlarmFromHistory.this,R.layout.custom_items_set_alarm_from_history,cursor,fromColumns,toViews,0);
-        lvAllSetAlarms.setAdapter(simpleCursorAdapter);
+        CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this,cursor);
+        lvAllSetAlarms.setAdapter(cursorAdapterOverrider);
     }
 
     @Override
@@ -77,7 +73,6 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
 
     private  int hour,minute,ringtoneName,complexityLevel,deepSleepMusicStatus= 0;
     private String messageText ="";
-
     private void ReplaceCursorDataToValues(long id) {
          cursor =alarmDBAdapter.GetRowAlarmDB(id);
         //if cursor is not empty get data from it
