@@ -17,6 +17,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mathalarm.R;
+import com.example.mathalarm.ShowLogs;
+
 import java.io.IOException;
 
 public class MathAlarmService extends Service {
@@ -42,7 +44,7 @@ public class MathAlarmService extends Service {
         public void handleMessage(Message msg) {
             // snooze alarm if alarm played for 5 minutes without answer
             if (msg.what == KILLER_HANDLE_SERVICE_SILENT) {
-                Log.i(MainMathAlarm.TAG, "handleMessage, silentKiller msg");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("handleMessage, silentKiller msg");
                 //start receiver with action Snooze
                 Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
                 sendBroadcast(snoozeIntent);
@@ -50,7 +52,7 @@ public class MathAlarmService extends Service {
             }
             //stop playing deepSleepMusic and start playing alarmMusic
             else if(msg.what == KILLER_HANDLE_DEEP_SLEEP_MUSIC) {
-                Log.i(MainMathAlarm.TAG, "handleMessage deepSleep msg");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("handleMessage deepSleep msg");
                 //stop playing deepSleepMusic
                 AlarmStopPlayingMusic();
                 EnableServiceHandlerKiller(KILLER_HANDLE_SERVICE_SILENT);
@@ -71,7 +73,7 @@ public class MathAlarmService extends Service {
             // which kills the alarm. Check against the initial call state so
             // we don't kill the alarm during a call.
             if(state != TelephonyManager.CALL_STATE_IDLE && state !=initialCallState) {
-                Log.i(MainMathAlarm.TAG, "phoneStateListener true (snooze alarm)");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("phoneStateListener true (snooze alarm)");
                 //start receiver with action Snooze
                 Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
                 startActivity(snoozeIntent);
@@ -81,7 +83,7 @@ public class MathAlarmService extends Service {
     };
     @Override
     public void onCreate() {
-        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onCreate");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onCreate");
         super.onCreate();
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         //Registers a listener object to receive notification of changes in specified telephony states.
@@ -93,7 +95,7 @@ public class MathAlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onStartCommand");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onStartCommand");
         alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel", 0);
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition", false);
@@ -132,7 +134,7 @@ public class MathAlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(MainMathAlarm.TAG, "MathAlarmService " + " onDestroy");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onDestroy");
             //stop listen for incoming calls
             //To unregister a listener, pass the listener object and set the events argument to LISTEN_NONE (0).
             telephonyManager.listen(phoneStateListener,0);
@@ -177,7 +179,7 @@ public class MathAlarmService extends Service {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.i(MainMathAlarm.TAG,"MathAlarmService Error occurred while playing audio.");
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService Error occurred while playing audio.");
                     mp.stop();
                     mp.release();
                     mediaPlayer = null;
@@ -189,11 +191,11 @@ public class MathAlarmService extends Service {
             mediaPlayer.setLooping(true);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + musicResourceID);
+            if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + musicResourceID);
 
-            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + mediaPlayer.isPlaying());
+            if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " AlarmStartPlayingMusic isPlaying() =" + mediaPlayer.isPlaying());
         } catch (IOException e) {
-            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
+            if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
         }
     }
 
@@ -201,14 +203,14 @@ public class MathAlarmService extends Service {
         if (mediaPlayer.isPlaying()) {
                 try {
                     mediaPlayer.stop();
-                    Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic " + "isPlaying=" + mediaPlayer.isPlaying());
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + "AlarmStopPlayingMusic " + "isPlaying=" + mediaPlayer.isPlaying());
                     mediaPlayer.release();
                     mediaPlayer = null;
                 } catch (Exception e) {
-                    Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic error " + e.getMessage());
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + "AlarmStopPlayingMusic error " + e.getMessage());
                 }
         } else
-            Log.i(MainMathAlarm.TAG, "MathAlarmService " + "AlarmStopPlayingMusic isPlaying()=" + mediaPlayer.isPlaying());
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + "AlarmStopPlayingMusic isPlaying()=" + mediaPlayer.isPlaying());
     }
 
     private void Start_DisplayAlarmActivity() {
@@ -226,12 +228,12 @@ public class MathAlarmService extends Service {
             case KILLER_HANDLE_SERVICE_SILENT:
                 handler.sendMessageDelayed(handler.obtainMessage(KILLER_HANDLE_SERVICE_SILENT),
                         ALARM_TIMEOUT_MILLISECONDS);
-                Log.i(MainMathAlarm.TAG, "MathAlarmService " +" EnableServiceHandlerKiller"+ " KILLER_HANDLE_SERVICE_SILENT");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " +" EnableServiceHandlerKiller"+ " KILLER_HANDLE_SERVICE_SILENT");
                 break;
             case KILLER_HANDLE_DEEP_SLEEP_MUSIC:
                 handler.sendMessageDelayed(handler.obtainMessage(KILLER_HANDLE_DEEP_SLEEP_MUSIC),
                         ALARM_TIMEOUT_MILLISECONDS);
-                Log.i(MainMathAlarm.TAG, "MathAlarmService "+" EnableServiceHandlerKiller"+ " KILLER_HANDLE_DEEP_SLEEP_MUSIC");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService "+" EnableServiceHandlerKiller"+ " KILLER_HANDLE_DEEP_SLEEP_MUSIC");
                 break;
         }
     }
@@ -240,11 +242,11 @@ public class MathAlarmService extends Service {
         switch (type) {
             case KILLER_HANDLE_SERVICE_SILENT:
                 handler.removeMessages(KILLER_HANDLE_SERVICE_SILENT);
-                Log.i(MainMathAlarm.TAG, "MathAlarmService " + " DisableServiceHandlerKiller " + "KILLER_HANDLE_SERVICE_SILENT");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " DisableServiceHandlerKiller " + "KILLER_HANDLE_SERVICE_SILENT");
                 break;
             case KILLER_HANDLE_DEEP_SLEEP_MUSIC:
                 handler.removeMessages(KILLER_HANDLE_DEEP_SLEEP_MUSIC);
-                Log.i(MainMathAlarm.TAG, "MathAlarmService " + " DisableServiceHandlerKiller " + "KILLER_HANDLE_DEEP_SLEEP_MUSIC");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " DisableServiceHandlerKiller " + "KILLER_HANDLE_DEEP_SLEEP_MUSIC");
                 break;
         }
     }

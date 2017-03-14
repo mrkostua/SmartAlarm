@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
 import com.example.mathalarm.SQLDataBase.AlarmDBValues;
+import com.example.mathalarm.ShowLogs;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -58,7 +59,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     }
 
     private void PopulateListViewAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"SetAlarmFromHistory "+"PopulateListViewAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory "+"PopulateListViewAlarmDB");
         cursor = alarmDBAdapter.GetAllRowsAlarmDB();
 
         CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this,cursor);
@@ -67,7 +68,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i(MainMathAlarm.TAG,"SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
         AlarmDataPreviewAlertDialog_Method(id);
     }
 

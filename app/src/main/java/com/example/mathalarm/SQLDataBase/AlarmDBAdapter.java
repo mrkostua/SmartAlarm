@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
+import com.example.mathalarm.ShowLogs;
 
 //manage database creation and version management.
 public class AlarmDBAdapter {
@@ -54,7 +55,7 @@ public class AlarmDBAdapter {
         //Called when the database file exists but the stored version number is different tan requested in constructor
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.i(MainMathAlarm.TAG," AlarmDBAdapter OnUpgrade");
+            ShowLogs.i(" AlarmDBAdapter OnUpgrade");
             String DB_DROP_TABLE = "DROP TABLE IF EXISTS " + AlarmDBValues.TABLE_NAME;
 
             db.execSQL(DB_DROP_TABLE);
@@ -64,13 +65,13 @@ public class AlarmDBAdapter {
     }
 
     public AlarmDBAdapter OpenAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"OpenAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"OpenAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         return this;
     }
 
     public long InsertRowAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"InsertRowAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"InsertRowAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(AlarmDBValues.COLUMN_HOUR,hour);
@@ -86,21 +87,21 @@ public class AlarmDBAdapter {
 
     private String where = null;
     public boolean DeleteRowAlarmDB(long rowIDtoDelete){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
+        ShowLogs.i("AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         where = AlarmDBValues._ID + "=" + rowIDtoDelete;
         return sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, where,null) !=0;
     }
 
     public void DeleteAllRowsAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         where = null;
         sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, where,null);
     }
 
     public Cursor GetAllRowsAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"GetAllRowsAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"GetAllRowsAlarmDB");
         sqLiteDatabase = dataBaseHelper.getReadableDatabase();
          where = null;
         Cursor cursor = sqLiteDatabase.query(true, AlarmDBValues.TABLE_NAME, AlarmDBValues.ALL_COLUMNS_KEYS,
@@ -123,7 +124,7 @@ public class AlarmDBAdapter {
     }
 
     public boolean UpdateRowAlarmDB(long rowIdToUpdate){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"UpdateRowAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"UpdateRowAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
         where = AlarmDBValues._ID + "=" + rowIdToUpdate;
 
@@ -142,7 +143,7 @@ public class AlarmDBAdapter {
 
 
     public void closeAlarmDB(){
-        Log.i(MainMathAlarm.TAG,"AlarmDBAdapter "+"closeAlarmDB");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"closeAlarmDB");
         dataBaseHelper.close();
     }
 

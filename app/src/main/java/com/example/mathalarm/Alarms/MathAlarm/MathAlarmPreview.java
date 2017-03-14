@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 import com.example.mathalarm.CountsTimeToAlarmStart;
+import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
  class MathAlarmPreview  {
@@ -29,7 +30,7 @@ import com.example.mathalarm.firstsScreens.MainActivity;
 
     //OnClick Method for Button - confirm (set Alarm on picked hour and minute)
       void ConfirmAlarmPreview_Method() {
-        Log.i(MainMathAlarm.TAG, "MathAlarmPreview "+" ConfirmAlarmPreview_Method");
+          if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmPreview "+" ConfirmAlarmPreview_Method");
 //          //stop set alarm if exist
 //          Intent dismissIntent = new Intent(MainMathAlarm.ALARM_DISMISS_ACTION);
 //         activityContext.sendBroadcast(dismissIntent);

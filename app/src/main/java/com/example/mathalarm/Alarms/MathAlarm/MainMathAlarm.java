@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
+import com.example.mathalarm.ShowLogs;
 
 import java.util.Calendar;
 
@@ -25,7 +26,11 @@ public class MainMathAlarm extends AppCompatActivity {
     public static final String ALARM_SNOOZE_ACTION = "alarm_snooze";
     public static final String ALARM_DISMISS_ACTION = "alarm_dismiss";
     public static final String ALARM_START_NEW = "alarm_start_new";
-    public static final String TAG = "AlarmProcess";
+    /**
+     * @information LOG_DEBUG_STATUS true for debug mode, false for production.
+     */
+    public static final boolean LOG_DEBUG_STATUS  = false;
+
 
     private TableRow trChangeTime, trChooseMusic, trChangeMessage, trChangeComplexity, trDeepSleepMusic;
     private TextView  tvChooseMusic, tvChangeAlarmComplexity, tvDeepSleepMusic;
@@ -142,7 +147,7 @@ public class MainMathAlarm extends AppCompatActivity {
                             alarmDBAdapter.GetDataToSaveAlarmDB(pickedHour,pickedMinute,selectedMusic,alarmMessageText,selectedComplexityLevel,selectedDeepSleepMusic);
                             if(getIntent().getBooleanExtra("updateKey",false)) {
                                 Boolean updateState = alarmDBAdapter.UpdateRowAlarmDB(rowIdToUpdate);
-                                Log.i(TAG,"MainMathAlarm  UpdateRow id=" + updateState);
+                                if(ShowLogs.LOG_STATUS)ShowLogs.i("MainMathAlarm  UpdateRow id=" + updateState);
                             }
                             else
                                 alarmDBAdapter.InsertRowAlarmDB();
@@ -250,7 +255,7 @@ public class MainMathAlarm extends AppCompatActivity {
                                 mediaPlayer = MediaPlayer.create(MainMathAlarm.this, musicPackedName);
                                 mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                                     public boolean onError(MediaPlayer mp, int what, int extra) {
-                                        Log.i(MainMathAlarm.TAG, "MathAlarmService Error occurred while playing audio.");
+                                        if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService Error occurred while playing audio.");
                                         mp.stop();
                                         mp.release();
                                         mediaPlayer = null;
@@ -266,7 +271,7 @@ public class MainMathAlarm extends AppCompatActivity {
                                 mediaPlayer.start();
                             }
                         } catch (Exception e) {
-                            Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
+                            if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
                         }
                     }
                 }).setPositiveButton("Good", new DialogInterface.OnClickListener() {
@@ -284,7 +289,7 @@ public class MainMathAlarm extends AppCompatActivity {
                         tvChooseMusic.setText(musicList[defaultMusicNumber]);
                     }
                 } catch (Exception e) {
-                    Log.i(MainMathAlarm.TAG, "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
                 }
             }
         });
@@ -383,7 +388,7 @@ public class MainMathAlarm extends AppCompatActivity {
                 AlarmDeepSleepMusic_AlertDialogBuilder().create().show();
                 break;
             default:
-                Log.i(TAG,"MainMathAlarm OpenAlertDialogToUpdate, error 5th argument");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("MainMathAlarm OpenAlertDialogToUpdate, error 5th argument");
         }
     }}
 

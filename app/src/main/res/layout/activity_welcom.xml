@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".firstsScreens.WelcomeActivity"
     android:fitsSystemWindows="true"
-    android:background="#def2bc">
+    android:background="#263238">
 
 
 
@@ -40,13 +40,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="53dp" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivMainIcon"
-        android:src="@drawable/logo_math_alarm"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,5 +51,16 @@
         android:layout_above="@+id/pbHorizontal"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/ivMainIcon"
+        app:srcCompat="@android:drawable/ic_lock_idle_alarm"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/tvTitle"
+        android:layout_alignStart="@+id/tvTitle"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
 
 </RelativeLayout>

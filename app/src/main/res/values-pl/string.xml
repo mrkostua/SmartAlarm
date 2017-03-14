@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">MathAlarm</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="preference_settings">Ustawienia</string>
+
+
+    <string name="mathAlarm_buttonName">Nowy budzik</string>
+    <string name="setFromHistory_buttonName">Ustawić z historii</string>
+    <string name="false_answers_display_alarm_activity">Jeżeli niepoprawnych odpowiedziej więcej niż dwie, wyświetli nowe zadanie</string>
+    <string name="displayAlarmActivity_bStopAlarm">Stop Budzik</string>
+    <string name="displayAlarmActivity_bSnooze">Odłożyć</string>
+    <string name="displayAlarmActivity_tvTaskHint">rozwiąż zadanie żeby wyłączyć budizk</string>
+    <string name="displayAlarmActivity_bStopAlarmAlertDialog">Twoja odpowiedź?</string>
+    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
+    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+</resources>

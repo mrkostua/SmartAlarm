@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">MathAlarm</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="preference_settings">Налаштування</string>
+
+
+    <string name="mathAlarm_buttonName">Новий будильник</string>
+    <string name="setFromHistory_buttonName">Установити з іторії</string>
+    <string name="false_answers_display_alarm_activity">Після двух неправильних відповідей, завдання змінеться</string>
+    <string name="displayAlarmActivity_bStopAlarm">Вимкнкути будильник</string>
+    <string name="displayAlarmActivity_bSnooze">Відкласти будильник</string>
+    <string name="displayAlarmActivity_tvTaskHint">розвяжи завдання щоб вимкнути будильник</string>
+    <string name="displayAlarmActivity_bStopAlarmAlertDialog">твоя відповідь</string>
+    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
+    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+</resources>

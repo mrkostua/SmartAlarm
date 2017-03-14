@@ -1,5 +1,6 @@
 package com.example.mathalarm;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -12,23 +13,24 @@ import android.widget.Toast;
 
 import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 
+import java.util.Locale;
+
 
 public class Settings_Preference extends PreferenceActivity implements Preference.OnPreferenceChangeListener
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(MainMathAlarm.TAG,"Settings_preference onCreate");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("Settings_preference onCreate");
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new Fragment_Preference()).commit();
 
         final ListPreference listPreference = (ListPreference) findPreference("languages_listPreference");
         //listPreference.setOnPreferenceChangeListener(this);
-
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Log.i(MainMathAlarm.TAG," Settings_Preference + onPreferenceChange");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i(" Settings_Preference + onPreferenceChange");
         return false;
     }
 
@@ -38,7 +40,6 @@ public class Settings_Preference extends PreferenceActivity implements Preferenc
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_preference);
-
         }
     }
 

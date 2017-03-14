@@ -14,6 +14,7 @@ import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.example.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.example.mathalarm.R;
 import com.example.mathalarm.Settings_Preference;
+import com.example.mathalarm.ShowLogs;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(MainMathAlarm.TAG, "MainActivity onResume");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i( "MainActivity onResume");
     }
 
     @Override
@@ -52,11 +53,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(iMathAlarm);
     }
     public void bSetFromHistoryMethod(View view){
-        Log.i(MainMathAlarm.TAG,"MainActivity bSetFromHistoryMethod");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MainActivity bSetFromHistoryMethod");
         startActivity(new Intent(this, SetAlarmFromHistory.class));
     }
     public void bMainSettings_OnClickMethod(View view) {
-        Log.i(MainMathAlarm.TAG,"MainActivity bMainSettings_OnClickMethod");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("MainActivity bMainSettings_OnClickMethod");
             Intent intent = new Intent(MainActivity.this, Settings_Preference.class);
             startActivity(intent);
     }

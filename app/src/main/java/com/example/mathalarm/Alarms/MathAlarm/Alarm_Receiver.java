@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
 
@@ -24,7 +25,7 @@ public class Alarm_Receiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(MainMathAlarm.TAG, "Alarm_Receiver started");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i( "Alarm_Receiver started");
         //snooze alarm for 5 minutes and stop current alarm
         if(intent.getAction().equals(MainMathAlarm.ALARM_SNOOZE_ACTION)) {
             //this stops the service no matter how many times it was started.

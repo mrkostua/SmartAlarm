@@ -2,6 +2,7 @@ package com.example.mathalarm.Alarms.MathAlarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mathalarm.R;
+import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class DisplayAlarmActivity extends AppCompatActivity
@@ -30,9 +33,6 @@ public class DisplayAlarmActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"onCreate");
-        setContentView(R.layout.activity_display_alarm);
-
         onOffMusicPlayingRemember = true;
         final Window window = getWindow();
         /**@FLAG_DISMISS_KEYGUARD
@@ -65,7 +65,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         checkAlarmState_Method();
-        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"onDestroy");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"onDestroy");
     }
 
     private void getAlarmComplexityLevel_Method() {
@@ -76,14 +76,14 @@ public class DisplayAlarmActivity extends AppCompatActivity
             case 0:
                 //for Easy complexity 4 sign (1)
                 CreateMathEasyTask_Method(1);
-                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"Easy:" + iAnswer);
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Easy:" + iAnswer);
                 break;
             case 1:
                 CreateMathMediumTask_Method();
-                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"Medium:" + iAnswer);
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Medium:" + iAnswer);
                 break;
             default:
-                Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
                 break;
         }
     }
@@ -146,7 +146,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
     public void bStopAlarm_OnClickListener(View view) {
         final EditText etAnswer = new EditText(DisplayAlarmActivity.this);
         etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.alertDialogMainMathAlarmStyle);
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString())
                 .setView(etAnswer)
@@ -170,12 +170,12 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
                 if (iGetUserAnswer == iAnswer) {
                     iFalseAnswerCounter = 0;
-                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
                     onOffMusicPlayingRemember =false;
                 }
                 else {
-                    Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
 
                     if (iFalseAnswerCounter > 2) {
@@ -192,14 +192,14 @@ public class DisplayAlarmActivity extends AppCompatActivity
             stopServices();
         //probably it is unreachable statement , because onOffMusicPlayingRemember can be false only (if user gave right answer for task) after what the activity will be finished
         else{
-            Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
+            if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity checkAlarmState_Method "+" Alarm wasn't set");
         }
     }
 
     private void stopServices() {
         ////stop MathService and playing music
         stopService(new Intent(DisplayAlarmActivity.this,MathAlarmService.class));
-        Log.i(MainMathAlarm.TAG,"DisplayAlarmActivity checkAlarmState_Method "+"stopService");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity checkAlarmState_Method "+"stopService");
 
         Intent intent_startMainActivity= new Intent(DisplayAlarmActivity.this,MainActivity.class);
         intent_startMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -8,6 +8,8 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.mathalarm.ShowLogs;
+
 public class WakeLockService extends Service {
     private static final int  NOTIFICATION_ID = 25;
      private PowerManager.WakeLock partialWakeLock;
@@ -21,7 +23,7 @@ public class WakeLockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(MainMathAlarm.TAG,"WakeLockService  onStartCommand");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService  onStartCommand");
         // Called implicitly when device is about to sleep or application is backgrounded
             createWakeLocks();
             wakeDevice("partialWakeLock");
@@ -38,7 +40,7 @@ public class WakeLockService extends Service {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.i(MainMathAlarm.TAG,"WakeLockService "+" onDestroy");
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService "+" onDestroy");
         ReleaseWakeLocks();
         stopSelf();
         alarmNotifications.CancelNotification(this,NOTIFICATION_ID);
@@ -60,7 +62,7 @@ public class WakeLockService extends Service {
                 *If the user presses the power button, then the screen will be turned off but the
                  CPU will be kept on until all partial wake locks have been released.*/
                 partialWakeLock.acquire();
-                Log.i(MainMathAlarm.TAG,"WakeLockService   partialWakeLock.acquire()");
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService   partialWakeLock.acquire()");
                 break;
         }
     }
@@ -68,7 +70,7 @@ public class WakeLockService extends Service {
         if(partialWakeLock.isHeld()){
             partialWakeLock.release();
             partialWakeLock = null;
-            Log.i(MainMathAlarm.TAG,"WakeLockService  partialWakeLock released");
+            if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService  partialWakeLock released");
         }
     }
 }

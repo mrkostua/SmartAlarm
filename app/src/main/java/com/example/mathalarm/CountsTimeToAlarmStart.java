@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 public class CountsTimeToAlarmStart {
     private int resultHours, resultMinutes;
-    private static final String TAG = "CountsTimeToAlarmStart";
 
     public void HowMuchTimeToStart( int pickedHour, int pickedMinute) {
         //
@@ -27,8 +26,8 @@ public class CountsTimeToAlarmStart {
         picked = pickedHour * 60 + pickedMinute;
         current = currentHour * 60 + currentMinute;
 
-        Log.i(TAG, " h current: " + currentHour + "  alarm hour: " + pickedHour);
-        Log.i(TAG," min current: " + currentMinute + "  alarm min: " + pickedMinute);
+        if(ShowLogs.LOG_STATUS)ShowLogs.i(" h current: " + currentHour + "  alarm hour: " + pickedHour);
+        if(ShowLogs.LOG_STATUS)ShowLogs.i(" min current: " + currentMinute + "  alarm min: " + pickedMinute);
 
         if (pickedHour>currentHour) {
             timeToStartAlarm = picked - current;
