@@ -16,24 +16,14 @@ import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import java.util.Locale;
 
 
-public class Settings_Preference extends PreferenceActivity implements Preference.OnPreferenceChangeListener
+public class Settings_Preference extends PreferenceActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(ShowLogs.LOG_STATUS)ShowLogs.i("Settings_preference onCreate");
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new Fragment_Preference()).commit();
-
-        final ListPreference listPreference = (ListPreference) findPreference("languages_listPreference");
-        //listPreference.setOnPreferenceChangeListener(this);
     }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i(" Settings_Preference + onPreferenceChange");
-        return false;
-    }
-
 
     public static class Fragment_Preference extends PreferenceFragment {
         @Override

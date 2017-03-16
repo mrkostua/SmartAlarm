@@ -8,7 +8,7 @@
     <string name="mathAlarm_buttonName">New Math Alarm</string>
     <string name="setFromHistory_buttonName">Set from history</string>
     <string name="false_answers_display_alarm_activity">If false answers more then 2 show new task.</string>
-    <string name="displayAlarmActivity_bStopAlarm">Stop Alarm</string>
+    <string name="displayAlarmActivity_bStopAlarm">Stop</string>
     <string name="displayAlarmActivity_bSnooze">Snooze</string>
     <string name="displayAlarmActivity_tvTaskHint">solve the equation to stop alarm</string>
     <string name="displayAlarmActivity_bStopAlarmAlertDialog">Your Answer?</string>

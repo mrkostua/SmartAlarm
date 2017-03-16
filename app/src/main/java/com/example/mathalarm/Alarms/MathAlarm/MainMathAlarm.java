@@ -29,7 +29,7 @@ public class MainMathAlarm extends AppCompatActivity {
     /**
      * @information LOG_DEBUG_STATUS true for debug mode, false for production.
      */
-    public static final boolean LOG_DEBUG_STATUS  = false;
+    public static final boolean LOG_DEBUG_STATUS  = true;
 
 
     private TableRow trChangeTime, trChooseMusic, trChangeMessage, trChangeComplexity, trDeepSleepMusic;

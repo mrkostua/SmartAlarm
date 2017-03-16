@@ -11,16 +11,4 @@
            android:streamType="alarm"
            android:icon="@drawable/ic_volume_up_white_24dp" />
    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Languages">
-        <ListPreference
-            android:key="languages_listPreference"
-            android:summary="Set the language in application"
-            android:title="Change language"
-            android:entries="@array/listArray_ofLanguages"
-            android:entryValues="@array/listValues_ofLanguages"
-            android:dialogTitle="languages"
-            android:negativeButtonText="@string/pref_back"/>
-        </PreferenceCategory>
 </PreferenceScreen>

@@ -32,39 +32,6 @@
     </ScrollView>
 
 
-
-    <Button
-        android:text="@string/displayAlarmActivity_bStopAlarm"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bStopAlarm"
-        android:background="#6559c1"
-        android:onClick="bStopAlarm_OnClickListener"
-        android:clickable="true"
-        android:layout_marginBottom="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/displayAlarmActivity_bSnooze"
-        android:textSize="20sp"
-        android:background="#786ec2"
-        android:textColor="#afafaf"
-        android:id="@+id/bSnoozeAlarm"
-        android:onClick="bSnoozeAlarm_OnClickListener"
-        android:layout_above="@+id/bStopAlarm"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="72dp" />
-
     <TextView
         android:text=""
         android:textColor="#5f9f00"
@@ -78,6 +45,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="57dp" />
 
+
+
+    <TextView
+        android:text=""
+        android:textColor="#601f14"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNumber3"
+        android:layout_alignBaseline="@+id/tvTaskToSolve"
+        android:layout_alignBottom="@+id/tvTaskToSolve"
+        android:layout_toRightOf="@+id/tvTaskToSolve"
+        android:layout_toEndOf="@+id/tvTaskToSolve" />
     <TextView
         android:text="@string/displayAlarmActivity_tvTaskHint"
         android:textColor="#98202e62"
@@ -89,16 +70,35 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text=""
-        android:textColor="#3e2723"
+    <Button
+        android:text="@string/displayAlarmActivity_bStopAlarm"
+        android:padding="40dp"
         android:textSize="35sp"
         android:textStyle="bold"
+        android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvNumber3"
-        android:layout_alignBaseline="@+id/tvTaskToSolve"
-        android:layout_alignBottom="@+id/tvTaskToSolve"
-        android:layout_toRightOf="@+id/tvTaskToSolve"
-        android:layout_toEndOf="@+id/tvTaskToSolve" />
+        android:id="@+id/bStopAlarm"
+        android:background="@drawable/shape_circle_bstop"
+        android:onClick="bStopAlarm_OnClickListener"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="49dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/displayAlarmActivity_bSnooze"
+        android:padding="40dp"
+        android:textSize="20sp"
+        android:background="@drawable/shape_circle_bsnooze"
+        android:textColor="#afafaf"
+        android:id="@+id/bSnoozeAlarm"
+        android:onClick="bSnoozeAlarm_OnClickListener"
+        android:layout_alignBottom="@+id/bStopAlarm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="73dp" />
 </RelativeLayout>

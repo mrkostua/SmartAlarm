@@ -2,29 +2,25 @@ package com.example.mathalarm.Alarms.MathAlarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.mathalarm.MathAlarmTaskGenerator;
 import com.example.mathalarm.R;
 import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
-import java.util.Locale;
 import java.util.Random;
 
-public class DisplayAlarmActivity extends AppCompatActivity
-{
+public class DisplayAlarmActivity extends AppCompatActivity {
     private Boolean onOffMusicPlayingRemember;
     private TextView tvTaskToSolve,tvNumber3;
     private int iAnswer = 0;
@@ -33,6 +29,9 @@ public class DisplayAlarmActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display_alarm);
+        if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"onCreate");
+
         onOffMusicPlayingRemember = true;
         final Window window = getWindow();
         /**@FLAG_DISMISS_KEYGUARD
@@ -69,76 +68,34 @@ public class DisplayAlarmActivity extends AppCompatActivity
     }
 
     private void getAlarmComplexityLevel_Method() {
+        MathAlarmTaskGenerator mathAlarmTaskGenerator = new MathAlarmTaskGenerator();
         Intent intent = getIntent();
         int alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel",0);
         //0-easy,1-medium
         switch (alarmComplexityLevel) {
             case 0:
-                //for Easy complexity 4 sign (1)
-                CreateMathEasyTask_Method(1);
-                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Easy:" + iAnswer);
+                mathAlarmTaskGenerator.GeneratorEquation(0);
+                iAnswer = mathAlarmTaskGenerator.ResultGetter();
+                tvTaskToSolve.setText("("+String.valueOf(mathAlarmTaskGenerator.Number1Getter())+" " +
+                        mathAlarmTaskGenerator.SymbolGetter() + " " + String.valueOf(mathAlarmTaskGenerator.Number2Getter())+")");
+
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Easy:" + String.valueOf(iAnswer));
                 break;
+
             case 1:
-                CreateMathMediumTask_Method();
-                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Medium:" + iAnswer);
+                mathAlarmTaskGenerator.GeneratorEquation(1);
+                iAnswer = mathAlarmTaskGenerator.ResultGetter();
+                tvTaskToSolve.setText("("+String.valueOf(mathAlarmTaskGenerator.Number1Getter())+" " +
+                        mathAlarmTaskGenerator.SymbolGetter() + " " + String.valueOf(mathAlarmTaskGenerator.Number2Getter())+")");
+                tvNumber3.setText(mathAlarmTaskGenerator.Symbol2Getter() + " "
+                        + String.valueOf(mathAlarmTaskGenerator.Number3Getter()));
+
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Medium:" + String.valueOf(iAnswer));
                 break;
+
             default:
                 if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
                 break;
-        }
-    }
-
-    private void CreateMathEasyTask_Method(int complexityLevel) {
-        Random random = new Random();
-        int iNumber1 = random.nextInt(100 - 1) + 1;
-        int iNumber2 = random.nextInt(10) + 1;
-
-
-        int[] randomCharacterEasy = new int[2];
-        //for medium complexity only 2 sign
-         randomCharacterEasy[0] = random.nextInt(3 - 1) + 1;
-        //for Easy complexity 4 sign
-         randomCharacterEasy[1] = random.nextInt(5 - 1) + 1;
-
-        switch (randomCharacterEasy[complexityLevel]) {
-                case 1: { // /
-                    iAnswer = iNumber1 / iNumber2;
-                    tvTaskToSolve.setText("("+iNumber1 +" / "+ iNumber2+")");
-                }break;
-                case 2: { // *
-                    iAnswer = iNumber1 * iNumber2;
-                    tvTaskToSolve.setText("("+iNumber1 +" * "+ iNumber2+")");
-                }break;
-                case 3: { // +
-                    iAnswer = iNumber1 + iNumber2;
-                    tvTaskToSolve.setText("("+iNumber1 +" + "+ iNumber2+")");
-                }break;
-                case 4: { // -
-                    iAnswer = iNumber1 - iNumber2;
-                    tvTaskToSolve.setText("("+iNumber1 +" - "+ iNumber2+")");
-                }break;
-            }
-    }
-
-    private void CreateMathMediumTask_Method() {
-        //establish first to numbers of the task
-        //for medium complexity only 2 sign (0)
-        CreateMathEasyTask_Method(0);
-        tvNumber3.setVisibility(View.VISIBLE);
-
-        Random random = new Random();
-        int randomCharacterMedium = random.nextInt(3 - 1) + 1;
-        int iNumber3 = random.nextInt(100 - 1) + 1;
-
-        switch (randomCharacterMedium){
-            case 1: { // +
-                iAnswer = iAnswer + iNumber3;
-                tvNumber3.setText(getString(R.string.number3Add,iNumber3));
-            }break;
-            case 2: { // -
-                iAnswer = iAnswer - iNumber3;
-                tvNumber3.setText(getString(R.string.number3Subtract,iNumber3));
-            }break;
         }
     }
 
@@ -148,7 +105,7 @@ public class DisplayAlarmActivity extends AppCompatActivity
         etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
         final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.alertDialogMainMathAlarmStyle);
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
-                .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString())
+                .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString() + "=")
                 .setView(etAnswer)
                 .setPositiveButton("try", new DialogInterface.OnClickListener() {
                     @Override
@@ -170,12 +127,12 @@ public class DisplayAlarmActivity extends AppCompatActivity
 
                 if (iGetUserAnswer == iAnswer) {
                     iFalseAnswerCounter = 0;
-                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer" + iGetUserAnswer + " == " + iAnswer);
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+"iGetUserAnswer==iAnswer " + iGetUserAnswer + " == " + iAnswer);
                     checkAlarmState_Method();
                     onOffMusicPlayingRemember =false;
                 }
                 else {
-                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer" + iGetUserAnswer + " != " + iAnswer);
+                    if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity CheckAnswer_Method "+ "iGetUserAnswer!=iAnswer " + iGetUserAnswer + " != " + iAnswer);
                     iFalseAnswerCounter += 1;
 
                     if (iFalseAnswerCounter > 2) {
@@ -240,6 +197,64 @@ public class DisplayAlarmActivity extends AppCompatActivity
     public void bSnoozeAlarm_OnClickListener(View view){
         Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
         sendBroadcast(snoozeIntent);
+    }
+
+
+
+
+    private void CreateMathEasyTask_Method(int complexityLevel) {
+        Random random = new Random();
+        int iNumber1 = random.nextInt(100 - 1) + 1;
+        int iNumber2 = random.nextInt(10) + 1;
+
+
+        int[] randomCharacterEasy = new int[2];
+        //for medium complexity only 2 sign
+        randomCharacterEasy[0] = random.nextInt(3 - 1) + 1;
+        //for Easy complexity 4 sign
+        randomCharacterEasy[1] = random.nextInt(5 - 1) + 1;
+
+        switch (randomCharacterEasy[complexityLevel]) {
+            case 1: { // /
+                iAnswer = iNumber1 / iNumber2;
+                tvTaskToSolve.setText("("+iNumber1 +" / "+ iNumber2+")");
+            }break;
+            case 2: { // *
+                iAnswer = iNumber1 * iNumber2;
+                tvTaskToSolve.setText("("+iNumber1 +" * "+ iNumber2+")");
+            }break;
+            case 3: { // +
+                iAnswer = iNumber1 + iNumber2;
+                tvTaskToSolve.setText("("+iNumber1 +" + "+ iNumber2+")");
+            }break;
+            case 4: { // -
+                iAnswer = iNumber1 - iNumber2;
+                tvTaskToSolve.setText("("+iNumber1 +" - "+ iNumber2+")");
+            }break;
+        }
+    }
+
+    private void CreateMathMediumTask_Method() {
+        //establish first to numbers of the task
+        //for medium complexity only 2 sign (0)
+
+        //CreateMathEasyTask_Method(0);
+        tvNumber3.setVisibility(View.VISIBLE);
+
+        Random random = new Random();
+        int randomCharacterMedium = random.nextInt(3 - 1) + 1;
+        int iNumber3 = random.nextInt(100 - 1) + 1;
+
+        switch (randomCharacterMedium){
+            case 1: { // +
+                iAnswer = iAnswer + iNumber3;
+                tvNumber3.setText(getString(R.string.number3Add,iNumber3));
+            }break;
+            case 2: { // -
+                iAnswer = iAnswer - iNumber3;
+                tvNumber3.setText(getString(R.string.number3Subtract,iNumber3));
+            }break;
+        }
     }
 }
 
