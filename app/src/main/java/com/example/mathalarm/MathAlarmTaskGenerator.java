@@ -44,8 +44,8 @@ public class MathAlarmTaskGenerator {
         return 0;
     }
 
-    private int GenerateRandomNumber(int range){
-        int randomNumber = random.nextInt(range -1) +1;
+    private int GenerateRandomNumber(int max, int min){
+        int randomNumber = random.nextInt((max - min) -1) +min;
         return randomNumber;
     }
 
@@ -58,12 +58,34 @@ public class MathAlarmTaskGenerator {
                 return number1 + number2;
             }
             case 3: { // *
+                if(number1 ==1 || number2==1){
+                    number1 = GenerateRandomNumber(99,2);
+                    number2 = GenerateRandomNumber(9,2);
+                    this.number1 = number1;
+                    this.number2=number2;
+                }
                 return number1 * number2;
             }
             case 4: { // /
-                int r = number1 / number2;
-                this.number1 = r * number2;
-                this.number2 = number1 / r;
+                boolean acceptableEquation = true;
+                int r=0;
+                while(acceptableEquation) {
+                    acceptableEquation = false;
+                     r = number1 / number2;
+
+                    if (r == 1 || r==0) {
+                        if(ShowLogs.LOG_STATUS) ShowLogs.i("r == 1 || r==0 number1=" + number1 +" number2=" +number2);
+                        acceptableEquation = true;
+                        number1 = GenerateRandomNumber(99,2);
+                        number2 = GenerateRandomNumber(9,2);
+                        this.number1 = number1;
+                        this.number2= number2;
+                    }
+                    if (number1 > number2) {
+                        this.number1 = r * number2;
+                        if(ShowLogs.LOG_STATUS) ShowLogs.i("number1 > number2 number1=" + this.number1 +" number2=" +number2);
+                    }
+                }
                 return r;
             }
             default:
@@ -78,22 +100,22 @@ public class MathAlarmTaskGenerator {
     int symbol1,symbol2;
         switch (complexity){
             case 0:{//easy
-                number1 = GenerateRandomNumber(100);
-                number2 = GenerateRandomNumber(10);
+                number1 = GenerateRandomNumber(99,1);
+                number2 = GenerateRandomNumber(9,1);
                 symbol1 = GenerateRandomMathSymbol(0);
                 mathSymbol1 = mathSymbol;
                 result = CountResultOfEquation(number1,number2,symbol1);
             }break;
             case 1:{//medium
-                number1 = GenerateRandomNumber(100);
+                number1 = GenerateRandomNumber(99,1);
                 symbol1 = GenerateRandomMathSymbol(0);
                 mathSymbol1 = mathSymbol;
-                number2 = GenerateRandomNumber(10);
+                number2 = GenerateRandomNumber(9,1);
                 symbol2 = GenerateRandomMathSymbol(1);
                 mathSymbol2 = mathSymbol;
-                number2 = GenerateRandomNumber(100);
+                number2 = GenerateRandomNumber(99,1);
                 result = CountResultOfEquation(number1,number2,symbol1);
-                number3 = GenerateRandomNumber(100);
+                number3 = GenerateRandomNumber(99,1);
                 result = CountResultOfEquation(result,number3,symbol2);
             }break;
 

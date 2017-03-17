@@ -27,7 +27,7 @@
         <activity
             android:name=".Settings_Preference"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:icon="@drawable/ic_settings_white_24dp"
+            android:icon="@drawable/ic_settings_white_36dp"
             android:label="@string/preference_settings"
             android:screenOrientation="portrait"
             android:theme="@style/Preference_style" />

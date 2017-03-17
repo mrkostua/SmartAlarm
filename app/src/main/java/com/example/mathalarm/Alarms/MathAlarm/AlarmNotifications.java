@@ -24,12 +24,12 @@ import com.example.mathalarm.R;
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentText("Hello I am alarm")
                 .setContentTitle("MathAlarm")
-                .setSmallIcon(R.drawable.ic_av_timer_white_24dp)
+                .setSmallIcon(R.drawable.ic_alarm_white_36dp)
                 .setTicker("MathAlarm touch to snooze")
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setWhen(System.currentTimeMillis())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .addAction(R.drawable.ic_av_timer_white_24dp,"snooze",piSnooze)
+                .addAction(R.drawable.ic_snooze_white_36dp,"snooze",piSnooze)
                 .setAutoCancel(true);
         Notification notification = builder.build();
         return notification;
@@ -46,9 +46,9 @@ import com.example.mathalarm.R;
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentText("Alarm was set on " +time)
                 .setContentTitle("MathAlarm")
-                .setSmallIcon(R.drawable.ic_av_timer_white_24dp)
+                .setSmallIcon(R.drawable.ic_alarm_white_36dp)
                 .setTicker("Alarm was set on " + time)
-                .addAction(R.drawable.ic_queue_music_white_24dp,"dismiss",piDismiss)
+                .addAction(R.drawable.ic_alarm_off_white_36dp,"dismiss",piDismiss)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis());
