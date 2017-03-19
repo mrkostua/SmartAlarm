@@ -2,7 +2,6 @@ package com.example.mathalarm.Alarms.MathAlarm;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBValues;
 
 /**
+ * @author Konstantyn
  * Created by Администратор on 13.03.2017.
  */
 
@@ -28,11 +28,13 @@ import com.example.mathalarm.SQLDataBase.AlarmDBValues;
         return layoutInflater.inflate(R.layout.custom_items_set_alarm_from_history,parent,false);
     }
 
-    private TextView tvHistoryAlarmHour,tvHistoryAlarmMinute,tvHistoryAlarmName;
-    private int hour,minute;
-    private String name;
+    private TextView tvHistoryAlarmName;
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+         TextView tvHistoryAlarmHour,tvHistoryAlarmMinute;
+         int hour,minute;
+         String name;
+
          tvHistoryAlarmHour = (TextView) view.findViewById(R.id.tvHistoryAlarmHour);
          tvHistoryAlarmMinute = (TextView) view.findViewById(R.id.tvHistoryAlarmMinute);
          tvHistoryAlarmName = (TextView) view.findViewById(R.id.tvHistoryAlarmName);
@@ -45,7 +47,9 @@ import com.example.mathalarm.SQLDataBase.AlarmDBValues;
         else
             tvHistoryAlarmMinute.setText(": "+minute+"");
         tvAlarmMessageTextSetTextMethod(name);
-        tvHistoryAlarmHour.setText(hour+" ");
+
+        String sHour = String.valueOf(hour)+" ";
+        tvHistoryAlarmHour.setText(sHour);
     }
 
     private void tvAlarmMessageTextSetTextMethod(String text){

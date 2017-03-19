@@ -34,7 +34,7 @@
 
             <TextView
                 android:layout_column="2"
-                android:text="hour:00 minute:00"
+                android:text="@string/tvMMA_customTime"
                 android:gravity="center"
                 android:padding="3dip"
                 android:layout_marginStart="15dp"
@@ -45,7 +45,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:text="Change Time"
+                android:text="@string/bMMA_change_time"
                 android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
@@ -67,7 +67,7 @@
             <TextView
                 android:id="@+id/tvChooseMusic"
                 android:layout_column="2"
-                android:text="default: Rooster alarm"
+                android:text="@string/tvMMA_defaultMusic"
                 android:gravity="center"
                 android:padding="3dip"
                 android:textColor="@color/white"/>
@@ -75,7 +75,7 @@
             <Button
                 android:id="@+id/bChooseMusic"
                 android:layout_width="wrap_content"
-                android:text="Choose music"
+                android:text="@string/bMMA_chooseMusic"
                 android:layout_column="2"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/tvChangeMessage"
                 android:layout_column="2"
-                android:text="Good morning sir"
+                android:text="@string/tvMMA_defaultMessage"
                 android:padding="20dip"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -106,7 +106,7 @@
             <Button
                 android:id="@+id/bChangeMessageForAlarm"
                 android:layout_width="wrap_content"
-                android:text="Change message"
+                android:text="@string/bMMA_change_message"
                 android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
@@ -128,7 +128,7 @@
             <TextView
                 android:id="@+id/tvChangeComplexity"
                 android:layout_column="2"
-                android:text="default (Easy)"
+                android:text="@string/tvMMA_defaultComplexity"
                 android:paddingBottom="40dip"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -137,7 +137,7 @@
             <Button
                 android:id="@+id/bChangeAlarmComplexity"
                 android:layout_width="wrap_content"
-                android:text="Change complexity"
+                android:text="@string/bMMA_changeComplexity"
                 android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"
@@ -159,7 +159,7 @@
             <TextView
                 android:id="@+id/tvDeepSleepMusic"
                 android:layout_column="2"
-                android:text="off"
+                android:text="@string/bMMA_defaultDeepSleepMusicStatus"
                 android:paddingBottom="40dip"
                 android:textColor="@color/white"
                 android:gravity="center" />
@@ -167,7 +167,7 @@
             <Button
                 android:id="@+id/bDeepSleepMusic"
                 android:layout_width="wrap_content"
-                android:text="deep Sleep music"
+                android:text="@string/bMMA_deep_sleep_music"
                 android:textStyle="bold"
                 android:layout_column="2"
                 android:gravity="center"

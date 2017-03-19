@@ -2,14 +2,15 @@ package com.example.mathalarm.Alarms.MathAlarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 import com.example.mathalarm.CountsTimeToAlarmStart;
 import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
- class MathAlarmPreview  {
+import static com.example.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
+
+class MathAlarmPreview  {
     private int pickedHour, pickedMinute;
     private int selectedMusic;
     private String alarmMessageText;
@@ -57,14 +58,14 @@ import com.example.mathalarm.firstsScreens.MainActivity;
     private void StartWakeLockAndMainActivity() {
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(activityContext,WakeLockService.class);
-        String time = pickedHour +" " + pickedMinute;
-        wakeLockIntent.putExtra("alarmTimeKey",time);
+        wakeLockIntent.putExtra("alarmTimeKey",MinuteHourConvertMethod(pickedHour,pickedMinute));
         activityContext.startService(wakeLockIntent);
 
         //after confirming alarm configurations, user will be moved to main activity
         Intent intent  = new Intent(activityContext, MainActivity.class);
         activityContext.startActivity(intent);
     }
+
 
 }
 

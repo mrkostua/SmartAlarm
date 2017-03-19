@@ -6,16 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mathalarm.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private TextView tvTitle, tvProgressIndicator;
+    private TextView tvProgressIndicator;
     private android.widget.ProgressBar pbHorizontal;
     private int iProgressBarStatus = 0;
-    private boolean checkProgressBarStatus = false;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
         pbHorizontal = (android.widget.ProgressBar) findViewById(R.id.pbHorizontal);
         tvProgressIndicator = (TextView) findViewById(R.id.tvProgressIndicator);
 
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setVisibility(View.VISIBLE);
 
         ProgressBarMethodSleep();
@@ -48,11 +46,9 @@ public class WelcomeActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             pbHorizontal.setProgress(iProgressBarStatus);
-                            tvProgressIndicator.setText("Progress: " + iProgressBarStatus + "/"
-                                    + pbHorizontal.getMax());
+                            tvProgressIndicator.setText(getString(R.string.WA_progressStatus,iProgressBarStatus,pbHorizontal.getMax()));
 
                             if (iProgressBarStatus == 100) {
-                                checkProgressBarStatus = true;
                                 StartMainActivity();
                             }
                         }

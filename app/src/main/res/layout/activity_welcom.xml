@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="SMART     ALARM "
+        android:text="@string/applicationName"
         android:textStyle="bold"
         android:textColor="#6b0505"
         android:id="@+id/tvTitle"

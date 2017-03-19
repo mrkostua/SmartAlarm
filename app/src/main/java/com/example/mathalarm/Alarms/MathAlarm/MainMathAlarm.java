@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -27,7 +26,7 @@ public class MainMathAlarm extends AppCompatActivity {
     public static final String ALARM_DISMISS_ACTION = "alarm_dismiss";
     public static final String ALARM_START_NEW = "alarm_start_new";
     /**
-     * @information LOG_DEBUG_STATUS true for debug mode, false for production.
+     *  LOG_DEBUG_STATUS true for debug mode, false for production.
      */
     public static final boolean LOG_DEBUG_STATUS  = true;
 
@@ -44,7 +43,7 @@ public class MainMathAlarm extends AppCompatActivity {
     private boolean mpIsPlaying = false;
     private MediaPlayer mediaPlayer;
 
-    private String alarmMessageText = "Good morning";
+    private String alarmMessageText = getString(R.string.MMA_defaultAlarmMessageText);
 
     private String[] alarmComplexityList;
     private int selectedComplexityLevel = 0;
@@ -134,8 +133,8 @@ public class MainMathAlarm extends AppCompatActivity {
         //Check if the time was Picked by user
         if (timePickerStatus) {
             AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
-            alertDialogAlarmPreview.setTitle("Preview")
-                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            alertDialogAlarmPreview.setTitle(R.string.MMA_alertDialogAlarmPreview_Title)
+                    .setPositiveButton(R.string.MMA_alertDialogAlarmPreview_PositiveButtonText, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //Class for setting alarm with specific alarm data
@@ -154,7 +153,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
                         }
                     })
-                    .setNegativeButton("Back", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.MMA_alertDialogAlarmPreview_NegativeButtonText, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -170,7 +169,7 @@ public class MainMathAlarm extends AppCompatActivity {
                         }
                     }).create().show();
         } else
-            Toast.makeText(MainMathAlarm.this, "To create alarm please first set the alarm time", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainMathAlarm.this, R.string.MMA_timeNotSetToastText, Toast.LENGTH_LONG).show();
     }
 
 
@@ -187,7 +186,7 @@ public class MainMathAlarm extends AppCompatActivity {
         int currentMinute = calendar.get(Calendar.MINUTE);
 
         //Launch TimePicker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        return  new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -199,7 +198,6 @@ public class MainMathAlarm extends AppCompatActivity {
                 trChangeTime.setBackgroundColor(getResources().getColor(R.color.green_correct_choose));
             }
         }, currentHour, currentMinute, false);
-        return timePickerDialog;
     }
 
     private AlertDialog.Builder AlarmComplexity_AlertDialogBuilder() {
@@ -228,8 +226,8 @@ public class MainMathAlarm extends AppCompatActivity {
         etGetAlarmMessageText = (EditText) relativeLayoutView.findViewById(R.id.etGetAlarmMessageText);
 
         adBuilder_GetMessageForAlarm.setView(relativeLayoutView)
-                .setTitle("Write a message for yourself")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.MMA_alertDialogAlarmMessageText_Title)
+                .setPositiveButton(R.string.MMA_alertDialogAlarmMessageText_PositiveButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         alarmMessageText = etGetAlarmMessageText.getText().toString();
@@ -241,7 +239,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
     private AlertDialog.Builder AlarmMusic_AlertDialogBuilder() {
         AlertDialog.Builder alertDialog_ChooseMusic = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
-        alertDialog_ChooseMusic.setTitle("Choose music for Alarm")
+        alertDialog_ChooseMusic.setTitle(R.string.MMA_alertDialogAlarmMusic_Title)
                 .setSingleChoiceItems(R.array.music_list, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -274,7 +272,7 @@ public class MainMathAlarm extends AppCompatActivity {
                             if(ShowLogs.LOG_STATUS)ShowLogs.i( "MathAlarmService " + " AlarmStartPlayingMusic error" + e.getMessage());
                         }
                     }
-                }).setPositiveButton("Good", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(R.string.MMA_alertDialogAlarmMusic_PositiveButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
@@ -298,13 +296,13 @@ public class MainMathAlarm extends AppCompatActivity {
 
     private AlertDialog.Builder AlarmDeepSleepMusic_AlertDialogBuilder() {
         AlertDialog.Builder alertDialog_DeepSleepMusic = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
-        alertDialog_DeepSleepMusic.setTitle("Choose music for Alarm")
+        alertDialog_DeepSleepMusic.setTitle(R.string.MMA_alertDialogAlarmDeepSleepMusic_Title)
                 .setSingleChoiceItems(R.array.deepSleepMusic_list, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         selectedDeepSleepMusic=which;
                     }
-                }).setPositiveButton("Good", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(R.string.MMA_alertDialogAlarmDeepSleepMusic_PositiveButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 tvDeepSleepMusic.setText(deepSleepMusicList[selectedDeepSleepMusic]);

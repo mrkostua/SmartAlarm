@@ -45,8 +45,7 @@ public class MathAlarmTaskGenerator {
     }
 
     private int GenerateRandomNumber(int max, int min){
-        int randomNumber = random.nextInt((max - min) -1) +min;
-        return randomNumber;
+        return random.nextInt((max - min) -1) +min;
     }
 
     private int CountResultOfEquation(int number1, int number2, int symbol){

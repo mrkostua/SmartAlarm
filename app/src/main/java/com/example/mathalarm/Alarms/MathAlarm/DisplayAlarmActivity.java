@@ -18,7 +18,6 @@ import com.example.mathalarm.R;
 import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
-import java.util.Random;
 
 public class DisplayAlarmActivity extends AppCompatActivity {
     private Boolean onOffMusicPlayingRemember;
@@ -107,13 +106,13 @@ public class DisplayAlarmActivity extends AppCompatActivity {
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString() + "=")
                 .setView(etAnswer)
-                .setPositiveButton("try", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.DAA_stopAlarmPositiveButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         CheckAnswer_Method(etAnswer.getText().toString());
                     }
                 })
-                .setNegativeButton("back", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DAA_stopAlarmNegativeButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -166,8 +165,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
 
     private void tvAlarmMessageText_EditorMethod() {
         Intent intent = getIntent();
-        String defaultAlarmMessageText = "Good morning sir" ;
-        String alarmMessageText = intent.getExtras().getString("alarmMessageText",defaultAlarmMessageText);
+        String alarmMessageText = intent.getExtras().getString("alarmMessageText",getString(R.string.tvMMA_defaultMessage));
 
         TextView tvStartedAlarmMessageText = (TextView) findViewById(R.id.tvStartedAlarmMessageText);
         tvStartedAlarmMessageText.setText("\"" + alarmMessageText +"\"");
@@ -199,63 +197,6 @@ public class DisplayAlarmActivity extends AppCompatActivity {
         sendBroadcast(snoozeIntent);
     }
 
-
-
-
-    private void CreateMathEasyTask_Method(int complexityLevel) {
-        Random random = new Random();
-        int iNumber1 = random.nextInt(100 - 1) + 1;
-        int iNumber2 = random.nextInt(10) + 1;
-
-
-        int[] randomCharacterEasy = new int[2];
-        //for medium complexity only 2 sign
-        randomCharacterEasy[0] = random.nextInt(3 - 1) + 1;
-        //for Easy complexity 4 sign
-        randomCharacterEasy[1] = random.nextInt(5 - 1) + 1;
-
-        switch (randomCharacterEasy[complexityLevel]) {
-            case 1: { // /
-                iAnswer = iNumber1 / iNumber2;
-                tvTaskToSolve.setText("("+iNumber1 +" / "+ iNumber2+")");
-            }break;
-            case 2: { // *
-                iAnswer = iNumber1 * iNumber2;
-                tvTaskToSolve.setText("("+iNumber1 +" * "+ iNumber2+")");
-            }break;
-            case 3: { // +
-                iAnswer = iNumber1 + iNumber2;
-                tvTaskToSolve.setText("("+iNumber1 +" + "+ iNumber2+")");
-            }break;
-            case 4: { // -
-                iAnswer = iNumber1 - iNumber2;
-                tvTaskToSolve.setText("("+iNumber1 +" - "+ iNumber2+")");
-            }break;
-        }
-    }
-
-    private void CreateMathMediumTask_Method() {
-        //establish first to numbers of the task
-        //for medium complexity only 2 sign (0)
-
-        //CreateMathEasyTask_Method(0);
-        tvNumber3.setVisibility(View.VISIBLE);
-
-        Random random = new Random();
-        int randomCharacterMedium = random.nextInt(3 - 1) + 1;
-        int iNumber3 = random.nextInt(100 - 1) + 1;
-
-        switch (randomCharacterMedium){
-            case 1: { // +
-                iAnswer = iAnswer + iNumber3;
-                tvNumber3.setText(getString(R.string.number3Add,iNumber3));
-            }break;
-            case 2: { // -
-                iAnswer = iAnswer - iNumber3;
-                tvNumber3.setText(getString(R.string.number3Subtract,iNumber3));
-            }break;
-        }
-    }
 }
 
 

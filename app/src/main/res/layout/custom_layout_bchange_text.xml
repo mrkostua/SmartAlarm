@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:text=""
-        android:hint="Good morning sir"
+        android:hint="@string/edHintGood_morning_sir"
         android:textSize="25sp"
         android:ems="10"
         android:id="@+id/etGetAlarmMessageText"

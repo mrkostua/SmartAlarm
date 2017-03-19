@@ -13,7 +13,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mathalarm.R;
@@ -21,9 +20,12 @@ import com.example.mathalarm.ShowLogs;
 
 import java.io.IOException;
 
+
 public class MathAlarmService extends Service {
     private static final int ALARM_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
 
+    private int volume;
+    private AudioManager audioManagerVolumeFixer;
     private int alarmComplexityLevel,selectedDeepSleepMusic;
     private String alarmMessageText;
 
@@ -91,6 +93,8 @@ public class MathAlarmService extends Service {
         telephonyManager.listen(
                 phoneStateListener,
                 phoneStateListener.LISTEN_CALL_STATE);
+        audioManagerVolumeFixer = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+         volume = audioManagerVolumeFixer.getStreamVolume(AudioManager.STREAM_ALARM);
     }
 
     @Override
@@ -100,8 +104,8 @@ public class MathAlarmService extends Service {
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition", false);
 
-        String defaultAlarmMessageText = "\"" + "Good morning sir." + "\"";
-        alarmMessageText = intent.getExtras().getString("alarmMessageText", defaultAlarmMessageText);
+
+        alarmMessageText = intent.getExtras().getString("alarmMessageText", getString(R.string.MMA_defaultAlarmMessageText));
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
         String[] musicList = getResources().getStringArray(R.array.music_list);
@@ -143,7 +147,8 @@ public class MathAlarmService extends Service {
         DisableServiceHandlerKiller(KILLER_HANDLE_DEEP_SLEEP_MUSIC);
         else
             DisableServiceHandlerKiller(KILLER_HANDLE_SERVICE_SILENT);
-
+        //set STREAM_ALARM to volume (volume
+        audioManagerVolumeFixer.setStreamVolume(AudioManager.STREAM_ALARM,volume,0);
         AlarmStopPlayingMusic();
         alarmNotifications.CancelNotification(this,NOTIFICATION_ID);
     }
@@ -160,7 +165,7 @@ public class MathAlarmService extends Service {
                 //FLAG_SHOW_UI Show a toast containing the current volume.
                 if (!audioManager.isVolumeFixed())
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                            audioManager.getStreamVolume(AudioManager.STREAM_ALARM), 0);
+                            volume, 0);
             } else
                 /*other method to increase volume for API < LOLLIPOP 21*/
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
@@ -170,7 +175,7 @@ public class MathAlarmService extends Service {
             case "deepSleepMusic":
                 musicResourceID = getPackageName() + "/raw/" + R.raw.free;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                    audioManager.getStreamVolume(AudioManager.STREAM_ALARM)/2, 0);
+                    volume/2, 0);
                 break;
         }
 

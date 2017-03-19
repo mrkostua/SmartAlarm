@@ -1,7 +1,4 @@
 package com.example.mathalarm;
-
-import android.util.Log;
-
 import java.util.Calendar;
 
 
@@ -60,4 +57,15 @@ public class CountsTimeToAlarmStart {
         return resultMinutes;
     }
 
+    public static String MinuteHourConvertMethod(int hour,int minute){
+        String sHour = String.valueOf(hour);
+        String sMinute = String.valueOf(minute);
+
+        if(hour ==0)
+            sHour =hour +"0";
+        if(minute<10)
+            sMinute = "0" + minute;
+
+        return sHour +":" + sMinute;
+    }
 }

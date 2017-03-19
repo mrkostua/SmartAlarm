@@ -22,17 +22,16 @@ import com.example.mathalarm.R;
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setContentText("Hello I am alarm")
-                .setContentTitle("MathAlarm")
+                .setContentText(context.getString(R.string.AN_snoozeContentText))
+                .setContentTitle(context.getString(R.string.AN_snoozeContentTitle))
                 .setSmallIcon(R.drawable.ic_alarm_white_36dp)
-                .setTicker("MathAlarm touch to snooze")
+                .setTicker(context.getString(R.string.AN_snoozeTicker))
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setWhen(System.currentTimeMillis())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .addAction(R.drawable.ic_snooze_white_36dp,"snooze",piSnooze)
+                .addAction(R.drawable.ic_snooze_white_36dp,context.getString(R.string.AN_snoozeAction),piSnooze)
                 .setAutoCancel(true);
-        Notification notification = builder.build();
-        return notification;
+        return builder.build();
     }
 
     //notification for WakeLock Service
@@ -44,16 +43,15 @@ import com.example.mathalarm.R;
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setContentText("Alarm was set on " +time)
-                .setContentTitle("MathAlarm")
+                .setContentText(context.getString(R.string.AN_dismissContentText,time))
+                .setContentTitle(context.getString(R.string.AN_dismissContentTitle))
                 .setSmallIcon(R.drawable.ic_alarm_white_36dp)
-                .setTicker("Alarm was set on " + time)
-                .addAction(R.drawable.ic_alarm_off_white_36dp,"dismiss",piDismiss)
+                .setTicker(context.getString(R.string.AN_dismissContentText,time))
+                .addAction(R.drawable.ic_alarm_off_white_36dp,context.getString(R.string.AN_dismissActionText),piDismiss)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis());
-        Notification notification = builder.build();
-        return notification;
+        return builder.build();
     }
     void CancelNotification(Context context, int notificationID) {
         NotificationManager notificationManager = getNotificationManager(context);

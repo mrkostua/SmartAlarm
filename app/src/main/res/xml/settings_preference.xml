@@ -2,11 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
    <PreferenceCategory
-       android:title="@string/preference_sound">
+       android:title="@string/PreferenceCategory_title">
        <VolumePreference
-           android:title="Alarm volume"
-           android:summary="Set the volume of alarms"
-           android:dialogTitle="Alarm volume"
+           android:title="@string/VolumePreference_title"
+           android:summary="@string/PreferenceCategory_summary"
+           android:dialogTitle="@string/VolumePreference_title"
            android:persistent="false"
            android:streamType="alarm"
            android:icon="@drawable/ic_volume_up_white_24dp" />

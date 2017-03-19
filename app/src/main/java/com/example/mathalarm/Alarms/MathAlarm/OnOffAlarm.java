@@ -4,13 +4,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.mathalarm.ShowLogs;
 
 import java.util.Calendar;
 
- class OnOffAlarm {
+import static com.example.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
+
+class OnOffAlarm {
     private int pickedHour, pickedMinute;
     private Context alarmContext;
     private int alarmComplexityLevel, selectedMusic;
@@ -68,21 +69,16 @@ import java.util.Calendar;
 
      void SetNewAlarm() {
          if(ShowLogs.LOG_STATUS)ShowLogs.i( "OnOffAlarm" +"  SetNewAlarm");
-
-        //refresh an instant of calendar to get the exact hour
-        Calendar calendar = null;
-        int currentHour,currentMinute = 0;
-
         //initialize alarmManager
         AlarmManager alarmManager = getAlarmManager();
         /**duplicate in the OnCreate Method (but it is necessary to refresh an instant of calendar
          * and when setting alarm on choose right type of alarm(what is based on the current and
          * picked time)
          */
-        calendar = Calendar.getInstance();
+         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
+         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+         int currentMinute = calendar.get(Calendar.MINUTE);
 
         //setting calendar instance with the hour and minute that we picked on the timerPicker
         calendar.set(Calendar.HOUR_OF_DAY, pickedHour);
@@ -154,8 +150,8 @@ import java.util.Calendar;
 
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(alarmContext,WakeLockService.class);
-        String time = calendar.get(Calendar.HOUR_OF_DAY) + " " + calendar.get(Calendar.MINUTE);
-        wakeLockIntent.putExtra("alarmTimeKey",time);
+
+        wakeLockIntent.putExtra("alarmTimeKey",MinuteHourConvertMethod(Calendar.HOUR_OF_DAY,Calendar.MINUTE));
         alarmContext.startService(wakeLockIntent);
     }
 

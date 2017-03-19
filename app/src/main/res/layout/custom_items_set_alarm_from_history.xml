@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left"
+    android:gravity="start"
     android:background="@color/colorListViewBackground"
     android:id="@+id/llCustomItemsHistory"
     android:weightSum="1">

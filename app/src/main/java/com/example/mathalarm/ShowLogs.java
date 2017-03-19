@@ -3,7 +3,7 @@ package com.example.mathalarm;
 import android.util.Log;
 import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 
-/**
+/** @author Konstantyn
  * Created by Администратор on 14.03.2017.
  */
 

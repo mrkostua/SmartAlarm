@@ -5,20 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.example.mathalarm.ShowLogs;
 
 //manage database creation and version management.
 public class AlarmDBAdapter {
-    private Context context;
     private SQLiteDatabase sqLiteDatabase;
     private DataBaseHelper dataBaseHelper;
 
 
     public AlarmDBAdapter(Context context){
-        this.context = context;
-        dataBaseHelper = new DataBaseHelper(this.context);
+        dataBaseHelper = new DataBaseHelper(context);
     }
 
     private  int hour,minute,ringtoneName,complexityLevel,deepSleepMusicStatus;
@@ -96,16 +92,14 @@ public class AlarmDBAdapter {
     public void DeleteAllRowsAlarmDB(){
         if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"DeleteAllRowsAlarmDB");
         sqLiteDatabase = dataBaseHelper.getWritableDatabase();
-        where = null;
-        sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, where,null);
+        sqLiteDatabase.delete(AlarmDBValues.TABLE_NAME, null,null);
     }
 
     public Cursor GetAllRowsAlarmDB(){
         if(ShowLogs.LOG_STATUS)ShowLogs.i("AlarmDBAdapter "+"GetAllRowsAlarmDB");
         sqLiteDatabase = dataBaseHelper.getReadableDatabase();
-         where = null;
         Cursor cursor = sqLiteDatabase.query(true, AlarmDBValues.TABLE_NAME, AlarmDBValues.ALL_COLUMNS_KEYS,
-                where,null,null,null,null,null);
+                null,null,null,null,null,null);
 
         if(cursor!= null)
             cursor.moveToFirst();

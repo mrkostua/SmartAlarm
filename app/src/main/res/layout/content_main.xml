@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/firstLayout"
         android:layout_toLeftOf="@+id/secondView"
+        android:layout_toStartOf="@+id/secondView"
         android:orientation="vertical">
         <Button
             android:layout_width="fill_parent"
