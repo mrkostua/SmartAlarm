@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -14,6 +15,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.mathalarm.CountsTimeToAlarmStart;
 import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
 import com.example.mathalarm.ShowLogs;
@@ -32,7 +35,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
 
     private TableRow trChangeTime, trChooseMusic, trChangeMessage, trChangeComplexity, trDeepSleepMusic;
-    private TextView  tvChooseMusic, tvChangeAlarmComplexity, tvDeepSleepMusic;
+    private TextView  tvChooseMusic, tvChangeAlarmComplexity, tvDeepSleepMusic,tvPickedTime;
     private EditText etGetAlarmMessageText;
     //values for setting on alarm
     private int pickedHour, pickedMinute =0;
@@ -43,7 +46,7 @@ public class MainMathAlarm extends AppCompatActivity {
     private boolean mpIsPlaying = false;
     private MediaPlayer mediaPlayer;
 
-    private String alarmMessageText = getString(R.string.MMA_defaultAlarmMessageText);
+    private String alarmMessageText = "Good morning sir.";
 
     private String[] alarmComplexityList;
     private int selectedComplexityLevel = 0;
@@ -58,9 +61,14 @@ public class MainMathAlarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_math_alarm);
 
+        alarmMessageText = getString(R.string.edHintGood_morning_sir);
+        ShowLogs.i(alarmMessageText);
+
         tvChooseMusic = (TextView) findViewById(R.id.tvChooseMusic);
         tvChangeAlarmComplexity = (TextView) findViewById(R.id.tvChangeComplexity);
         tvDeepSleepMusic = (TextView) findViewById(R.id.tvDeepSleepMusic);
+         tvPickedTime = (TextView) findViewById(R.id.tvSetTime);
+
 
         trChangeTime = (TableRow) findViewById(R.id.trChangeTime);
         trChooseMusic = (TableRow) findViewById(R.id.trChooseMusic);
@@ -75,7 +83,7 @@ public class MainMathAlarm extends AppCompatActivity {
         openAlarmDB();
         if(UpdateRow_Method()){
             timePickerStatus=true;
-            TvTimePickerSetTextMethod(pickedMinute,pickedHour);
+            tvPickedTime.setText(CountsTimeToAlarmStart.MinuteHourConvertMethod(pickedHour,pickedMinute));
             tvChooseMusic.setText(musicList[selectedMusic]);
             tvAlarmMessageTextSetTextMethod(alarmMessageText);
             tvChangeAlarmComplexity.setText(alarmComplexityList[selectedComplexityLevel]);
@@ -128,8 +136,9 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     public void bCreateMathAlarm_ClickMethod(View view) {
-        final CharSequence[] alarmSettingsItems = {pickedHour + " : " + pickedMinute, musicList[selectedMusic],
-                alarmComplexityList[selectedComplexityLevel],"\"" + alarmMessageText + "\"", deepSleepMusicList[selectedDeepSleepMusic]};
+        final CharSequence[] alarmSettingsItems = {CountsTimeToAlarmStart.MinuteHourConvertMethod(pickedHour,pickedMinute),
+                musicList[selectedMusic], alarmComplexityList[selectedComplexityLevel],
+                "\"" + alarmMessageText + "\"", deepSleepMusicList[selectedDeepSleepMusic]};
         //Check if the time was Picked by user
         if (timePickerStatus) {
             AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this,R.style.alertDialogMainMathAlarmStyle);
@@ -189,8 +198,7 @@ public class MainMathAlarm extends AppCompatActivity {
         return  new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                TvTimePickerSetTextMethod(minute,hourOfDay);
+                tvPickedTime.setText(CountsTimeToAlarmStart.MinuteHourConvertMethod(hourOfDay,minute));
                 pickedHour = hourOfDay;
                 pickedMinute = minute;
                 timePickerStatus = true;
@@ -331,18 +339,6 @@ public class MainMathAlarm extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    private void TvTimePickerSetTextMethod(int minute,int hourOfDay){
-        TextView tvPickedTime;
-        tvPickedTime = (TextView) findViewById(R.id.tvSetTime);
-        //convert minute from 2:5 to  2:05
-        // change text of tvPickedTime to show picked time
-        if (minute < 10) {
-            tvPickedTime.setText("hour: " + hourOfDay + " minute: " + "0" + String.valueOf(minute));
-        } else {
-            tvPickedTime.setText("hour: " + hourOfDay + " minute: " + minute);
-        }
     }
 
     private void tvAlarmMessageTextSetTextMethod(String text){

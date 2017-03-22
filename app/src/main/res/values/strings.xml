@@ -2,7 +2,7 @@
 
     <string name="app_name">MathAlarm</string>
     <string name="action_settings">Settings</string>
-
+    <string name="applicationName">MATH ALARM</string>
 
     <string name="pref_back">Back</string>
     <string name="mathAlarm_buttonName">New Math Alarm</string>
@@ -12,12 +12,12 @@
     <string name="displayAlarmActivity_bSnooze">Snooze</string>
     <string name="displayAlarmActivity_tvTaskHint">solve the equation to stop alarm</string>
     <string name="displayAlarmActivity_bStopAlarmAlertDialog">Your Answer?</string>
+
     <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
     <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
-    <string name="timeHour"> puk<xliff:g id="timeHour">%d</xliff:g></string>
-    <string name="SAFH_Button_Set">set</string>
     <string name="edHintGood_morning_sir">Good morning sir</string>
-    <string name="applicationName">SMART ALARM</string>
+
+
 
     <string name="tvSAFH_delete_all">Delete all</string>
     <string name="tvSAFH_delete_chosen_row">delete chosen row</string>
@@ -27,7 +27,6 @@
     <string name="bMMA_change_time">Change Time</string>
     <string name="tvMMA_defaultMusic">default: Rooster alarm</string>
     <string name="bMMA_chooseMusic">Choose music</string>
-    <string name="tvMMA_defaultMessage">Good morning sir</string>
     <string name="bMMA_change_message">Change message</string>
     <string name="tvMMA_defaultComplexity">default (Easy)</string>
     <string name="bMMA_changeComplexity">Change complexity</string>
@@ -47,7 +46,6 @@
     <string name="AN_snoozeAction">snooze</string>
     <string name="AN_dismissContentTitle">MathAlarm</string>
     <string name="AN_dismissActionText">dismiss</string>
-    <string name="MMA_defaultAlarmMessageText">Good morning sir.</string>
     <string name="AN_dismissContentText">Alarm was set on <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">try</string>
     <string name="DAA_stopAlarmNegativeButtonText">back</string>

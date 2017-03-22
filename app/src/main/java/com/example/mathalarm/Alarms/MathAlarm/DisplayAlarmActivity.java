@@ -70,7 +70,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
         MathAlarmTaskGenerator mathAlarmTaskGenerator = new MathAlarmTaskGenerator();
         Intent intent = getIntent();
         int alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel",0);
-        //0-easy,1-medium
+        //0-easy,1-medium, 2-hard, 3-unbelievably hard
         switch (alarmComplexityLevel) {
             case 0:
                 mathAlarmTaskGenerator.GeneratorEquation(0);
@@ -91,7 +91,22 @@ public class DisplayAlarmActivity extends AppCompatActivity {
 
                 if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Medium:" + String.valueOf(iAnswer));
                 break;
+            case 2:
+                mathAlarmTaskGenerator.GeneratorEquation(2);
+                iAnswer = mathAlarmTaskGenerator.ResultGetter();
+                tvTaskToSolve.setText("("+String.valueOf(mathAlarmTaskGenerator.Number1Getter())+" " +
+                        mathAlarmTaskGenerator.SymbolGetter() + " "
+                        + String.valueOf(mathAlarmTaskGenerator.Number2Getter())+")");
 
+                tvNumber3.setText(mathAlarmTaskGenerator.Symbol2Getter() + " ("
+                        + String.valueOf(mathAlarmTaskGenerator.Number3Getter()) + ")^" + mathAlarmTaskGenerator.PowerNumberGetter());
+
+                if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"Hard:" + String.valueOf(iAnswer));
+                break;
+
+            case 3:
+
+                break;
             default:
                 if(ShowLogs.LOG_STATUS)ShowLogs.i("DisplayAlarmActivity "+"default (complexity error):" + iAnswer);
                 break;
@@ -165,7 +180,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
 
     private void tvAlarmMessageText_EditorMethod() {
         Intent intent = getIntent();
-        String alarmMessageText = intent.getExtras().getString("alarmMessageText",getString(R.string.tvMMA_defaultMessage));
+        String alarmMessageText = intent.getExtras().getString("alarmMessageText",getString(R.string.edHintGood_morning_sir));
 
         TextView tvStartedAlarmMessageText = (TextView) findViewById(R.id.tvStartedAlarmMessageText);
         tvStartedAlarmMessageText.setText("\"" + alarmMessageText +"\"");

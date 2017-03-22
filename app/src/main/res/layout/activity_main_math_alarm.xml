@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/tvChangeMessage"
                 android:layout_column="2"
-                android:text="@string/tvMMA_defaultMessage"
+                android:text="@string/edHintGood_morning_sir"
                 android:padding="20dip"
                 android:gravity="center"
                 android:textColor="@color/white"

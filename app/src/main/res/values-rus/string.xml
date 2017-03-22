@@ -2,19 +2,61 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">MathAlarm</string>
-    <string name="action_settings">Ustawienia</string>
-    <string name="preference_settings">Ustawienia</string>
+    <string name="action_settings">Настройки</string>
+    <string name="preference_settings">Настройки</string>
 
 
-    <string name="mathAlarm_buttonName">New Math Alarm</string>
-    <string name="setFromHistory_buttonName">Set from history</string>
-    <string name="false_answers_display_alarm_activity">If false answers more then 2 show new task.</string>
-    <string name="displayAlarmActivity_bStopAlarm">Stop Alarm</string>
-    <string name="displayAlarmActivity_bSnooze">Snooze</string>
-    <string name="displayAlarmActivity_tvTaskHint">solve the equation to stop alarm</string>
-    <string name="displayAlarmActivity_bStopAlarmAlertDialog">Your Answer?</string>
-    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
-    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+    <string name="mathAlarm_buttonName">Создать  будильник</string>
+    <string name="setFromHistory_buttonName">Установить с истории</string>
+    <string name="false_answers_display_alarm_activity">После двух неправильных ответов, задание будет заменено</string>
+    <string name="displayAlarmActivity_bStopAlarm">Выключить будильник</string>
+    <string name="displayAlarmActivity_bSnooze">Отложить</string>
+    <string name="displayAlarmActivity_tvTaskHint">Реши уравнение чтобы установить будильник</string>
+    <string name="displayAlarmActivity_bStopAlarmAlertDialog">Твой ответ? </string>
+
+    <string name="edHintGood_morning_sir">Доброе утро</string>
+    <string name="applicationName">SMART ALARM</string>
+
+    <string name="tvSAFH_delete_all">Удалить все</string>
+    <string name="tvSAFH_delete_chosen_row">Удалить выбранный</string>
+
+
+    <string name="tvMMA_customTime">час:00 минута:00</string>
+    <string name="bMMA_change_time">Задать время</string>
+    <string name="tvMMA_defaultMusic">по умолчанию: Rooster alarm</string>
+    <string name="bMMA_chooseMusic">Вибрать мелодию</string>
+    <string name="bMMA_change_message">Изменить приветсвие</string>
+    <string name="tvMMA_defaultComplexity">по умолчанию (легкий)</string>
+    <string name="bMMA_changeComplexity">Изменить сложность</string>
+    <string name="bMMA_defaultDeepSleepMusicStatus">выключен</string>
+    <string name="bMMA_deep_sleep_music">Глубокий сон побутка</string>
+
+    <string name="VolumePreference_title">Громкость будильника</string>
+    <string name="PreferenceCategory_summary">Задать громкость будильника</string>
+    <string name="PreferenceCategory_title">Звуки</string>
+
+    <string name="AN_snoozeContentText">Hello I am alarm</string>
+
+
+    <string name="WA_progressStatus">Прогрес: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
+    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeTicker">Нажми чтобы отложыть будильник</string>
+    <string name="AN_snoozeAction">отложыть</string>
+    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissActionText">выключить</string>
+    <string name="AN_dismissContentText">Будильник был установлен на <xliff:g id="alarmSetTime">%s</xliff:g></string>
+    <string name="DAA_stopAlarmPositiveButtonText">попробуй</string>
+    <string name="DAA_stopAlarmNegativeButtonText">назад</string>
+    <string name="MMA_alertDialogAlarmPreview_Title">Предварительный просмотр</string>
+    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Подтвердить</string>
+    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Назад</string>
+    <string name="MMA_timeNotSetToastText">Чтобы создать новый будильник сначало нужно задать время "Задать время"</string>
+    <string name="MMA_alertDialogAlarmMessageText_Title">Write a message for yourself</string>
+    <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ок</string>
+    <string name="MMA_alertDialogAlarmMusic_Title">Выбрать мелодию</string>
+    <string name="MMA_alertDialogAlarmMusic_PositiveButton">Хорошо</string>
+    <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Хочеш включить побутку* з глубокого сна?</string>
+    <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Подходит</string>
 
 
 </resources>

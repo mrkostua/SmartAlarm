@@ -13,6 +13,49 @@
     <string name="displayAlarmActivity_bSnooze">Odłożyć</string>
     <string name="displayAlarmActivity_tvTaskHint">rozwiąż zadanie żeby wyłączyć budizk</string>
     <string name="displayAlarmActivity_bStopAlarmAlertDialog">Twoja odpowiedź?</string>
-    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
-    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+
+    <string name="edHintGood_morning_sir">Dzień dobry</string>
+
+    <string name="tvSAFH_delete_all">Usunąć wszystkie</string>
+    <string name="tvSAFH_delete_chosen_row">usunąć wybraną rząd</string>
+
+
+    <string name="tvMMA_customTime">godzina:00 minuta:00</string>
+    <string name="bMMA_change_time">Ustawić czas</string>
+    <string name="tvMMA_defaultMusic">domyślny: Rooster alarm</string>
+    <string name="bMMA_chooseMusic">Ustawić muzykę</string>
+    <string name="bMMA_change_message">Zmienić powotanie</string>
+    <string name="tvMMA_defaultComplexity">domyślny (łatwy)</string>
+    <string name="bMMA_changeComplexity">Zmienić złożoność</string>
+    <string name="bMMA_defaultDeepSleepMusicStatus">wyłączony</string>
+    <string name="bMMA_deep_sleep_music">Głeboki sen pobutka</string>
+
+    <string name="VolumePreference_title">Głośność budzika</string>
+    <string name="PreferenceCategory_summary">Ustawić głośność budzika</string>
+    <string name="PreferenceCategory_title">Dzwięk</string>
+
+
+    <string name="AN_snoozeContentText">Hello I am alarm</string>
+
+
+    <string name="WA_progressStatus">Postęp: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
+    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeTicker">Dotknij żeby odłożyć budzik</string>
+    <string name="AN_snoozeAction">odłożyć</string>
+    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissActionText">wyłączyć</string>
+
+    <string name="AN_dismissContentText">Budzik był ustawiony na <xliff:g id="alarmSetTime">%s</xliff:g></string>
+    <string name="DAA_stopAlarmPositiveButtonText">sprobuj</string>
+    <string name="DAA_stopAlarmNegativeButtonText">powrót</string>
+    <string name="MMA_alertDialogAlarmPreview_Title">Przegłąd</string>
+    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Potwierdzić</string>
+    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Powrót</string>
+    <string name="MMA_timeNotSetToastText">Żeby stworzyć nowy budzik, obowiązkowe jest ustawienia czasu "Ustawić czas"</string>
+    <string name="MMA_alertDialogAlarmMessageText_Title">Napisz powitanie dla siebie, które zostanie wyświetlone z budzikiem</string>
+    <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ok</string>
+    <string name="MMA_alertDialogAlarmMusic_Title">Wybierz muzykę dla budzika</string>
+    <string name="MMA_alertDialogAlarmMusic_PositiveButton">Dobrze</string>
+    <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Chcesz włączyć pobudkę z głebokiego snu?</string>
+    <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Dobrze</string>
 </resources>
