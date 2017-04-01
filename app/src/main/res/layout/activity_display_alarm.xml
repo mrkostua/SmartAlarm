@@ -9,32 +9,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mathalarm.Alarms.MathAlarm.DisplayAlarmActivity"
-    android:background="#6a5fbe">
-
-
-    <ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="104dp"
-    android:id="@+id/scrollViewContainerStartedAlarmMessage"
-        android:layout_marginTop="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-    <TextView
-        android:text="Alarm message"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#202e62"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvStartedAlarmMessageText" />
-    </ScrollView>
+    android:background="#36584f">
 
 
     <TextView
         android:text=""
-        android:textColor="#5f9f00"
+        android:textColor="#14ae00"
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -49,7 +29,7 @@
 
     <TextView
         android:text=""
-        android:textColor="#601f14"
+        android:textColor="#934700"
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -61,7 +41,7 @@
         android:layout_toEndOf="@+id/tvTaskToSolve" />
     <TextView
         android:text="@string/displayAlarmActivity_tvTaskHint"
-        android:textColor="#98202e62"
+        android:textColor="#980035fa"
         android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,8 +64,7 @@
         android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="49dp" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -97,8 +76,25 @@
         android:textColor="#afafaf"
         android:id="@+id/bSnoozeAlarm"
         android:onClick="bSnoozeAlarm_OnClickListener"
-        android:layout_alignBottom="@+id/bStopAlarm"
+        android:layout_above="@+id/bStopAlarm"
+        android:layout_toRightOf="@+id/tvTaskToSolve"
+        android:layout_toEndOf="@+id/tvTaskToSolve" />
+
+    <ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="104dp"
+    android:id="@+id/scrollViewContainerStartedAlarmMessage"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="73dp" />
+        android:layout_alignParentStart="true">
+    <TextView
+        android:text=""
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#001150"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvStartedAlarmMessageText" />
+    </ScrollView>
 </RelativeLayout>

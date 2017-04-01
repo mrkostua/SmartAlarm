@@ -59,4 +59,6 @@
     <string name="MMA_alertDialogAlarmMusic_PositiveButton">Good</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Choose music for Alarm</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Good</string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+    <string name="create">Create</string>
 </resources>

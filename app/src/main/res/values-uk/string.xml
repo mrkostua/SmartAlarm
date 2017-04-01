@@ -6,7 +6,7 @@
 
 
     <string name="mathAlarm_buttonName">Новий будильник</string>
-    <string name="setFromHistory_buttonName">Установити з іторії</string>
+    <string name="setFromHistory_buttonName">Уставновити з історії</string>
     <string name="false_answers_display_alarm_activity">Після двух неправильних відповідей, завдання змінеться</string>
     <string name="displayAlarmActivity_bStopAlarm">Вимкнкути будильник</string>
     <string name="displayAlarmActivity_bSnooze">Відкласти будильник</string>
@@ -30,7 +30,7 @@
     <string name="tvMMA_defaultComplexity">стандартний (легкий)</string>
     <string name="bMMA_changeComplexity">Змінити складність</string>
     <string name="bMMA_defaultDeepSleepMusicStatus">відключено</string>
-    <string name="bMMA_deep_sleep_music">Побутка з глубокого сну</string>
+    <string name="bMMA_deep_sleep_music">Тиха побутка</string>
 
     <string name="VolumePreference_title">Гучність будильника</string>
     <string name="PreferenceCategory_summary">Встановити гучність будильника</string>
@@ -58,4 +58,24 @@
     <string name="MMA_alertDialogAlarmMusic_PositiveButton">Підходить</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Хочеш включити побудку з глубокого сну ?</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Добре</string>
+
+    <string name="create">Створити</string>
+
+
+
+    <string-array name="deepSleepMusic_list">
+        <item>Виключено</item>
+        <item>Включено</item>
+    </string-array>
+    <string-array name="music_list">
+        <item>мелодія 1</item>
+        <item>мелодія 2</item>
+    </string-array>
+
+    <string-array name="alarm_complexity_list">
+        <item>легкий</item>
+        <item>середній</item>
+        <item>складний</item>
+        <item>ппц складний</item>
+    </string-array>
 </resources>

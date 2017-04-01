@@ -171,7 +171,6 @@ public class MathAlarmService extends Service {
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                         audioManager.getStreamVolume(AudioManager.STREAM_ALARM), 0);
                 break;
-
             case "deepSleepMusic":
                 musicResourceID = getPackageName() + "/raw/" + R.raw.free;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,

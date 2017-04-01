@@ -28,7 +28,7 @@
     <string name="tvMMA_defaultComplexity">domyślny (łatwy)</string>
     <string name="bMMA_changeComplexity">Zmienić złożoność</string>
     <string name="bMMA_defaultDeepSleepMusicStatus">wyłączony</string>
-    <string name="bMMA_deep_sleep_music">Głeboki sen pobutka</string>
+    <string name="bMMA_deep_sleep_music">Cicha pobudtka</string>
 
     <string name="VolumePreference_title">Głośność budzika</string>
     <string name="PreferenceCategory_summary">Ustawić głośność budzika</string>
@@ -58,4 +58,6 @@
     <string name="MMA_alertDialogAlarmMusic_PositiveButton">Dobrze</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Chcesz włączyć pobudkę z głebokiego snu?</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Dobrze</string>
+
+    <string name="create">Stworzyć</string>
 </resources>

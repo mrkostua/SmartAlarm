@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.widget.Toast;
 import com.example.mathalarm.CountsTimeToAlarmStart;
+import com.example.mathalarm.R;
 import com.example.mathalarm.ShowLogs;
 import com.example.mathalarm.firstsScreens.MainActivity;
 
@@ -48,9 +49,10 @@ class MathAlarmPreview  {
         CountsTimeToAlarmStart countsTimeToAlarmStart = new CountsTimeToAlarmStart();
         countsTimeToAlarmStart.HowMuchTimeToStart(pickedHour,pickedMinute);
 
-        Toast Toast_timeLeftToAlarmStart = Toast.makeText(activityContext, "   Until boom    "
-                + countsTimeToAlarmStart.getResultHours() + " hours :"
-                + countsTimeToAlarmStart.getResultMinutes() + "  minutes", Toast.LENGTH_LONG);
+        Toast Toast_timeLeftToAlarmStart = Toast.makeText(activityContext,
+                activityContext.getString(R.string.MAP_Toast_timeLeftToAlarmStart,
+                CountsTimeToAlarmStart.MinuteHourConvertMethod(countsTimeToAlarmStart.getResultHours(),countsTimeToAlarmStart.getResultMinutes() ))
+             , Toast.LENGTH_LONG);
         Toast_timeLeftToAlarmStart.setGravity(Gravity.TOP | Gravity.START, 0, 0);
         Toast_timeLeftToAlarmStart.show();
     }

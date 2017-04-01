@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity
     private Button bMathAlarm;
     Animation animationShake;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

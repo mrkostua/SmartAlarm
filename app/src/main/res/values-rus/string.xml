@@ -29,7 +29,7 @@
     <string name="tvMMA_defaultComplexity">по умолчанию (легкий)</string>
     <string name="bMMA_changeComplexity">Изменить сложность</string>
     <string name="bMMA_defaultDeepSleepMusicStatus">выключен</string>
-    <string name="bMMA_deep_sleep_music">Глубокий сон побутка</string>
+    <string name="bMMA_deep_sleep_music">Тихая побутка</string>
 
     <string name="VolumePreference_title">Громкость будильника</string>
     <string name="PreferenceCategory_summary">Задать громкость будильника</string>
@@ -57,6 +57,8 @@
     <string name="MMA_alertDialogAlarmMusic_PositiveButton">Хорошо</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_Title">Хочеш включить побутку* з глубокого сна?</string>
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Подходит</string>
+
+    <string name="create">Cоздать</string>
 
 
 </resources>

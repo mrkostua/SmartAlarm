@@ -15,19 +15,4 @@
         <item>hard</item>
         <item>unbelievably hard</item>
     </string-array>
-
-
-    <string-array name="listArray_ofLanguages">
-        <item>English</item>
-        <item>Українська</item>
-        <item>Русский</item>
-        <item>Polski</item>
-    </string-array>
-
-    <string-array name="listValues_ofLanguages">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
 </resources>

@@ -68,8 +68,6 @@ public class MainMathAlarm extends AppCompatActivity {
         tvChangeAlarmComplexity = (TextView) findViewById(R.id.tvChangeComplexity);
         tvDeepSleepMusic = (TextView) findViewById(R.id.tvDeepSleepMusic);
          tvPickedTime = (TextView) findViewById(R.id.tvSetTime);
-
-
         trChangeTime = (TableRow) findViewById(R.id.trChangeTime);
         trChooseMusic = (TableRow) findViewById(R.id.trChooseMusic);
         trChangeMessage = (TableRow) findViewById(R.id.trChangeMessage);
