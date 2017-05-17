@@ -19,6 +19,7 @@
 
     <string name="tvSAFH_delete_all">Удалить все</string>
     <string name="tvSAFH_delete_chosen_row">Удалить выбранный</string>
+    <string name="pref_back">Назад</string>
 
 
     <string name="tvMMA_customTime">час:00 минута:00</string>
@@ -59,6 +60,11 @@
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Подходит</string>
 
     <string name="create">Cоздать</string>
+    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
+    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+
+    <string name="good_morning">Доброе утро</string>
 
 
 </resources>

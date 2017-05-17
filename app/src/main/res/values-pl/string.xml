@@ -4,6 +4,9 @@
     <string name="app_name">SmartAlarm</string>
     <string name="action_settings">Ustawienia</string>
     <string name="preference_settings">Ustawienia</string>
+    <string name="applicationName">Smart Alarm</string>
+    <string name="pref_back">Powrót</string>
+
 
 
     <string name="mathAlarm_buttonName">Nowy budzik</string>
@@ -60,4 +63,11 @@
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Dobrze</string>
 
     <string name="create">Stworzyć</string>
+
+    <string name="number3Add">+ <xliff:g id="number3Add">%d</xliff:g></string>
+    <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+
+    <string name="good_morning">Witam</string>
+
 </resources>
