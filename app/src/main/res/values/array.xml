@@ -5,14 +5,15 @@
         <item>ON</item>
     </string-array>
     <string-array name="music_list">
-        <item>ringtone1</item>
-        <item>ringtone2</item>
+        <item>mechanic clock ringtone</item>
+        <item>energy ringtone</item>
+        <item>alarm ringtone</item>
+        <item>digital clock ringtone</item>
     </string-array>
 
     <string-array name="alarm_complexity_list">
         <item>easy</item>
         <item>medium</item>
         <item>hard</item>
-        <item>unbelievably hard</item>
     </string-array>
 </resources>

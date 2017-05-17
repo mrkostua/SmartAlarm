@@ -1,8 +1,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">MathAlarm</string>
+    <string name="app_name">SmartAlarm</string>
     <string name="action_settings">Settings</string>
-    <string name="applicationName">MATH ALARM</string>
+    <string name="applicationName">Smart Alarm</string>
 
     <string name="pref_back">Back</string>
     <string name="mathAlarm_buttonName">New Math Alarm</string>
@@ -25,7 +25,7 @@
 
     <string name="tvMMA_customTime">hour:00 minute:00</string>
     <string name="bMMA_change_time">Change Time</string>
-    <string name="tvMMA_defaultMusic">default: Rooster alarm</string>
+    <string name="tvMMA_defaultMusic">default: mechanic</string>
     <string name="bMMA_chooseMusic">Choose music</string>
     <string name="bMMA_change_message">Change message</string>
     <string name="tvMMA_defaultComplexity">default (Easy)</string>
@@ -41,10 +41,10 @@
 
     <string name="WA_progressStatus">Progress: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
     <string name="AN_snoozeContentText">Hello I am alarm</string>
-    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
     <string name="AN_snoozeTicker">MathAlarm touch to snooze</string>
     <string name="AN_snoozeAction">snooze</string>
-    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissContentTitle">SmartAlarm</string>
     <string name="AN_dismissActionText">dismiss</string>
     <string name="AN_dismissContentText">Alarm was set on <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">try</string>
@@ -61,4 +61,5 @@
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Good</string>
     <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
     <string name="create">Create</string>
+    <string name="good_morning">Good Morning</string>
 </resources>

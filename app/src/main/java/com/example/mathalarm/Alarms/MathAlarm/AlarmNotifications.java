@@ -26,7 +26,7 @@ import com.example.mathalarm.R;
                 .setContentTitle(context.getString(R.string.AN_snoozeContentTitle))
                 .setSmallIcon(R.drawable.ic_alarm_white_36dp)
                 .setTicker(context.getString(R.string.AN_snoozeTicker))
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.alarm_icon_test))
                 .setWhen(System.currentTimeMillis())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_snooze_white_36dp,context.getString(R.string.AN_snoozeAction),piSnooze)
@@ -48,7 +48,7 @@ import com.example.mathalarm.R;
                 .setSmallIcon(R.drawable.ic_alarm_white_36dp)
                 .setTicker(context.getString(R.string.AN_dismissContentText,time))
                 .addAction(R.drawable.ic_alarm_off_white_36dp,context.getString(R.string.AN_dismissActionText),piDismiss)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_math_alarm))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.alarm_icon_test))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis());
         return builder.build();

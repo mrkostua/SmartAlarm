@@ -20,6 +20,8 @@ import com.example.mathalarm.ShowLogs;
 
 import java.io.IOException;
 
+import static com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm.ALARM_RINGTONE_NAMES;
+
 
 public class MathAlarmService extends Service {
     private static final int ALARM_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
@@ -109,7 +111,7 @@ public class MathAlarmService extends Service {
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
         String[] musicList = getResources().getStringArray(R.array.music_list);
-        musicResourceID = getPackageName() + "/raw/" + musicList[selectedMusic];
+        musicResourceID = getPackageName() + "/raw/" + ALARM_RINGTONE_NAMES[selectedMusic];
          selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic",0);
 
         if (alarmCondition) {

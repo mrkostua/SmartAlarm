@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -24,6 +23,9 @@ import com.example.mathalarm.ShowLogs;
 import java.util.Calendar;
 
 public class MainMathAlarm extends AppCompatActivity {
+
+    public static final String[] ALARM_RINGTONE_NAMES = {"mechanic_clock","energy","loud","digital_clock"};
+
 
     public static final String ALARM_SNOOZE_ACTION = "alarm_snooze";
     public static final String ALARM_DISMISS_ACTION = "alarm_dismiss";
@@ -251,7 +253,7 @@ public class MainMathAlarm extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         selectedMusic = which;
                         Context getContext = getApplicationContext();
-                        int musicPackedName = getContext.getResources().getIdentifier(musicList[which], "raw",
+                        int musicPackedName = getContext.getResources().getIdentifier(ALARM_RINGTONE_NAMES[which], "raw",
                                 getContext.getPackageName());
                         try {
                             if (!mpIsPlaying) {

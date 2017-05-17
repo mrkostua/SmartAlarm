@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">MathAlarm</string>
+    <string name="app_name">SmartAlarm</string>
     <string name="action_settings">Налаштування</string>
     <string name="preference_settings">Налаштування</string>
 
@@ -16,7 +16,7 @@
     <string name="number3Subtract">- <xliff:g id="number3Subtract">%d</xliff:g></string>
 
     <string name="edHintGood_morning_sir">Добрий ранок</string>
-    <string name="applicationName">SMART ALARM</string>
+    <string name="applicationName">SmartAlarm</string>
 
     <string name="tvSAFH_delete_all">Видалити все </string>
     <string name="tvSAFH_delete_chosen_row">видалити вибраний рядок</string>
@@ -24,7 +24,7 @@
 
     <string name="tvMMA_customTime">година:00 хвилина:00</string>
     <string name="bMMA_change_time">Встановити час</string>
-    <string name="tvMMA_defaultMusic">стандартна: Rooster alarm</string>
+    <string name="tvMMA_defaultMusic">стандартна: механічний</string>
     <string name="bMMA_chooseMusic">Вибрати мелодію</string>
     <string name="bMMA_change_message">Змінити вітання</string>
     <string name="tvMMA_defaultComplexity">стандартний (легкий)</string>
@@ -36,14 +36,14 @@
     <string name="PreferenceCategory_summary">Встановити гучність будильника</string>
     <string name="PreferenceCategory_title">Звук</string>
 
-    <string name="AN_snoozeContentText">Hello I am alarm</string>
+    <string name="AN_snoozeContentText">Привіт я будильник :) </string>
 
 
     <string name="WA_progressStatus">Прогрес: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
-    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
     <string name="AN_snoozeTicker">Натисни щоб відкласти будильник</string>
     <string name="AN_snoozeAction">відкласти</string>
-    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissContentTitle">SmartAlarm</string>
     <string name="AN_dismissActionText">відключити</string>
     <string name="AN_dismissContentText">Будильник був встановленний на  <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">спробуй</string>
@@ -60,22 +60,4 @@
     <string name="MMA_alertDialogAlarmDeepSleepMusic_PositiveButton">Добре</string>
 
     <string name="create">Створити</string>
-
-
-
-    <string-array name="deepSleepMusic_list">
-        <item>Виключено</item>
-        <item>Включено</item>
-    </string-array>
-    <string-array name="music_list">
-        <item>мелодія 1</item>
-        <item>мелодія 2</item>
-    </string-array>
-
-    <string-array name="alarm_complexity_list">
-        <item>легкий</item>
-        <item>середній</item>
-        <item>складний</item>
-        <item>ппц складний</item>
-    </string-array>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">MathAlarm</string>
+    <string name="app_name">SmartAlarm</string>
     <string name="action_settings">Ustawienia</string>
     <string name="preference_settings">Ustawienia</string>
 
@@ -22,7 +22,7 @@
 
     <string name="tvMMA_customTime">godzina:00 minuta:00</string>
     <string name="bMMA_change_time">Ustawić czas</string>
-    <string name="tvMMA_defaultMusic">domyślny: Rooster alarm</string>
+    <string name="tvMMA_defaultMusic">domyślny:mechainczny</string>
     <string name="bMMA_chooseMusic">Ustawić muzykę</string>
     <string name="bMMA_change_message">Zmienić powotanie</string>
     <string name="tvMMA_defaultComplexity">domyślny (łatwy)</string>
@@ -39,10 +39,10 @@
 
 
     <string name="WA_progressStatus">Postęp: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
-    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
     <string name="AN_snoozeTicker">Dotknij żeby odłożyć budzik</string>
     <string name="AN_snoozeAction">odłożyć</string>
-    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissContentTitle">SmartAlarm</string>
     <string name="AN_dismissActionText">wyłączyć</string>
 
     <string name="AN_dismissContentText">Budzik był ustawiony na <xliff:g id="alarmSetTime">%s</xliff:g></string>

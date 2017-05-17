@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.mathalarm.R;
 import com.example.mathalarm.SQLDataBase.AlarmDBValues;
+import com.example.mathalarm.ShowLogs;
 
 /**
  * @author Konstantyn
@@ -32,16 +33,21 @@ import com.example.mathalarm.SQLDataBase.AlarmDBValues;
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
          TextView tvHistoryAlarmHour,tvHistoryAlarmMinute;
-         int hour,minute;
-         String name;
+         int hour =0,minute =0;
+         String name ="";
 
          tvHistoryAlarmHour = (TextView) view.findViewById(R.id.tvHistoryAlarmHour);
          tvHistoryAlarmMinute = (TextView) view.findViewById(R.id.tvHistoryAlarmMinute);
          tvHistoryAlarmName = (TextView) view.findViewById(R.id.tvHistoryAlarmName);
-
+        try{
          name = "\"" + cursor.getString(cursor.getColumnIndexOrThrow(AlarmDBValues.COLUMN_MESSAGE_TEXT)) + "\"";
           hour = cursor.getInt(cursor.getColumnIndexOrThrow(AlarmDBValues.COLUMN_HOUR));
          minute =cursor.getInt(cursor.getColumnIndexOrThrow(AlarmDBValues.COLUMN_MINUTE));
+        }
+        catch (IllegalArgumentException e){
+            ShowLogs.i("CursorAdapterOverrider IllegalArgumentException");
+        }
+
         if(minute<10)
             tvHistoryAlarmMinute.setText(": "+"0"+minute);
         else

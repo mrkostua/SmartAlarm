@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="deepSleepMusic_list">
+        <item>włącz</item>
+        <item>wyłącz</item>
+    </string-array>
+
+    <string-array name="music_list">
+        <item>dźwięk budzika mechaincznego</item>
+        <item>dźwięk energii</item>
+        <item>dźwięk alarmu nuklearnego</item>
+        <item>dźwięk budziku cyfrowego</item>
+    </string-array>
+
+    <string-array name="alarm_complexity_list">
+        <item>łatwy</item>
+        <item>średni</item>
+        <item>ciężki</item>
+    </string-array>
+</resources>

@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/tvHistoryAlarmName"
-        android:text="Good Morning"
+        android:text="@string/good_morning"
         android:textSize="20sp"
         android:maxLength="14"
         android:textColor="#030170"
@@ -18,12 +18,14 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
       />
 
     <TextView
         android:id="@+id/tvHistoryAlarmHour"
-        android:text="14 "
+        android:text=""
         android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:textStyle="bold"
         android:maxLength="5"
         android:textSize="20sp"
@@ -34,8 +36,9 @@
 
     <TextView
         android:id="@+id/tvHistoryAlarmMinute"
-        android:text=": 22"
+        android:text=""
         android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:maxLength="5"
         android:textStyle="bold"
         android:textSize="20sp"

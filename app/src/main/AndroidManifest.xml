@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mathalarm">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -8,12 +12,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo_math_alarm"
+        android:icon="@mipmap/alarm_icon_test"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".firstsScreens.WelcomeActivity"
+            android:name=".firstsScreens.MainActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -31,12 +35,6 @@
             android:label="@string/preference_settings"
             android:screenOrientation="portrait"
             android:theme="@style/Preference_style" />
-        <activity
-            android:name=".firstsScreens.MainActivity"
-            android:configChanges="keyboard|orientation|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Alarms.MathAlarm.MainMathAlarm"
             android:configChanges="keyboard|orientation|screenSize"

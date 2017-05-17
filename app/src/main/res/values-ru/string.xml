@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">MathAlarm</string>
+    <string name="app_name">SmartAlarm</string>
     <string name="action_settings">Настройки</string>
     <string name="preference_settings">Настройки</string>
 
@@ -15,7 +15,7 @@
     <string name="displayAlarmActivity_bStopAlarmAlertDialog">Твой ответ? </string>
 
     <string name="edHintGood_morning_sir">Доброе утро</string>
-    <string name="applicationName">SMART ALARM</string>
+    <string name="applicationName">SmartAlarm</string>
 
     <string name="tvSAFH_delete_all">Удалить все</string>
     <string name="tvSAFH_delete_chosen_row">Удалить выбранный</string>
@@ -23,7 +23,7 @@
 
     <string name="tvMMA_customTime">час:00 минута:00</string>
     <string name="bMMA_change_time">Задать время</string>
-    <string name="tvMMA_defaultMusic">по умолчанию: Rooster alarm</string>
+    <string name="tvMMA_defaultMusic">по умолчанию: механический</string>
     <string name="bMMA_chooseMusic">Вибрать мелодию</string>
     <string name="bMMA_change_message">Изменить приветсвие</string>
     <string name="tvMMA_defaultComplexity">по умолчанию (легкий)</string>
@@ -39,10 +39,10 @@
 
 
     <string name="WA_progressStatus">Прогрес: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
-    <string name="AN_snoozeContentTitle">MathAlarm</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
     <string name="AN_snoozeTicker">Нажми чтобы отложыть будильник</string>
     <string name="AN_snoozeAction">отложыть</string>
-    <string name="AN_dismissContentTitle">MathAlarm</string>
+    <string name="AN_dismissContentTitle">SmartAlarm</string>
     <string name="AN_dismissActionText">выключить</string>
     <string name="AN_dismissContentText">Будильник был установлен на <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">попробуй</string>
