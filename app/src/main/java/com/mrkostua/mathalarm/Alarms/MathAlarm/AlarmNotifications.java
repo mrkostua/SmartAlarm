@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
-import com.example.mathalarm.R;
+import com.mrkostua.mathalarm.R;
 
   class AlarmNotifications {
 

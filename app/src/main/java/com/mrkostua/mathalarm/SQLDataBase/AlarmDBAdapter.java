@@ -1,11 +1,11 @@
-package com.example.mathalarm.SQLDataBase;
+package com.mrkostua.mathalarm.SQLDataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogs;
 
 //manage database creation and version management.
 public class AlarmDBAdapter {

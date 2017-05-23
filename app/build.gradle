@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.mathalarm"
+        applicationId "com.mrkostua.mathalarm"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1

@@ -1,4 +1,4 @@
-package com.example.mathalarm;
+package com.mrkostua.mathalarm;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

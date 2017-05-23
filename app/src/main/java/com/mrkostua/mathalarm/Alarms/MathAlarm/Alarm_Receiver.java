@@ -1,12 +1,12 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.mathalarm.ShowLogs;
-import com.example.mathalarm.firstsScreens.MainActivity;
+import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
 
 public class Alarm_Receiver extends BroadcastReceiver

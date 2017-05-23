@@ -1,4 +1,4 @@
-package com.example.mathalarm.firstsScreens;
+package com.mrkostua.mathalarm.firstsScreens;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm;
-import com.example.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
-import com.example.mathalarm.R;
-import com.example.mathalarm.Settings_Preference;
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.Settings_Preference;
+import com.mrkostua.mathalarm.ShowLogs;
 
 public class MainActivity extends AppCompatActivity
 {

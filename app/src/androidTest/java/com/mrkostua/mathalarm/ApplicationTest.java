@@ -1,4 +1,4 @@
-package com.example.mathalarm;
+package com.mrkostua.mathalarm;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

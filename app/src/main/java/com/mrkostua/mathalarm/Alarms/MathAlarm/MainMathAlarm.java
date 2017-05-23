@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,10 +15,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.mathalarm.CountsTimeToAlarmStart;
-import com.example.mathalarm.R;
-import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.CountsTimeToAlarmStart;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;
+import com.mrkostua.mathalarm.ShowLogs;
 
 import java.util.Calendar;
 
@@ -33,7 +33,7 @@ public class MainMathAlarm extends AppCompatActivity {
     /**
      *  LOG_DEBUG_STATUS true for debug mode, false for production.
      */
-    public static final boolean LOG_DEBUG_STATUS  = false;
+    public static final boolean LOG_DEBUG_STATUS  = true;
 
 
     private TableRow trChangeTime, trChooseMusic, trChangeMessage, trChangeComplexity, trDeepSleepMusic;

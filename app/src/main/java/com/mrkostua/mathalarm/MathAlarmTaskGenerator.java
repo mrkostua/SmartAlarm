@@ -1,4 +1,4 @@
-package com.example.mathalarm;
+package com.mrkostua.mathalarm;
 
 import java.util.Random;
 

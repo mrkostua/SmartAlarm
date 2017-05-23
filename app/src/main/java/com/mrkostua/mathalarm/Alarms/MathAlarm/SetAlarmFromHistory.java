@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.mathalarm.R;
-import com.example.mathalarm.SQLDataBase.AlarmDBAdapter;
-import com.example.mathalarm.SQLDataBase.AlarmDBValues;
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;
+import com.mrkostua.mathalarm.SQLDataBase.AlarmDBValues;
+import com.mrkostua.mathalarm.ShowLogs;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
 

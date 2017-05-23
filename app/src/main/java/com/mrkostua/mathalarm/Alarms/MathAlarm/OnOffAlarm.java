@@ -1,15 +1,15 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogs;
 
 import java.util.Calendar;
 
-import static com.example.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
+import static com.mrkostua.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 
 class OnOffAlarm {
     private int pickedHour, pickedMinute;
@@ -144,15 +144,17 @@ class OnOffAlarm {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + snoozeTime);
+         int hour = calendar.get(Calendar.HOUR_OF_DAY);
+         int min = calendar.get(Calendar.MINUTE);
 
-        AlarmManager alarmManager = getAlarmManager();
+         AlarmManager alarmManager = getAlarmManager();
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
 
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(alarmContext,WakeLockService.class);
-
-        wakeLockIntent.putExtra("alarmTimeKey",MinuteHourConvertMethod(Calendar.HOUR_OF_DAY,Calendar.MINUTE));
-        alarmContext.startService(wakeLockIntent);
+         wakeLockIntent.putExtra("alarmTimeKey",MinuteHourConvertMethod(hour,min));
+         if(ShowLogs.LOG_STATUS) ShowLogs.i("OnOffAlarm SNOOZE TIME1 :" +hour+ " m :" +min);
+         alarmContext.startService(wakeLockIntent);
     }
 
 }

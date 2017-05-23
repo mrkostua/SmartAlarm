@@ -1,4 +1,4 @@
-package com.example.mathalarm.SQLDataBase;
+package com.mrkostua.mathalarm.SQLDataBase;
 
 import android.provider.BaseColumns;
 

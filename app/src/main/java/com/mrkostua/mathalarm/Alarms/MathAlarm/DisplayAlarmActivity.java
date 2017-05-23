@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.mathalarm.MathAlarmTaskGenerator;
-import com.example.mathalarm.R;
-import com.example.mathalarm.ShowLogs;
-import com.example.mathalarm.firstsScreens.MainActivity;
+import com.mrkostua.mathalarm.MathAlarmTaskGenerator;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
 
 public class DisplayAlarmActivity extends AppCompatActivity {

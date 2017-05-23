@@ -1,15 +1,15 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
 import android.widget.Toast;
-import com.example.mathalarm.CountsTimeToAlarmStart;
-import com.example.mathalarm.R;
-import com.example.mathalarm.ShowLogs;
-import com.example.mathalarm.firstsScreens.MainActivity;
+import com.mrkostua.mathalarm.CountsTimeToAlarmStart;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
-import static com.example.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
+import static com.mrkostua.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 
 class MathAlarmPreview  {
     private int pickedHour, pickedMinute;

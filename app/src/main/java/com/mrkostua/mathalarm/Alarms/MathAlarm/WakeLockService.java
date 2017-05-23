@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.app.Service;
 import android.content.Context;
@@ -7,11 +7,11 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogs;
 
 public class WakeLockService extends Service {
     private static final int  NOTIFICATION_ID = 25;
-     private PowerManager.WakeLock partialWakeLock;
+    private PowerManager.WakeLock partialWakeLock;
     private AlarmNotifications alarmNotifications = new AlarmNotifications();
 
     @Nullable

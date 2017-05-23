@@ -1,18 +1,54 @@
 <resources>>
-            <style name="AppTheme.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
-            <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-            <item name="android:statusBarColor">@android:color/transparent</item>
-        </style>
-
-    <style name="alertDialogMainMathAlarmStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
-        <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
-        <item name="android:textColorPrimary">@color/alertDialogMainMathAlarmTextPrimaryColor</item>
-        <item name="colorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
-
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextPrimaryColor</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Preference_style">
+        <item name="android:selectable">true</item>
+    </style>
+
+
+    <style name="alertDialogMainMathAlarmStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
+        <item name="android:textColorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
+        <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
+        <item name="textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextColorAlertDialogListItem</item>
+        <item name="android:textColorSecondary">@color/alertDialogMainMathAlarmTextColorSecondary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:windowTitleStyle">@style/alertDialogTitleStyle</item>
+    </style>
+
+    <style name="alertDialogTitleStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/alertDialogMainMathAlarmTitleColor</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 
 </resources>

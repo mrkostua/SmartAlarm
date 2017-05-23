@@ -1,4 +1,4 @@
-package com.example.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.app.Service;
 import android.content.Context;
@@ -11,30 +11,28 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
-import com.example.mathalarm.R;
-import com.example.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.ShowLogs;
 
 import java.io.IOException;
 
-import static com.example.mathalarm.Alarms.MathAlarm.MainMathAlarm.ALARM_RINGTONE_NAMES;
+import static com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm.ALARM_RINGTONE_NAMES;
 
 
 public class MathAlarmService extends Service {
-    private static final int ALARM_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
+    private static final int ALARM_TIMEOUT_MILLISECONDS = 10 * 60 * 1000;
 
     private int volume;
     private AudioManager audioManagerVolumeFixer;
-    private int alarmComplexityLevel,selectedDeepSleepMusic;
+    private int alarmComplexityLevel;
     private String alarmMessageText;
 
     private String musicResourceID;
     private MediaPlayer mediaPlayer;
-    private int initialCallState;
-    private TelephonyManager telephonyManager;
+ //   private int initialCallState;
+  //  private TelephonyManager telephonyManager;
 
     private static final int NOTIFICATION_ID = 2;
     private AlarmNotifications alarmNotifications = new AlarmNotifications();
@@ -68,7 +66,8 @@ public class MathAlarmService extends Service {
     };
     //Phone state listener for situation where alarm triggered in time of call
     // so we will save and snooze our alarm
-    private PhoneStateListener phoneStateListener = new PhoneStateListener()
+
+    /*private PhoneStateListener phoneStateListener = new PhoneStateListener()
     {
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
@@ -84,17 +83,17 @@ public class MathAlarmService extends Service {
                 stopSelf();
             }
         }
-    };
+    };*/
     @Override
     public void onCreate() {
         if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onCreate");
         super.onCreate();
-        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+       // telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         //Registers a listener object to receive notification of changes in specified telephony states.
         // @PhoneStateListener.LISTEN_CALL_STATE The telephony state(s) of interest to the listener
-        telephonyManager.listen(
+      /*  telephonyManager.listen(
                 phoneStateListener,
-                phoneStateListener.LISTEN_CALL_STATE);
+                phoneStateListener.LISTEN_CALL_STATE);*/
         audioManagerVolumeFixer = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
          volume = audioManagerVolumeFixer.getStreamVolume(AudioManager.STREAM_ALARM);
     }
@@ -110,20 +109,19 @@ public class MathAlarmService extends Service {
         alarmMessageText = intent.getExtras().getString("alarmMessageText", getString(R.string.edHintGood_morning_sir));
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
-        String[] musicList = getResources().getStringArray(R.array.music_list);
         musicResourceID = getPackageName() + "/raw/" + ALARM_RINGTONE_NAMES[selectedMusic];
-         selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic",0);
+        int selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic", 0);
 
         if (alarmCondition) {
             Start_DisplayAlarmActivity();
             //selectedDeepSleepMusic ==1 (ON)
-            if(selectedDeepSleepMusic==1) {
+            if(selectedDeepSleepMusic ==1) {
                 EnableServiceHandlerKiller(KILLER_HANDLE_DEEP_SLEEP_MUSIC);
                 AlarmStartPlayingMusic("deepSleepMusic",musicResourceID);
                 handlerMessageSent = true;
             }
             //selectedDeepSleepMusic ==0 (OFF)
-            else if(selectedDeepSleepMusic==0) {
+            else if(selectedDeepSleepMusic ==0) {
                 EnableServiceHandlerKiller(KILLER_HANDLE_SERVICE_SILENT);
                 AlarmStartPlayingMusic("alarmMusic",musicResourceID);
                 handlerMessageSent = false;
@@ -133,7 +131,7 @@ public class MathAlarmService extends Service {
             Toast.makeText(this,"alarmCondition" +" false",Toast.LENGTH_LONG).show();
         }
         startForeground(NOTIFICATION_ID,alarmNotifications.NewNotification(this));
-        initialCallState = telephonyManager.getCallState();
+      //  initialCallState = telephonyManager.getCallState();
         return START_STICKY;
     }
 
@@ -143,7 +141,7 @@ public class MathAlarmService extends Service {
         if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onDestroy");
             //stop listen for incoming calls
             //To unregister a listener, pass the listener object and set the events argument to LISTEN_NONE (0).
-            telephonyManager.listen(phoneStateListener,0);
+         //   telephonyManager.listen(phoneStateListener,0);
 
         if(handlerMessageSent)
         DisableServiceHandlerKiller(KILLER_HANDLE_DEEP_SLEEP_MUSIC);
