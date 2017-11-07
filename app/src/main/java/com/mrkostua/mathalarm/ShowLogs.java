@@ -10,7 +10,7 @@ import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 public  class ShowLogs {
     private static final String TAG = "MathAlarm";
 
-    public static boolean LOG_STATUS= MainMathAlarm.LOG_DEBUG_STATUS ? true : false;
+    public static boolean LOG_STATUS= ConstantValues.LOG_DEBUG_STATUS ? true : false;
 
     public static void i(String logMessage) {
         Log.i(TAG," "+logMessage);

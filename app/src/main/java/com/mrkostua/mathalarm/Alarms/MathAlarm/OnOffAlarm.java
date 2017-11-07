@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mrkostua.mathalarm.ConstantValues;
 import com.mrkostua.mathalarm.ShowLogs;
 
 import java.util.Calendar;
@@ -56,7 +57,7 @@ class OnOffAlarm {
     }
 
     private  Intent  GetAlarmIntentExtras(){
-        Intent receiverIntent = new Intent(MainMathAlarm.ALARM_START_NEW);
+        Intent receiverIntent = new Intent(ConstantValues.START_NEW_ALARM_ACTION);
         //sending the type of alarm 2(math)
         receiverIntent.putExtra("selectedMusic",selectedMusic)
                 .putExtra("alarmMessageText",alarmMessageText)
@@ -126,7 +127,7 @@ class OnOffAlarm {
      void CancelSetAlarm() {
          if(ShowLogs.LOG_STATUS)ShowLogs.i( "OnOffAlarm" +"  CancelSetAlarm");
     try {
-        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(MainMathAlarm.ALARM_START_NEW), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(ConstantValues.START_NEW_ALARM_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.cancel(cancelPendingIntent);
     }catch (Exception e){

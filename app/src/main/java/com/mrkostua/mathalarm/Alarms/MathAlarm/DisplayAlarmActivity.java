@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mrkostua.mathalarm.ConstantValues;
 import com.mrkostua.mathalarm.MathAlarmTaskGenerator;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogs;
@@ -208,7 +209,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
     }
 
     public void bSnoozeAlarm_OnClickListener(View view){
-        Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
+        Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
         sendBroadcast(snoozeIntent);
     }
 

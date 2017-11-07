@@ -1,5 +1,6 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,11 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.mrkostua.mathalarm.ConstantValues;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogs;
 
 import java.io.IOException;
-
-import static com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm.ALARM_RINGTONE_NAMES;
 
 
 public class MathAlarmService extends Service {
@@ -41,6 +41,7 @@ public class MathAlarmService extends Service {
     private static final int KILLER_HANDLE_DEEP_SLEEP_MUSIC = 2;
 
     private boolean handlerMessageSent;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,7 +49,7 @@ public class MathAlarmService extends Service {
             if (msg.what == KILLER_HANDLE_SERVICE_SILENT) {
                 if(ShowLogs.LOG_STATUS)ShowLogs.i("handleMessage, silentKiller msg");
                 //start receiver with action Snooze
-                Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
+                Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
                 sendBroadcast(snoozeIntent);
                 stopSelf();
             }
@@ -101,7 +102,7 @@ public class MathAlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(ShowLogs.LOG_STATUS)ShowLogs.i("MathAlarmService " + " onStartCommand");
-        alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel", 0);
+        alarmComplexityLevel = intent.getIntExtra("alarmComplexityLevel", 0);
 
         Boolean alarmCondition = intent.getExtras().getBoolean("alarmCondition", false);
 
@@ -109,7 +110,7 @@ public class MathAlarmService extends Service {
         alarmMessageText = intent.getExtras().getString("alarmMessageText", getString(R.string.edHintGood_morning_sir));
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
-        musicResourceID = getPackageName() + "/raw/" + ALARM_RINGTONE_NAMES[selectedMusic];
+        musicResourceID = getPackageName() + "/raw/" + ConstantValues.ALARM_RINGTONE_NAMES[selectedMusic];
         int selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic", 0);
 
         if (alarmCondition) {
@@ -172,7 +173,8 @@ public class MathAlarmService extends Service {
                         audioManager.getStreamVolume(AudioManager.STREAM_ALARM), 0);
                 break;
             case "deepSleepMusic":
-                musicResourceID = getPackageName() + "/raw/" + R.raw.free;
+//                musicResourceID = getPackageName() + "/raw/" + R.raw.free;
+                musicResourceID = getPackageName() + "/raw/" + R.raw.digital_clock;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     volume/2, 0);
                 break;

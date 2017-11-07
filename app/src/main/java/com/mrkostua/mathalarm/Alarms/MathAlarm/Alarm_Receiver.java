@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.mrkostua.mathalarm.ConstantValues;
 import com.mrkostua.mathalarm.ShowLogs;
 import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
@@ -26,7 +27,7 @@ public class Alarm_Receiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent) {
         if(ShowLogs.LOG_STATUS)ShowLogs.i( "Alarm_Receiver started");
         //snooze alarm for 5 minutes and stop current alarm
-        if(intent.getAction().equals(MainMathAlarm.ALARM_SNOOZE_ACTION)) {
+        if(intent.getAction().equals(ConstantValues.SNOOZE_ACTION)) {
             //this stops the service no matter how many times it was started.
             context.stopService(new Intent(context,MathAlarmService.class));
 
@@ -42,7 +43,7 @@ public class Alarm_Receiver extends BroadcastReceiver
             context.startActivity(intent1);
         }
         //dismiss last creating alarm and stop WakeLock service
-        if(intent.getAction().equals(MainMathAlarm.ALARM_DISMISS_ACTION)) {
+        if(intent.getAction().equals(ConstantValues.DISMISS_ACTION)) {
             OnOffAlarm onOffAlarmDisable = new OnOffAlarm(context);
             //disable alarm
             onOffAlarmDisable.CancelSetAlarm();
@@ -50,7 +51,7 @@ public class Alarm_Receiver extends BroadcastReceiver
             //this stops the service no matter how many times it was started.
             context.stopService(new Intent(context,WakeLockService.class));
         }
-        if(intent.getAction().equals(MainMathAlarm.ALARM_START_NEW)) {
+        if(intent.getAction().equals(ConstantValues.START_NEW_ALARM_ACTION)) {
              alarmCondition = intent.getExtras().getBoolean("alarmCondition",false);
              selectedMusic = intent.getExtras().getInt("selectedMusic",0);
              String defaultAlarmMessageText = "Good morning sir";

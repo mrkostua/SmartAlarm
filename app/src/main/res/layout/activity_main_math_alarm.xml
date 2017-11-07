@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
-
+<!--todo change style, maybe set location and text length. Change the way of setting alarm
+    -->
     <Button
         android:id="@+id/bCreateAlarm"
         android:text="@string/create"
@@ -48,19 +49,20 @@
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/white"
                 android:id="@+id/tvSetTime"
+
                 />
 
             <Button
-                android:layout_width="wrap_content"
-                android:text="@string/bMMA_change_time"
-                android:textStyle="bold"
-                android:layout_column="2"
-                android:padding="20dp"
-                android:gravity="start"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
                 android:id="@+id/bSetTime"
-                android:onClick="bSetAlarmTime_ClickMethod" />
+                android:layout_width="wrap_content"
+                android:layout_column="2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="start"
+                android:onClick="bSetAlarmTime_ClickMethod"
+                android:padding="20dp"
+                android:text="@string/bMMA_change_time"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
