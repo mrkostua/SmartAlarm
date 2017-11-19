@@ -25,4 +25,9 @@
     <color name="alertDialogButtonTextStyle">#050400</color>
     <color name="alertDialogButtonBackground">#ffff</color>
 
+
+    <color name="color_alarm_not_set">#7651934e</color>
+    <color name="color_alarm_set">#00760e</color>
+    <color name="main_button_time">#003589</color>
+
 </resources>
