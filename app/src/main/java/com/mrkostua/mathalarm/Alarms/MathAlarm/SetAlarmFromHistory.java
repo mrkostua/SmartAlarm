@@ -18,7 +18,7 @@ import com.mrkostua.mathalarm.SQLDataBase.AlarmDBValues;
 import com.mrkostua.mathalarm.ShowLogs;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
-
+    // TODO: 19.11.2017 delete alarms from history after 7 days without using.
     private AlarmDBAdapter alarmDBAdapter;
     private ListView lvAllSetAlarms;
 

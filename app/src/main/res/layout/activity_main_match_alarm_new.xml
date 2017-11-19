@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--todo ideas : maybe show function in listView, so all the data will be taken from DB and populated
+        TODO alarm need to be simple but with some functionality
+    -->
+</LinearLayout>
