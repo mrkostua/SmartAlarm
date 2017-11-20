@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5fedff65">
+    android:background="@color/main_layout_background">
 
 
-    <!--todo maybe depends on the time the background will be different (night morning ....)-->
+    <!--todo create 2 style for alarm button set and not-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,6 @@
         android:layout_centerVertical="true"
         android:background="@drawable/shape_cirlce_main_button"
         android:orientation="vertical">
-        <!--todo change shape to circle not oval-->
 
         <TextView
             android:id="@+id/textView2"
@@ -24,9 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
             android:text="@string/main_button_time_default"
-            android:textColor="@color/main_button_time"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+            android:theme="@style/alarmTime_TextTheme" />
 
 
         <LinearLayout
@@ -38,7 +35,8 @@
             android:layout_margin="10dp"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/tvMonday"
@@ -47,9 +45,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:text="MON"
-                android:textColor="#eae200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
 
             <TextView
                 android:id="@+id/tvTuesday"
@@ -57,10 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="TUE"
-                android:textColor="#eae200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="@string/Tuesday"
+                android:theme="@style/ChosenDayOfTheWeek_TextTheme" />
+
+            <!--todo IN java underline chosen day of the week TEXT-->
 
             <TextView
                 android:id="@+id/tvWednesday"
@@ -69,9 +65,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="WED"
-                android:textColor="#eae200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
 
             <TextView
                 android:id="@+id/tvThursday"
@@ -80,9 +74,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="THU"
-                android:textColor="#eae200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
 
             <TextView
                 android:id="@+id/tvFriday"
@@ -91,9 +83,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="FRI"
-                android:textColor="#eae200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true"
-            android:layout_margin="15dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -113,18 +104,14 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="SUT"
-                android:textColor="#4db5ff"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
 
             <TextView
                 android:id="@+id/tvSunday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SUN"
-                android:textColor="#4db5ff"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/dayOfWeekStyle" />
         </LinearLayout>
 
 
@@ -138,6 +125,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:background="#5fedff65"
+        android:background="@color/main_layout_background"
         app:srcCompat="@drawable/ic_settings_white_36dp" />
 </RelativeLayout>

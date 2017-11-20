@@ -29,5 +29,10 @@
     <color name="color_alarm_not_set">#7651934e</color>
     <color name="color_alarm_set">#00760e</color>
     <color name="main_button_time">#003589</color>
+    <color name="main_layout_background">#910b0d28</color>
+
+    <color name="day_of_week">#e2deaf</color>
+    <color name="day_of_week_chosen">#308f00</color>
+
 
 </resources>

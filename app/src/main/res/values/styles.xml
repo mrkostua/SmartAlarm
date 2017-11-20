@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
@@ -52,5 +51,32 @@
     </style>
 
 
+    <style name="dayOfTheWeek_TextTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/dayOfWeekStyle</item>
+    </style>
+    <style name="dayOfWeekStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/day_of_week</item>
+        <item name="android:textSize">@dimen/day_of_week_text_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <style name="ChosenDayOfTheWeek_TextTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/ChosenDayOfWeekStyle</item>
+    </style>
+    <style name="ChosenDayOfWeekStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/day_of_week_chosen</item>
+        <item name="android:textSize">@dimen/day_of_week_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="alarmTime_TextTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/alarmTimeStyle</item>
+    </style>
+    <style name="alarmTimeStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/main_button_time</item>
+        <item name="android:textSize">@dimen/alarm_time_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>
