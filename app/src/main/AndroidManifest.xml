@@ -27,6 +27,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainMathAlarmButton"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:label="new screen" />
+
+
+
+
         <activity
             android:name="com.mrkostua.mathalarm.Settings_Preference"
             android:configChanges="keyboardHidden|orientation|screenSize"
