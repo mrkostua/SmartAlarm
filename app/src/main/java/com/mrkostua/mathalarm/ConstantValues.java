@@ -1,7 +1,7 @@
 package com.mrkostua.mathalarm;
 
 /**
- * Created by Администратор on 07.11.2017.
+ * @author Kostiantyn on 07.11.2017.
  */
 
 public class ConstantValues {
