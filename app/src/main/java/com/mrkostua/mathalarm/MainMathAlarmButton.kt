@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import java.util.*
@@ -15,106 +16,107 @@ import kotlin.collections.ArrayList
 /**
  * @author Kostiantyn on 21.11.2017.
  */
+//TODO Koltin is there still need for butterKnife library ?
 //todo read more about kotlin !!!!! the way it work and compile
 class MainMathAlarmButton : AppCompatActivity() {
     private lateinit var rlBackgroundLayout: RelativeLayout
     private lateinit var rlButtonLayout: RelativeLayout
-    private var lastAlarmData: LastAlarmData = object : LastAlarmData(this) {}
-
     private lateinit var tvAlarmTime: TextView
 
+    private lateinit var ibAdditionalSettings : ImageButton
+
     private val listDaysOfWeekViews: ArrayList<TextView> = object : ArrayList<TextView>(7) {}
+    private var lastAlarmData: LastAlarmData = object : LastAlarmData(this) {}
 
-
-    /**
-    lateinit - this lets you have non-nullable properties in your Activity that you
-    don't initialize when the constructor is called, but only later,
-    in the onCreate method. You do however, in this case, take
-    responsibility for initializing the variables before using
-    them the first time, otherwise you'll get an exception at runtime.
-     */
+    private val calendar: Calendar = Calendar.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //set layout to the full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main_alarm)
 
         initializeViews()
+        calendar.timeInMillis = System.currentTimeMillis()
+
+
+        initializeAlarmButton()
     }
 
-
     private fun initializeViews() {
-        rlBackgroundLayout = findViewById(R.id.rlBackgroundLayout) as RelativeLayout
         rlButtonLayout = findViewById(R.id.rlButtonLayout) as RelativeLayout
 
         tvAlarmTime = findViewById(R.id.tvAlarmTime) as TextView
+        ibAdditionalSettings = findViewById(R.id.ibAdditionalSettings) as ImageButton
 
     }
 
-    private fun initializeAlarm() {
+    /*create basic 2 styles for night and day time - >
+        here create variable and set in the beginning by checking currentTime than depends
+         on this style variable all others colors must be changed automatically
+
+     */
+    private fun setThemeForAlarmButtonLayout(){
+
+
+        if(calendar.get(Calendar.AM_PM) == Calendar.AM){
+            rlBackgroundLayout
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ibAdditionalSettings.setBackgroundColor(resources.getColor(R.color.main_layout_backgroundDay,null))
+            }
+            //set day style
+        } else {
+            //set dark style (night)
+        }
+    }
+
+//    private fun getAlarmButtonLayoutStyle(style : Int) : RelativeLayout{
+//        val someLayout = RelativeLayout(context, null, R.style.LightStyle)
+//
+//        var rlMainAlarm  = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            RelativeLayout(this,null,style)
+//        } else {
+//            RelativeLayout(this)
+//        }
+//        rlMainAlarm = findViewById(R.id.rlBackgroundLayout) as RelativeLayout
+//
+//        return rlMainAlarm
+//    }
+
+    private fun initializeAlarmButton() {
+        showWeekDaysAndCurrentDay()
+
         if (lastAlarmData.alarmHours != 0) {
-            tvAlarmTime.text = Integer.toString(lastAlarmData.alarmHours) + " : " + Integer.toString(lastAlarmData.alarmMinutes)
+            setSettingsFromLastAlarm()
+
+        } else {
+            setCustomAlarmSettings()
 
         }
         //todo method for checking time and setting night day theme
 
+    }
+
+    private fun setSettingsFromLastAlarm() {
+        tvAlarmTime.text = Integer.toString(lastAlarmData.alarmHours) + " : " + Integer.toString(lastAlarmData.alarmMinutes)
 
     }
 
-    //TODO Koltin is there still need for butterKnife library ?
-    private fun showDayOfTheWeek() {
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
+    private fun setCustomAlarmSettings() {
+        tvAlarmTime.text = Integer.toString(ConstantValues.CUSTOM_ALARM_SETTINGS_HOURS) + " : " + Integer.toString(ConstantValues.CUSTOM_ALARM_SETTINGS_MINUTES)
 
+    }
+
+    private fun showWeekDaysAndCurrentDay() {
         initializeDaysOfWeekViews()
 
-        listDaysOfWeekViews.forEachIndexed{indexOfDay, dayView ->
-            if(indexOfDay == calendar.get(Calendar.DAY_OF_WEEK))
-                underlineDayOfWeek(dayView)
-        }
-
-      /*  listDaysOfWeekViews.forEach { dayView ->
-            if(listDaysOfWeekViews.indexOf(dayView) == calendar.get(Calendar.DAY_OF_WEEK)){
-                underlineDayOfWeek(dayView)
-
-            }
-        }
-
-        for (dayView in listDaysOfWeekViews) {
+        listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
+            if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK))
+                setDayOfWeekTestStyle(dayView)
 
         }
-        // third : using basic for() loop
-
-        //ot switch case
-        when (calendar.get(Calendar.DAY_OF_WEEK)) {
-            0 -> {
-
-            }
-            1 -> {
-
-            }
-            2 -> {
-
-            }
-            3 -> {
-
-            }
-            4 -> {
-
-            }
-            5 -> {
-
-            }
-            6 -> {
-
-            }
-
-        }*/
-
     }
 
     private fun initializeDaysOfWeekViews() {
@@ -128,18 +130,15 @@ class MainMathAlarmButton : AppCompatActivity() {
 
     }
 
-
-    private fun underlineDayOfWeek(tvDayOfWeek: TextView) {
+    private fun setDayOfWeekTestStyle(tvDayOfWeek: TextView) {
         val ssContent: SpannableString = object : SpannableString("Content") {}
         ssContent.setSpan(object : UnderlineSpan() {}, 0, ssContent.length, 0)
         tvDayOfWeek.text = ssContent
 
-        //todo setTextAppearance(int) is only for api 23 and higher, find method for lower API
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            tvDayOfWeek.setTextAppearance(R.style.ChosenDayOfTheWeek_TextTheme)
-        } else {
-            @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             tvDayOfWeek.setTextAppearance(this, R.style.ChosenDayOfTheWeek_TextTheme)
+        } else {
+            tvDayOfWeek.setTextAppearance(R.style.ChosenDayOfTheWeek_TextTheme)
         }
     }
 }

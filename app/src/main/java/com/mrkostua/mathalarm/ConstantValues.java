@@ -23,4 +23,7 @@ public class ConstantValues {
     public static final String LAST_ALARM_HOURS = "hours";
     public static final String LAST_ALARM_MINUTES = "minutes";
 
+    public static final int CUSTOM_ALARM_SETTINGS_HOURS = 8;
+    public static final int CUSTOM_ALARM_SETTINGS_MINUTES = 15;
+
 }

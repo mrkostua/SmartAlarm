@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
+<?xml version="1.0" encoding="utf-8"?>
+<!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_background"
     android:id="@+id/rlBackgroundLayout">
 
 
@@ -127,6 +127,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:background="@color/main_layout_background"
         app:srcCompat="@drawable/ic_settings_white_36dp" />
 </RelativeLayout>
