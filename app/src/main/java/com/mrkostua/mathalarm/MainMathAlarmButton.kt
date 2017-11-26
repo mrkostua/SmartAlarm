@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageButton
@@ -18,12 +19,13 @@ import kotlin.collections.ArrayList
  */
 //TODO Koltin is there still need for butterKnife library ?
 //todo read more about kotlin !!!!! the way it work and compile
-class MainMathAlarmButton : AppCompatActivity() {
+public class MainMathAlarmButton : AppCompatActivity() {
+
     private lateinit var rlBackgroundLayout: RelativeLayout
     private lateinit var rlButtonLayout: RelativeLayout
     private lateinit var tvAlarmTime: TextView
 
-    private lateinit var ibAdditionalSettings : ImageButton
+    private lateinit var ibAdditionalSettings: ImageButton
 
     private val listDaysOfWeekViews: ArrayList<TextView> = object : ArrayList<TextView>(7) {}
     private var lastAlarmData: LastAlarmData = object : LastAlarmData(this) {}
@@ -41,49 +43,28 @@ class MainMathAlarmButton : AppCompatActivity() {
         initializeViews()
         calendar.timeInMillis = System.currentTimeMillis()
 
-
+        setThemeForAlarmButtonLayout()
         initializeAlarmButton()
     }
 
     private fun initializeViews() {
         rlButtonLayout = findViewById(R.id.rlButtonLayout) as RelativeLayout
+        rlBackgroundLayout = findViewById(R.id.rlBackgroundLayout) as RelativeLayout
 
         tvAlarmTime = findViewById(R.id.tvAlarmTime) as TextView
         ibAdditionalSettings = findViewById(R.id.ibAdditionalSettings) as ImageButton
 
     }
 
-    /*create basic 2 styles for night and day time - >
-        here create variable and set in the beginning by checking currentTime than depends
-         on this style variable all others colors must be changed automatically
+    private fun setThemeForAlarmButtonLayout() {
+        if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
+            setDayLayoutTheme()
 
-     */
-    private fun setThemeForAlarmButtonLayout(){
-
-
-        if(calendar.get(Calendar.AM_PM) == Calendar.AM){
-            rlBackgroundLayout
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ibAdditionalSettings.setBackgroundColor(resources.getColor(R.color.main_layout_backgroundDay,null))
-            }
-            //set day style
         } else {
-            //set dark style (night)
+            setEveningLayoutTheme()
+
         }
     }
-
-//    private fun getAlarmButtonLayoutStyle(style : Int) : RelativeLayout{
-//        val someLayout = RelativeLayout(context, null, R.style.LightStyle)
-//
-//        var rlMainAlarm  = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            RelativeLayout(this,null,style)
-//        } else {
-//            RelativeLayout(this)
-//        }
-//        rlMainAlarm = findViewById(R.id.rlBackgroundLayout) as RelativeLayout
-//
-//        return rlMainAlarm
-//    }
 
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
@@ -98,6 +79,31 @@ class MainMathAlarmButton : AppCompatActivity() {
         //todo method for checking time and setting night day theme
 
     }
+
+
+    private fun setDayLayoutTheme() {
+        setViewBackgroundColor(ibAdditionalSettings, R.color.main_layout_backgroundDay)
+        setViewBackgroundColor(rlBackgroundLayout, R.color.main_layout_backgroundDay)
+    }
+
+    private fun setEveningLayoutTheme() {
+        setViewBackgroundColor(ibAdditionalSettings, R.color.main_layout_backgroundEvening)
+        setViewBackgroundColor(rlBackgroundLayout, R.color.main_layout_backgroundEvening)
+    }
+
+    /**
+     *  set background color of the @param[view] using deprecated @see[getColor] for api < M.
+     */
+    private fun setViewBackgroundColor(view: View, colorResource: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            view.setBackgroundColor(resources.getColor(colorResource, null))
+
+        } else {
+            view.setBackgroundColor(resources.getColor(colorResource))
+
+        }
+    }
+
 
     private fun setSettingsFromLastAlarm() {
         tvAlarmTime.text = Integer.toString(lastAlarmData.alarmHours) + " : " + Integer.toString(lastAlarmData.alarmMinutes)
@@ -141,4 +147,15 @@ class MainMathAlarmButton : AppCompatActivity() {
             tvDayOfWeek.setTextAppearance(R.style.ChosenDayOfTheWeek_TextTheme)
         }
     }
+
+
+    public fun rlButtonLayoutOnClickListener(view : View){
+        //todo check if it is first alarm creation ( show some toast and etc.) and basic settings
+        // todo show some preview of alarm settings and than set alarm.
+    }
+
+    public fun ibAdditionalSettingsOnClickListener(view : View){
+        //todo open setting layout -> with volume settings and etc.
+    }
+
 }

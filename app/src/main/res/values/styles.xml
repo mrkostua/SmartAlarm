@@ -50,21 +50,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
-    <style name="mainAlarmButtonLayoutDayStyle" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:background">@color/main_layout_backgroundDay</item>
-    </style>
-
-
-    <style name="mainAlarmButtonLayoutEveningStyle" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:background">@color/main_layout_backgroundEvening</item>
-    </style>
-
-
-
-
-
-
     <style name="dayOfTheWeek_TextTheme" parent="android:Theme">
         <item name="android:textViewStyle">@style/dayOfWeekStyle</item>
     </style>

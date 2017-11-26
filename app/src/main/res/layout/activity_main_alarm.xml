@@ -1,21 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
+<?xml version="1.0" encoding="utf-8"?><!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlBackgroundLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rlBackgroundLayout">
+    android:layout_height="match_parent">
 
 
-    <!--todo create 2 style for alarm button set and not-->
+    <!--todo create 2 style for alarm button set and not (clicked not clicked)-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rlButtonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/shape_cirlce_main_button"
-        android:orientation="vertical"
-        android:id="@+id/rlButtonLayout">
+        android:background="@drawable/shape_circle_main_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="rlButtonLayoutOnClickListener"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvAlarmTime"
@@ -127,5 +129,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="ibAdditionalSettingsOnClickListener"
         app:srcCompat="@drawable/ic_settings_white_36dp" />
 </RelativeLayout>
