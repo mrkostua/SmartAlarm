@@ -2,6 +2,7 @@ package com.mrkostua.mathalarm
 
 import android.os.Build
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
@@ -11,6 +12,7 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -27,10 +29,10 @@ public class MainMathAlarmButton : AppCompatActivity() {
 
     private lateinit var ibAdditionalSettings: ImageButton
 
-    private val listDaysOfWeekViews: ArrayList<TextView> = object : ArrayList<TextView>(7) {}
-    private var lastAlarmData: LastAlarmData = object : LastAlarmData(this) {}
+    private val listDaysOfWeekViews = ArrayList<TextView>(7)
+    private val lastAlarmData = LastAlarmData(this)
 
-    private val calendar: Calendar = Calendar.getInstance()
+    private val calendar = Calendar.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +59,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
     }
 
     private fun setThemeForAlarmButtonLayout() {
-        if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
+        if (isDarkTime()) {
             setDayLayoutTheme()
 
         } else {
@@ -68,8 +70,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
 
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
-
-        if (lastAlarmData.alarmHours != 0) {
+        if (isFirstAlarmCreation()) {
             setSettingsFromLastAlarm()
 
         } else {
@@ -104,7 +105,6 @@ public class MainMathAlarmButton : AppCompatActivity() {
         }
     }
 
-
     private fun setSettingsFromLastAlarm() {
         tvAlarmTime.text = Integer.toString(lastAlarmData.alarmHours) + " : " + Integer.toString(lastAlarmData.alarmMinutes)
 
@@ -120,7 +120,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
 
         listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
             if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK))
-                setDayOfWeekTestStyle(dayView)
+                setDayOfWeekTextStyle(dayView)
 
         }
     }
@@ -136,26 +136,86 @@ public class MainMathAlarmButton : AppCompatActivity() {
 
     }
 
-    private fun setDayOfWeekTestStyle(tvDayOfWeek: TextView) {
-        val ssContent: SpannableString = object : SpannableString("Content") {}
-        ssContent.setSpan(object : UnderlineSpan() {}, 0, ssContent.length, 0)
+    private fun setDayOfWeekTextStyle(tvDayOfWeek: TextView) {
+        val ssContent = SpannableString("Content")
+        ssContent.setSpan(UnderlineSpan(), 0, ssContent.length, 0)
         tvDayOfWeek.text = ssContent
 
+        setTextAppearance(tvDayOfWeek, R.style.ChosenDayOfTheWeek_TextTheme)
+    }
+
+    private fun setTextAppearance(view: TextView, style: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            tvDayOfWeek.setTextAppearance(this, R.style.ChosenDayOfTheWeek_TextTheme)
+            view.setTextAppearance(this, style)
         } else {
-            tvDayOfWeek.setTextAppearance(R.style.ChosenDayOfTheWeek_TextTheme)
+            view.setTextAppearance(style)
+        }
+    }
+
+    private fun isFirstAlarmCreation(): Boolean {
+        return lastAlarmData.alarmHours != 0
+    }
+
+    private fun isDarkTime(): Boolean {
+        //todo Update method and make it more precise
+        return calendar.get(Calendar.AM_PM) == Calendar.PM
+    }
+
+    private fun showFirstHelpingAlertDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Smart helper :)")
+                .setMessage("Hi if you want to see how the Alarm work just follow appearing text and touch them to continue")
+                .setPositiveButton("Let's do it", { dialog, which ->
+                    showFirstHelpingTextMessage()
+                    dialog.dismiss()
+                })
+                .setNegativeButton("Back", { dialog, which ->
+                    Toast.makeText(this, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                }).create().show()
+    }
+
+    private fun showFirstHelpingTextMessage(){
+        val tvHelperMainButtonMessage = findViewById(R.id.tvHelperMainButton) as TextView
+        if (isDarkTime())
+            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
+        else
+            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
+
+        tvHelperMainButtonMessage.setOnClickListener { view ->
+            view.visibility = View.GONE
+            showSecondHelpingTextMessage()
+        }
+    }
+
+    private fun showSecondHelpingTextMessage(){
+        val tvHelperMainButtonMessage = findViewById(R.id.tvHelperMainButton) as TextView
+        if (isDarkTime())
+            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
+        else
+            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
+
+        tvHelperMainButtonMessage.setOnClickListener { view ->
+            view.visibility = View.GONE
+            showSecondHelpingTextMessage()
+        }
+    }
+
+    public fun rlButtonLayoutOnClickListener(view: View) {
+        if (isFirstAlarmCreation()) {
+            //todo check if it is first alarm creation ( show some toast and etc.) and basic setting=]
+            showFirstHelpingAlertDialog()
+
+        } else {
+            // todo show some preview of alarm settings and than set alarm.
+
         }
     }
 
 
-    public fun rlButtonLayoutOnClickListener(view : View){
-        //todo check if it is first alarm creation ( show some toast and etc.) and basic settings
-        // todo show some preview of alarm settings and than set alarm.
-    }
-
-    public fun ibAdditionalSettingsOnClickListener(view : View){
+    public fun ibAdditionalSettingsOnClickListener(view: View) {
         //todo open setting layout -> with volume settings and etc.
     }
+
 
 }

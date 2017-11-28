@@ -35,5 +35,7 @@
     <color name="day_of_week">#e2deaf</color>
     <color name="day_of_week_chosen">#308f00</color>
 
+    <color name="helperTextMessages">#4460ff</color>
+
 
 </resources>

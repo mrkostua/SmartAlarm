@@ -51,14 +51,13 @@
     </style>
 
     <style name="dayOfTheWeek_TextTheme" parent="android:Theme">
-        <item name="android:textViewStyle">@style/dayOfWeekStyle</item>
-    </style>
+    <item name="android:textViewStyle">@style/dayOfWeekStyle</item>
+</style>
     <style name="dayOfWeekStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/day_of_week</item>
         <item name="android:textSize">@dimen/day_of_week_text_size</item>
         <item name="android:textStyle">italic</item>
     </style>
-
 
     <style name="ChosenDayOfTheWeek_TextTheme" parent="android:Theme">
         <item name="android:textViewStyle">@style/ChosenDayOfWeekStyle</item>
@@ -76,6 +75,29 @@
         <item name="android:textColor">@color/main_button_time</item>
         <item name="android:textSize">@dimen/alarm_time_text_size</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HelperDark_TextTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/helperDarkStyle</item>
+        <!--todo here put style e.g. for some Buttons related to Helper-->
+    </style>
+
+    <style name="helperDarkStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/helperTextMessages</item>
+        <item name="android:textSize">@dimen/helperTextMessages_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <style name="helperLight_TextTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/helperLightStyle</item>
+        <!--todo here put style e.g. for some Buttons related to Helper-->
+    </style>
+
+    <style name="helperLightStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/helperTextMessages</item>
+        <item name="android:textSize">@dimen/helperTextMessages_size</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>
