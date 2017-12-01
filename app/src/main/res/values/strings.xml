@@ -19,7 +19,6 @@
     <string name="edHintGood_morning_sir">Good morning sir</string>
 
 
-
     <string name="tvSAFH_delete_all">Delete all</string>
     <string name="tvSAFH_delete_chosen_row">delete chosen row</string>
 
@@ -37,7 +36,6 @@
     <string name="VolumePreference_title">Alarm volume</string>
     <string name="PreferenceCategory_summary">Set the volume of alarms</string>
     <string name="PreferenceCategory_title">Sound</string>
-
 
 
     <string name="WA_progressStatus">Progress: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>

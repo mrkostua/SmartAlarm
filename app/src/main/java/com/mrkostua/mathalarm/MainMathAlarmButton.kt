@@ -22,6 +22,8 @@ import kotlin.collections.ArrayList
  */
 //TODO Koltin is there still need for butterKnife library ?
 //todo read more about kotlin !!!!! the way it work and compile
+
+//todo check mails maid at work and notes ( download kotlin plugin for findViewById() )
 public class MainMathAlarmButton : AppCompatActivity() {
 
     private lateinit var rlBackgroundLayout: RelativeLayout
@@ -163,7 +165,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
     }
 
 
-    inner class MainLayoutHelper constructor(context: Context) {
+    inner class MainLayoutFirstUseHelper constructor(context: Context) {
         private var context: Context
         private lateinit var tvFirstHelpingMessage: TextView
         private lateinit var tvSecondHelpingMessage: TextView
@@ -175,7 +177,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
             rlBackgroundHelper.visibility = View.VISIBLE
         }
 
-        fun showFirstHelpingAlertDialog() {
+        fun showHelpingAlertDialog() {
             val alertDialog = AlertDialog.Builder(context)
             alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
                     .setMessage(getString(R.string.helperFirstDialogMessage))
@@ -228,11 +230,17 @@ public class MainMathAlarmButton : AppCompatActivity() {
     public fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
             //todo check if it is first alarm creation ( show some toast and etc.) and basic setting=]
-            val mainLayoutHelper = MainLayoutHelper(this)
-            mainLayoutHelper.showFirstHelpingAlertDialog()
+            val userHelper = MainLayoutFirstUseHelper(this)
+            userHelper.showHelpingAlertDialog()
 
         } else {
             // todo show some preview of alarm settings and than set alarm.
+            /*
+                maybe show some AlertDialog with alarm settings like in basic version
+                if user will push some settings he will be moved to proper activity where he can change settings
+
+      19-45 -> 21-35
+             */
 
         }
     }
