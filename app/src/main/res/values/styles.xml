@@ -89,7 +89,7 @@
     </style>
 
 
-    <style name="helperLight_TextTheme" parent="android:Theme">
+    <style name="HelperLight_TextTheme" parent="android:Theme">
         <item name="android:textViewStyle">@style/helperLightStyle</item>
         <!--todo here put style e.g. for some Buttons related to Helper-->
     </style>

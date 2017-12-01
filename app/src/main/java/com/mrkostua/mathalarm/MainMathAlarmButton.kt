@@ -1,5 +1,6 @@
 package com.mrkostua.mathalarm
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -161,50 +162,74 @@ public class MainMathAlarmButton : AppCompatActivity() {
         return calendar.get(Calendar.AM_PM) == Calendar.PM
     }
 
-    private fun showFirstHelpingAlertDialog() {
-        val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle("Smart helper :)")
-                .setMessage("Hi if you want to see how the Alarm work just follow appearing text and touch them to continue")
-                .setPositiveButton("Let's do it", { dialog, which ->
-                    showFirstHelpingTextMessage()
-                    dialog.dismiss()
-                })
-                .setNegativeButton("Back", { dialog, which ->
-                    Toast.makeText(this, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
-                    dialog.dismiss()
-                }).create().show()
-    }
 
-    private fun showFirstHelpingTextMessage(){
-        val tvHelperMainButtonMessage = findViewById(R.id.tvHelperMainButton) as TextView
-        if (isDarkTime())
-            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
-        else
-            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
+    inner class MainLayoutHelper constructor(context: Context) {
+        private var context: Context
+        private lateinit var tvFirstHelpingMessage: TextView
+        private lateinit var tvSecondHelpingMessage: TextView
+        private lateinit var rlBackgroundHelper: RelativeLayout
 
-        tvHelperMainButtonMessage.setOnClickListener { view ->
-            view.visibility = View.GONE
-            showSecondHelpingTextMessage()
+        init {
+            this.context = context
+            initializeViews()
+            rlBackgroundHelper.visibility = View.VISIBLE
         }
-    }
 
-    private fun showSecondHelpingTextMessage(){
-        val tvHelperMainButtonMessage = findViewById(R.id.tvHelperMainButton) as TextView
-        if (isDarkTime())
-            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
-        else
-            setTextAppearance(tvHelperMainButtonMessage, R.style.HelperDark_TextTheme)
-
-        tvHelperMainButtonMessage.setOnClickListener { view ->
-            view.visibility = View.GONE
-            showSecondHelpingTextMessage()
+        fun showFirstHelpingAlertDialog() {
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
+                    .setMessage(getString(R.string.helperFirstDialogMessage))
+                    .setPositiveButton(getString(R.string.LetsDoIt), { dialog, which ->
+                        showFirstHelpingTextMessage()
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton(getString(R.string.Back), { dialog, which ->
+                        Toast.makeText(context, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
+                        dialog.dismiss()
+                    }).create().show()
         }
+
+        private fun initializeViews() {
+            tvFirstHelpingMessage = findViewById(R.id.tvFirstHelpingMessage) as TextView
+            tvSecondHelpingMessage = findViewById(R.id.tvSecondHelpingMessage) as TextView
+            rlBackgroundHelper = findViewById(R.id.rlBackgroundHelper) as RelativeLayout
+
+            if (isDarkTime()) {
+                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
+                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
+            } else {
+                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
+                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
+            }
+
+        }
+
+        private fun showFirstHelpingTextMessage() {
+            tvFirstHelpingMessage.visibility = View.VISIBLE
+            tvFirstHelpingMessage.setOnClickListener { view ->
+                view.visibility = View.GONE
+                showSecondHelpingTextMessage()
+            }
+            //todo maybe add some onTouch method to change background color of the view or in XML
+        }
+
+        private fun showSecondHelpingTextMessage() {
+            tvSecondHelpingMessage.visibility = View.VISIBLE
+            tvSecondHelpingMessage.setOnClickListener { view ->
+                view.visibility = View.GONE
+//                showThirdHelpingTextMessage() if there is need for more messages
+
+            }
+        }
+
     }
+
 
     public fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
             //todo check if it is first alarm creation ( show some toast and etc.) and basic setting=]
-            showFirstHelpingAlertDialog()
+            val mainLayoutHelper = MainLayoutHelper(this)
+            mainLayoutHelper.showFirstHelpingAlertDialog()
 
         } else {
             // todo show some preview of alarm settings and than set alarm.
@@ -212,10 +237,8 @@ public class MainMathAlarmButton : AppCompatActivity() {
         }
     }
 
-
     public fun ibAdditionalSettingsOnClickListener(view: View) {
         //todo open setting layout -> with volume settings and etc.
     }
-
 
 }

@@ -9,21 +9,10 @@
         android:id="@+id/rlBackgroundHelper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
-
-        <!--<TextView-->
-        <!--android:id="@+id/textView4"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginTop="104dp"-->
-        <!--android:padding="20dp"-->
-        <!--android:text="TextView" />-->
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/tvHelperMainButton"
+            android:id="@+id/tvFirstHelpingMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -32,9 +21,31 @@
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            android:text="@string/helpingMessageOne"
             android:theme="@style/HelperDark_TextTheme"
-            android:text="@string/helperMessageOne" />
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvSecondHelpingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            android:text="@string/helpingMessageTwo"
+            android:theme="@style/HelperDark_TextTheme"
+            android:visibility="gone" />
     </RelativeLayout>
+
     <!--todo create 2 style for alarm button set and not (clicked not clicked)-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rlButtonLayout"

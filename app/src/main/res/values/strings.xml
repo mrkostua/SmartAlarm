@@ -65,5 +65,13 @@
     <string name="good_morning">Good Morning</string>
     <string name="main_button_time_default">20 : 35</string>
     <string name="Tuesday">TUE</string>
-    <string name="helperMessageOne">Every next time you will see \nyour last set alarm there.</string>
+
+    <string name="LetsDoIt">Let\'s do it</string>
+    <string name="Back">Back</string>
+
+    <string name="helpingMessageOne">Every next time you will see \nyour last set alarm there.</string>
+    <string name="helpingMessageTwo">So to set alarm in the future (with old \nsettings), just click the  circle button.</string>
+    <string name="helperFirstDialogMessage">Hi if you want to see how the Alarm work just follow appearing text and touch them to continue</string>
+    <string name="helperFirstDialogTitle">Smart helper :)</string>
+
 </resources>
