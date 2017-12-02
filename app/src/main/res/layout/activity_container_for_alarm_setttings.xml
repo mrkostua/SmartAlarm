@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rlButtonsContainer"
+    android:id="@+id/rlContainerForAlarmSettings"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/flFragmentsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rlControlButtons"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp" />
 
     <RelativeLayout
+        android:id="@+id/rlControlButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/relativeLayout">
+        android:layout_alignParentStart="true">
 
         <!--todo choose icons for pointers back and forward
             todo set background and td -->
+
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ibMoveForward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="23dp"
-            android:layout_marginRight="23dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            android:contentDescription="forward"
+            android:onClick="ibMoveForwardClickListener"
             app:srcCompat="@android:drawable/ic_media_ff" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/ibMoveBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/imageButton"
+            android:layout_alignTop="@+id/ibMoveForward"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"
+            android:contentDescription="back"
+            android:onClick="ibMoveBackClickListener"
             app:srcCompat="@android:drawable/ic_media_rew" />
 
-        <Button
-            android:id="@+id/button"
+        <ImageButton
+            android:id="@+id/ibBackToMainActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageButton2"
+            android:layout_alignTop="@+id/ibMoveBack"
             android:layout_centerHorizontal="true"
-            android:text="Back" />
+            android:contentDescription="backToMain"
+            android:onClick="ibMoveForwardClickListener"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
     </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-    </FrameLayout>
 
 
 </RelativeLayout>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--todo rename thi layout and corresponding class -->
+<!--todo rename this layout and corresponding class -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlOptionSetTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TimePicker
         android:id="@+id/timePicker"
@@ -15,15 +13,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
-
-
-        <include
-            layout="@layout/buttons_container"
-            android:id="@+id/rlContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
 </RelativeLayout>

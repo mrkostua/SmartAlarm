@@ -253,7 +253,7 @@ public class MainMathAlarm extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         selectedMusic = which;
                         Context getContext = getApplicationContext();
-                        int musicPackedName = getContext.getResources().getIdentifier(ConstantValues.ALARM_RINGTONE_NAMES[which], "raw",
+                        int musicPackedName = getContext.getResources().getIdentifier(ConstantValues.INSTANCE.getALARM_RINGTONE_NAMES()[which], "raw",
                                 getContext.getPackageName());
                         try {
                             if (!mpIsPlaying) {

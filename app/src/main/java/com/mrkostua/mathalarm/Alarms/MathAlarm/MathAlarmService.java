@@ -49,7 +49,7 @@ public class MathAlarmService extends Service {
             if (msg.what == KILLER_HANDLE_SERVICE_SILENT) {
                 if(ShowLogs.LOG_STATUS)ShowLogs.i("handleMessage, silentKiller msg");
                 //start receiver with action Snooze
-                Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
+                Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
                 sendBroadcast(snoozeIntent);
                 stopSelf();
             }
@@ -110,7 +110,7 @@ public class MathAlarmService extends Service {
         alarmMessageText = intent.getExtras().getString("alarmMessageText", getString(R.string.edHintGood_morning_sir));
 
         int selectedMusic = intent.getExtras().getInt("selectedMusic", 0);
-        musicResourceID = getPackageName() + "/raw/" + ConstantValues.ALARM_RINGTONE_NAMES[selectedMusic];
+        musicResourceID = getPackageName() + "/raw/" + ConstantValues.INSTANCE.getALARM_RINGTONE_NAMES()[selectedMusic];
         int selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic", 0);
 
         if (alarmCondition) {

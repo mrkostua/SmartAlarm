@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm
+package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import android.content.Context
 import android.os.Build
@@ -14,6 +14,9 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.mrkostua.mathalarm.ConstantValues
+import com.mrkostua.mathalarm.LastAlarmData
+import com.mrkostua.mathalarm.R
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -23,8 +26,8 @@ import kotlin.collections.ArrayList
 //TODO Koltin is there still need for butterKnife library ?
 //todo read more about kotlin !!!!! the way it work and compile
 
-//todo check mails maid at work and notes ( download kotlin plugin for findViewById() )
-public class MainMathAlarmButton : AppCompatActivity() {
+//todo check mails maid at work and notes
+class MainAlarmClockActivity : AppCompatActivity() {
 
     private lateinit var rlBackgroundLayout: RelativeLayout
     private lateinit var rlButtonLayout: RelativeLayout
@@ -43,7 +46,7 @@ public class MainMathAlarmButton : AppCompatActivity() {
         //set layout to the full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_main_alarm)
+        setContentView(R.layout.activity_main_alarm_clock)
 
         initializeViews()
         calendar.timeInMillis = System.currentTimeMillis()

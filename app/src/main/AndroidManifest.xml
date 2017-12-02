@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainMathAlarmButton"
+            android:name=".Alarms.MathAlarm.MainAlarmClockActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait" />
@@ -68,7 +68,14 @@
             android:enabled="true" />
 
         <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
-        <activity android:name=".AlarmSettingsOptions.FragmentSetTimeOption"></activity>
+
+        <activity
+            android:name=".AlarmSettingsOptions.OptionsButtonsController"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="new screen"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

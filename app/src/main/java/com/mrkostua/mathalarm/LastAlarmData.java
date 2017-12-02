@@ -15,21 +15,21 @@ public class LastAlarmData {
     private static int minutes;
 
     public LastAlarmData(Context context){
-        sharedPreferences = context.getSharedPreferences(ConstantValues.ALARM_SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(ConstantValues.INSTANCE.getALARM_SHARED_PREFERENCE_NAME(),Context.MODE_PRIVATE);
 
     }
 
     public int getAlarmHours(){
-        return sharedPreferences.getInt(ConstantValues.LAST_ALARM_HOURS,0);
+        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_HOURS(),0);
     }
 
     public int getAlarmMinutes(){
-        return sharedPreferences.getInt(ConstantValues.LAST_ALARM_MINUTES,0);
+        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_MINUTES(),0);
     }
 
     public void saveLastAlarmData(AlarmObject alarmObject){
-        editor.putInt(ConstantValues.LAST_ALARM_HOURS,alarmObject.getHours());
-        editor.putInt(ConstantValues.LAST_ALARM_MINUTES,alarmObject.getMinutes());
+        editor.putInt(ConstantValues.INSTANCE.getLAST_ALARM_HOURS(),alarmObject.getHours());
+        editor.putInt(ConstantValues.INSTANCE.getLAST_ALARM_MINUTES(),alarmObject.getMinutes());
         editor.apply();
     }
 

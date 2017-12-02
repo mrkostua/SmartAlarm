@@ -9,6 +9,7 @@ import com.mrkostua.mathalarm.ConstantValues;
 import com.mrkostua.mathalarm.ShowLogs;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import static com.mrkostua.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 
@@ -57,7 +58,7 @@ class OnOffAlarm {
     }
 
     private  Intent  GetAlarmIntentExtras(){
-        Intent receiverIntent = new Intent(ConstantValues.START_NEW_ALARM_ACTION);
+        Intent receiverIntent = new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION());
         //sending the type of alarm 2(math)
         receiverIntent.putExtra("selectedMusic",selectedMusic)
                 .putExtra("alarmMessageText",alarmMessageText)
@@ -80,6 +81,8 @@ class OnOffAlarm {
         calendar.setTimeInMillis(System.currentTimeMillis());
          int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
          int currentMinute = calendar.get(Calendar.MINUTE);
+
+           final Map<String,Integer> alarmSettingsOptionsMap = new
 
         //setting calendar instance with the hour and minute that we picked on the timerPicker
         calendar.set(Calendar.HOUR_OF_DAY, pickedHour);
@@ -127,7 +130,7 @@ class OnOffAlarm {
      void CancelSetAlarm() {
          if(ShowLogs.LOG_STATUS)ShowLogs.i( "OnOffAlarm" +"  CancelSetAlarm");
     try {
-        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(ConstantValues.START_NEW_ALARM_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION()), PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = getAlarmManager();
         alarmManager.cancel(cancelPendingIntent);
     }catch (Exception e){
