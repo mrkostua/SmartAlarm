@@ -20,23 +20,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@color/main_layout_backgroundEvening"
+        android:padding="15dp">
 
-        <!--todo choose icons for pointers back and forward
-            todo set background and td -->
+        <!--todo set background and td of icons-->
 
         <ImageButton
             android:id="@+id/ibMoveForward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_alignTop="@+id/ibMoveBack"
+            android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="forward"
             android:onClick="ibMoveForwardClickListener"
-            app:srcCompat="@android:drawable/ic_media_ff" />
+            app:srcCompat="@drawable/arrow_right"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp" />
 
         <ImageButton
             android:id="@+id/ibMoveBack"
@@ -44,12 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/ibMoveForward"
-            android:layout_marginLeft="35dp"
-            android:layout_marginStart="35dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="back"
             android:onClick="ibMoveBackClickListener"
-            app:srcCompat="@android:drawable/ic_media_rew" />
+            app:srcCompat="@drawable/arrow_left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"/>
 
         <ImageButton
             android:id="@+id/ibBackToMainActivity"
@@ -58,8 +62,9 @@
             android:layout_alignTop="@+id/ibMoveBack"
             android:layout_centerHorizontal="true"
             android:contentDescription="backToMain"
-            android:onClick="ibMoveForwardClickListener"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            android:onClick="ibBackToMainActivityClickListener"
+            android:background="@color/main_layout_backgroundEvening"
+            app:srcCompat="@drawable/arrow_down" />
     </RelativeLayout>
 
 

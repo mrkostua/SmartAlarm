@@ -13,7 +13,7 @@ object ConstantValues {
     /**
      * LOG_DEBUG_STATUS true for debug mode, false for production.
      */
-    internal val LOG_DEBUG_STATUS = true
+    val LOG_DEBUG_STATUS = true
 
 
     val ALARM_RINGTONE_NAMES = arrayOf("mechanic_clock", "energy", "loud", "digital_clock")
@@ -31,10 +31,10 @@ object ConstantValues {
     val CUSTOM_ALARM_SETTINGS_MINUTES = 15
 
 
-    val alarmSettingsOptionsMap: MutableMap<Fragment, Int> = HashMap()
+    val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()
 
     init {
-        alarmSettingsOptionsMap.put(FragmentOptionSetTime(), 0)
+        alarmSettingsOptionsList.add(0, FragmentOptionSetTime())
     }
 
 }

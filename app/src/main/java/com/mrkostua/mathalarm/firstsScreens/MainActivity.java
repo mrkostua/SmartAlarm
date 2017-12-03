@@ -18,6 +18,7 @@ import com.mrkostua.mathalarm.ShowLogs;
 public class MainActivity extends AppCompatActivity
 {
     private Button bMathAlarm;
+    public static final String TAG = MainActivity.class.getSimpleName();
     Animation animationShake;
 
 

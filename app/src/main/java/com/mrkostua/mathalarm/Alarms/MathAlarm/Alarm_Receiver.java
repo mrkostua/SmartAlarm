@@ -23,6 +23,8 @@ public class Alarm_Receiver extends BroadcastReceiver
     private static final String COMPLEXITYLEVELKey = "COMPLEXITYLEVELKey";
     private static final String DEEPSLEEPMUSICKey = "DEEPSLEEPMUSICKey";
 
+    public static final String TAG = Alarm_Receiver.class.getSimpleName();
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if(ShowLogs.LOG_STATUS)ShowLogs.i( "Alarm_Receiver started");
