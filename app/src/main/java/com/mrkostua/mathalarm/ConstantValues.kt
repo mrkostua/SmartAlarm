@@ -1,9 +1,7 @@
 package com.mrkostua.mathalarm
 
 import android.app.Fragment
-import com.mrkostua.mathalarm.AlarmSettingsOptions.FragmentOptionSetTime
-
-import java.util.HashMap
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 
 /**
  * @author Kostiantyn on 07.11.2017.

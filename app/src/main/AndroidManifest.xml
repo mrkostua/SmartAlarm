@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Alarms.MathAlarm.MainAlarmClockActivity"
+            android:name=".Alarms.MathAlarm.MainAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait" />
@@ -70,7 +70,7 @@
         <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
 
         <activity
-            android:name=".AlarmSettingsOptions.OptionsButtonsController"
+            android:name=".AlarmSettings.AlarmSettingsActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait">

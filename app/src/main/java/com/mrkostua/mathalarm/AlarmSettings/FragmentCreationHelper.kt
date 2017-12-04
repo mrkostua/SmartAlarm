@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.AlarmSettingsOptions
+package com.mrkostua.mathalarm.AlarmSettings
 
 import android.app.Activity
 import android.app.Fragment
@@ -8,7 +8,7 @@ import com.mrkostua.mathalarm.R
  * @author Kostiantyn Prysiazhnyi on 02.12.2017.
  */
 
-class FragmentHelper(activity: Activity) {
+class FragmentCreationHelper(activity: Activity) {
     private val fragmentManager = activity.fragmentManager
     private val TAG : String = this.javaClass.simpleName
 

@@ -1,6 +1,7 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -14,21 +15,19 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.ConstantValues
 import com.mrkostua.mathalarm.LastAlarmData
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.Settings_Preference
 import java.util.*
 import kotlin.collections.ArrayList
 
 /**
  * @author Kostiantyn on 21.11.2017.
  */
-//TODO Koltin is there still need for butterKnife library ?
-//todo read more about kotlin !!!!! the way it work and compile
 
-//todo check mails maid at work and notes
-class MainAlarmClockActivity : AppCompatActivity() {
-
+class MainAlarmActivity : AppCompatActivity() {
     private lateinit var rlBackgroundLayout: RelativeLayout
     private lateinit var rlButtonLayout: RelativeLayout
     private lateinit var tvAlarmTime: TextView
@@ -39,6 +38,9 @@ class MainAlarmClockActivity : AppCompatActivity() {
     private val lastAlarmData = LastAlarmData(this)
 
     private val calendar = Calendar.getInstance()
+
+    private val intentAlarmSettingsActivity = Intent(this,AlarmSettingsActivity::class.java)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,8 +85,6 @@ class MainAlarmClockActivity : AppCompatActivity() {
             setCustomAlarmSettings()
 
         }
-        //todo method for checking time and setting night day theme
-
     }
 
 
@@ -168,14 +168,12 @@ class MainAlarmClockActivity : AppCompatActivity() {
     }
 
 
-    inner class MainLayoutFirstUseHelper constructor(context: Context) {
-        private var context: Context
+    inner class UserHelperMainLayout constructor(val context: Context) {
         private lateinit var tvFirstHelpingMessage: TextView
         private lateinit var tvSecondHelpingMessage: TextView
         private lateinit var rlBackgroundHelper: RelativeLayout
 
         init {
-            this.context = context
             initializeViews()
             rlBackgroundHelper.visibility = View.VISIBLE
         }
@@ -227,29 +225,32 @@ class MainAlarmClockActivity : AppCompatActivity() {
             }
         }
 
+
+        private fun showAlarmSettingsActivity(){
+            startActivity(intentAlarmSettingsActivity)
+
+        }
+
     }
 
 
     public fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
-            //todo check if it is first alarm creation ( show some toast and etc.) and basic setting=]
-            val userHelper = MainLayoutFirstUseHelper(this)
+            val userHelper = UserHelperMainLayout(this)
             userHelper.showHelpingAlertDialog()
 
         } else {
             // todo show some preview of alarm settings and than set alarm.
             /*
-                maybe show some AlertDialog with alarm settings like in basic version
-                if user will push some settings he will be moved to proper activity where he can change settings
-
-      19-45 -> 21-35
+            todo maybe show some AlertDialog with alarm settings like in basic version
+            todo if user will push some settings he will be moved to proper activity where he can change settings
              */
 
         }
     }
 
     public fun ibAdditionalSettingsOnClickListener(view: View) {
-        //todo open setting layout -> with volume settings and etc.
+        startActivity(Intent(this, Settings_Preference::class.java))
     }
 
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--todo maybe depends on the time the background will be different (night morning ....)--><!--todo create 2-3 style files for different times of the day-->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlBackgroundLayout"
@@ -99,8 +99,6 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/Tuesday"
                 android:theme="@style/ChosenDayOfTheWeek_TextTheme" />
-
-            <!--todo IN java underline chosen day of the week TEXT-->
 
             <TextView
                 android:id="@+id/tvWednesday"

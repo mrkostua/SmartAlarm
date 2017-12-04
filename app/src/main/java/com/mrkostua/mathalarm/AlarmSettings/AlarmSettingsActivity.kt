@@ -1,10 +1,10 @@
-package com.mrkostua.mathalarm.AlarmSettingsOptions
+package com.mrkostua.mathalarm.AlarmSettings
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmClockActivity
+import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.ConstantValues
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ShowLogs
@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
  * @author Kostiantyn Prysiazhnyi on 01.12.2017.
  */
 
-class OptionsButtonsController : AppCompatActivity() {
-    private val fragmentHelper: FragmentHelper = FragmentHelper(this)
+public class AlarmSettingsActivity : AppCompatActivity() {
+    private val fragmentHelper: FragmentCreationHelper = FragmentCreationHelper(this)
     private val TAG = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +74,7 @@ class OptionsButtonsController : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
-        startActivity(Intent(this, MainAlarmClockActivity::class.java))
+        startActivity(Intent(this, MainAlarmActivity::class.java))
     }
 
 

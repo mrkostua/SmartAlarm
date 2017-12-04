@@ -2,6 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.1.60'
+    //todo change kotlin version to 1.2.0-release-Studio3.0-1
     repositories {
         jcenter()
         google()
