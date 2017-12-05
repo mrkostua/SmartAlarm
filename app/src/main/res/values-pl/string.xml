@@ -51,9 +51,9 @@
     <string name="AN_dismissContentText">Budzik był ustawiony na <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">sprobuj</string>
     <string name="DAA_stopAlarmNegativeButtonText">powrót</string>
-    <string name="MMA_alertDialogAlarmPreview_Title">Przegłąd</string>
-    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Potwierdzić</string>
-    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Powrót</string>
+    <string name="settingsPreviewTitle">Przegłąd</string>
+    <string name="settingsPreviewPostiveButtonText">Potwierdzić</string>
+    <string name="setttingsPreviewNegativeButtonText">Powrót</string>
     <string name="MMA_timeNotSetToastText">Żeby stworzyć nowy budzik, obowiązkowe jest ustawienia czasu "Ustawić czas"</string>
     <string name="MMA_alertDialogAlarmMessageText_Title">Napisz powitanie dla siebie, które zostanie wyświetlone z budzikiem</string>
     <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ok</string>

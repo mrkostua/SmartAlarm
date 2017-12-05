@@ -48,9 +48,9 @@
     <string name="AN_dismissContentText">Alarm was set on <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">try</string>
     <string name="DAA_stopAlarmNegativeButtonText">back</string>
-    <string name="MMA_alertDialogAlarmPreview_Title">Preview</string>
-    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Confirm</string>
-    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Back</string>
+    <string name="settingsPreviewTitle">Preview</string>
+    <string name="settingsPreviewPostiveButtonText">Confirm</string>
+    <string name="setttingsPreviewNegativeButtonText">Back</string>
     <string name="MMA_timeNotSetToastText">To create alarm please first set the alarm time</string>
     <string name="MMA_alertDialogAlarmMessageText_Title">Write a message for yourself</string>
     <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ok</string>
@@ -71,5 +71,7 @@
     <string name="helpingMessageTwo">So to set alarm in the future (with old \nsettings), just click the  circle button.</string>
     <string name="helperFirstDialogMessage">Hi if you want to see how the Alarm work just follow appearing text and touch them to continue</string>
     <string name="helperFirstDialogTitle">Smart helper :)</string>
+
+    <string name="timeUntilAlarmBoom">You will sleep only :<xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> hours <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> minutes</string>
 
 </resources>

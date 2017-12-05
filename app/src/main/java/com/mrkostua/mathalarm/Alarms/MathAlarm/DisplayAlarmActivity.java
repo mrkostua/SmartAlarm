@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -118,7 +117,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
     public void bStopAlarm_OnClickListener(View view) {
         final EditText etAnswer = new EditText(DisplayAlarmActivity.this);
         etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.alertDialogMainMathAlarmStyle);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.SettingsPreviewAlertDialogStyle);
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString() + "=")
                 .setView(etAnswer)

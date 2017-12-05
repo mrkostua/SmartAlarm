@@ -1,8 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.60'
-    //todo change kotlin version to 1.2.0-release-Studio3.0-1
+    ext.kotlin_version = '1.2.0'
     repositories {
         jcenter()
         google()

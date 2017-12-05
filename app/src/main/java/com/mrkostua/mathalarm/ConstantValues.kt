@@ -28,6 +28,8 @@ object ConstantValues {
     val CUSTOM_ALARM_SETTINGS_HOURS = 8
     val CUSTOM_ALARM_SETTINGS_MINUTES = 15
 
+    val SHARED_PREFERENCES_WRONG_TIME_VALUE = -1
+
 
     val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()
 

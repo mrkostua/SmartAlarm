@@ -140,9 +140,9 @@ public class MainMathAlarm extends AppCompatActivity {
                 "\"" + alarmMessageText + "\"", deepSleepMusicList[selectedDeepSleepMusic]};
         //Check if the time was Picked by user
         if (timePickerStatus) {
-            AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this, R.style.alertDialogMainMathAlarmStyle);
-            alertDialogAlarmPreview.setTitle(R.string.MMA_alertDialogAlarmPreview_Title)
-                    .setPositiveButton(R.string.MMA_alertDialogAlarmPreview_PositiveButtonText, new DialogInterface.OnClickListener() {
+            AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(this, R.style.SettingsPreviewAlertDialogStyle);
+            alertDialogAlarmPreview.setTitle(R.string.settingsPreviewTitle)
+                    .setPositiveButton(R.string.settingsPreviewPostiveButtonText, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //Class for setting alarm with specific alarm data
@@ -161,7 +161,7 @@ public class MainMathAlarm extends AppCompatActivity {
 
                         }
                     })
-                    .setNegativeButton(R.string.MMA_alertDialogAlarmPreview_NegativeButtonText, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.setttingsPreviewNegativeButtonText, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -207,7 +207,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmComplexity_AlertDialogBuilder() {
-        AlertDialog.Builder alarmComplexity_alertDialog = new AlertDialog.Builder(this, R.style.alertDialogMainMathAlarmStyle);
+        AlertDialog.Builder alarmComplexity_alertDialog = new AlertDialog.Builder(this, R.style.SettingsPreviewAlertDialogStyle);
         alarmComplexity_alertDialog.setTitle("complexity of the task")
                 .setSingleChoiceItems(R.array.alarm_complexity_list, 0, new DialogInterface.OnClickListener() {
                     @Override
@@ -226,7 +226,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmMessageText_AlertDialogBuilder() {
-        AlertDialog.Builder adBuilder_GetMessageForAlarm = new AlertDialog.Builder(this, R.style.alertDialogMainMathAlarmStyle);
+        AlertDialog.Builder adBuilder_GetMessageForAlarm = new AlertDialog.Builder(this, R.style.SettingsPreviewAlertDialogStyle);
 
         RelativeLayout relativeLayoutView = (RelativeLayout) getLayoutInflater().inflate(R.layout.custom_layout_bchange_text, null);
         etGetAlarmMessageText = (EditText) relativeLayoutView.findViewById(R.id.etGetAlarmMessageText);
@@ -244,7 +244,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmMusic_AlertDialogBuilder() {
-        AlertDialog.Builder alertDialog_ChooseMusic = new AlertDialog.Builder(this, R.style.alertDialogMainMathAlarmStyle);
+        AlertDialog.Builder alertDialog_ChooseMusic = new AlertDialog.Builder(this, R.style.SettingsPreviewAlertDialogStyle);
         alertDialog_ChooseMusic.setTitle(R.string.MMA_alertDialogAlarmMusic_Title)
                 .setSingleChoiceItems(R.array.music_list, 0, new DialogInterface.OnClickListener() {
                     @Override
@@ -304,7 +304,7 @@ public class MainMathAlarm extends AppCompatActivity {
     }
 
     private AlertDialog.Builder AlarmDeepSleepMusic_AlertDialogBuilder() {
-        AlertDialog.Builder alertDialog_DeepSleepMusic = new AlertDialog.Builder(this, R.style.alertDialogMainMathAlarmStyle);
+        AlertDialog.Builder alertDialog_DeepSleepMusic = new AlertDialog.Builder(this, R.style.SettingsPreviewAlertDialogStyle);
         alertDialog_DeepSleepMusic.setTitle(R.string.MMA_alertDialogAlarmDeepSleepMusic_Title)
                 .setSingleChoiceItems(R.array.deepSleepMusic_list, 0, new DialogInterface.OnClickListener() {
                     @Override

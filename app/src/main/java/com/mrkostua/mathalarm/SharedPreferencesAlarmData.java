@@ -7,24 +7,24 @@ import android.content.SharedPreferences;
  * @author Kostiantyn on 21.11.2017.
  */
 
-public class LastAlarmData {
+public class SharedPreferencesAlarmData {
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
     private static int hours;
     private static int minutes;
 
-    public LastAlarmData(Context context){
+    public SharedPreferencesAlarmData(Context context){
         sharedPreferences = context.getSharedPreferences(ConstantValues.INSTANCE.getALARM_SHARED_PREFERENCE_NAME(),Context.MODE_PRIVATE);
 
     }
 
     public int getAlarmHours(){
-        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_HOURS(),0);
+        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_HOURS(),-1);
     }
 
     public int getAlarmMinutes(){
-        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_MINUTES(),0);
+        return sharedPreferences.getInt(ConstantValues.INSTANCE.getLAST_ALARM_MINUTES(),-1);
     }
 
     public void saveLastAlarmData(AlarmObject alarmObject){

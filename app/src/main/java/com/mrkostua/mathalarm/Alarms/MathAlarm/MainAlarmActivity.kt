@@ -1,6 +1,6 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm
 
-import android.content.Context
+import  android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,36 +11,27 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageButton
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.ConstantValues
-import com.mrkostua.mathalarm.LastAlarmData
+import com.mrkostua.mathalarm.SharedPreferencesAlarmData
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Settings_Preference
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.activity_main_alarm.*
 
 /**
  * @author Kostiantyn on 21.11.2017.
  */
 
 class MainAlarmActivity : AppCompatActivity() {
-    private lateinit var rlBackgroundLayout: RelativeLayout
-    private lateinit var rlButtonLayout: RelativeLayout
-    private lateinit var tvAlarmTime: TextView
-
-    private lateinit var ibAdditionalSettings: ImageButton
-
-    private val listDaysOfWeekViews = ArrayList<TextView>(7)
-    private val lastAlarmData = LastAlarmData(this)
+    private val lastAlarmData = SharedPreferencesAlarmData(this)
 
     private val calendar = Calendar.getInstance()
 
-    private val intentAlarmSettingsActivity = Intent(this,AlarmSettingsActivity::class.java)
-
+    private val intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,22 +39,12 @@ class MainAlarmActivity : AppCompatActivity() {
         //set layout to the full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_main_alarm_clock)
+        setContentView(R.layout.activity_main_alarm)
 
-        initializeViews()
         calendar.timeInMillis = System.currentTimeMillis()
 
         setThemeForAlarmButtonLayout()
         initializeAlarmButton()
-    }
-
-    private fun initializeViews() {
-        rlButtonLayout = findViewById(R.id.rlButtonLayout) as RelativeLayout
-        rlBackgroundLayout = findViewById(R.id.rlBackgroundLayout) as RelativeLayout
-
-        tvAlarmTime = findViewById(R.id.tvAlarmTime) as TextView
-        ibAdditionalSettings = findViewById(R.id.ibAdditionalSettings) as ImageButton
-
     }
 
     private fun setThemeForAlarmButtonLayout() {
@@ -86,7 +67,6 @@ class MainAlarmActivity : AppCompatActivity() {
 
         }
     }
-
 
     private fun setDayLayoutTheme() {
         setViewBackgroundColor(ibAdditionalSettings, R.color.main_layout_backgroundDay)
@@ -122,24 +102,20 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun showWeekDaysAndCurrentDay() {
-        initializeDaysOfWeekViews()
+        val listDaysOfWeekViews = ArrayList<TextView>(7)
+        listDaysOfWeekViews.add(tvMonday)
+        listDaysOfWeekViews.add(tvTuesday)
+        listDaysOfWeekViews.add(tvWednesday)
+        listDaysOfWeekViews.add(tvThursday)
+        listDaysOfWeekViews.add(tvFriday)
+        listDaysOfWeekViews.add(tvSaturday)
+        listDaysOfWeekViews.add(tvSunday)
 
         listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
             if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK))
                 setDayOfWeekTextStyle(dayView)
 
         }
-    }
-
-    private fun initializeDaysOfWeekViews() {
-        listDaysOfWeekViews.add(findViewById(R.id.tvMonday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvTuesday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvWednesday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvThursday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvFriday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvSaturday) as TextView)
-        listDaysOfWeekViews.add(findViewById(R.id.tvSunday) as TextView)
-
     }
 
     private fun setDayOfWeekTextStyle(tvDayOfWeek: TextView) {
@@ -169,13 +145,13 @@ class MainAlarmActivity : AppCompatActivity() {
 
 
     inner class UserHelperMainLayout constructor(val context: Context) {
-        private lateinit var tvFirstHelpingMessage: TextView
-        private lateinit var tvSecondHelpingMessage: TextView
-        private lateinit var rlBackgroundHelper: RelativeLayout
-
+        /** todo
+         * what about if user doesn't want to see helping message and will click screen somewhere else
+         * consider this scenario and implement solution
+         */
         init {
-            initializeViews()
             rlBackgroundHelper.visibility = View.VISIBLE
+            initializeViews()
         }
 
         fun showHelpingAlertDialog() {
@@ -193,10 +169,6 @@ class MainAlarmActivity : AppCompatActivity() {
         }
 
         private fun initializeViews() {
-            tvFirstHelpingMessage = findViewById(R.id.tvFirstHelpingMessage) as TextView
-            tvSecondHelpingMessage = findViewById(R.id.tvSecondHelpingMessage) as TextView
-            rlBackgroundHelper = findViewById(R.id.rlBackgroundHelper) as RelativeLayout
-
             if (isDarkTime()) {
                 setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
                 setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
@@ -225,14 +197,13 @@ class MainAlarmActivity : AppCompatActivity() {
             }
         }
 
-
-        private fun showAlarmSettingsActivity(){
-            startActivity(intentAlarmSettingsActivity)
-
-        }
-
     }
 
+    private fun showAlarmSettingsActivity() {
+        intentAlarmSettingsActivity.putExtra("start",ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
+        startActivity(intentAlarmSettingsActivity)
+
+    }
 
     public fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
@@ -250,7 +221,7 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     public fun ibAdditionalSettingsOnClickListener(view: View) {
-        startActivity(Intent(this, Settings_Preference::class.java))
+        showAlarmSettingsActivity()
     }
 
 }

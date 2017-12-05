@@ -92,7 +92,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
                 alarmComplexityList[complexityLevel], "\"" +messageText +"\"", deepSleepMusicList[deepSleepMusicStatus]};
 
         AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(SetAlarmFromHistory.this,
-                R.style.alertDialogMainMathAlarmStyle);
+                R.style.SettingsPreviewAlertDialogStyle);
         alertDialogAlarmPreview.setTitle("Preview")
         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
@@ -163,7 +163,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
         }
 
     public void imHistoryDeleteAllAlarms_OnClickMethod(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(SetAlarmFromHistory.this,R.style.alertDialogMainMathAlarmStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SetAlarmFromHistory.this,R.style.SettingsPreviewAlertDialogStyle);
         builder.setTitle("Checkup")
                 .setMessage("Are you sure, you want to delete all the records")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {

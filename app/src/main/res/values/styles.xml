@@ -34,7 +34,7 @@
     </style>
 
 
-    <style name="alertDialogMainMathAlarmStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="SettingsPreviewAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
         <item name="android:textColorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
         <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>

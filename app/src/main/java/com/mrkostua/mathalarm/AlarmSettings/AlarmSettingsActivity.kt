@@ -22,11 +22,22 @@ public class AlarmSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
 
-        showFirstSettingsOption()
+        showChosenFragment()
     }
 
-    private fun showFirstSettingsOption() {
-        fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
+    private fun showChosenFragment() {
+        //todo change the name of Etra and save in ConstantValues
+        val fragmentToLoadIndex = intent.getIntExtra("start", -1)
+        if (fragmentToLoadIndex != -1) {
+            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[fragmentToLoadIndex]))
+
+        } else {
+            fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
+
+        }
+
+
+
 
 
         ibBackToMainActivity.setBackgroundColor(resources.getColor(R.color.white))

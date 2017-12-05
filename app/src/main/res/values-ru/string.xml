@@ -48,9 +48,9 @@
     <string name="AN_dismissContentText">Будильник был установлен на <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">попробуй</string>
     <string name="DAA_stopAlarmNegativeButtonText">назад</string>
-    <string name="MMA_alertDialogAlarmPreview_Title">Предварительный просмотр</string>
-    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Подтвердить</string>
-    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Назад</string>
+    <string name="settingsPreviewTitle">Предварительный просмотр</string>
+    <string name="settingsPreviewPostiveButtonText">Подтвердить</string>
+    <string name="setttingsPreviewNegativeButtonText">Назад</string>
     <string name="MMA_timeNotSetToastText">Чтобы создать новый будильник сначало нужно задать время "Задать время"</string>
     <string name="MMA_alertDialogAlarmMessageText_Title">Write a message for yourself</string>
     <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ок</string>
