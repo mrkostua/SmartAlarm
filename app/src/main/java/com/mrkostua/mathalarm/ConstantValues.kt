@@ -29,8 +29,7 @@ object ConstantValues {
     val CUSTOM_ALARM_SETTINGS_MINUTES = 15
 
     val SHARED_PREFERENCES_WRONG_TIME_VALUE = -1
-
-
+    val INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST = "whichFragmentToLoadFirst"
     val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()
 
     init {

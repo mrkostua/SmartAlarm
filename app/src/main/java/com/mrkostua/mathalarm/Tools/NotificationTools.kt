@@ -30,7 +30,7 @@ public class NotificationTools(val context: Context) {
         return Pair(countsTimeToAlarmStart.resultHours, countsTimeToAlarmStart.resultMinutes)
     }
 
-    public fun convertTimeToRedableTime(hour: Int, minute: Int): String {
+    public fun convertTimeToReadableTime(hour: Int, minute: Int): String {
         var sHour = hour.toString()
         var sMinute = minute.toString()
 
@@ -40,6 +40,10 @@ public class NotificationTools(val context: Context) {
             sMinute = "0" + minute
 
         return sHour + ":" + sMinute
+    }
+
+    public fun showToastMessage(messageText : String){
+        Toast.makeText(context,messageText,Toast.LENGTH_LONG).show()
     }
 
 }

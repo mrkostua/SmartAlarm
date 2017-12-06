@@ -200,7 +200,8 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun showAlarmSettingsActivity() {
-        intentAlarmSettingsActivity.putExtra("start",ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
+        intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
+                ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
         startActivity(intentAlarmSettingsActivity)
 
     }

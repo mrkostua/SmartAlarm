@@ -53,7 +53,7 @@
             android:onClick="ibMoveBackClickListener"
             app:srcCompat="@drawable/arrow_left"
             android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp" />
 
         <ImageButton
             android:id="@+id/ibBackToMainActivity"
@@ -64,7 +64,9 @@
             android:contentDescription="backToMain"
             android:onClick="ibBackToMainActivityClickListener"
             android:background="@color/main_layout_backgroundEvening"
-            app:srcCompat="@drawable/arrow_down" />
+            app:srcCompat="@drawable/arrow_down"
+            android:clickable="true"
+            android:focusable="true" />
     </RelativeLayout>
 
 

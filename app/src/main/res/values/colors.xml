@@ -36,6 +36,7 @@
     <color name="day_of_week_chosen">#308f00</color>
 
     <color name="helperTextMessages">#4460ff</color>
+    <color name="blockedButton">#88a69898</color>
 
 
 </resources>

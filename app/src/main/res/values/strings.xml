@@ -73,5 +73,5 @@
     <string name="helperFirstDialogTitle">Smart helper :)</string>
 
     <string name="timeUntilAlarmBoom">You will sleep only :<xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> hours <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> minutes</string>
-
+    <string name="blockedButtonMessage">Hi, this option is last one :(, please try moving other direction.</string>
 </resources>

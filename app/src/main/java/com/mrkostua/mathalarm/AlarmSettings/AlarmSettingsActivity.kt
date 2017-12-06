@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.ImageButton
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.ConstantValues
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.Tools.AllApiTools
+import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
 
@@ -17,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
 public class AlarmSettingsActivity : AppCompatActivity() {
     private val fragmentHelper: FragmentCreationHelper = FragmentCreationHelper(this)
     private val TAG = this.javaClass.simpleName
+    private val notificationTools = NotificationTools(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,22 +30,13 @@ public class AlarmSettingsActivity : AppCompatActivity() {
     }
 
     private fun showChosenFragment() {
-        //todo change the name of Etra and save in ConstantValues
-        val fragmentToLoadIndex = intent.getIntExtra("start", -1)
-        if (fragmentToLoadIndex != -1) {
-            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[fragmentToLoadIndex]))
+        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+        if (indexOfFragmentToLoad != -1) {
+            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
 
         } else {
             fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
-
         }
-
-
-
-
-
-        ibBackToMainActivity.setBackgroundColor(resources.getColor(R.color.white))
-        //todo change button color and clickable false, so the user
     }
 
     private fun getCurrentFragmentIndex(): Int {
@@ -51,7 +46,6 @@ public class AlarmSettingsActivity : AppCompatActivity() {
     private fun getLastFragmentIndex(): Int {
         return ConstantValues.alarmSettingsOptionsList.size - 1
     }
-
 
     private fun showNextPreviousFragment(isNextFragment: Boolean) {
         val currentFragmentIndex = getCurrentFragmentIndex()
@@ -88,7 +82,6 @@ public class AlarmSettingsActivity : AppCompatActivity() {
         startActivity(Intent(this, MainAlarmActivity::class.java))
     }
 
-
     private fun moveToNextFragment(currentFragmentIndex: Int) {
         fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[currentFragmentIndex + 1])
         //todo maybe do some animations
@@ -100,12 +93,48 @@ public class AlarmSettingsActivity : AppCompatActivity() {
 
     }
 
+    private fun isButtonBlocked(whichButton: View): Boolean {
+        return when (whichButton) {
+            ibMoveBack -> getCurrentFragmentIndex() == 0
+            ibMoveForward -> getCurrentFragmentIndex() == getLastFragmentIndex()
+            else -> false
+        }
+
+    }
+
+    private fun blockButtonAndShowMessage(whichButton: View) {
+        whichButton.isClickable = false
+        whichButton.isFocusable = false
+        if (whichButton is ImageButton) {
+            when (whichButton) {
+                ibMoveBack -> whichButton.setImageDrawable(AllApiTools.getDrawable(resources, R.drawable.arrow_right_blocked))
+
+                ibMoveForward -> whichButton.setImageDrawable(AllApiTools.getDrawable(resources, R.drawable.arrow_left_blocked))
+
+                else -> ShowLogs.log(TAG, "blockButtonAndShowMessage wrong method argument.")
+            }
+        }
+        notificationTools.showToastMessage(resources.getString(R.string.blockedButtonMessage))
+
+    }
+
     fun ibMoveForwardClickListener(view: View) {
-        showNextPreviousFragment(true)
+        if (isButtonBlocked(view)) {
+            blockButtonAndShowMessage(view)
+        } else {
+            showNextPreviousFragment(true)
+
+        }
     }
 
     fun ibMoveBackClickListener(view: View) {
-        showNextPreviousFragment(false)
+        if (isButtonBlocked(view)) {
+            blockButtonAndShowMessage(view)
+        } else {
+            showNextPreviousFragment(false)
+
+        }
+
     }
 
     fun ibBackToMainActivityClickListener(view: View) {

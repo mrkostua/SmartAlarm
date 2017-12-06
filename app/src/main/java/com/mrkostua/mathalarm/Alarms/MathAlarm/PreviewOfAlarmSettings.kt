@@ -33,7 +33,7 @@ class PreviewOfAlarmSettings(val context: Context) {
         val settingsList = ArrayList<String>(ConstantValues.alarmSettingsOptionsList.size)
 
         if (alarmSettingData.alarmHours != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE && alarmSettingData.alarmMinutes != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE) {
-            settingsList.add(notficationTools.convertTimeToRedableTime(alarmSettingData.alarmHours, alarmSettingData.alarmMinutes))
+            settingsList.add(notficationTools.convertTimeToReadableTime(alarmSettingData.alarmHours, alarmSettingData.alarmMinutes))
 
         }
 
