@@ -27,10 +27,11 @@ public class AlarmSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_container_for_alarm_setttings)
 
         showChosenFragment()
+                //todo download files from gmail and add here.
     }
 
     private fun showChosenFragment() {
-        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+         val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
         if (indexOfFragmentToLoad != -1) {
             fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
 

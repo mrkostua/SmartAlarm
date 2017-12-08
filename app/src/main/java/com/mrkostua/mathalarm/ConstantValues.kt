@@ -1,6 +1,7 @@
 package com.mrkostua.mathalarm
 
 import android.app.Fragment
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 
 /**
@@ -24,9 +25,11 @@ object ConstantValues {
     val ALARM_SHARED_PREFERENCE_NAME = "LAST_ALARM_DATA"
     val LAST_ALARM_HOURS = "hours"
     val LAST_ALARM_MINUTES = "minutes"
+    val SHARED_PREFERENCES_KEY_TEXT_MESSAGE = "text_message"
 
     val CUSTOM_ALARM_SETTINGS_HOURS = 8
     val CUSTOM_ALARM_SETTINGS_MINUTES = 15
+    val CUSTOM_ALARM_TEXT_MESSAGE = "Good morning fucker"
 
     val SHARED_PREFERENCES_WRONG_TIME_VALUE = -1
     val INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST = "whichFragmentToLoadFirst"
@@ -34,6 +37,7 @@ object ConstantValues {
 
     init {
         alarmSettingsOptionsList.add(0, FragmentOptionSetTime())
+        alarmSettingsOptionsList.add(2, FragmentOptionSetMessage())
     }
 
 }
