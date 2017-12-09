@@ -3,6 +3,7 @@ package com.mrkostua.mathalarm
 import android.app.Fragment
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.FragmentSettingsOptionSetRingtone
 
 /**
  * @author Kostiantyn on 07.11.2017.
@@ -37,6 +38,7 @@ object ConstantValues {
 
     init {
         alarmSettingsOptionsList.add(0, FragmentOptionSetTime())
+        alarmSettingsOptionsList.add(1, FragmentSettingsOptionSetRingtone())
         alarmSettingsOptionsList.add(2, FragmentOptionSetMessage())
     }
 

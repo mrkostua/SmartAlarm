@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_option_set_message.*
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
  */
-class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
+public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
     private val activityContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         this.context
     else

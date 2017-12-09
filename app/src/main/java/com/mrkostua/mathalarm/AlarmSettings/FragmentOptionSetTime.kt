@@ -14,7 +14,7 @@ import com.mrkostua.mathalarm.Tools.NotificationTools
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
 
-class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
+public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     override var settingsOptionIndex = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime())
 
     private val activityContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
