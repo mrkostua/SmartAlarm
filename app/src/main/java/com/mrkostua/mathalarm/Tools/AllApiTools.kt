@@ -15,4 +15,9 @@ object AllApiTools {
             resources.getDrawable(drawableId)
         }
     }
+
+    public fun getCustomRingtoneResId(){
+
+    }
+
 }

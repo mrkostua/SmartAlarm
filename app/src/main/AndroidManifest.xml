@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mrkostua.mathalarm">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -50,6 +49,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
+
+        <activity
+            android:name=".AlarmSettings.AlarmSettingsActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="new screen"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <service
+            android:name=".Alarms.MathAlarm.MathAlarmService"
+            android:enabled="true" />
+        <service
+            android:name=".Alarms.MathAlarm.WakeLockService"
+            android:enabled="true" />
+
         <receiver
             android:name=".Alarms.MathAlarm.Alarm_Receiver"
             android:enabled="true">
@@ -60,22 +77,7 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".Alarms.MathAlarm.MathAlarmService"
-            android:enabled="true" />
-        <service
-            android:name=".Alarms.MathAlarm.WakeLockService"
-            android:enabled="true" />
 
-        <activity android:name=".Alarms.MathAlarm.SetAlarmFromHistory" />
-
-        <activity
-            android:name=".AlarmSettings.AlarmSettingsActivity"
-            android:configChanges="keyboard|orientation|screenSize"
-            android:label="new screen"
-            android:screenOrientation="portrait">
-
-        </activity>
     </application>
 
 </manifest>

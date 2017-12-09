@@ -47,6 +47,25 @@ class MainAlarmActivity : AppCompatActivity() {
         initializeAlarmButton()
     }
 
+    public fun rlButtonLayoutOnClickListener(view: View) {
+        if (isFirstAlarmCreation()) {
+            val userHelper = UserHelperMainLayout(this)
+            userHelper.showHelpingAlertDialog()
+
+        } else {
+            // todo show some preview of alarm settings and than set alarm.
+            /*
+            todo maybe show some AlertDialog with alarm settings like in basic version
+            todo if user will push some settings he will be moved to proper activity where he can change settings
+             */
+
+        }
+    }
+
+    public fun ibAdditionalSettingsOnClickListener(view: View) {
+        showAlarmSettingsActivity()
+    }
+
     private fun setThemeForAlarmButtonLayout() {
         if (isDarkTime()) {
             setDayLayoutTheme()
@@ -144,7 +163,7 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
 
-    inner class UserHelperMainLayout constructor(val context: Context) {
+    inner class UserHelperMainLayout constructor(val context: Context)  {
         /** todo
          * what about if user doesn't want to see helping message and will click screen somewhere else
          * consider this scenario and implement solution
@@ -204,25 +223,6 @@ class MainAlarmActivity : AppCompatActivity() {
                 ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
         startActivity(intentAlarmSettingsActivity)
 
-    }
-
-    public fun rlButtonLayoutOnClickListener(view: View) {
-        if (isFirstAlarmCreation()) {
-            val userHelper = UserHelperMainLayout(this)
-            userHelper.showHelpingAlertDialog()
-
-        } else {
-            // todo show some preview of alarm settings and than set alarm.
-            /*
-            todo maybe show some AlertDialog with alarm settings like in basic version
-            todo if user will push some settings he will be moved to proper activity where he can change settings
-             */
-
-        }
-    }
-
-    public fun ibAdditionalSettingsOnClickListener(view: View) {
-        showAlarmSettingsActivity()
     }
 
 }

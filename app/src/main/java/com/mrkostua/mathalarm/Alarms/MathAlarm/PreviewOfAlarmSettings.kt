@@ -36,6 +36,9 @@ class PreviewOfAlarmSettings(val context: Context) {
             settingsList.add(notficationTools.convertTimeToReadableTime(alarmSettingData.alarmHours, alarmSettingData.alarmMinutes))
 
         }
+        if (alarmSettingData.alarmTextMessage != ConstantValues.CUSTOM_ALARM_TEXT_MESSAGE) {
+            settingsList.add(alarmSettingData.alarmTextMessage)
+        }
 
         return settingsList.toTypedArray()
     }

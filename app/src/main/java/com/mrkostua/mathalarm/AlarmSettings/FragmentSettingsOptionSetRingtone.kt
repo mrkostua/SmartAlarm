@@ -9,10 +9,9 @@ import com.mrkostua.mathalarm.ConstantValues
 import com.mrkostua.mathalarm.R
 
 /**
- * @author k.prysiazhny on 07-Dec-17.
- * k.prysiazhny@samsung.com
+ *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
-public class FragmentSettingsOptionSetRingtone : Fragment(),SettingsFragmentInterface {
+public class FragmentSettingsOptionSetRingtone : Fragment(), SettingsFragmentInterface {
     override var settingsOptionIndex: Int = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentSettingsOptionSetRingtone())
     private val TAG = this.javaClass.simpleName
 
@@ -48,11 +47,5 @@ public class FragmentSettingsOptionSetRingtone : Fragment(),SettingsFragmentInte
      *  https://www.androidhive.info/2016/01/android-working-with-recycler-view/
      *
      */
-
-
-    /**
-     *
-     */
-
 
 }

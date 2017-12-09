@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
+
 apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -22,6 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -36,6 +42,5 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'kotlin-android-extensions'
 android.defaultConfig.vectorDrawables.useSupportLibrary = true
 
