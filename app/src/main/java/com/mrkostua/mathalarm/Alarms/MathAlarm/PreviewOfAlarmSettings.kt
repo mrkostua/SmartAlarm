@@ -2,9 +2,9 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import android.app.AlertDialog
 import android.content.Context
-import com.mrkostua.mathalarm.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesAlarmData
+import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.NotificationTools
 
 /**
@@ -29,7 +29,7 @@ class PreviewOfAlarmSettings(val context: Context) {
     }
 
     private fun getArrayOfSetAlarmSettings(): Array<String> {
-        val alarmSettingData = SharedPreferencesAlarmData(context)
+        val alarmSettingData = SharedPreferencesHelper(context)
         val settingsList = ArrayList<String>(ConstantValues.alarmSettingsOptionsList.size)
 
         if (alarmSettingData.alarmHours != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE && alarmSettingData.alarmMinutes != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE) {

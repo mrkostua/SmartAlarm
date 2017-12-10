@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AllApiTools
 import com.mrkostua.mathalarm.Tools.NotificationTools

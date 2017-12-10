@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm
+package com.mrkostua.mathalarm.Tools
 
 import android.app.Fragment
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
@@ -44,5 +44,5 @@ object ConstantValues {
         alarmSettingsOptionsList.add(1, FragmentSettingsOptionSetRingtone())
         alarmSettingsOptionsList.add(2, FragmentOptionSetMessage())
     }
-
 }
+

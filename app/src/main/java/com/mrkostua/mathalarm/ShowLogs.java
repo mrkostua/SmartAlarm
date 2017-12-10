@@ -1,7 +1,8 @@
 package com.mrkostua.mathalarm;
 
 import android.util.Log;
-import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
+
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 
 /** @author Konstantyn
  * Created by Администратор on 14.03.2017.

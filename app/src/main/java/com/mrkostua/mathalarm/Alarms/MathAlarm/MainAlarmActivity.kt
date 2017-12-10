@@ -15,8 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
-import com.mrkostua.mathalarm.ConstantValues
-import com.mrkostua.mathalarm.SharedPreferencesAlarmData
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.R
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_main_alarm.*
  */
 
 class MainAlarmActivity : AppCompatActivity() {
-    private val lastAlarmData = SharedPreferencesAlarmData(this)
+    private val lastAlarmData = SharedPreferencesHelper(this)
 
     private val calendar = Calendar.getInstance()
 

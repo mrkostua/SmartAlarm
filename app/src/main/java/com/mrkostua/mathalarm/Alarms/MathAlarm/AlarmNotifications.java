@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.R;
 
   class AlarmNotifications {

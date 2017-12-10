@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.CountsTimeToAlarmStart;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;

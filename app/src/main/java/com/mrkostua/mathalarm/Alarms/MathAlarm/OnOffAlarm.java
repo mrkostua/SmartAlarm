@@ -5,11 +5,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.ShowLogs;
 
 import java.util.Calendar;
-import java.util.Map;
 
 import static com.mrkostua.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 

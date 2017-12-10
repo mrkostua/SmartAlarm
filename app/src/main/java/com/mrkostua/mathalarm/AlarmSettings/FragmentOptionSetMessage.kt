@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mrkostua.mathalarm.AlarmObject
-import com.mrkostua.mathalarm.ConstantValues
+import com.mrkostua.mathalarm.PreferenceHelper.defaultPrefs
+import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesAlarmData
+
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
 
 /**
@@ -20,8 +21,7 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
         this.context
     else
         activity
-
-    private val sharedPrefrences = SharedPreferencesAlarmData(activityContext)
+//    private val sharedPreferences = SharedPreferencesHelper.customSharedPreferences(activityContext,SharedPreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
     override var settingsOptionIndex: Int = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime())
 
@@ -33,6 +33,8 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
 
     override fun saveSettingsInSharedPreferences() {
         //todo set after onclick on confirm or save message button
-        sharedPrefrences.saveLastAlarmData(AlarmObject(tvTextMessage.text.toString()))
+        val alarmObject = AlarmObject(tvTextMessage.text.toString())
+
+
     }
 }

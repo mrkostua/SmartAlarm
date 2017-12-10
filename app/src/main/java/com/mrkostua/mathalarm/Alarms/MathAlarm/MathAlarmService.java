@@ -14,7 +14,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogs;
 

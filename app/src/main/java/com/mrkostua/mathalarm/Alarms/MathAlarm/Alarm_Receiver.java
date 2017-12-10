@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.ShowLogs;
 import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 

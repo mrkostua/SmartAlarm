@@ -2,8 +2,6 @@ package com.mrkostua.mathalarm.Tools
 
 import android.util.Log
 
-import com.mrkostua.mathalarm.ConstantValues
-
 /**
  * @author Kostiantyn Prysiazhnyi on 03.12.2017.
  */

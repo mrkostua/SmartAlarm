@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mrkostua.mathalarm.AlarmObject
-import com.mrkostua.mathalarm.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesAlarmData
+import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
@@ -22,7 +22,7 @@ public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     else
         activity
 
-    private val sharedPreferencesAlarmData = SharedPreferencesAlarmData(activityContext)
+    private val sharedPreferencesAlarmData = SharedPreferencesHelper(activityContext)
 
     private val notificationTools = NotificationTools(activityContext)
 

@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mrkostua.mathalarm.ConstantValues;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.MathAlarmTaskGenerator;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogs;

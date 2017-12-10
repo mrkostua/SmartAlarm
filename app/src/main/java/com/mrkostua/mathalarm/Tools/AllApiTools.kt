@@ -1,5 +1,7 @@
 package com.mrkostua.mathalarm.Tools
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -16,8 +18,10 @@ object AllApiTools {
         }
     }
 
-    public fun getCustomRingtoneResId(){
+    public fun getCustomRingtoneResId() {
 
     }
+
+
 
 }
