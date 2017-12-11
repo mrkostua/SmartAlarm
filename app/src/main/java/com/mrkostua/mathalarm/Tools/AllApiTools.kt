@@ -1,7 +1,5 @@
 package com.mrkostua.mathalarm.Tools
 
-import android.app.Activity
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -13,8 +11,10 @@ object AllApiTools {
     public fun getDrawable(resources: Resources, drawableId: Int): Drawable {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             resources.getDrawable(drawableId, null)
+
         } else {
             resources.getDrawable(drawableId)
+
         }
     }
 

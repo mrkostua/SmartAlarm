@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.AlarmObject
-import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SharedPreferencesHelper
+import com.mrkostua.mathalarm.SharedPreferencesHelper.set
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantsEnumPrefrences
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
@@ -17,14 +18,14 @@ import kotlinx.android.synthetic.main.fragment_option_set_time.*
 public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     override var settingsOptionIndex = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime())
 
-    private val activityContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    private val fragmentContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         this.context
     else
         activity
 
-    private val sharedPreferencesAlarmData = SharedPreferencesHelper(activityContext)
+    private val sharedPreferencesAlarmData = SharedPreferencesHelper.customSharedPreferences(fragmentContext, ConstantsEnumPrefrences.ALARM_SP_NAME.getKeyValue())
 
-    private val notificationTools = NotificationTools(activityContext)
+    private val notificationTools = NotificationTools(fragmentContext)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
         saveSettingsInSharedPreferences()
@@ -35,7 +36,8 @@ public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     override fun saveSettingsInSharedPreferences() {
         tpSetAlarmTime.setOnTimeChangedListener({ timePocker, hourOfDay, minute ->
             showTimeUntilAlarmBoom(hourOfDay, minute)
-            sharedPreferencesAlarmData.saveLastAlarmData(AlarmObject(hourOfDay, minute))
+            sharedPreferencesAlarmData[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue()] = hourOfDay
+            sharedPreferencesAlarmData[ConstantsEnumPrefrences.ALARM_MINUTES.getKeyValue()] = minute
 
         })
 

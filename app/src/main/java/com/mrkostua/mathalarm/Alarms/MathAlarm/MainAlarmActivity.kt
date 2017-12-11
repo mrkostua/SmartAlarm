@@ -1,6 +1,6 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm
 
-import  android.content.Context
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,19 +15,21 @@ import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
-import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.SharedPreferencesHelper
+import com.mrkostua.mathalarm.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantsEnumPrefrences
+import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlinx.android.synthetic.main.activity_main_alarm.*
 
 /**
  * @author Kostiantyn on 21.11.2017.
  */
 
 class MainAlarmActivity : AppCompatActivity() {
-    private val lastAlarmData = SharedPreferencesHelper(this)
+    private val sharedPrefrencesHelper = SharedPreferencesHelper.customSharedPreferences(this, ConstantsEnumPrefrences.ALARM_SP_NAME.getKeyValue())
 
     private val calendar = Calendar.getInstance()
 
@@ -111,7 +113,10 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun setSettingsFromLastAlarm() {
-        tvAlarmTime.text = Integer.toString(lastAlarmData.alarmHours) + " : " + Integer.toString(lastAlarmData.alarmMinutes)
+        val hours: Int? = sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue(), ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()]
+        val minutes: Int? = sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_MINUTES.getKeyValue(), ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue()]
+        tvAlarmTime.text = hours?.toString() ?: Integer.toString(ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()) +
+                " : " + minutes?.toString() ?: Integer.toString(ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue())
 
     }
 
@@ -154,7 +159,7 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun isFirstAlarmCreation(): Boolean {
-        return lastAlarmData.alarmHours != 0
+        return sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue(), ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()] != 0
     }
 
     private fun isDarkTime(): Boolean {
@@ -163,7 +168,7 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
 
-    inner class UserHelperMainLayout constructor(val context: Context)  {
+    inner class UserHelperMainLayout constructor(val context: Context) {
         /** todo
          * what about if user doesn't want to see helping message and will click screen somewhere else
          * consider this scenario and implement solution

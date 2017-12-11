@@ -8,21 +8,24 @@ import android.preference.PreferenceManager
  * @author Kostiantyn on 21.11.2017.
  */
 public object SharedPreferencesHelper {
-    fun defaultSharedPreferences(context: Context): SharedPreferences
+    public fun defaultSharedPreferences(context: Context): SharedPreferences
             = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences
+    public fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences
             = context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
 
     //extension function,
     //inline keyword (read! use it in small func with extension func to avoid the cost of higher-order functions
     // (more about how compiler works and costs of creating and saving this func)
-    inline fun SharedPreferences.edit(action: (SharedPreferences.Editor) -> Unit) {
+    public inline fun SharedPreferences.edit(action: (SharedPreferences.Editor) -> Unit) {
         val editor = this.edit()
         action(editor)
         editor.apply()
     }
 
+    /**
+     * to use extension in different package this fun need to be imported like .get or .*
+     */
     public operator fun SharedPreferences.set(key: String, value: Any?) {
         when (value) {
             is String? ->
@@ -35,7 +38,9 @@ public object SharedPreferencesHelper {
                 throw UnsupportedOperationException("Not implemented")
         }
     }
-
+    /**
+     * to use extension in different package this fun need to be imoprted like .get or .*
+     */
     public operator inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
         return when (T::class) {
             String::class ->

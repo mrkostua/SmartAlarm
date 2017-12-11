@@ -2,9 +2,11 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import android.app.AlertDialog
 import android.content.Context
-import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SharedPreferencesHelper
+import com.mrkostua.mathalarm.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.Tools.ConstantsEnumPrefrences
 import com.mrkostua.mathalarm.Tools.NotificationTools
 
 /**
@@ -29,18 +31,27 @@ class PreviewOfAlarmSettings(val context: Context) {
     }
 
     private fun getArrayOfSetAlarmSettings(): Array<String> {
-        val alarmSettingData = SharedPreferencesHelper(context)
+        val preferencesHelper = SharedPreferencesHelper.customSharedPreferences(context, ConstantsEnumPrefrences.ALARM_SP_NAME.getKeyValue())
         val settingsList = ArrayList<String>(ConstantValues.alarmSettingsOptionsList.size)
 
-        if (alarmSettingData.alarmHours != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE && alarmSettingData.alarmMinutes != ConstantValues.SHARED_PREFERENCES_WRONG_TIME_VALUE) {
-            settingsList.add(notficationTools.convertTimeToReadableTime(alarmSettingData.alarmHours, alarmSettingData.alarmMinutes))
+        val hours: Int? = preferencesHelper[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue(), ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()]
+        val minutes: Int? = preferencesHelper[ConstantsEnumPrefrences.ALARM_MINUTES.getKeyValue(), ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue()]
+        if (hours != null && minutes != null && hours != ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue() &&
+                minutes != ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue()) {
+            settingsList.add(notficationTools.convertTimeToReadableTime(hours, minutes))
 
         }
-        if (alarmSettingData.alarmTextMessage != ConstantValues.CUSTOM_ALARM_TEXT_MESSAGE) {
-            settingsList.add(alarmSettingData.alarmTextMessage)
+        val alarmTextMessage: Int? = preferencesHelper[ConstantsEnumPrefrences.ALARM_TEXT_MESSAGE.getKeyValue(), ConstantsEnumPrefrences.ALARM_TEXT_MESSAGE.getDefaultIntValue()]
+        if (alarmTextMessage != null && alarmTextMessage != ConstantsEnumPrefrences.ALARM_TEXT_MESSAGE.getDefaultIntValue()) {
+            settingsList.add(getRingtoneName())
+
         }
 
         return settingsList.toTypedArray()
+    }
+
+    private fun getRingtoneName(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
