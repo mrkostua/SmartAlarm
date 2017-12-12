@@ -38,9 +38,11 @@ public object SharedPreferencesHelper {
                 throw UnsupportedOperationException("Not implemented")
         }
     }
+
     /**
-     * to use extension in different package this fun need to be imoprted like .get or .*
+     * to use extension in different package this fun need to be imported like .get or .*
      */
+    //todo check what is the meaning of =null in method ()
     public operator inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
         return when (T::class) {
             String::class ->

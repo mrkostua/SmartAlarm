@@ -10,8 +10,8 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.SharedPreferencesHelper.set
 import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.Tools.ConstantsEnumPrefrences
 import com.mrkostua.mathalarm.Tools.NotificationTools
+import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
 
@@ -23,7 +23,7 @@ public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     else
         activity
 
-    private val sharedPreferencesAlarmData = SharedPreferencesHelper.customSharedPreferences(fragmentContext, ConstantsEnumPrefrences.ALARM_SP_NAME.getKeyValue())
+    private val sharedPreferencesAlarmData = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
     private val notificationTools = NotificationTools(fragmentContext)
 
@@ -36,8 +36,8 @@ public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     override fun saveSettingsInSharedPreferences() {
         tpSetAlarmTime.setOnTimeChangedListener({ timePocker, hourOfDay, minute ->
             showTimeUntilAlarmBoom(hourOfDay, minute)
-            sharedPreferencesAlarmData[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue()] = hourOfDay
-            sharedPreferencesAlarmData[ConstantsEnumPrefrences.ALARM_MINUTES.getKeyValue()] = minute
+            sharedPreferencesAlarmData[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
+            sharedPreferencesAlarmData[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minute
 
         })
 

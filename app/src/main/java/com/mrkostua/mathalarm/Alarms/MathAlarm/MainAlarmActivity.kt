@@ -19,7 +19,7 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.SharedPreferencesHelper.get
 import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.Tools.ConstantsEnumPrefrences
+import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,7 +29,7 @@ import kotlin.collections.ArrayList
  */
 
 class MainAlarmActivity : AppCompatActivity() {
-    private val sharedPrefrencesHelper = SharedPreferencesHelper.customSharedPreferences(this, ConstantsEnumPrefrences.ALARM_SP_NAME.getKeyValue())
+    private val sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
     private val calendar = Calendar.getInstance()
 
@@ -55,6 +55,8 @@ class MainAlarmActivity : AppCompatActivity() {
             userHelper.showHelpingAlertDialog()
 
         } else {
+            var previewOfSetting = PreviewOfAlarmSettings(this)
+            previewOfSetting.showSettingsPreviewDialog()
             // todo show some preview of alarm settings and than set alarm.
             /*
             todo maybe show some AlertDialog with alarm settings like in basic version
@@ -113,10 +115,10 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun setSettingsFromLastAlarm() {
-        val hours: Int? = sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue(), ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()]
-        val minutes: Int? = sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_MINUTES.getKeyValue(), ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue()]
-        tvAlarmTime.text = hours?.toString() ?: Integer.toString(ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()) +
-                " : " + minutes?.toString() ?: Integer.toString(ConstantsEnumPrefrences.ALARM_MINUTES.getDefaultIntValue())
+        val hours: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
+        val minutes: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
+        tvAlarmTime.text = hours?.toString() ?: Integer.toString(PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
+                " : " + minutes?.toString() ?: Integer.toString(PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
 
     }
 
@@ -159,7 +161,7 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     private fun isFirstAlarmCreation(): Boolean {
-        return sharedPrefrencesHelper[ConstantsEnumPrefrences.ALARM_HOURS.getKeyValue(), ConstantsEnumPrefrences.ALARM_HOURS.getDefaultIntValue()] != 0
+        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()] != 0
     }
 
     private fun isDarkTime(): Boolean {

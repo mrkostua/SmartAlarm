@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.Tools
 /**
  * @author Kostiantyn Prysiazhnyi on 10.12.2017.
  */
-enum class ConstantsEnumPrefrences {
+enum class PreferencesConstants {
     ALARM_SP_NAME {
         override fun getKeyValue(): String = "last_alarm_data"
         override fun getDefaultIntValue(): Int = -1
@@ -28,8 +28,8 @@ enum class ConstantsEnumPrefrences {
         override fun getDefaultIntValue(): Int = -1 //todo change ringtone custom id or replace it is initialization
     };
 
-
     abstract fun getKeyValue(): String
     abstract fun getDefaultIntValue(): Int
+    //todo try implement this method to be Generic and return any type
 
 }
