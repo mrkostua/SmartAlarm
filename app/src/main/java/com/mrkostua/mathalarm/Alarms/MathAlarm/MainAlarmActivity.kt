@@ -55,14 +55,8 @@ class MainAlarmActivity : AppCompatActivity() {
             userHelper.showHelpingAlertDialog()
 
         } else {
-            var previewOfSetting = PreviewOfAlarmSettings(this)
+            val previewOfSetting = PreviewOfAlarmSettings(this,this)
             previewOfSetting.showSettingsPreviewDialog()
-            // todo show some preview of alarm settings and than set alarm.
-            /*
-            todo maybe show some AlertDialog with alarm settings like in basic version
-            todo if user will push some settings he will be moved to proper activity where he can change settings
-             */
-
         }
     }
 
@@ -168,7 +162,6 @@ class MainAlarmActivity : AppCompatActivity() {
         //todo Update method and make it more precise
         return calendar.get(Calendar.AM_PM) == Calendar.PM
     }
-
 
     inner class UserHelperMainLayout constructor(val context: Context) {
         /** todo

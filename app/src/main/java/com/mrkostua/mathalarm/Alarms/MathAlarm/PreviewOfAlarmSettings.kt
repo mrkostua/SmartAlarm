@@ -1,7 +1,12 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.app.Fragment
 import android.content.Context
+import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.FragmentSettingsOptionSetRingtone
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SharedPreferencesHelper
 import com.mrkostua.mathalarm.SharedPreferencesHelper.get
@@ -12,26 +17,30 @@ import com.mrkostua.mathalarm.Tools.PreferencesConstants
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-class PreviewOfAlarmSettings(val context: Context) {
+class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
     private val notificationTools = NotificationTools(context)
-    public fun showSettingsPreviewDialog() {
-        val alarmSettingsArray = getArrayOfSetAlarmSettings()
+    private val setAlarmSettingFragmentList = ArrayList<Fragment>()
+    private val fragmentHelper = FragmentCreationHelper(mainActivity)
+//    private val setNewAlarm = MathAlarmPreview()
+
+    //10-47
+    fun showSettingsPreviewDialog() {
         val previewDialog = AlertDialog.Builder(context, R.style.SettingsPreviewAlertDialogStyle)
                 .setTitle(R.string.settingsPreviewTitle)
-                .setItems(alarmSettingsArray, { dialogInterface, i ->
-
+                .setItems(getArrayOfSetAlarmSettings(), { dialogInterface, whichClicked ->
+                    fragmentHelper.loadFragment(setAlarmSettingFragmentList[whichClicked])
                     dialogInterface.dismiss()
-                    //todo chosen settings option and start activity with those fragments
                 })
                 .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
-                    //todo set new Alarm more detail in MainMathAlarm.class
+                    //                    setNewAlarm.ConfirmAlarmPreview_Method()
+                    //todo implement new class or method for starting alarm Service and other func for alarm setting.
                 })
                 .setNegativeButton(R.string.setttingsPreviewNegativeButtonText, { dialogInterface, i ->
                     dialogInterface.dismiss()
-                    //todo maybe show something after moving back ( so user will know how to open Alarm Settings
                 }).create().show()
     }
 
+    //todo If preferences value is empty add default to the list
     private fun getArrayOfSetAlarmSettings(): Array<String> {
         val preferencesHelper = SharedPreferencesHelper.customSharedPreferences(context, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
         val settingsList = ArrayList<String>(ConstantValues.alarmSettingsOptionsList.size)
@@ -41,36 +50,27 @@ class PreviewOfAlarmSettings(val context: Context) {
         if (hours != null && minutes != null && hours != PreferencesConstants.ALARM_HOURS.getDefaultIntValue() &&
                 minutes != PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()) {
             settingsList.add(notificationTools.convertTimeToReadableTime(hours, minutes))
+            setAlarmSettingFragmentList.add(FragmentOptionSetTime())
+
 
         }
-        val alarmTextMessage: Int? = preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.getDefaultIntValue()]
-        if (alarmTextMessage != null && alarmTextMessage != PreferencesConstants.ALARM_TEXT_MESSAGE.getDefaultIntValue()) {
-            settingsList.add(getRingtoneName())
-
+        val alarmTextMessage: String? = preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), "defaultText"]
+        if (alarmTextMessage != null && !alarmTextMessage.equals("defaultText")) {
+            settingsList.add(alarmTextMessage)
+            setAlarmSettingFragmentList.add(FragmentSettingsOptionSetRingtone())
+            //todo implement some solution for default text
         }
-
-//        when(fragment){
-//            FragmentOptionSetTime() ->
-//                FragmentSettingsOptionSetRingtone() ->
-//            action(ConstantValues.alarmSettingsOptionsList.indexOf(fragment))
-//            FragmentOptionSetTime() ->
-//                action(ConstantValues.alarmSettingsOptionsList.indexOf(fragment))
-//
-//        }
 
         return settingsList.toTypedArray()
     }
 
-//    private fun moveToChosenSettingsFragment(activeSettingsList) {
-//
-//    }
-    //todo think about updating this method to be more secure for developer
-    private inline fun interateThrowSettingsFragmentList(action : (Int) -> Unit){
-        for(fragment in ConstantValues.alarmSettingsOptionsList){
+/*       think about updating this method to be more secure for developer
+    private inline fun iterateThrowSettingsFragmentList(action: (Int) -> Unit) {
+        for (fragment in ConstantValues.alarmSettingsOptionsList) {
             action(ConstantValues.alarmSettingsOptionsList.indexOf(fragment))
 
         }
-    }
+    }*/
 
     private fun getRingtoneName(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

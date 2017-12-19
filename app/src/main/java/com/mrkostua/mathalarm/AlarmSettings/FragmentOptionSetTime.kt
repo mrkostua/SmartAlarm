@@ -15,7 +15,7 @@ import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
 
-public class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
+class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface {
     override var settingsOptionIndex = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime())
 
     private val fragmentContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
