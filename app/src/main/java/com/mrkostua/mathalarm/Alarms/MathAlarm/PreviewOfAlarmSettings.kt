@@ -23,7 +23,6 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
     private val fragmentHelper = FragmentCreationHelper(mainActivity)
 //    private val setNewAlarm = MathAlarmPreview()
 
-    //10-47
     fun showSettingsPreviewDialog() {
         val previewDialog = AlertDialog.Builder(context, R.style.SettingsPreviewAlertDialogStyle)
                 .setTitle(R.string.settingsPreviewTitle)
@@ -52,14 +51,15 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
             settingsList.add(notificationTools.convertTimeToReadableTime(hours, minutes))
             setAlarmSettingFragmentList.add(FragmentOptionSetTime())
 
+            settingsList.add(preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]?.toString()
+                    ?: PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage)
+            setAlarmSettingFragmentList.add(FragmentSettingsOptionSetRingtone())
+
+        } else {
+            throw UnsupportedOperationException(" time need to be set!")
 
         }
-        val alarmTextMessage: String? = preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), "defaultText"]
-        if (alarmTextMessage != null && !alarmTextMessage.equals("defaultText")) {
-            settingsList.add(alarmTextMessage)
-            setAlarmSettingFragmentList.add(FragmentSettingsOptionSetRingtone())
-            //todo implement some solution for default text
-        }
+
 
         return settingsList.toTypedArray()
     }

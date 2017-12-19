@@ -9,7 +9,7 @@ import com.mrkostua.mathalarm.Tools.PreferencesConstants
 class AlarmObject() {
     var hours = PreferencesConstants.ALARM_HOURS.getDefaultIntValue()
     var minutes = PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()
-    var textMessage = ""
+    var textMessage = PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage
     var ringtoneResId = PreferencesConstants.ALARM_RINGTONE_RES_ID.getDefaultIntValue()
 
 

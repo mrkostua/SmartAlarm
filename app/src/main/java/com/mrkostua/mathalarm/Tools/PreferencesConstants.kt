@@ -7,7 +7,6 @@ enum class PreferencesConstants {
     ALARM_SP_NAME {
         override fun getKeyValue(): String = "last_alarm_data"
         override fun getDefaultIntValue(): Int = -1
-
     },
     ALARM_HOURS() {
         override fun getKeyValue(): String = "hours"
@@ -19,17 +18,19 @@ enum class PreferencesConstants {
         override fun getDefaultIntValue(): Int = 15
 
     },
-    ALARM_TEXT_MESSAGE(){
+    ALARM_TEXT_MESSAGE() {
         override fun getKeyValue(): String = "text_message"
         override fun getDefaultIntValue(): Int = -1
     },
-    ALARM_RINGTONE_RES_ID(){
+    ALARM_RINGTONE_RES_ID() {
         override fun getKeyValue(): String = "ringtone_res_id"
         override fun getDefaultIntValue(): Int = -1 //todo change ringtone custom id or replace it is initialization
     };
 
     abstract fun getKeyValue(): String
     abstract fun getDefaultIntValue(): Int
-    //todo try implement this method to be Generic and return any type
+
+    val defaultTextMessage = "Wake up man!"
+
 
 }
