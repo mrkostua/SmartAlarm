@@ -7,11 +7,11 @@ import android.util.Log
  */
 
 object ShowLogs {
-    var LOG_STATUS = if (ConstantValues.LOG_DEBUG_STATUS) true else false
+    private var isLogForProduction = false
 
     fun log(TAG: String, logMessage: String) {
-        if(LOG_STATUS)
-        Log.i(TAG, " " + logMessage)
+        if (!isLogForProduction)
+            Log.i(TAG, " " + logMessage)
     }
 
 }

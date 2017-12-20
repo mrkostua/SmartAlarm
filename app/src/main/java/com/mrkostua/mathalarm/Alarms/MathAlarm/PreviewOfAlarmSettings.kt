@@ -8,11 +8,11 @@ import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.AlarmSettings.FragmentSettingsOptionSetRingtone
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesHelper
-import com.mrkostua.mathalarm.SharedPreferencesHelper.get
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.

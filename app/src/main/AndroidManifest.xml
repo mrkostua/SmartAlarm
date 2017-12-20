@@ -26,11 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Alarms.MathAlarm.MainAlarmActivity"
-            android:configChanges="keyboard|orientation|screenSize"
-            android:label="new screen"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Settings_Preference"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -55,10 +51,12 @@
             android:name=".AlarmSettings.AlarmSettingsActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Alarms.MathAlarm.MainAlarmActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="new screen"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Alarms.MathAlarm.MathAlarmService"

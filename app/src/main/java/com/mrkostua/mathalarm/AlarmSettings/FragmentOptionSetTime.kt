@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesHelper
-import com.mrkostua.mathalarm.SharedPreferencesHelper.set
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
 

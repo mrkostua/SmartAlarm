@@ -6,18 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.AlarmObject
+import com.mrkostua.mathalarm.Alarms.MathAlarm.AlarmObject
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesHelper.customSharedPreferences
-import com.mrkostua.mathalarm.SharedPreferencesHelper.set
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.customSharedPreferences
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
 
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
  */
 public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
+
     private val activityContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         this.context
     else

@@ -16,10 +16,10 @@ import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.SharedPreferencesHelper
-import com.mrkostua.mathalarm.SharedPreferencesHelper.get
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,6 +29,7 @@ import kotlin.collections.ArrayList
  */
 
 class MainAlarmActivity : AppCompatActivity() {
+    private val TAG = this.javaClass.simpleName
     private val sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
     private val calendar = Calendar.getInstance()

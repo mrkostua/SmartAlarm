@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm
+package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 

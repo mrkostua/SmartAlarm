@@ -1,5 +1,6 @@
 package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -121,10 +122,18 @@ public class DisplayAlarmActivity extends AppCompatActivity {
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString() + "=")
                 .setView(etAnswer)
-                .setPositiveButton(R.string.DAA_stopAlarmPositiveButtonText,
-                        (dialog, which) -> CheckAnswer_Method(etAnswer.getText().toString()))
-                .setNegativeButton(R.string.DAA_stopAlarmNegativeButtonText,
-                        (dialog, which) -> dialog.dismiss()).create().show();
+                .setPositiveButton(R.string.DAA_stopAlarmPositiveButtonText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        CheckAnswer_Method(etAnswer.getText().toString());
+                    }
+                })
+                .setNegativeButton(R.string.DAA_stopAlarmNegativeButtonText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
     }
 
     private void CheckAnswer_Method(String answer) {

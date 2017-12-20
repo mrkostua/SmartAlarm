@@ -9,14 +9,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.mrkostua.mathalarm.R;
-import com.mrkostua.mathalarm.Settings_Preference;
 import com.mrkostua.mathalarm.ShowLogs;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private Button bMathAlarm;
     public static final String TAG = MainActivity.class.getSimpleName();
     Animation animationShake;
@@ -31,14 +30,14 @@ public class MainActivity extends AppCompatActivity
 
         bMathAlarm = (Button) findViewById(R.id.bMathAlarm);
 
-        animationShake = AnimationUtils.loadAnimation(this,R.anim.incorrect_button_shake);
+        animationShake = AnimationUtils.loadAnimation(this, R.anim.incorrect_button_shake);
         animationShake.setRepeatCount(3);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(ShowLogs.LOG_STATUS)ShowLogs.i( "MainActivity onResume");
+        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity onResume");
     }
 
     @Override
@@ -53,14 +52,15 @@ public class MainActivity extends AppCompatActivity
         iMathAlarm = new Intent(this, MainMathAlarm.class);
         startActivity(iMathAlarm);
     }
-    public void bSetFromHistoryMethod(View view){
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("MainActivity bSetFromHistoryMethod");
+
+    public void bSetFromHistoryMethod(View view) {
+        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity bSetFromHistoryMethod");
         startActivity(new Intent(this, SetAlarmFromHistory.class));
     }
+
     public void bMainSettings_OnClickMethod(View view) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("MainActivity bMainSettings_OnClickMethod");
-            Intent intent = new Intent(MainActivity.this, Settings_Preference.class);
-            startActivity(intent);
+        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity bMainSettings_OnClickMethod");
+        startActivity(new Intent(this, MainAlarmActivity.class));
     }
 
 }

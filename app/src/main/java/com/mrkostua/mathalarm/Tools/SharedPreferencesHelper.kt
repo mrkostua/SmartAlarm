@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm
+package com.mrkostua.mathalarm.Tools
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,11 +8,17 @@ import android.preference.PreferenceManager
  * @author Kostiantyn on 21.11.2017.
  */
 public object SharedPreferencesHelper {
+    private val TAG = this.javaClass.simpleName
+
     public fun defaultSharedPreferences(context: Context): SharedPreferences
             = PreferenceManager.getDefaultSharedPreferences(context)
 
-    public fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences
-            = context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
+    public fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences {
+        ShowLogs.log(TAG,"customSharedPreferences : nameOfDataSet" + nameOfDataSet)
+        ShowLogs.log(TAG,"customSharedPreferences : context" + context.toString())
+       return context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
+
+    }
 
     //extension function,
     //inline keyword (read! use it in small func with extension func to avoid the cost of higher-order functions
