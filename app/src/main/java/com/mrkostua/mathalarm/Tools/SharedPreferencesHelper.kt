@@ -9,7 +9,7 @@ import android.preference.PreferenceManager
  */
 public object SharedPreferencesHelper {
     private val TAG = this.javaClass.simpleName
-
+//todo check why getSharedPreferences returns null
     public fun defaultSharedPreferences(context: Context): SharedPreferences
             = PreferenceManager.getDefaultSharedPreferences(context)
 

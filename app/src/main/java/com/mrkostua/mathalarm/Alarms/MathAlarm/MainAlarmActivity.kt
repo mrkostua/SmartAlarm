@@ -50,18 +50,18 @@ class MainAlarmActivity : AppCompatActivity() {
         initializeAlarmButton()
     }
 
-    public fun rlButtonLayoutOnClickListener(view: View) {
+    fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
             val userHelper = UserHelperMainLayout(this)
             userHelper.showHelpingAlertDialog()
 
         } else {
-            val previewOfSetting = PreviewOfAlarmSettings(this,this)
+            val previewOfSetting = PreviewOfAlarmSettings(this, this)
             previewOfSetting.showSettingsPreviewDialog()
         }
     }
 
-    public fun ibAdditionalSettingsOnClickListener(view: View) {
+    fun ibAdditionalSettingsOnClickListener(view: View) {
         showAlarmSettingsActivity()
     }
 

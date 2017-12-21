@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.Alarms.MathAlarm.AlarmObject
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
@@ -36,8 +35,7 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface {
 
     override fun saveSettingsInSharedPreferences() {
         //todo set after onclick on confirm or save message button
-        val alarmObject = AlarmObject(tvTextMessage.text.toString())
-        sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue()] = alarmObject.textMessage
+        sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue()] = tvTextMessage.text.toString()
 
     }
 }

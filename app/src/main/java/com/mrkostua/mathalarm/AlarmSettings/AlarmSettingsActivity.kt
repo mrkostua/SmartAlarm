@@ -8,7 +8,7 @@ import android.widget.ImageButton
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.AllApiTools
+import com.mrkostua.mathalarm.Tools.ToolsMethod
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
@@ -108,9 +108,9 @@ public class AlarmSettingsActivity : AppCompatActivity() {
         whichButton.isFocusable = false
         if (whichButton is ImageButton) {
             when (whichButton) {
-                ibMoveBack -> whichButton.setImageDrawable(AllApiTools.getDrawable(resources, R.drawable.arrow_right_blocked))
+                ibMoveBack -> whichButton.setImageDrawable(ToolsMethod.getDrawable(resources, R.drawable.arrow_right_blocked))
 
-                ibMoveForward -> whichButton.setImageDrawable(AllApiTools.getDrawable(resources, R.drawable.arrow_left_blocked))
+                ibMoveForward -> whichButton.setImageDrawable(ToolsMethod.getDrawable(resources, R.drawable.arrow_left_blocked))
 
                 else -> ShowLogs.log(TAG, "blockButtonAndShowMessage wrong method argument.")
             }

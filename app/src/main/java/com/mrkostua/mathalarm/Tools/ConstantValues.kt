@@ -17,12 +17,12 @@ object ConstantValues {
 
 
     val ALARM_RINGTONE_NAMES = arrayOf("mechanic_clock", "energy", "loud", "digital_clock")
+    val CUSTOM_ALARM_RINGTONE = "energy"
 
     //actions for alarm receiver
     val SNOOZE_ACTION = "alarm_snooze"
     val DISMISS_ACTION = "alarm_dismiss"
     val START_NEW_ALARM_ACTION = "alarm_start_new"
-
     val CUSTOM_ALARM_SETTINGS_HOURS = 8
     val CUSTOM_ALARM_SETTINGS_MINUTES = 15
 
