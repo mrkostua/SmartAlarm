@@ -6,32 +6,37 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.ToolsMethod
+import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
+import com.mrkostua.mathalarm.Tools.ToolsMethod
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
 
 /**
  * @author Kostiantyn Prysiazhnyi on 01.12.2017.
  */
 
-public class AlarmSettingsActivity : AppCompatActivity() {
-    private val fragmentHelper: FragmentCreationHelper = FragmentCreationHelper(this)
+public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface {
+    private lateinit var fragmentHelper: FragmentCreationHelper
+    private lateinit var notificationTools: NotificationTools
     private val TAG = this.javaClass.simpleName
-    private val notificationTools = NotificationTools(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
-
+        initializeDependOnContextVariables()
         showChosenFragment()
-                //todo download files from gmail and add here.
+    }
+
+    override fun initializeDependOnContextVariables() {
+        fragmentHelper = FragmentCreationHelper(this)
+        notificationTools = NotificationTools(this)
     }
 
     private fun showChosenFragment() {
-         val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
         if (indexOfFragmentToLoad != -1) {
             fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
 

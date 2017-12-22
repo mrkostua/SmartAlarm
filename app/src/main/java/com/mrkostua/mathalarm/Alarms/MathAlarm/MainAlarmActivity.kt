@@ -2,6 +2,7 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -15,11 +16,13 @@ import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
+import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,14 +31,12 @@ import kotlin.collections.ArrayList
  * @author Kostiantyn on 21.11.2017.
  */
 
-class MainAlarmActivity : AppCompatActivity() {
+public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface {
     private val TAG = this.javaClass.simpleName
-    private val sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+    private lateinit var sharedPreferencesHelper: SharedPreferences
+    private lateinit var intentAlarmSettingsActivity: Intent
 
     private val calendar = Calendar.getInstance()
-
-    private val intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +45,18 @@ class MainAlarmActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main_alarm)
 
+        initializeDependOnContextVariables()
         calendar.timeInMillis = System.currentTimeMillis()
 
         setThemeForAlarmButtonLayout()
         initializeAlarmButton()
+    }
+
+    override fun initializeDependOnContextVariables() {
+        sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+        ShowLogs.log(TAG, "after getSharedPreferences : " + sharedPreferencesHelper)
+
+        intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
     }
 
     fun rlButtonLayoutOnClickListener(view: View) {
@@ -62,7 +71,12 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
     fun ibAdditionalSettingsOnClickListener(view: View) {
+        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener view : " + view.toString())
+        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener ConstaV test : " + ConstantValues.CUSTOM_ALARM_RINGTONE)
+        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener fragment : " + ConstantValues.alarmSettingsOptionsList[0].toString())
+        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener check list init : " + ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
         showAlarmSettingsActivity()
+
     }
 
     private fun setThemeForAlarmButtonLayout() {
@@ -221,7 +235,7 @@ class MainAlarmActivity : AppCompatActivity() {
 
     private fun showAlarmSettingsActivity() {
         intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
+                1)
         startActivity(intentAlarmSettingsActivity)
 
     }

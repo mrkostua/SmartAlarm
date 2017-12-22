@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.mrkostua.mathalarm.Tools.ConstantValues;
-import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
 
@@ -27,7 +27,7 @@ public class Alarm_Receiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i( "Alarm_Receiver started");
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i( "Alarm_Receiver started");
         //snooze alarm for 5 minutes and stop current alarm
         if(intent.getAction().equals(ConstantValues.INSTANCE.getSNOOZE_ACTION())) {
             //this stops the service no matter how many times it was started.

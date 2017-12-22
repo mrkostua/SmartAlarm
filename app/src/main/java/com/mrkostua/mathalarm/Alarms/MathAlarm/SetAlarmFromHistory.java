@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBValues;
-import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
     // TODO: 19.11.2017 delete alarms from history after 7 days without using.
@@ -58,7 +58,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     }
 
     private void PopulateListViewAlarmDB(){
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory "+"PopulateListViewAlarmDB");
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("SetAlarmFromHistory "+"PopulateListViewAlarmDB");
         cursor = alarmDBAdapter.GetAllRowsAlarmDB();
 
         CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this,cursor);
@@ -67,7 +67,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
         AlarmDataPreviewAlertDialog_Method(id);
     }
 

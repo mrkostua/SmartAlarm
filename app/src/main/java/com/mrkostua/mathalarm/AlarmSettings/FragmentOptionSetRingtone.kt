@@ -1,18 +1,20 @@
 package com.mrkostua.mathalarm.AlarmSettings
 
 import android.app.Fragment
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 
 /**
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
-public class FragmentSettingsOptionSetRingtone : Fragment(), SettingsFragmentInterface {
-    override var settingsOptionIndex: Int = ConstantValues.alarmSettingsOptionsList.indexOf(FragmentSettingsOptionSetRingtone())
+public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+    override lateinit var fragmentContext: Context
     private val TAG = this.javaClass.simpleName
 
 
@@ -22,6 +24,12 @@ public class FragmentSettingsOptionSetRingtone : Fragment(), SettingsFragmentInt
         return inflater.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
 
+    override fun initializeDependOnContextVariables() {
+        fragmentContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            this.context
+        else
+            activity.applicationContext
+    }
 
     override fun saveSettingsInSharedPreferences() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -6,7 +6,7 @@ import android.util.Log;
  * Created by Администратор on 14.03.2017.
  */
 
-public  class ShowLogs {
+public  class ShowLogsOld {
     private static final String TAG = "MathAlarm";
 
     public static boolean LOG_STATUS= true;

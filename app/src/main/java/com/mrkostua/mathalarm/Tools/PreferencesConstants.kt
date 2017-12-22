@@ -24,7 +24,7 @@ enum class PreferencesConstants {
     },
     ALARM_RINGTONE_RES_ID() {
         override fun getKeyValue(): String = "ringtone_res_id"
-        override fun getDefaultIntValue(): Int = -1 //todo change ringtone custom id or replace it is initialization
+        override fun getDefaultIntValue(): Int = -1
     };
 
     abstract fun getKeyValue(): String

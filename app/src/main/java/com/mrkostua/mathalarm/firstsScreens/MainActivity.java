@@ -13,7 +13,7 @@ import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.mrkostua.mathalarm.R;
-import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class MainActivity extends AppCompatActivity {
     private Button bMathAlarm;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity onResume");
+        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("MainActivity onResume");
     }
 
     @Override
@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void bSetFromHistoryMethod(View view) {
-        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity bSetFromHistoryMethod");
+        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("MainActivity bSetFromHistoryMethod");
         startActivity(new Intent(this, SetAlarmFromHistory.class));
     }
 
     public void bMainSettings_OnClickMethod(View view) {
-        if (ShowLogs.LOG_STATUS) ShowLogs.i("MainActivity bMainSettings_OnClickMethod");
+        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("MainActivity bMainSettings_OnClickMethod");
         startActivity(new Intent(this, MainAlarmActivity.class));
     }
 

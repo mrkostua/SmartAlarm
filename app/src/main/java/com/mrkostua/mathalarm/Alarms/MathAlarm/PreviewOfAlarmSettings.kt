@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
-import com.mrkostua.mathalarm.AlarmSettings.FragmentSettingsOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.*
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
@@ -54,7 +54,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
             val textMessage: String = preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]?.toString()
                     ?: PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage
             settingsList.add(textMessage)
-            setAlarmSettingFragmentList.add(FragmentSettingsOptionSetRingtone())
+            setAlarmSettingFragmentList.add(FragmentOptionSetRingtone())
 
             val ringtoneId: Int = preferencesHelper[PreferencesConstants.ALARM_RINGTONE_RES_ID.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_RES_ID.getDefaultIntValue()]?.toInt()
                     ?: PreferencesConstants.ALARM_RINGTONE_RES_ID.getDefaultIntValue()
