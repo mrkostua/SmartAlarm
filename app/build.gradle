@@ -8,6 +8,9 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
+        vectorDrawables {
+            useSupportLibrary = true
+        }
         applicationId "com.mrkostua.mathalarm"
         minSdkVersion 14
         targetSdkVersion 25
@@ -34,5 +37,4 @@ dependencies {
 repositories {
     mavenCentral()
 }
-//android.defaultConfig.vectorDrawables.useSupportLibrary = true
 

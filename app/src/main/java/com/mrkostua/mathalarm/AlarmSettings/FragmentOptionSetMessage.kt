@@ -3,7 +3,6 @@ package com.mrkostua.mathalarm.AlarmSettings
 import android.app.Fragment
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +20,6 @@ import kotlinx.android.synthetic.main.fragment_option_set_message.*
 public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
     override lateinit var fragmentContext: Context
 
-    private lateinit var activityContext: Context
-
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -32,12 +29,12 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, K
     }
 
     override fun initializeDependOnContextVariables() {
-        activityContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        fragmentContext = /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             this.context
-        else
+        else*/
             activity.applicationContext
 
-        sharedPreferences = SharedPreferencesHelper.customSharedPreferences(activityContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+        sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
     }
 
     override fun saveSettingsInSharedPreferences() {

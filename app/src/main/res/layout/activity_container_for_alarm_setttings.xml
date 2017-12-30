@@ -10,13 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rlControlButtons"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="5dp" />
 
     <RelativeLayout
         android:id="@+id/rlControlButtons"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -37,9 +38,7 @@
             android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="forward"
             android:onClick="ibMoveForwardClickListener"
-            app:srcCompat="@drawable/arrow_right"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp" />
+            app:srcCompat="@drawable/arrow_right" />
 
         <ImageButton
             android:id="@+id/ibMoveBack"
@@ -48,12 +47,12 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="back"
             android:onClick="ibMoveBackClickListener"
-            app:srcCompat="@drawable/arrow_left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp" />
+            app:srcCompat="@drawable/arrow_left" />
 
         <ImageButton
             android:id="@+id/ibBackToMainActivity"
@@ -61,12 +60,12 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ibMoveBack"
             android:layout_centerHorizontal="true"
-            android:contentDescription="backToMain"
-            android:onClick="ibBackToMainActivityClickListener"
             android:background="@color/main_layout_backgroundEvening"
-            app:srcCompat="@drawable/arrow_down"
             android:clickable="true"
-            android:focusable="true" />
+            android:contentDescription="backToMain"
+            android:focusable="true"
+            android:onClick="ibBackToMainActivityClickListener"
+            app:srcCompat="@drawable/arrow_down" />
     </RelativeLayout>
 
 

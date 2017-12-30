@@ -15,7 +15,6 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues
@@ -72,9 +71,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     fun ibAdditionalSettingsOnClickListener(view: View) {
         ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener view : " + view.toString())
-        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener ConstaV test : " + ConstantValues.CUSTOM_ALARM_RINGTONE)
-        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener fragment : " + ConstantValues.alarmSettingsOptionsList[0].toString())
-        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener check list init : " + ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetTime()))
+
         showAlarmSettingsActivity()
 
     }
@@ -234,10 +231,13 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     private fun showAlarmSettingsActivity() {
+        ShowLogs.log(TAG, "showAlarmSettingsActivity ")
+
         intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
                 1)
-        startActivity(intentAlarmSettingsActivity)
+        ShowLogs.log(TAG, "showAlarmSettingsActivity 2")
 
+        startActivity(intentAlarmSettingsActivity)
     }
 
 }

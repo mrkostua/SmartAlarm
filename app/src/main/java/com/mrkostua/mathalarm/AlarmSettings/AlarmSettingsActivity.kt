@@ -24,6 +24,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
     private val TAG = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ShowLogs.log(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         initializeDependOnContextVariables()
@@ -33,11 +34,16 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
     override fun initializeDependOnContextVariables() {
         fragmentHelper = FragmentCreationHelper(this)
         notificationTools = NotificationTools(this)
+
     }
 
     private fun showChosenFragment() {
         val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+        ShowLogs.log(TAG, "showChosenFragment intent : " + indexOfFragmentToLoad)
+
         if (indexOfFragmentToLoad != -1) {
+            ShowLogs.log(TAG, "showChosenFragment fragment to show: " + (ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]).toString())
+
             fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
 
         } else {
@@ -124,7 +130,8 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
 
     }
 
-    fun ibMoveForwardClickListener(view: View) {
+    public fun ibMoveForwardClickListener(view: View) {
+        ShowLogs.log(TAG, "ibMoveForwardClickListener")
         if (isButtonBlocked(view)) {
             blockButtonAndShowMessage(view)
         } else {
@@ -133,7 +140,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         }
     }
 
-    fun ibMoveBackClickListener(view: View) {
+    public fun ibMoveBackClickListener(view: View) {
         if (isButtonBlocked(view)) {
             blockButtonAndShowMessage(view)
         } else {
@@ -143,7 +150,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
 
     }
 
-    fun ibBackToMainActivityClickListener(view: View) {
+    public fun ibBackToMainActivityClickListener(view: View) {
         startMainActivity()
     }
 }

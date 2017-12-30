@@ -2,7 +2,6 @@ package com.mrkostua.mathalarm.AlarmSettings
 
 import android.app.Fragment
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +24,7 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     }
 
     override fun initializeDependOnContextVariables() {
-        fragmentContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            this.context
-        else
-            activity.applicationContext
+        fragmentContext = activity.applicationContext
     }
 
     override fun saveSettingsInSharedPreferences() {
