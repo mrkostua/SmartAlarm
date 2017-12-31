@@ -28,7 +28,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         initializeDependOnContextVariables()
-        showChosenFragment()
+        //showChosenFragment()
     }
 
     override fun initializeDependOnContextVariables() {
@@ -45,6 +45,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
             ShowLogs.log(TAG, "showChosenFragment fragment to show: " + (ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]).toString())
 
             fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
+            ShowLogs.log(TAG, "showChosenFragment after")
 
         } else {
             fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])

@@ -34,6 +34,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     private val TAG = this.javaClass.simpleName
     private lateinit var sharedPreferencesHelper: SharedPreferences
     private lateinit var intentAlarmSettingsActivity: Intent
+    private lateinit var userHelper: UserHelperLayout
 
     private val calendar = Calendar.getInstance()
 
@@ -53,14 +54,24 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     override fun initializeDependOnContextVariables() {
         sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
-        ShowLogs.log(TAG, "after getSharedPreferences : " + sharedPreferencesHelper)
-
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
+        userHelper = UserHelperLayout(this)
+    }
+
+    fun rlBackgroundHelperOnClickListener(view: View) {
+        if (!userHelper.isHelpingViewsHidden()) {
+            AlertDialog.Builder(this).setTitle(getString(R.string.helperHideDialogTitle))
+                    .setPositiveButton(getString(R.string.close), { dialog, which ->
+                        userHelper.hideHelpingViews()
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton(getString(R.string.back), { dialog, which -> dialog.dismiss() })
+                    .create().show()
+        }
     }
 
     fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
-            val userHelper = UserHelperMainLayout(this)
             userHelper.showHelpingAlertDialog()
 
         } else {
@@ -70,8 +81,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     fun ibAdditionalSettingsOnClickListener(view: View) {
-        ShowLogs.log(TAG, "ibAdditionalSettingsOnClickListener view : " + view.toString())
-
         showAlarmSettingsActivity()
 
     }
@@ -175,7 +184,9 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         return calendar.get(Calendar.AM_PM) == Calendar.PM
     }
 
-    inner class UserHelperMainLayout constructor(val context: Context) {
+    inner class UserHelperLayout constructor(val context: Context) {
+        private val helpingViewsList: MutableList<View> = ArrayList()
+
         /** todo
          * what about if user doesn't want to see helping message and will click screen somewhere else
          * consider this scenario and implement solution
@@ -189,14 +200,21 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
             val alertDialog = AlertDialog.Builder(context)
             alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
                     .setMessage(getString(R.string.helperFirstDialogMessage))
-                    .setPositiveButton(getString(R.string.LetsDoIt), { dialog, which ->
+                    .setPositiveButton(getString(R.string.letsDoIt), { dialog, which ->
                         showFirstHelpingTextMessage()
                         dialog.dismiss()
                     })
-                    .setNegativeButton(getString(R.string.Back), { dialog, which ->
+                    .setNegativeButton(getString(R.string.back), { dialog, which ->
                         Toast.makeText(context, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
                         dialog.dismiss()
                     }).create().show()
+        }
+
+        fun isHelpingViewsHidden(): Boolean = helpingViewsList.isEmpty()
+
+        fun hideHelpingViews() {
+            helpingViewsList.forEach({ view -> view.visibility = View.GONE })
+            helpingViewsList.clear()
         }
 
         private fun initializeViews() {
@@ -204,13 +222,14 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
                 setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
                 setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
             } else {
-                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
-                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
+                setTextAppearance(tvFirstHelpingMessage, R.style.HelperLight_TextTheme)
+                setTextAppearance(tvSecondHelpingMessage, R.style.HelperLight_TextTheme)
             }
 
         }
 
         private fun showFirstHelpingTextMessage() {
+            helpingViewsList.add(tvFirstHelpingMessage)
             tvFirstHelpingMessage.visibility = View.VISIBLE
             tvFirstHelpingMessage.setOnClickListener { view ->
                 view.visibility = View.GONE
@@ -220,10 +239,12 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         }
 
         private fun showSecondHelpingTextMessage() {
+            helpingViewsList.add(tvSecondHelpingMessage)
             tvSecondHelpingMessage.visibility = View.VISIBLE
             tvSecondHelpingMessage.setOnClickListener { view ->
                 view.visibility = View.GONE
-//                showThirdHelpingTextMessage() if there is need for more messages
+                showAlarmSettingsActivity()
+                helpingViewsList.clear()
 
             }
         }
@@ -234,8 +255,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         ShowLogs.log(TAG, "showAlarmSettingsActivity ")
 
         intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                1)
-        ShowLogs.log(TAG, "showAlarmSettingsActivity 2")
+                0)
 
         startActivity(intentAlarmSettingsActivity)
     }

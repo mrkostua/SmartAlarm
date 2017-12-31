@@ -23,8 +23,6 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, K
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-
         return inflater.inflate(R.layout.fragment_option_set_message, container, false)
     }
 

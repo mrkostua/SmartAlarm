@@ -18,6 +18,7 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+        initializeDependOnContextVariables()
         saveSettingsInSharedPreferences()
 
         return inflater.inflate(R.layout.fragment_option_set_ringtone, container, false)
