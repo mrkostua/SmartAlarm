@@ -9,8 +9,8 @@
         android:id="@+id/rlBackgroundHelper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:onClick="rlBackgroundHelperOnClickListener">
+        android:onClick="rlBackgroundHelperOnClickListener"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvFirstHelpingMessage"
@@ -22,8 +22,6 @@
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="60dp"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="5dp"
             android:text="@string/helpingMessageOne"
             android:theme="@style/HelperDark_TextTheme"
@@ -39,8 +37,6 @@
             android:layout_marginBottom="60dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="5dp"
             android:text="@string/helpingMessageTwo"
             android:theme="@style/HelperDark_TextTheme"
@@ -87,8 +83,8 @@
                 android:id="@+id/tvMonday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:text="MON"
                 android:theme="@style/dayOfWeekStyle" />
 
@@ -96,17 +92,17 @@
                 android:id="@+id/tvTuesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/Tuesday"
-                android:theme="@style/ChosenDayOfTheWeek_TextTheme" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="TUE"
+                android:theme="@style/dayOfWeekStyle" />
 
             <TextView
                 android:id="@+id/tvWednesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:text="WED"
                 android:theme="@style/dayOfWeekStyle" />
 
@@ -114,8 +110,8 @@
                 android:id="@+id/tvThursday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:text="THU"
                 android:theme="@style/dayOfWeekStyle" />
 
@@ -123,8 +119,8 @@
                 android:id="@+id/tvFriday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:text="FRI"
                 android:theme="@style/dayOfWeekStyle" />
         </LinearLayout>

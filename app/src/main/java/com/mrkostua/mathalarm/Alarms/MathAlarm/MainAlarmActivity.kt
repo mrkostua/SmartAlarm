@@ -98,10 +98,10 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
         if (isFirstAlarmCreation()) {
-            setSettingsFromLastAlarm()
+            setCustomAlarmSettings()
 
         } else {
-            setCustomAlarmSettings()
+            setSettingsFromLastAlarm()
 
         }
     }
@@ -132,8 +132,9 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     private fun setSettingsFromLastAlarm() {
         val hours: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
         val minutes: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
-        tvAlarmTime.text = hours?.toString() ?: Integer.toString(PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
-                " : " + minutes?.toString() ?: Integer.toString(PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
+        tvAlarmTime.text = Integer.toString(hours ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
+                " : " + Integer.toString(minutes ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
+
 
     }
 
@@ -144,32 +145,36 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     private fun showWeekDaysAndCurrentDay() {
         val listDaysOfWeekViews = ArrayList<TextView>(7)
+        listDaysOfWeekViews.add(tvSunday)
         listDaysOfWeekViews.add(tvMonday)
         listDaysOfWeekViews.add(tvTuesday)
         listDaysOfWeekViews.add(tvWednesday)
         listDaysOfWeekViews.add(tvThursday)
         listDaysOfWeekViews.add(tvFriday)
         listDaysOfWeekViews.add(tvSaturday)
-        listDaysOfWeekViews.add(tvSunday)
-
         listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
-            if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK))
+            if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK) - 1) {
                 setDayOfWeekTextStyle(dayView)
+                ShowLogs.log(TAG, "showWeekDaysAndCurrentDay indexOfDay : " + indexOfDay + " calendar.get() + " + calendar.get(Calendar.DAY_OF_WEEK))
+            }
 
         }
     }
 
     private fun setDayOfWeekTextStyle(tvDayOfWeek: TextView) {
-        val ssContent = SpannableString("Content")
+        val ssContent = SpannableString(tvDayOfWeek.text)
         ssContent.setSpan(UnderlineSpan(), 0, ssContent.length, 0)
         tvDayOfWeek.text = ssContent
 
+        ShowLogs.log(TAG, "setDayOfWeekTextStyle SDK<M")
         setTextAppearance(tvDayOfWeek, R.style.ChosenDayOfTheWeek_TextTheme)
     }
-
+    //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
+    //Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
     private fun setTextAppearance(view: TextView, style: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             view.setTextAppearance(this, style)
+            ShowLogs.log(TAG, "setTextAppearance SDK<M")
         } else {
             view.setTextAppearance(style)
         }

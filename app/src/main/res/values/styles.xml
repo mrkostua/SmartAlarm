@@ -83,9 +83,11 @@
     </style>
 
     <style name="helperDarkStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/helperTextMessages</item>
+        <item name="android:textColor">@color/helperTextMessagesDark</item>
         <item name="android:textSize">@dimen/helperTextMessages_size</item>
         <item name="android:textStyle">italic</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
     </style>
 
 
@@ -95,9 +97,11 @@
     </style>
 
     <style name="helperLightStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/helperTextMessages</item>
+        <item name="android:textColor">@color/helperTextMessagesLight</item>
         <item name="android:textSize">@dimen/helperTextMessages_size</item>
         <item name="android:textStyle">italic</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
     </style>
 
 </resources>
