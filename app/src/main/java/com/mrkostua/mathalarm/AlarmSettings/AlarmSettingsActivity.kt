@@ -28,7 +28,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         initializeDependOnContextVariables()
-        //showChosenFragment()
+        showChosenFragment()
     }
 
     override fun initializeDependOnContextVariables() {

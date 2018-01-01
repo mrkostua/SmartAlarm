@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text="TextViewgrtertertre"
+        android:text="Nizzia"
         android:textSize="30dp" />
 
     <!--TODO think about design of option set TEXT maybe some basic set of tasks etc-->

@@ -17,11 +17,9 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     private val TAG = this.javaClass.simpleName
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         initializeDependOnContextVariables()
-        saveSettingsInSharedPreferences()
-
-        return inflater.inflate(R.layout.fragment_option_set_ringtone, container, false)
+        return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
 
     override fun initializeDependOnContextVariables() {

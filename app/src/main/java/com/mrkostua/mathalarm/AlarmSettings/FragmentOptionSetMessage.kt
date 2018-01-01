@@ -22,15 +22,15 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, K
 
     private lateinit var sharedPreferences: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_option_set_message, container, false)
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_option_set_message, container, false)
     }
 
     override fun initializeDependOnContextVariables() {
         fragmentContext = /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             this.context
         else*/
-            activity.applicationContext
+                activity.applicationContext
 
         sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
     }

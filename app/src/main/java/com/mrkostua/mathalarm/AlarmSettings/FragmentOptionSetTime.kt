@@ -25,10 +25,9 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
 
     private lateinit var notificationTools: NotificationTools
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         initializeDependOnContextVariables()
-        saveSettingsInSharedPreferences()
-        return inflater.inflate(R.layout.fragment_option_set_time, container, false)
+        return inflater?.inflate(R.layout.fragment_option_set_time, container, false)
     }
 
     override fun initializeDependOnContextVariables() {
