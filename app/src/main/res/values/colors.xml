@@ -34,6 +34,7 @@
 
     <color name="day_of_week">#e2deaf</color>
     <color name="day_of_week_chosen">#308f00</color>
+    <color name="pressedHelperRectangleView">#efff86</color>
 
     <color name="helperTextMessagesDark">#c8ff00</color>
     <color name="helperTextMessagesLight">#000000</color>

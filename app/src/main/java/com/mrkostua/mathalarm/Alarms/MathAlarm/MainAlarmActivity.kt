@@ -60,19 +60,20 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     fun rlBackgroundHelperOnClickListener(view: View) {
         if (!userHelper.isHelpingViewsHidden()) {
-            AlertDialog.Builder(this).setTitle(getString(R.string.helperHideDialogTitle))
-                    .setPositiveButton(getString(R.string.close), { dialog, which ->
-                        userHelper.hideHelpingViews()
-                        dialog.dismiss()
-                    })
-                    .setNegativeButton(getString(R.string.back), { dialog, which -> dialog.dismiss() })
-                    .create().show()
+            clickOutsideOfHelpingViews()
+
         }
+
     }
+
 
     fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
-            userHelper.showHelpingAlertDialog()
+            if (!userHelper.isHelpingViewsHidden()) {
+                clickOutsideOfHelpingViews()
+            } else {
+                userHelper.showHelpingAlertDialog()
+            }
 
         } else {
             val previewOfSetting = PreviewOfAlarmSettings(this, this)
@@ -83,6 +84,18 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     fun ibAdditionalSettingsOnClickListener(view: View) {
         showAlarmSettingsActivity()
 
+    }
+
+    private fun clickOutsideOfHelpingViews() {
+        AlertDialog.Builder(this).setTitle(getString(R.string.helperHideDialogTitle))
+                .setPositiveButton(getString(R.string.yes), { dialog, which ->
+                    dialog.dismiss()
+                    userHelper.hideHelpingViews()
+                    showAlarmSettingsActivity()
+
+                })
+                .setNegativeButton(getString(R.string.back), { dialog, which -> dialog.dismiss() })
+                .create().show()
     }
 
     private fun setThemeForAlarmButtonLayout() {
@@ -169,8 +182,9 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         ShowLogs.log(TAG, "setDayOfWeekTextStyle SDK<M")
         setTextAppearance(tvDayOfWeek, R.style.ChosenDayOfTheWeek_TextTheme)
     }
+
     //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
-    //Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
+//Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
     private fun setTextAppearance(view: TextView, style: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             view.setTextAppearance(this, style)
@@ -240,7 +254,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
                 view.visibility = View.GONE
                 showSecondHelpingTextMessage()
             }
-            //todo maybe add some onTouch method to change background color of the view or in XML
         }
 
         private fun showSecondHelpingTextMessage() {
