@@ -36,7 +36,7 @@
     </style>
 
 
-    <style name="SettingsPreviewAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AlertDialogCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
         <item name="android:textColorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
         <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
@@ -85,9 +85,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="HelperDark_TextTheme" parent="android:Theme">
+    <style name="HelperDark_Theme" parent="android:Theme">
         <item name="android:textViewStyle">@style/helperDarkStyle</item>
-        <!--todo here put style e.g. for some Buttons related to Helper-->
     </style>
 
     <style name="helperDarkStyle" parent="android:Widget.TextView">
@@ -100,9 +99,8 @@
     </style>
 
 
-    <style name="HelperLight_TextTheme" parent="android:Theme">
+    <style name="HelperLight_Theme" parent="android:Theme">
         <item name="android:textViewStyle">@style/helperLightStyle</item>
-        <!--todo here put style e.g. for some Buttons related to Helper-->
     </style>
 
     <style name="helperLightStyle" parent="android:Widget.TextView">
@@ -112,6 +110,19 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/background_for_helping_views</item>
+    </style>
+
+    <style name="AlarmSettingImagineButtonTheme" parent="android:Theme">
+        <item name="android:imageButtonStyle">@style/alarmSettingImagineButtonStyle</item>
+    </style>
+    <!--todo why background dont work?????-->
+    <style name="alarmSettingImagineButtonStyle" parent="android:Widget.ImageButton">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@color/main_layout_backgroundEvening</item>
+        <item name="android:colorPressedHighlight">#ff0afb</item>
+        <item name="android:colorLongPressedHighlight">#ff0e0a</item>
     </style>
 
 </resources>

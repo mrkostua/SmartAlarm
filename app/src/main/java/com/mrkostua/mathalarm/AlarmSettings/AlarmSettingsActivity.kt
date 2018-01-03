@@ -78,7 +78,6 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
                 }
 
             }
-
             getLastFragmentIndex() -> {
                 moveToPreviousFragment(currentFragmentIndex)
                 //todo CHANGE next button look, clickable false
@@ -132,7 +131,6 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
     }
 
     public fun ibMoveForwardClickListener(view: View) {
-        ShowLogs.log(TAG, "ibMoveForwardClickListener")
         if (isButtonBlocked(view)) {
             blockButtonAndShowMessage(view)
         } else {

@@ -9,11 +9,10 @@
         android:id="@+id/flFragmentsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/rlControlButtons"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/rlControlButtons">
-    </FrameLayout>
+        android:layout_alignParentTop="true"/>
 
     <RelativeLayout
         android:id="@+id/rlControlButtons"
@@ -34,9 +33,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/ibMoveBack"
-            android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="forward"
             android:onClick="ibMoveForwardClickListener"
+            android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_right" />
 
         <ImageButton
@@ -48,9 +47,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/main_layout_backgroundEvening"
             android:contentDescription="back"
             android:onClick="ibMoveBackClickListener"
+            android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_left" />
 
         <ImageButton
@@ -59,11 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ibMoveBack"
             android:layout_centerHorizontal="true"
-            android:background="@color/main_layout_backgroundEvening"
-            android:clickable="true"
             android:contentDescription="backToMain"
-            android:focusable="true"
             android:onClick="ibBackToMainActivityClickListener"
+            android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_down" />
     </RelativeLayout>
 

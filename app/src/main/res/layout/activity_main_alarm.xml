@@ -24,7 +24,7 @@
             android:layout_marginTop="60dp"
             android:padding="5dp"
             android:text="@string/helpingMessageOne"
-            android:theme="@style/HelperDark_TextTheme"
+            android:theme="@style/HelperDark_Theme"
             android:visibility="gone" />
 
         <TextView
@@ -39,11 +39,10 @@
             android:layout_marginRight="15dp"
             android:padding="5dp"
             android:text="@string/helpingMessageTwo"
-            android:theme="@style/HelperDark_TextTheme"
+            android:theme="@style/HelperDark_Theme"
             android:visibility="gone" />
     </RelativeLayout>
 
-    <!--todo create 2 style for alarm button set and not (clicked not clicked)-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rlButtonLayout"
         android:layout_width="wrap_content"

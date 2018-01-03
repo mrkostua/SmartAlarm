@@ -118,7 +118,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
     public void bStopAlarm_OnClickListener(View view) {
         final EditText etAnswer = new EditText(DisplayAlarmActivity.this);
         etAnswer.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.SettingsPreviewAlertDialogStyle);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DisplayAlarmActivity.this,R.style.AlertDialogCustomStyle);
         builder.setTitle(R.string.displayAlarmActivity_bStopAlarmAlertDialog)
                 .setMessage(tvTaskToSolve.getText().toString() +" "+ tvNumber3.getText().toString() + "=")
                 .setView(etAnswer)

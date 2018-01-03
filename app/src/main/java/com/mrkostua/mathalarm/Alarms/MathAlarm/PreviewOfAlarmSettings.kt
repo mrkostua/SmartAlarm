@@ -23,7 +23,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
     private lateinit var alarmDataObject: AlarmObject
 
     fun showSettingsPreviewDialog() {
-        AlertDialog.Builder(context, R.style.SettingsPreviewAlertDialogStyle)
+        AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setItems(getArrayOfSetAlarmSettings(), { dialogInterface, whichClicked ->
                     fragmentHelper.loadFragment(setAlarmSettingFragmentList[whichClicked])

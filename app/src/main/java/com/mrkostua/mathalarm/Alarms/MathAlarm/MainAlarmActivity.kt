@@ -27,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * @author Kostiantyn on 21.11.2017.
+ * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
 
 public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface {
@@ -87,7 +87,8 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     private fun clickOutsideOfHelpingViews() {
-        AlertDialog.Builder(this).setTitle(getString(R.string.helperHideDialogTitle))
+        AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
+                .setTitle(getString(R.string.helperHideDialogTitle))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
                     userHelper.hideHelpingViews()
@@ -185,12 +186,13 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
 //Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
-    private fun setTextAppearance(view: TextView, style: Int) {
+    @Suppress("DEPRECATION")
+    private fun setTextAppearance(textView: TextView, style: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            view.setTextAppearance(this, style)
+            textView.setTextAppearance(this, style)
             ShowLogs.log(TAG, "setTextAppearance SDK<M")
         } else {
-            view.setTextAppearance(style)
+            textView.setTextAppearance(style)
         }
     }
 
@@ -206,17 +208,13 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     inner class UserHelperLayout constructor(val context: Context) {
         private val helpingViewsList: MutableList<View> = ArrayList()
 
-        /** todo
-         * what about if user doesn't want to see helping message and will click screen somewhere else
-         * consider this scenario and implement solution
-         */
         init {
             rlBackgroundHelper.visibility = View.VISIBLE
             initializeViews()
         }
 
         fun showHelpingAlertDialog() {
-            val alertDialog = AlertDialog.Builder(context)
+            val alertDialog = AlertDialog.Builder(context,R.style.AlertDialogCustomStyle)
             alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
                     .setMessage(getString(R.string.helperFirstDialogMessage))
                     .setPositiveButton(getString(R.string.letsDoIt), { dialog, which ->
@@ -238,11 +236,11 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
         private fun initializeViews() {
             if (isDarkTime()) {
-                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_TextTheme)
-                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_TextTheme)
+                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_Theme)
+                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_Theme)
             } else {
-                setTextAppearance(tvFirstHelpingMessage, R.style.HelperLight_TextTheme)
-                setTextAppearance(tvSecondHelpingMessage, R.style.HelperLight_TextTheme)
+                setTextAppearance(tvFirstHelpingMessage, R.style.HelperLight_Theme)
+                setTextAppearance(tvSecondHelpingMessage, R.style.HelperLight_Theme)
             }
 
         }
