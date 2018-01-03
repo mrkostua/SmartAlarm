@@ -9,13 +9,10 @@ import android.preference.PreferenceManager
  */
 public object SharedPreferencesHelper {
     private val TAG = this.javaClass.simpleName
-//todo check why getSharedPreferences returns null
     public fun defaultSharedPreferences(context: Context): SharedPreferences
             = PreferenceManager.getDefaultSharedPreferences(context)
 
     public fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences {
-        ShowLogs.log(TAG,"customSharedPreferences : nameOfDataSet" + nameOfDataSet)
-        ShowLogs.log(TAG,"customSharedPreferences : context" + context.toString())
        return context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
 
     }
@@ -48,7 +45,6 @@ public object SharedPreferencesHelper {
     /**
      * to use extension in different package this fun need to be imported like .get or .*
      */
-    //todo check what is the meaning of =null in method ()
     public operator inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
         return when (T::class) {
             String::class ->

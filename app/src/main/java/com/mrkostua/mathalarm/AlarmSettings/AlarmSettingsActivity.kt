@@ -1,17 +1,15 @@
 package com.mrkostua.mathalarm.AlarmSettings
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
-import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
-import com.mrkostua.mathalarm.Tools.ToolsMethod
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
 
 /**
@@ -28,7 +26,13 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         initializeDependOnContextVariables()
+    }
+//todo in the beggining check maybe intent fragment index is first one or last so arrow button need to be blocked
+    override fun onResume() {
+        ShowLogs.log(TAG, "onResume")
+        super.onResume()
         showChosenFragment()
+
     }
 
     override fun initializeDependOnContextVariables() {
@@ -37,66 +41,86 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
 
     }
 
-    private fun showChosenFragment() {
-        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
-        ShowLogs.log(TAG, "showChosenFragment intent : " + indexOfFragmentToLoad)
+    public fun ibMoveForwardClickListener(view: View) {
+        if (!isLastSettingsFragment()) {
+            showNextPreviousFragment(true)
 
-        if (indexOfFragmentToLoad != -1) {
-            ShowLogs.log(TAG, "showChosenFragment fragment to show: " + (ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]).toString())
-
-            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
-            ShowLogs.log(TAG, "showChosenFragment after")
+            if (isLastSettingsFragment(1)) {
+                blockImageButton(view)
+            } else {
+                unblockImageButton(ibMoveBack)
+            }
 
         } else {
-            fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
+            notificationTools.showToastMessage(resources.getString(R.string.blockedButtonMessage))
+
         }
     }
 
-    private fun getCurrentFragmentIndex(): Int {
-        return ConstantValues.alarmSettingsOptionsList.indexOf(fragmentHelper.getFragmentFormContainer())
+    public fun ibMoveBackClickListener(view: View) {
+        if (!isFirstSettingsFragment()) {
+            showNextPreviousFragment(false)
+
+            if (isFirstSettingsFragment(1)) {
+
+                blockImageButton(view)
+            } else {
+
+                unblockImageButton(ibMoveForward)
+            }
+
+        } else {
+            notificationTools.showToastMessage(resources.getString(R.string.blockedButtonMessage))
+
+        }
+
     }
 
-    private fun getLastFragmentIndex(): Int {
-        return ConstantValues.alarmSettingsOptionsList.size - 1
+    public fun ibBackToMainActivityClickListener(view: View) {
+        AlarmTools.startMainActivity(this)
+    }
+
+    private fun showChosenFragment() {
+        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+        if (indexOfFragmentToLoad != -1) {
+            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
+
+        } else {
+            fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
+
+        }
     }
 
     private fun showNextPreviousFragment(isNextFragment: Boolean) {
         val currentFragmentIndex = getCurrentFragmentIndex()
+        ShowLogs.log(TAG,"currentFragmentIndex " + currentFragmentIndex)
         when (currentFragmentIndex) {
-            -1, 0 -> {
+            0 -> {
                 moveToNextFragment(currentFragmentIndex)
 
             }
-            in 1 until getLastFragmentIndex() -> {
+            in 1 until AlarmTools.getLastFragmentIndex() -> {
                 if (isNextFragment) {
                     moveToNextFragment(currentFragmentIndex)
-
-
                 } else {
                     moveToPreviousFragment(currentFragmentIndex)
-
                 }
 
             }
-            getLastFragmentIndex() -> {
+            AlarmTools.getLastFragmentIndex() -> {
                 moveToPreviousFragment(currentFragmentIndex)
-                //todo CHANGE next button look, clickable false
 
             }
             else -> {
                 ShowLogs.log(TAG, " showNextPreviousFragment wrong index of currently showing fragment")
-                startMainActivity()
+                AlarmTools.startMainActivity(this)
             }
         }
     }
 
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainAlarmActivity::class.java))
-    }
 
     private fun moveToNextFragment(currentFragmentIndex: Int) {
         fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[currentFragmentIndex + 1])
-        //todo maybe do some animations
 
     }
 
@@ -105,52 +129,41 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
 
     }
 
-    private fun isButtonBlocked(whichButton: View): Boolean {
-        return when (whichButton) {
-            ibMoveBack -> getCurrentFragmentIndex() == 0
-            ibMoveForward -> getCurrentFragmentIndex() == getLastFragmentIndex()
-            else -> false
-        }
+    private fun isLastSettingsFragment(whichFragmentIndex: Int = 0): Boolean = getCurrentFragmentIndex() + whichFragmentIndex == AlarmTools.getLastFragmentIndex()
+    private fun isFirstSettingsFragment(whichFragmentIndex: Int = 0): Boolean = getCurrentFragmentIndex() - whichFragmentIndex == 0
 
-    }
-
-    private fun blockButtonAndShowMessage(whichButton: View) {
+    private fun blockImageButton(whichButton: View) {
         whichButton.isClickable = false
         whichButton.isFocusable = false
         if (whichButton is ImageButton) {
             when (whichButton) {
-                ibMoveBack -> whichButton.setImageDrawable(ToolsMethod.getDrawable(resources, R.drawable.arrow_right_blocked))
 
-                ibMoveForward -> whichButton.setImageDrawable(ToolsMethod.getDrawable(resources, R.drawable.arrow_left_blocked))
+                ibMoveBack -> whichButton.setImageResource(R.drawable.arrow_left_blocked)
 
-                else -> ShowLogs.log(TAG, "blockButtonAndShowMessage wrong method argument.")
+                ibMoveForward -> whichButton.setImageResource(R.drawable.arrow_right_blocked)
+
+                else -> ShowLogs.log(TAG, "blockImageButton wrong method argument.")
             }
         }
-        notificationTools.showToastMessage(resources.getString(R.string.blockedButtonMessage))
 
     }
 
-    public fun ibMoveForwardClickListener(view: View) {
-        if (isButtonBlocked(view)) {
-            blockButtonAndShowMessage(view)
-        } else {
-            showNextPreviousFragment(true)
+    private fun unblockImageButton(whichButton: View) {
+        whichButton.isClickable = true
+        whichButton.isFocusable = true
+        if (whichButton is ImageButton) {
+            when (whichButton) {
+                ibMoveBack -> whichButton.setImageResource(R.drawable.arrow_left)
 
+                ibMoveForward -> whichButton.setImageResource(R.drawable.arrow_right)
+
+                else -> ShowLogs.log(TAG, "unblockImageButton wrong method argument.")
+            }
         }
     }
 
-    public fun ibMoveBackClickListener(view: View) {
-        if (isButtonBlocked(view)) {
-            blockButtonAndShowMessage(view)
-        } else {
-            showNextPreviousFragment(false)
-
-        }
-
-    }
-
-    public fun ibBackToMainActivityClickListener(view: View) {
-        startMainActivity()
+    private fun getCurrentFragmentIndex(): Int {
+        return ConstantValues.alarmSettingsOptionsList.indexOf(fragmentHelper.getFragmentFormContainer())
     }
 }
 

@@ -58,7 +58,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
 
             val ringtoneId: Int = preferencesHelper[PreferencesConstants.ALARM_RINGTONE_RES_ID.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_RES_ID.getDefaultIntValue()]?.toInt()
                     ?: PreferencesConstants.ALARM_RINGTONE_RES_ID.getDefaultIntValue()
-            settingsList.add(ToolsMethod.getRingtoneNameByResId(context, ringtoneId))
+            settingsList.add(AlarmTools.getRingtoneNameByResId(context, ringtoneId))
             alarmDataObject = AlarmObject(hours, minutes, textMessage, ringtoneId, 0)
 
         } else {

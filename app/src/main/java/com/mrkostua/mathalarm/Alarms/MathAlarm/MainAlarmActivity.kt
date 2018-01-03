@@ -17,11 +17,8 @@ import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.*
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
-import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -65,7 +62,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         }
 
     }
-
 
     fun rlButtonLayoutOnClickListener(view: View) {
         if (isFirstAlarmCreation()) {
@@ -214,7 +210,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         }
 
         fun showHelpingAlertDialog() {
-            val alertDialog = AlertDialog.Builder(context,R.style.AlertDialogCustomStyle)
+            val alertDialog = AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
             alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
                     .setMessage(getString(R.string.helperFirstDialogMessage))
                     .setPositiveButton(getString(R.string.letsDoIt), { dialog, which ->
@@ -267,11 +263,10 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     }
 
-    private fun showAlarmSettingsActivity() {
-        ShowLogs.log(TAG, "showAlarmSettingsActivity ")
-
+    private fun showAlarmSettingsActivity(whichFragmentToLoadFirst: Int = 0) {
         intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                0)
+                if (AlarmTools.checkIfFragmentExistForThisIndex(whichFragmentToLoadFirst)) whichFragmentToLoadFirst
+                else 0)
 
         startActivity(intentAlarmSettingsActivity)
     }
