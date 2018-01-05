@@ -165,7 +165,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
             if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK) - 1) {
                 setDayOfWeekTextStyle(dayView)
-                ShowLogs.log(TAG, "showWeekDaysAndCurrentDay indexOfDay : " + indexOfDay + " calendar.get() + " + calendar.get(Calendar.DAY_OF_WEEK))
             }
 
         }
@@ -176,7 +175,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         ssContent.setSpan(UnderlineSpan(), 0, ssContent.length, 0)
         tvDayOfWeek.text = ssContent
 
-        ShowLogs.log(TAG, "setDayOfWeekTextStyle SDK<M")
         setTextAppearance(tvDayOfWeek, R.style.ChosenDayOfTheWeek_TextTheme)
     }
 
@@ -186,7 +184,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     private fun setTextAppearance(textView: TextView, style: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             textView.setTextAppearance(this, style)
-            ShowLogs.log(TAG, "setTextAppearance SDK<M")
         } else {
             textView.setTextAppearance(style)
         }

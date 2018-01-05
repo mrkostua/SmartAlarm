@@ -11,7 +11,7 @@ object ShowLogs {
 
     fun log(TAG: String, logMessage: String) {
         if (!isLogForProduction)
-            Log.i(TAG, " " + logMessage)
+            Log.i("KOKO " + TAG, " " + logMessage)
     }
 
 }

@@ -31,7 +31,7 @@ object AlarmTools {
             context.resources.getResourceName(ringtoneResId)
 
     public fun checkIfFragmentExistForThisIndex(index: Int): Boolean =
-            (index > 0 && index < ConstantValues.alarmSettingsOptionsList.size - 1)
+            (index > 0 && index <= ConstantValues.alarmSettingsOptionsList.size - 1)
 
 
     public fun getLastFragmentIndex(): Int {

@@ -13,6 +13,7 @@ import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
+import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
 
@@ -26,6 +27,8 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
     private lateinit var notificationTools: NotificationTools
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        ShowLogs.log(TAG,"onCreateView")
+
         initializeDependOnContextVariables()
         return inflater?.inflate(R.layout.fragment_option_set_time, container, false)
     }

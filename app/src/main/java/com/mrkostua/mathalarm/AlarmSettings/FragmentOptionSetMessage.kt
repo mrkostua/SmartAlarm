@@ -12,17 +12,22 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
+import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
 
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
  */
 public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+    //can be only set after onAttach() otherwise getContext() return null
     override lateinit var fragmentContext: Context
 
     private lateinit var sharedPreferences: SharedPreferences
+    private val TAG = FragmentOptionSetTime::class.java.simpleName
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        ShowLogs.log(TAG, "onCreateView")
+
         return inflater?.inflate(R.layout.fragment_option_set_message, container, false)
     }
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.Tools.ShowLogs
 
 /**
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
@@ -18,6 +19,8 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        ShowLogs.log(TAG,"onCreateView")
+
         initializeDependOnContextVariables()
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
