@@ -17,7 +17,10 @@ import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.*
+import com.mrkostua.mathalarm.Tools.AlarmTools
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
@@ -64,7 +67,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     fun rlButtonLayoutOnClickListener(view: View) {
-        if (isFirstAlarmCreation()) {
+        if (AlarmTools.isFirstAlarmCreation(sharedPreferencesHelper)) {
             if (!userHelper.isHelpingViewsHidden()) {
                 clickOutsideOfHelpingViews()
             } else {
@@ -107,7 +110,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
-        if (isFirstAlarmCreation()) {
+        if (AlarmTools.isFirstAlarmCreation(sharedPreferencesHelper)) {
             setCustomAlarmSettings()
 
         } else {
@@ -179,6 +182,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
+    //try to implemnt this function in java and check if it working if not search for more information
 //Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
     @Suppress("DEPRECATION")
     private fun setTextAppearance(textView: TextView, style: Int) {
@@ -187,10 +191,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         } else {
             textView.setTextAppearance(style)
         }
-    }
-
-    private fun isFirstAlarmCreation(): Boolean {
-        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()] != 0
     }
 
     private fun isDarkTime(): Boolean {

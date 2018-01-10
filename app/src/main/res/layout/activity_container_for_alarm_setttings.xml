@@ -24,8 +24,6 @@
         android:background="@color/main_layout_backgroundEvening"
         android:padding="15dp">
 
-        <!--todo set background and td of icons-->
-
         <ImageButton
             android:id="@+id/ibMoveForward"
             android:layout_width="wrap_content"

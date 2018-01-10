@@ -1,5 +1,6 @@
 <!-- drawable/chevron-right.xml -->
-<!--todo save height and width values into dimens for small and big screens-->
+<!--todo save height and width values into dimens for small and big screens (maybe create dimens file for big and small screen)-->
+<!--t-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="30dp"
     android:width="30dp"

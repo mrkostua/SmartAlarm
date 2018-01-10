@@ -2,10 +2,12 @@ package com.mrkostua.mathalarm.Tools
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
@@ -40,5 +42,11 @@ object AlarmTools {
 
     public fun startMainActivity(context: Context) {
         context.startActivity(Intent(context, MainAlarmActivity::class.java))
+    }
+
+    //todo fix this method default value of the hour is set to 7
+    public fun isFirstAlarmCreation(sharedPreferencesHelper: SharedPreferences): Boolean {
+        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()] != 0
+
     }
 }
