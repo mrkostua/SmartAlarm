@@ -125,4 +125,13 @@
         <item name="android:colorLongPressedHighlight">#ff0e0a</item>
     </style>
 
+    <style name="basicAlarmViewsTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/basicTextViewStyle</item>
+    </style>
+
+    <style name="basicTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

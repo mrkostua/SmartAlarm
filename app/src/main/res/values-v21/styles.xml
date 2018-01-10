@@ -1,10 +1,13 @@
-<resources>>
+<resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextPrimaryColor</item>
+        <item name="android:textColorAlertDialogListItem">
+            @color/alertDialogMainMathAlarmTextPrimaryColor
+        </item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -37,8 +40,11 @@
         <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
         <item name="android:textColorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
         <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
-        <item name="textColorAlertDialogListItem">@color/alertDialogMainMathAlarmTextColorAlertDialogListItem</item>
-        <item name="android:textColorSecondary">@color/alertDialogMainMathAlarmTextColorSecondary</item>
+        <item name="textColorAlertDialogListItem">
+            @color/alertDialogMainMathAlarmTextColorAlertDialogListItem
+        </item>
+        <item name="android:textColorSecondary">@color/alertDialogMainMathAlarmTextColorSecondary
+        </item>
         <item name="android:textStyle">italic</item>
         <item name="android:windowTitleStyle">@style/alertDialogTitleStyle</item>
     </style>
@@ -49,6 +55,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="basicAlarmViewsTheme" parent="android:Theme">
+        <item name="android:textViewStyle">@style/basicTextViewStyle</item>
+        <item name="android:timePickerStyle">@style/basicTimePickerStyle</item>
+    </style>
 
+    <style name="basicTimePickerStyle" parent="android:Widget.Material.TimePicker">
+        <!--todo add some value here and test on api 21 and hire-->
+    </style>
 
 </resources>

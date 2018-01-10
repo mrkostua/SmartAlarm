@@ -40,16 +40,19 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
         initializeTimePicker()
+        saveSettingsInSharedPreferences()
+    }
+    //todo
+    override fun onTimeChanged(timePicker: TimePicker?, hourOfDay: Int, minute: Int) {
+        ShowLogs.log(TAG,"onTimeChanged")
+        showTimeUntilAlarmBoom(hourOfDay, minute)
+        sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
+        sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minute
     }
 
     override fun saveSettingsInSharedPreferences() {
     }
 
-    override fun onTimeChanged(timePicker: TimePicker?, hourOfDay: Int, minute: Int) {
-        showTimeUntilAlarmBoom(hourOfDay, minute)
-        sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
-        sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minute
-    }
 
     private fun showTimeUntilAlarmBoom(hourOfDay: Int, minutes: Int) {
         val (hoursUntilBoob, minutesUntilBoom) = notificationTools.getTimeUntilAlarmBoob(hourOfDay, minutes)
@@ -69,6 +72,7 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
 
                 tvTimeUntilAlarmBoom.text = resources.getString(R.string.timeUntilAlarmBoom, tpSetAlarmTime.hour, tpSetAlarmTime.minute)
             } else {
+                ShowLogs.log(TAG," initializeTimePicker  sdk is lower than 25")
                 //todo implement for Api < 25
             }
         }
