@@ -39,6 +39,7 @@
     <color name="helperTextMessagesDark">#c8ff00</color>
     <color name="helperTextMessagesLight">#000000</color>
     <color name="blockedButton">#88a69898</color>
+    <color name="darkOrange">#ba2f00</color>
 
 
 </resources>

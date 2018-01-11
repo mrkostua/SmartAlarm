@@ -10,7 +10,7 @@ enum class PreferencesConstants {
     },
     ALARM_HOURS() {
         override fun getKeyValue(): String = "hours"
-        override fun getDefaultIntValue(): Int = 7
+        override fun getDefaultIntValue(): Int = 8
 
     },
     ALARM_MINUTES() {

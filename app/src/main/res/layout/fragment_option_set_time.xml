@@ -6,11 +6,12 @@
 
     <TimePicker
         android:id="@+id/tpSetAlarmTime"
+        style="@style/basicAlarmViewsTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        style="@style/basicAlarmViewsTheme"/>
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/tvTimeUntilAlarmBoom"
@@ -24,7 +25,9 @@
         android:layout_below="@+id/tpSetAlarmTime"
         android:layout_marginTop="15dp"
         android:padding="5dp"
-        android:text="" />
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/darkOrange" />
     <!--todo create some style for this TextView-->
 
 </RelativeLayout>

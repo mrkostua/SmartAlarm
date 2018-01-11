@@ -42,8 +42,8 @@ public class NotificationTools(val context: Context) {
         return sHour + ":" + sMinute
     }
 
-    public fun showToastMessage(messageText : String){
-        Toast.makeText(context,messageText,Toast.LENGTH_LONG).show()
+    public fun showToastMessage(messageText: String) {
+        Toast.makeText(context, messageText, Toast.LENGTH_LONG).show()
     }
 
 }

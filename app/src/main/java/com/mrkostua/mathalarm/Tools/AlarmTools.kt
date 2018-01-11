@@ -46,7 +46,7 @@ object AlarmTools {
 
     //todo fix this method default value of the hour is set to 7
     public fun isFirstAlarmCreation(sharedPreferencesHelper: SharedPreferences): Boolean {
-        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()] != 0
+        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), ConstantValues.PREFERENCES_WRONG_VALUE] == ConstantValues.PREFERENCES_WRONG_VALUE
 
     }
 }
