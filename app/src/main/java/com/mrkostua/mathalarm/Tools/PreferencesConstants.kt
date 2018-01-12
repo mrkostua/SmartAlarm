@@ -22,8 +22,8 @@ enum class PreferencesConstants {
         override fun getKeyValue(): String = "text_message"
         override fun getDefaultIntValue(): Int = -1
     },
-    ALARM_RINGTONE_RES_ID() {
-        override fun getKeyValue(): String = "ringtone_res_id"
+    ALARM_RINGTONE_NAME() {
+        override fun getKeyValue(): String = "ringtone_name"
         override fun getDefaultIntValue(): Int = -1
     };
 
@@ -31,6 +31,7 @@ enum class PreferencesConstants {
     abstract fun getDefaultIntValue(): Int
 
     val defaultTextMessage = "Wake up man!"
+    val defaultRingtoneName = "energy"
 
 
 }

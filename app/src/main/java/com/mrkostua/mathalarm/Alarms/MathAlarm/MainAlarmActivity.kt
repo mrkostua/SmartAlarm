@@ -50,6 +50,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
         setThemeForAlarmButtonLayout()
         initializeAlarmButton()
+
     }
 
     override fun initializeDependOnContextVariables() {
@@ -207,8 +208,8 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         }
 
         fun showHelpingAlertDialog() {
-            val alertDialog = AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
-            alertDialog.setTitle(getString(R.string.helperFirstDialogTitle))
+            AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
+                    .setTitle(getString(R.string.helperFirstDialogTitle))
                     .setMessage(getString(R.string.helperFirstDialogMessage))
                     .setPositiveButton(getString(R.string.letsDoIt), { dialog, which ->
                         showFirstHelpingTextMessage()

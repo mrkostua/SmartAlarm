@@ -15,7 +15,7 @@ public object SharedPreferencesHelper {
             = PreferenceManager.getDefaultSharedPreferences(context)
 
     public fun customSharedPreferences(context: Context, nameOfDataSet: String): SharedPreferences {
-       return context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(nameOfDataSet, Context.MODE_PRIVATE)
 
     }
 
@@ -43,8 +43,8 @@ public object SharedPreferencesHelper {
                 throw UnsupportedOperationException("Not implemented")
         }
     }
-    //todo Think about creating additional fun for get(PreferencesConstants : Enum) so default value will be get inside this method not every time and result can but not null so we eliminate checking for null result
 
+    //todo Think about creating additional fun for get(PreferencesConstants : Enum) so default value will be get inside this method not every time and result can but not null so we eliminate checking for null result
     /**
      * to use extension in different package this fun need to be imported like .get or .*
      */
