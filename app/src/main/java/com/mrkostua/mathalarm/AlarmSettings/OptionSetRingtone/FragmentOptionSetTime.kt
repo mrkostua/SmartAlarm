@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.AlarmSettings
+package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
 import android.app.Fragment
 import android.content.Context
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
@@ -41,6 +42,7 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         super.onResume()
         initializeTimePicker()
         saveSettingsInSharedPreferences()
+        notificationTools.showToastMessage(getString(R.string.alarmTimeLimitationMessage))
     }
 
     override fun initializeDependOnContextVariables() {
@@ -58,7 +60,6 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         })
     }
 
-    //TODO remember it will works only for 23-59 minutes after now you can not set alarm for nex day the same time it will boom now
     private fun showTimeUntilAlarmBoom(hourOfDay: Int, minutes: Int) {
         val (hoursUntilBoob, minutesUntilBoom) = notificationTools.getTimeUntilAlarmBoob(hourOfDay, minutes)
         tvTimeUntilAlarmBoom.text = resources.getString(R.string.timeUntilAlarmBoom, hoursUntilBoob, minutesUntilBoom)
