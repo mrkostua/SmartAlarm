@@ -1,16 +1,23 @@
-package com.mrkostua.mathalarm.AlarmSettings
+package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
 import android.app.Fragment
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.RingtonesRecycleViewAdapter
+import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.RecycleViewTools.ClickListener
+import com.mrkostua.mathalarm.RecycleViewTools.CustomRecyclerTouchListener
+import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
 
@@ -21,6 +28,7 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     override lateinit var fragmentContext: Context
     private val TAG = this.javaClass.simpleName
     private lateinit var ringtonesAdapter: RingtonesRecycleViewAdapter
+    private lateinit var notificationTools: NotificationTools
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
@@ -36,14 +44,39 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     override fun initializeDependOnContextVariables() {
         fragmentContext = activity.applicationContext
         initializeRecycleView(fragmentContext)
+        notificationTools = NotificationTools(fragmentContext)
     }
 
     private fun initializeRecycleView(context: Context) {
         ringtonesAdapter = RingtonesRecycleViewAdapter(listGet())
-        val layoutManager = LinearLayoutManager(context)
-        rvListOfRingtones.layoutManager = layoutManager
+
+        rvListOfRingtones.layoutManager = LinearLayoutManager(context)
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
+        rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
         rvListOfRingtones.adapter = ringtonesAdapter
+        rvListOfRingtones.addOnItemTouchListener(getCustomRecycleTouchListener())
+    }
+
+    private fun getCustomDividerItemDecoration(): DividerItemDecoration {
+        return object : DividerItemDecoration(fragmentContext, LinearLayoutManager.VERTICAL) {
+            override fun onDraw(c: Canvas?, parent: RecyclerView?, state: RecyclerView.State?) {
+                super.onDraw(c, parent, state)
+            }
+
+            override fun setDrawable(drawable: Drawable) {
+                super.setDrawable(drawable)
+            }
+        }
+    }
+
+    private fun getCustomRecycleTouchListener(): CustomRecyclerTouchListener {
+        return CustomRecyclerTouchListener(fragmentContext, object : ClickListener {
+            override fun onClick(view: View, position: Int) {
+                notificationTools.showToastMessage("position is : " + position + " :)))))")
+                ShowLogs.log(TAG, "View : " + view.toString())
+            }
+
+        })
     }
 
     private fun listGet(): ArrayList<String> {

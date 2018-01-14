@@ -7,8 +7,8 @@ import android.content.Context
 import android.content.Intent
 import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools

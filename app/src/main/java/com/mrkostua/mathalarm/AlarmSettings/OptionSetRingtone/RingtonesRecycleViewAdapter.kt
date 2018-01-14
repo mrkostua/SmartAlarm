@@ -18,7 +18,9 @@ class RingtonesRecycleViewAdapter(private val ringtonesList: ArrayList<String>) 
         val bPlayMusic: Button = view.findViewById(R.id.bPlayMusic2) as Button
         val bPauseMusic: Button = view.findViewById(R.id.bPauseMusic2) as Button
         val tvName: TextView = view.findViewById(R.id.tvName2) as TextView
-
+        //todo implement onClickListener for Play and Pause button here
+        //but first design architecture of play pause stop, set music and appearance of setRingtone layout
+        //example : https://stackoverflow.com/questions/30284067/handle-button-click-inside-a-row-in-recyclerview
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RingtonesViewHolder {

@@ -2,8 +2,8 @@ package com.mrkostua.mathalarm.Tools
 
 import android.app.Fragment
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 
 /**
  * @author Kostiantyn on 07.11.2017.

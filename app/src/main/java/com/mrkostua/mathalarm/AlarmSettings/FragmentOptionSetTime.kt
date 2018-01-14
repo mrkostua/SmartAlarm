@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
+package com.mrkostua.mathalarm.AlarmSettings
 
 import android.app.Fragment
 import android.content.Context
@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
