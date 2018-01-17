@@ -163,6 +163,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
+        android:background="@null"
         android:clickable="true"
         android:focusable="true"
         android:onClick="ibAdditionalSettingsOnClickListener"

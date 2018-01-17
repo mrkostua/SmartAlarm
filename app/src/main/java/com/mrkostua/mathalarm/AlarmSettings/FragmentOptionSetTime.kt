@@ -35,13 +35,14 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         super.onViewCreated(view, savedInstanceState)
         ShowLogs.log(TAG, "onViewCreated")
         initializeDependOnContextVariables()
+        notificationTools.showToastMessage(getString(R.string.alarmTimeLimitationMessage))
+
     }
 
     override fun onResume() {
         super.onResume()
         initializeTimePicker()
         saveSettingsInSharedPreferences()
-        notificationTools.showToastMessage(getString(R.string.alarmTimeLimitationMessage))
     }
 
     override fun initializeDependOnContextVariables() {

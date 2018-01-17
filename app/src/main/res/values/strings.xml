@@ -73,7 +73,7 @@
     <string name="helperFirstDialogMessage">Hi if you want to see how the Alarm work just follow appearing text and touch them to continue</string>
     <string name="helperFirstDialogTitle">Smart helper :)</string>
 
-    <string name="timeUntilAlarmBoom">You will sleep only :<xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> hours <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> minutes</string>
+    <string name="timeUntilAlarmBoom">You will sleep only : <xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> hours <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> minutes</string>
     <string name="blockedButtonMessage">Hi, this option is last one :(, please try moving other direction.</string>
     <string name="helperHideDialogTitle">Do you want to continue without helping messages?</string>
     <string name="alarmTimeLimitationMessage">Remember, you can set alarm only for nex 23 hours and 59 minutes :)</string>

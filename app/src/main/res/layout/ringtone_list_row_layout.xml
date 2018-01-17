@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp">
 
     <TextView
-        android:id="@+id/tvName2"
+        android:id="@+id/tvRingtoneNumberInList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvRingtoneName"
+        android:layout_alignBottom="@+id/tvRingtoneName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="19dp"
-        android:text="TextView" />
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:text="1." />
 
-    <Button
-        android:id="@+id/bPlayMusic2"
+    <TextView
+        android:id="@+id/tvRingtoneName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cbChosenAlarmRingtone"
+        android:layout_alignBottom="@+id/cbChosenAlarmRingtone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/tvRingtoneNumberInList"
+        android:layout_toRightOf="@+id/tvRingtoneNumberInList"
+        android:text="Electronic guitar" />
+
+    <ImageButton
+        android:id="@+id/ibPlayPauseRingtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_toLeftOf="@+id/cbChosenAlarmRingtone"
+        android:layout_toStartOf="@+id/cbChosenAlarmRingtone"
+        android:background="@null"
+        app:srcCompat="@mipmap/play_music" />
+
+    <CheckBox
+        android:id="@+id/cbChosenAlarmRingtone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="S" />
-
-    <Button
-        android:id="@+id/bPauseMusic2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/bPlayMusic2"
-        android:layout_toStartOf="@+id/bPlayMusic2"
-        android:text="P" />
+        android:layout_centerVertical="true"
+        android:padding="10dp" />
 </RelativeLayout>

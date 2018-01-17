@@ -12,11 +12,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.RecycleViewTools.ClickListener
-import com.mrkostua.mathalarm.RecycleViewTools.CustomRecyclerTouchListener
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
@@ -48,13 +47,12 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     }
 
     private fun initializeRecycleView(context: Context) {
-        ringtonesAdapter = RingtonesRecycleViewAdapter(listGet())
+        ringtonesAdapter = RingtonesRecycleViewAdapter(listGet(), getCustomRecycleTouchListener())
 
         rvListOfRingtones.layoutManager = LinearLayoutManager(context)
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
         rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
         rvListOfRingtones.adapter = ringtonesAdapter
-        rvListOfRingtones.addOnItemTouchListener(getCustomRecycleTouchListener())
     }
 
     private fun getCustomDividerItemDecoration(): DividerItemDecoration {
@@ -69,24 +67,43 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
         }
     }
 
-    private fun getCustomRecycleTouchListener(): CustomRecyclerTouchListener {
-        return CustomRecyclerTouchListener(fragmentContext, object : ClickListener {
-            override fun onClick(view: View, position: Int) {
-                notificationTools.showToastMessage("position is : " + position + " :)))))")
-                ShowLogs.log(TAG, "View : " + view.toString())
+    private fun getCustomRecycleTouchListener(): SetRingtoneClickListeners {
+        return object : SetRingtoneClickListeners {
+            override fun recycleViewClickListener(view: View, position: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        })
+            override fun imageButtonClickListener(view: View, position: Int) {
+                ShowLogs.log(TAG, "imageButtonClickListener : " + position)
+            }
+
+            override fun checkBoxCheckListener(compoundButton: CompoundButton, isChecked: Boolean, position: Int) {
+                ShowLogs.log(TAG, "checkBoxCheckListener : " + position)
+
+            }
+        }
     }
 
     private fun listGet(): ArrayList<String> {
         val list = ArrayList<String>()
-        list.add("1")
-        list.add("1")
-        list.add("1")
-        list.add("1")
-        list.add("1")
-        list.add("1")
+        list.add("Hottest in the")
+        list.add("Guitar song")
+        list.add("Alarm boom")
+        list.add("Fast angel  2")
+        list.add("Never give-up")
+        list.add("Fuck you")
+        list.add("Hottest in the")
+        list.add("Guitar song")
+        list.add("Alarm boom")
+        list.add("Fast angel  2")
+        list.add("Never give-up")
+        list.add("Fuck you")
+        list.add("Hottest in the")
+        list.add("Guitar song")
+        list.add("Alarm boom")
+        list.add("Fast angel  2")
+        list.add("Never give-up")
+        list.add("Fuck you")
 
         return list
     }
