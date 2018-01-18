@@ -4,12 +4,12 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.SetRingtoneClickListeners
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.RingtoneClickListeners
 
 /**
  * @author Kostiantyn Prysiazhnyi on 13.01.2018.
  */
-class CustomRecyclerTouchListener(context: Context, private val clickListener: SetRingtoneClickListeners) : RecyclerView.OnItemTouchListener {
+class CustomRecyclerTouchListener(context: Context, private val clickListener: RingtoneClickListeners) : RecyclerView.OnItemTouchListener {
     private val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
             return true

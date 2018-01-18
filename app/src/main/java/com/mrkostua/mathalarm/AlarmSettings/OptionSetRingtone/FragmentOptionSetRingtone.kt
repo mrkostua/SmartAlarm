@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
 public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
     override lateinit var fragmentContext: Context
     private val TAG = this.javaClass.simpleName
-    private lateinit var ringtonesAdapter: RingtonesRecycleViewAdapter
     private lateinit var notificationTools: NotificationTools
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,13 +45,17 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
         notificationTools = NotificationTools(fragmentContext)
     }
 
-    private fun initializeRecycleView(context: Context) {
-        ringtonesAdapter = RingtonesRecycleViewAdapter(listGet(), getCustomRecycleTouchListener())
+    override fun saveSettingsInSharedPreferences() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    private fun initializeRecycleView(context: Context) {
         rvListOfRingtones.layoutManager = LinearLayoutManager(context)
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
         rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
-        rvListOfRingtones.adapter = ringtonesAdapter
+        rvListOfRingtones.adapter = RingtonesRecycleViewAdapter(context, listGet(), getRingtoneClickListeners())
+        //todo maybe set adapter once more after changing icon checkBox
+        //todo think about fixing the problem with checkBox one checked and one random checkBox from the list also begging to be checked
     }
 
     private fun getCustomDividerItemDecoration(): DividerItemDecoration {
@@ -67,81 +70,56 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
         }
     }
 
-    private fun getCustomRecycleTouchListener(): SetRingtoneClickListeners {
-        return object : SetRingtoneClickListeners {
+    private fun getRingtoneClickListeners(): RingtoneClickListeners {
+        return object : RingtoneClickListeners {
             override fun recycleViewClickListener(view: View, position: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                //in case of setting clickListener for whole row view
             }
 
             override fun imageButtonClickListener(view: View, position: Int) {
                 ShowLogs.log(TAG, "imageButtonClickListener : " + position)
+
+                //todo start playing or stopping
+                //todo changing icon from play to stop
+                //todo block other buttons from being pushed
             }
 
             override fun checkBoxCheckListener(compoundButton: CompoundButton, isChecked: Boolean, position: Int) {
                 ShowLogs.log(TAG, "checkBoxCheckListener : " + position)
+                //todo only one checkBox can be checked (method for it) if new one checked, last one checked changing to unchecked
+                //todo show Toast with music name and explanation inf.
 
             }
         }
     }
 
-    private fun listGet(): ArrayList<String> {
-        val list = ArrayList<String>()
-        list.add("Hottest in the")
-        list.add("Guitar song")
-        list.add("Alarm boom")
-        list.add("Fast angel  2")
-        list.add("Never give-up")
-        list.add("Fuck you")
-        list.add("Hottest in the")
-        list.add("Guitar song")
-        list.add("Alarm boom")
-        list.add("Fast angel  2")
-        list.add("Never give-up")
-        list.add("Fuck you")
-        list.add("Hottest in the")
-        list.add("Guitar song")
-        list.add("Alarm boom")
-        list.add("Fast angel  2")
-        list.add("Never give-up")
-        list.add("Fuck you")
-
+    private fun listGet(): ArrayList<RingtoneObject> {
+        val list = ArrayList<RingtoneObject>()
+        list.add(2, RingtoneObject("Guitar song", 2))
+        list.add(1, RingtoneObject("Guitar song", 1))
+        list.add(3, RingtoneObject("Guitar song", 3))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
+        list.add(RingtoneObject("Adele Hello "))
         return list
     }
 
-    override fun saveSettingsInSharedPreferences() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    /**
-     * 1 need to be some ListView populated by some ArrayList of music that can be updated by user
-     * 2 we need add methods to play and stop music MainAlarmActivity. AlarmMusic_AlertDialogBuilder method
-     * 3 view need to be scrolled
-     *
-     * it can extend FragmentDialog and try to use setSingleChoiceItems
-     *
-     * Looks like RecycleView instead of ListView so we gonna learn some more complex approach
-     *
-     */
-
-    /**
-     * todo create some class for RecycleView adapter make it to work with any ListView and any arguments.
-     *  Create adapter for RecycleView
-     *  https://android.jlelse.eu/recyclerview-listview-basic-comparison-91e844a2fbc4
-     *
-     *  looks of future layout is in noteBook.
-     *  https://www.androidhive.info/2016/01/android-working-with-recycler-view/
-     *
-     */
-
     //todo also consider creating ringtone object with name, author, rating(how often user choose this item) etc.
-
     private fun getDefaultPhoneRingtonesList(): List<Int> {
         TODO("not implemented")
+
     }
 
-    private fun addRingtoneFromExternalPath() {
+    private fun addRingtoneFromExternalPath(): Int {
         TODO("not implemented")
         /**
+         * return the path to this file and probably this list need to be saved somewhere (local DB ) SharedPreferences
+         *  1 need to be some ListView populated by some ArrayList of music that can be updated by user
          * todo user can click the button and search throw files tree to music location and by choosing ->
          * file with proper type it will be added to the list of ringtone's.
          */
