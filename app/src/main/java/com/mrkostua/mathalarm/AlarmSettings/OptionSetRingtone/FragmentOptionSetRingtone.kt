@@ -28,6 +28,10 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
     private val TAG = this.javaClass.simpleName
     private lateinit var notificationTools: NotificationTools
 
+    private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
+    private val ringtonesList = ArrayList<RingtoneObject>()
+
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
@@ -41,8 +45,8 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
 
     override fun initializeDependOnContextVariables() {
         fragmentContext = activity.applicationContext
-        initializeRecycleView(fragmentContext)
         notificationTools = NotificationTools(fragmentContext)
+        initializeRecycleView(fragmentContext)
     }
 
     override fun saveSettingsInSharedPreferences() {
@@ -53,7 +57,9 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
         rvListOfRingtones.layoutManager = LinearLayoutManager(context)
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
         rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
-        rvListOfRingtones.adapter = RingtonesRecycleViewAdapter(context, listGet(), getRingtoneClickListeners())
+
+        ringtonesRecycleViewAdapter = RingtonesRecycleViewAdapter(context, listGet(), getRingtoneClickListeners())
+        rvListOfRingtones.adapter = ringtonesRecycleViewAdapter
         //todo maybe set adapter once more after changing icon checkBox
         //todo think about fixing the problem with checkBox one checked and one random checkBox from the list also begging to be checked
     }
@@ -86,27 +92,42 @@ public class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, 
 
             override fun checkBoxCheckListener(compoundButton: CompoundButton, isChecked: Boolean, position: Int) {
                 ShowLogs.log(TAG, "checkBoxCheckListener : " + position)
+                if (isChecked) {
+                    ringtonesList.forEachIndexed { index, ringtoneObject ->
+                        ringtoneObject.isChecked = index == position
+                    }
+                } else {
+                    ringtonesList.forEach { ringtoneObject -> ringtoneObject.isChecked = false }
+                }
+
+                ringtonesRecycleViewAdapter.updateRingtoneData(ringtonesList,position)
                 //todo only one checkBox can be checked (method for it) if new one checked, last one checked changing to unchecked
                 //todo show Toast with music name and explanation inf.
-
             }
         }
     }
 
     private fun listGet(): ArrayList<RingtoneObject> {
-        val list = ArrayList<RingtoneObject>()
-        list.add(2, RingtoneObject("Guitar song", 2))
-        list.add(1, RingtoneObject("Guitar song", 1))
-        list.add(3, RingtoneObject("Guitar song", 3))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        list.add(RingtoneObject("Adele Hello "))
-        return list
+        ringtonesList.add(RingtoneObject("-2Guitar song"))
+        ringtonesList.add(RingtoneObject("-1Guitar song", 1, false, false))
+        ringtonesList.add(RingtoneObject("0Guitar song", 2, false, true))
+        ringtonesList.add(RingtoneObject("1Adele Hello "))
+        ringtonesList.add(RingtoneObject("2Adele Hello "))
+        ringtonesList.add(RingtoneObject("3Adele Hello "))
+        ringtonesList.add(RingtoneObject("4Adele Hello "))
+        ringtonesList.add(RingtoneObject("5Adele Hello "))
+        ringtonesList.add(RingtoneObject("6Adele Hello "))
+        ringtonesList.add(RingtoneObject("7Adele Hello "))
+        ringtonesList.add(RingtoneObject("8Adele Hello "))
+        ringtonesList.add(RingtoneObject("12Adele Hello "))
+        ringtonesList.add(RingtoneObject("13Adele Hello "))
+        ringtonesList.add(RingtoneObject("14Adele Hello "))
+        ringtonesList.add(RingtoneObject("15Adele Hello "))
+        ringtonesList.add(RingtoneObject("16Adele Hello "))
+        ringtonesList.add(RingtoneObject("17Adele Hello "))
+        ringtonesList.add(RingtoneObject("18Adele Hello "))
+        ringtonesList.add(RingtoneObject("19Adele Hello "))
+        return ringtonesList
     }
 
     //todo also consider creating ringtone object with name, author, rating(how often user choose this item) etc.

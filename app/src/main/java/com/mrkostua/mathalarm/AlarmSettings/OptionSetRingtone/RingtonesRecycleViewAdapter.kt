@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
+import com.mrkostua.mathalarm.Tools.ShowLogs
 
 
 /**
@@ -19,18 +20,31 @@ import com.mrkostua.mathalarm.Tools.AlarmTools
 class RingtonesRecycleViewAdapter(private val context: Context, private val ringtonesList: ArrayList<RingtoneObject>,
                                   private val ringtoneClickListeners: RingtoneClickListeners)
     : RecyclerView.Adapter<RingtonesRecycleViewAdapter.RingtonesViewHolder>() {
+
     private val TAG = this.javaClass.simpleName
+    private var isBind = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RingtonesViewHolder {
         return RingtonesViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.ringtone_list_row_layout, parent, false))
     }
 
     override fun onBindViewHolder(holder: RingtonesViewHolder?, position: Int) {
-        setRingtoneNameAndNumber(holder, position)
+        isBind = false
+        setRingtoneNameAndNumber(holder, holder?.adapterPosition ?: position)
+        isBind = true
     }
 
     override fun getItemCount(): Int {
         return ringtonesList.size
+    }
+
+    fun updateRingtoneData(ringtonesList: ArrayList<RingtoneObject>, position: Int) {
+        if (isBind && !ringtonesList.isEmpty()) {
+            this.ringtonesList.clear()
+            this.ringtonesList.addAll(ringtonesList)
+
+            notifyItemChanged(position)
+        }
     }
 
     inner class RingtonesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,14 +70,19 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
 
     private fun setRingtoneNameAndNumber(holder: RingtonesViewHolder?, position: Int) {
         holder?.tvRingtoneName?.text = ringtonesList[position].name
-        holder?.tvRingtoneNumberInList?.text = position.toString() + "."
-        ringtonesList.forEach { ringtoneObject ->
-            if (ringtoneObject.isPlaying) {
-                holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.drawable.ic_alarm_off_white_36dp))
-            }
-            if (ringtoneObject.isChecked) {
-                holder?.cbChosenAlarmRingtone?.isChecked = true
-            }
+        holder?.tvRingtoneNumberInList?.text = Integer.toString(position) + "."
+
+        if (ringtonesList[position].isPlaying) {
+            ShowLogs.log(TAG, "setRingtoneNameAndNumber :  posit : " + position + "Playing true")
+            holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.drawable.ic_alarm_off_white_36dp))
+        } else {
+            holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.mipmap.play_music))
+        }
+        if (ringtonesList[position].isChecked) {
+            ShowLogs.log(TAG, "setRingtoneNameAndNumber :  posit : " + position + "Checked true")
+            holder?.cbChosenAlarmRingtone?.isChecked = true
+        } else {
+            holder?.cbChosenAlarmRingtone?.isChecked = false
         }
     }
 
