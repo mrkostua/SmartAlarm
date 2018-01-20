@@ -43,7 +43,7 @@
         android:layout_toLeftOf="@+id/cbChosenAlarmRingtone"
         android:layout_toStartOf="@+id/cbChosenAlarmRingtone"
         android:background="@null"
-        app:srcCompat="@mipmap/play_music" />
+        app:srcCompat="@mipmap/ic_play_ringtone" />
 
     <CheckBox
         android:id="@+id/cbChosenAlarmRingtone"
