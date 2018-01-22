@@ -174,7 +174,7 @@ public class MathAlarmService extends Service {
                 break;
             case "deepSleepMusic":
 //                musicResourceID = getPackageName() + "/raw/" + R.raw.free;
-                musicResourceID = getPackageName() + "/raw/" + R.raw.digital_clock;
+                musicResourceID = getPackageName() + "/raw/" + R.raw.ringtone_digital_clock;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     volume/2, 0);
                 break;

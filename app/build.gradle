@@ -34,6 +34,12 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile 'com.android.support:recyclerview-v7:25.0.1'
+
+//    // Room
+//    implementation "android.arch.persistence.room:runtime:1.0.0"
+//    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+
 }
 repositories {
     mavenCentral()

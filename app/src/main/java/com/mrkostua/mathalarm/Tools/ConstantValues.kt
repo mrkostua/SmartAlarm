@@ -2,8 +2,8 @@ package com.mrkostua.mathalarm.Tools
 
 import android.app.Fragment
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
 
 /**
  * @author Kostiantyn on 07.11.2017.
@@ -16,8 +16,8 @@ object ConstantValues {
     val LOG_DEBUG_STATUS = true
 
 
-    val ALARM_RINGTONE_NAMES = arrayOf("mechanic_clock", "energy", "loud", "digital_clock")
-    val CUSTOM_ALARM_RINGTONE = "energy"
+    val ALARM_RINGTONE_NAMES = arrayOf("ringtone_mechanic_clock", "ringtone_energy", "ringtone_loud", "ringtone_digital_clock")
+    val CUSTOM_ALARM_RINGTONE = "ringtone_energy"
 
     //actions for alarm receiver
     val SNOOZE_ACTION = "alarm_snooze"
