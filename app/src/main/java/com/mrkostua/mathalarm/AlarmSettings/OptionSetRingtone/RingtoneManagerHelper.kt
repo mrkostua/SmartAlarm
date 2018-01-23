@@ -1,55 +1,31 @@
 package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
 import android.content.Context
-import android.media.MediaPlayer
-import com.mrkostua.mathalarm.Tools.ShowLogs
+import android.media.RingtoneManager
 
 /**
- * @author Kostiantyn Prysiazhnyi on 17.01.2018.
+ * @author Kostiantyn Prysiazhnyi on 23.01.2018.
  */
 class RingtoneManagerHelper(private val context: Context) {
-    private val TAG = this.javaClass.simpleName
-    private val rawType = "raw"
-    private var isMpPlaying = false
-    private var mediaPlayer: MediaPlayer? = null
 
-    fun playCustomRingtone(ringtoneResourceId: String) {
-        val ringtoneResourceName = getRawResourceId(ringtoneResourceId)
-        if (!isMpPlaying) {
-            mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-            mediaPlayer?.start()
+    fun getDefaultAlarmRingtonesList(): ArrayList<RingtoneObject> {
+        val ringtoneManager: RingtoneManager = RingtoneManager(context)
+        ringtoneManager.setType(RingtoneManager.TYPE_ALARM)
+        val ringtonesCursor = ringtoneManager.cursor
+        val cursorSize = ringtonesCursor.count
+
+        return if (cursorSize != 0 && ringtonesCursor.moveToFirst()) {
+            val ringtoneObjectsList = ArrayList<RingtoneObject>(cursorSize)
+            while (!ringtonesCursor.isAfterLast && ringtonesCursor.moveToNext()) {
+                ringtoneObjectsList.add(RingtoneObject(
+                        ringtonesCursor.getString(RingtoneManager.TITLE_COLUMN_INDEX), 100,
+                        false, false, ringtoneManager.getRingtoneUri(ringtonesCursor.position)))
+            }
+            ringtoneObjectsList
+
         } else {
-            mediaPlayer?.stop()
-            mediaPlayer?.reset()
-            mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-            mediaPlayer?.start()
-        }
-        isMpPlaying = true
-    }
-
-    fun stopRingtone() {
-        if (isMpPlaying) {
-            mediaPlayer?.stop()
-            mediaPlayer?.reset()
-            isMpPlaying = false
-        }
-    }
-
-    private fun getRawResourceId(resourceName: String): Int =
-            context.resources.getIdentifier(resourceName, rawType, context.packageName)
-
-    private fun getNewMediaPlayer(ringtoneResourceId: Int): MediaPlayer? {
-        mediaPlayer = MediaPlayer.create(context, ringtoneResourceId)
-        mediaPlayer?.setOnErrorListener { mp: MediaPlayer, what: Int, extra: Int ->
-            ShowLogs.log(TAG, "getNewMediaPlayer onErrorListener what :" + what + " extra : " + extra)
-            mp.stop()
-            mp.release()
-            mediaPlayer = null
-            isMpPlaying = false
-            return@setOnErrorListener true
+            ArrayList()
 
         }
-        return mediaPlayer
     }
-
 }

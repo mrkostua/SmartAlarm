@@ -36,7 +36,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     private lateinit var notificationTools: NotificationTools
     private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
     private lateinit var bitmapPlayRingtoneForComparing: Bitmap
-    private lateinit var ringtoneManager: RingtoneManagerHelper
+    private lateinit var mediaPlayerHelper: MediaPlayerHelper
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
@@ -52,13 +52,13 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
 
     override fun onPause() {
         super.onPause()
-        ringtoneManager.stopRingtone()
+        mediaPlayerHelper.stopRingtone()
     }
 
     override fun initializeDependOnContextVariables() {
         fragmentContext = activity.applicationContext
         notificationTools = NotificationTools(fragmentContext)
-        ringtoneManager = RingtoneManagerHelper(fragmentContext)
+        mediaPlayerHelper = MediaPlayerHelper(fragmentContext)
         bitmapPlayRingtoneForComparing = (AlarmTools.getDrawable(fragmentContext.resources, R.drawable.ic_play_ringtone_48dp) as BitmapDrawable).bitmap
         initializeRecycleView(fragmentContext)
     }
@@ -126,8 +126,13 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
                 ShowLogs.log(TAG, "getRingtoneClickListeners imageButtonClickListener position: " + position)
                 if (isRingtoneImagePlay(view)) {
                     ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play true")
-                    ringtoneManager.playCustomRingtone(ringtonesList[position].name)
+                    if (ringtonesList[position].uri == null) {
+                        mediaPlayerHelper.playRingtoneFromStringResource(ringtonesList[position].name)
 
+                    } else {
+                        mediaPlayerHelper.playRingtoneFromUri(ringtonesList[position].uri!!)
+
+                    }
                     ringtonesList.forEachIndexed { index, ringtoneObject ->
                         if (index == position) {
                             ringtoneObject.isPlaying = true
@@ -141,7 +146,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
                     }
                 } else {
                     ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play false")
-                    ringtoneManager.stopRingtone()
+                    mediaPlayerHelper.stopRingtone()
                     run loopBreaker@ {
                         ringtonesList.forEach { ringtoneObject ->
                             if (ringtoneObject.isPlaying) {
@@ -162,6 +167,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     }
 
     /**
+     * Think about it is really in need ?
      * todo We have two ways for storing ringtones data (1 Sql or SharedPreferences)
     Answer is to use Sql -> Room Persistence Library
     update project gradle and other things and follow steps in this link to create ease DB
@@ -178,26 +184,15 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         ringtonesList.clear()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
-        ringtonesList.add(RingtoneObject("ringtone_energy"))
-        ringtonesList.add(RingtoneObject("ringtone_energy"))
-        ringtonesList.add(RingtoneObject("ringtone_energy"))
-        ringtonesList.add(RingtoneObject("ringtone_energy"))
-        ringtonesList.add(RingtoneObject("ringtone_energy"))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock"))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock"))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock"))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock"))
+        ringtonesList.addAll(RingtoneManagerHelper(fragmentContext).getDefaultAlarmRingtonesList())
+
         ringtonesList.sortBy { ringtoneObject -> ringtoneObject.rating }
         return ringtonesList
     }
 
-    private fun getDefaultPhoneRingtonesList(): List<Int> {
-        TODO("not implemented")
-
-    }
-
     private fun addRingtoneFromExternalPath(): Int {
+
         TODO("not implemented")
         /**
          * return the path to this file and probably this list need to be saved somewhere (local DB ) SharedPreferences
@@ -210,7 +205,6 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         //todo so by adding some String path with name it need to be unique (because SharedPreferences can contain only Set<String>
         //check by some filter of List or anything else
     }
-
     //todo increase ringtone rating if it was set (in sql after starting alarm not in Settings)
 }
 
