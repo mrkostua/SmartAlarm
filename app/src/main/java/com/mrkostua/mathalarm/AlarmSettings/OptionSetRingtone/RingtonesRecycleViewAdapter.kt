@@ -56,8 +56,12 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
         if (ringtonesList[position].isPlaying) {
             //todo download icon with bigger size
             holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.drawable.ic_pause_ringtone_48dp))
+            holder?.ibPlayPauseRingtone?.contentDescription = context.resources.getString(R.string.contentDescription_pauseRingtone)
+
         } else {
             holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.drawable.ic_play_ringtone_48dp))
+            holder?.ibPlayPauseRingtone?.contentDescription = context.resources.getString(R.string.contentDescription_playRingtone)
+
         }
 
     }

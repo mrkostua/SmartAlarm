@@ -25,19 +25,24 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, K
     private lateinit var sharedPreferences: SharedPreferences
     private val TAG = FragmentOptionSetTime::class.java.simpleName
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragmentContext = activity.applicationContext
+        initializeDependOnContextVariables(fragmentContext)
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         ShowLogs.log(TAG, "onCreateView")
 
         return inflater?.inflate(R.layout.fragment_option_set_message, container, false)
     }
 
-    override fun initializeDependOnContextVariables() {
-        fragmentContext = /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            this.context
-        else*/
-                activity.applicationContext
-
+    override fun initializeDependOnContextVariables(context: Context) {
         sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+    }
+
+    override fun initializeDependOnViewVariables(view: View?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun saveSettingsInSharedPreferences() {

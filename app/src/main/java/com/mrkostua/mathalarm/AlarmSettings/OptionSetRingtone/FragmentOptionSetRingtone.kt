@@ -2,9 +2,7 @@ package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
 import android.app.Fragment
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -20,7 +18,6 @@ import android.widget.ImageView
 import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
@@ -29,25 +26,39 @@ import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
 class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+    /**
+     *1) todo think about if playing ringtone it will ends so the button need to change to Play back ?
+     * we can check with mediaPlayer isPlaying or other way is play music in loop all the time???
+     *
+     * 2) //todo increase ringtone rating think about it and way to save implement this solution
+     *
+     * 3) todo finish refactoring FragmentOptionSetRingtone and RingtonesRecycleViewAdapter
+     */
     private val TAG = this.javaClass.simpleName
     private val ringtonesList = ArrayList<RingtoneObject>()
     override lateinit var fragmentContext: Context
 
     private lateinit var notificationTools: NotificationTools
     private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
-    private lateinit var bitmapPlayRingtoneForComparing: Bitmap
     private lateinit var mediaPlayerHelper: MediaPlayerHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        ShowLogs.log(TAG, "onCreate")
+        super.onCreate(savedInstanceState)
+        fragmentContext = activity.applicationContext
+        initializeDependOnContextVariables(fragmentContext)
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
 
-    //todo consider making some variables as singleton check if it null create new and otherwise
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         ShowLogs.log(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        initializeDependOnViewVariables(view)
 
-        initializeDependOnContextVariables()
     }
 
     override fun onPause() {
@@ -55,31 +66,29 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         mediaPlayerHelper.stopRingtone()
     }
 
-    override fun initializeDependOnContextVariables() {
-        fragmentContext = activity.applicationContext
+    override fun initializeDependOnContextVariables(context: Context) {
         notificationTools = NotificationTools(fragmentContext)
         mediaPlayerHelper = MediaPlayerHelper(fragmentContext)
-        bitmapPlayRingtoneForComparing = (AlarmTools.getDrawable(fragmentContext.resources, R.drawable.ic_play_ringtone_48dp) as BitmapDrawable).bitmap
-        initializeRecycleView(fragmentContext)
     }
 
-    override fun saveSettingsInSharedPreferences() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    private fun initializeRecycleView(context: Context) {
-        rvListOfRingtones.layoutManager = LinearLayoutManager(context)
+    override fun initializeDependOnViewVariables(view: View?) {
+        rvListOfRingtones.layoutManager = LinearLayoutManager(fragmentContext)
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
         rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
 
-        ringtonesRecycleViewAdapter = RingtonesRecycleViewAdapter(context, listGet(), getRingtoneClickListeners())
+        ringtonesRecycleViewAdapter = RingtonesRecycleViewAdapter(fragmentContext, listGet(), SetRingtoneClickListener())
         rvListOfRingtones.adapter = ringtonesRecycleViewAdapter
     }
 
-    /**
-     * Not initialized, for custom divider between list items
-     */
+    override fun saveSettingsInSharedPreferences() {
+        //saving is implemented in OnClickListener for CheckBox and ImageButton
+    }
+
     private fun getCustomDividerItemDecoration(): DividerItemDecoration {
+        /**
+         * todo Not initialized, for custom divider between list items
+         * read some tutorial about RecycleView
+         */
         return object : DividerItemDecoration(fragmentContext, LinearLayoutManager.VERTICAL) {
             override fun onDraw(c: Canvas?, parent: RecyclerView?, state: RecyclerView.State?) {
                 super.onDraw(c, parent, state)
@@ -91,103 +100,17 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         }
     }
 
-    private fun getRingtoneClickListeners(): RingtoneClickListeners {
-        return object : RingtoneClickListeners {
-            override fun checkBoxClickListener(view: CheckBox, position: Int) {
-                ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
-                if (view.isChecked) {
-                    ringtonesList.forEachIndexed { index, ringtoneObject ->
-                        if (index == position) {
-                            ringtoneObject.isChecked = true
-                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
-
-                        } else if (ringtoneObject.isChecked) {
-                            ringtoneObject.isChecked = false
-                            ringtonesRecycleViewAdapter.notifyItemChanged(index)
-
-                        }
-                    }
-                } else {
-                    run loopBreaker@ {
-                        ringtonesList.forEach { ringtoneObject ->
-                            if (ringtoneObject.isChecked) {
-                                ringtoneObject.isChecked = false
-                                ringtonesRecycleViewAdapter.notifyItemChanged(position)
-                                return@loopBreaker
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            //todo think about putting similar code into one method for checkBoxClickListener and imageButtonClickListener
-            override fun imageButtonClickListener(view: ImageButton, position: Int) {
-                ShowLogs.log(TAG, "getRingtoneClickListeners imageButtonClickListener position: " + position)
-                if (isRingtoneImagePlay(view)) {
-                    ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play true")
-                    if (ringtonesList[position].uri == null) {
-                        mediaPlayerHelper.playRingtoneFromStringResource(ringtonesList[position].name)
-
-                    } else {
-                        mediaPlayerHelper.playRingtoneFromUri(ringtonesList[position].uri!!)
-
-                    }
-                    ringtonesList.forEachIndexed { index, ringtoneObject ->
-                        if (index == position) {
-                            ringtoneObject.isPlaying = true
-                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
-
-                        } else if (ringtoneObject.isPlaying) {
-                            ringtoneObject.isPlaying = false
-                            ringtonesRecycleViewAdapter.notifyItemChanged(index)
-
-                        }
-                    }
-                } else {
-                    ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play false")
-                    mediaPlayerHelper.stopRingtone()
-                    run loopBreaker@ {
-                        ringtonesList.forEach { ringtoneObject ->
-                            if (ringtoneObject.isPlaying) {
-                                ringtoneObject.isPlaying = false
-                                ringtonesRecycleViewAdapter.notifyItemChanged(position)
-                                return@loopBreaker
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            override fun recycleViewClickListener(view: View, position: Int) {
-                //in case of setting clickListener for whole row view
-            }
-        }
-    }
-
-    /**
-     * Think about it is really in need ?
-     * todo We have two ways for storing ringtones data (1 Sql or SharedPreferences)
-    Answer is to use Sql -> Room Persistence Library
-    update project gradle and other things and follow steps in this link to create ease DB
-    https://developer.android.com/training/data-storage/room/index.html
-     */
-
-
-    //todo find better way for comparing drawables!!! (is button Play or Pause?)
     private fun isRingtoneImagePlay(view: ImageView): Boolean =
-            (view.drawable as BitmapDrawable).bitmap == bitmapPlayRingtoneForComparing
-
+            view.contentDescription == fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
 
     private fun listGet(): ArrayList<RingtoneObject> {
         ringtonesList.clear()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3))
-        ringtonesList.addAll(RingtoneManagerHelper(fragmentContext).getDefaultAlarmRingtonesList())
+        ringtonesList.addAll(RingtoneManagerHelper.getDefaultAlarmRingtonesList(fragmentContext))
 
-        ringtonesList.sortBy { ringtoneObject -> ringtoneObject.rating }
+        ringtonesList.sortByDescending { ringtoneObject -> ringtoneObject.rating }
         return ringtonesList
     }
 
@@ -205,6 +128,79 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         //todo so by adding some String path with name it need to be unique (because SharedPreferences can contain only Set<String>
         //check by some filter of List or anything else
     }
-    //todo increase ringtone rating if it was set (in sql after starting alarm not in Settings)
+
+    inner class SetRingtoneClickListener : RingtoneClickListeners {
+        override fun checkBoxClickListener(view: CheckBox, position: Int) {
+            ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
+            if (view.isChecked) {
+                ringtonesList.forEachIndexed { index, ringtoneObject ->
+                    if (index == position) {
+                        ringtoneObject.isChecked = true
+                        ringtonesRecycleViewAdapter.notifyItemChanged(position)
+
+                    } else if (ringtoneObject.isChecked) {
+                        ringtoneObject.isChecked = false
+                        ringtonesRecycleViewAdapter.notifyItemChanged(index)
+
+                    }
+                }
+            } else {
+                run loopBreaker@ {
+                    ringtonesList.forEach { ringtoneObject ->
+                        if (ringtoneObject.isChecked) {
+                            ringtoneObject.isChecked = false
+                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
+                            return@loopBreaker
+                        }
+                    }
+                }
+
+            }
+        }
+
+        //todo think about putting similar code into one method for checkBoxClickListener and imageButtonClickListener
+        override fun imageButtonClickListener(view: ImageButton, position: Int) {
+            ShowLogs.log(TAG, "getRingtoneClickListeners imageButtonClickListener position: " + position)
+            if (isRingtoneImagePlay(view)) {
+                ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play true")
+                if (ringtonesList[position].uri == null) {
+                    mediaPlayerHelper.playRingtoneFromStringResource(ringtonesList[position].name)
+
+                } else {
+                    mediaPlayerHelper.playRingtoneFromUri(ringtonesList[position].uri!!)
+
+                }
+                ringtonesList.forEachIndexed { index, ringtoneObject ->
+                    if (index == position) {
+                        ringtoneObject.isPlaying = true
+                        ringtonesRecycleViewAdapter.notifyItemChanged(position)
+
+                    } else if (ringtoneObject.isPlaying) {
+                        ringtoneObject.isPlaying = false
+                        ringtonesRecycleViewAdapter.notifyItemChanged(index)
+
+                    }
+                }
+            } else {
+                ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play false")
+                mediaPlayerHelper.stopRingtone()
+                run loopBreaker@ {
+                    ringtonesList.forEach { ringtoneObject ->
+                        if (ringtoneObject.isPlaying) {
+                            ringtoneObject.isPlaying = false
+                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
+                            return@loopBreaker
+                        }
+                    }
+                }
+
+            }
+        }
+
+        override fun recycleViewClickListener(view: View, position: Int) {
+            //in case of setting clickListener for whole row view
+        }
+    }
+
 }
 

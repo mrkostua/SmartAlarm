@@ -26,7 +26,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         ShowLogs.log(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
-        initializeDependOnContextVariables()
+        initializeDependOnContextVariables(this)
     }
 
     override fun onResume() {
@@ -36,7 +36,7 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
 
     }
 
-    override fun initializeDependOnContextVariables() {
+    override fun initializeDependOnContextVariables(context: Context) {
         fragmentHelper = FragmentCreationHelper(this)
         notificationTools = NotificationTools(this)
 

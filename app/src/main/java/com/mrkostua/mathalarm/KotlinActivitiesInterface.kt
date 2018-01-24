@@ -1,8 +1,10 @@
 package com.mrkostua.mathalarm
 
+import android.content.Context
+
 /**
  * @author Kostiantyn Prysiazhnyi on 22.12.2017.
  */
 interface KotlinActivitiesInterface {
-    fun initializeDependOnContextVariables()
+    fun initializeDependOnContextVariables(context : Context)
 }

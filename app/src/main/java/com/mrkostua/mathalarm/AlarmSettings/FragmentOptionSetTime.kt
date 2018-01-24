@@ -27,14 +27,21 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
     private lateinit var sharedPreferencesHelper: SharedPreferences
     private lateinit var notificationTools: NotificationTools
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragmentContext = activity.applicationContext
+        initializeDependOnContextVariables(fragmentContext)
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_time, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         ShowLogs.log(TAG, "onViewCreated")
-        initializeDependOnContextVariables()
+        super.onViewCreated(view, savedInstanceState)
+        initializeDependOnViewVariables(view)
         notificationTools.showToastMessage(getString(R.string.alarmTimeLimitationMessage))
 
     }
@@ -45,11 +52,13 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         saveSettingsInSharedPreferences()
     }
 
-    override fun initializeDependOnContextVariables() {
-        fragmentContext = activity.applicationContext
+    override fun initializeDependOnContextVariables(context: Context) {
         notificationTools = NotificationTools(fragmentContext)
         sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
 
+    }
+
+    override fun initializeDependOnViewVariables(view: View?) {
     }
 
     override fun saveSettingsInSharedPreferences() {

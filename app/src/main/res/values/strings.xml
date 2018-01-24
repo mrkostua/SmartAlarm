@@ -77,4 +77,6 @@
     <string name="blockedButtonMessage">Hi, this option is last one :(, please try moving other direction.</string>
     <string name="helperHideDialogTitle">Do you want to continue without helping messages?</string>
     <string name="alarmTimeLimitationMessage">Remember, you can set alarm only for nex 23 hours and 59 minutes :)</string>
+    <string name="contentDescription_playRingtone">Play ringtone</string>
+    <string name="contentDescription_pauseRingtone">Pause ringtone</string>
 </resources>

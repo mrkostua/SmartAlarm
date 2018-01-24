@@ -14,20 +14,12 @@ class MediaPlayerHelper(private val context: Context) : MediaPlayer.OnErrorListe
     private var isMpPlaying = false
     private var mediaPlayer: MediaPlayer? = null
 
-    override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
-        ShowLogs.log(TAG, "getNewMediaPlayer onErrorListener what :" + what + " extra : " + extra)
-        mp.stop()
-        mp.release()
-        mediaPlayer = null
-        isMpPlaying = false
-        return true
-    }
-
     fun playRingtoneFromStringResource(ringtoneResourceId: String) {
         val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
         if (!isMpPlaying) {
             mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
             mediaPlayer?.start()
+
         } else {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
@@ -50,13 +42,21 @@ class MediaPlayerHelper(private val context: Context) : MediaPlayer.OnErrorListe
         isMpPlaying = true
     }
 
-
     fun stopRingtone() {
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
             isMpPlaying = false
         }
+    }
+
+    override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
+        ShowLogs.log(TAG, "getNewMediaPlayer onErrorListener what :" + what + " extra : " + extra)
+        mp.stop()
+        mp.release()
+        mediaPlayer = null
+        isMpPlaying = false
+        return true
     }
 
     private fun getRawResourceId(resourceName: String): Int =
@@ -77,20 +77,4 @@ class MediaPlayerHelper(private val context: Context) : MediaPlayer.OnErrorListe
             else -> throw UnsupportedOperationException("Not implemented")
         }
     }
-
-
-/*    private fun getNewMediaPlayer(ringtoneResourceId: Int): MediaPlayer? {
-        mediaPlayer = MediaPlayer.create(context, ringtoneResourceId)
-        mediaPlayer?.setOnErrorListener { mp: MediaPlayer, what: Int, extra: Int ->
-            ShowLogs.log(TAG, "getNewMediaPlayer onErrorListener what :" + what + " extra : " + extra)
-            mp.stop()
-            mp.release()
-            mediaPlayer = null
-            isMpPlaying = false
-            return@setOnErrorListener true
-
-        }
-        return mediaPlayer
-    }*/
-
 }

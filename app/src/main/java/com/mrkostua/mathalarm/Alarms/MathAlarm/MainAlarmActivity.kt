@@ -45,7 +45,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main_alarm)
 
-        initializeDependOnContextVariables()
+        initializeDependOnContextVariables(this)
         calendar.timeInMillis = System.currentTimeMillis()
 
         setThemeForAlarmButtonLayout()
@@ -53,7 +53,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     }
 
-    override fun initializeDependOnContextVariables() {
+    override fun initializeDependOnContextVariables(context: Context) {
         sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)

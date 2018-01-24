@@ -9,6 +9,7 @@ import android.widget.ImageButton
  */
 interface RingtoneClickListeners {
     fun imageButtonClickListener(view: ImageButton, position: Int)
-    fun checkBoxClickListener(view : CheckBox, position : Int)
+    fun checkBoxClickListener(view: CheckBox, position: Int)
     fun recycleViewClickListener(view: View, position: Int)
+
 }
