@@ -31,13 +31,18 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
      * we can check with mediaPlayer isPlaying or other way is play music in loop all the time???
      *
      * 2) //todo increase ringtone rating think about it and way to save implement this solution
+     *  to solve this for sure we gonna need to save somewhere _rating and _name if the ringtone so in new user session data will be updated.
+     *      * So it is SharedPreferences And Set<String> with names and probably one more for Rating.
+     *      * Or local SQL like now new library or dependency : Room.
+     *  So we gonna user SQL.
+     *  //todo create helper for SQL with dependency Room.
      *
-     * 3) todo finish refactoring FragmentOptionSetRingtone and RingtonesRecycleViewAdapter
      */
-    private val TAG = this.javaClass.simpleName
-    private val ringtonesList = ArrayList<RingtoneObject>()
     override lateinit var fragmentContext: Context
+    private val TAG = this.javaClass.simpleName
+    private var positionOfPlayingButtonItem = 0
 
+    private lateinit var ringtonePopulationList: ArrayList<RingtoneObject>
     private lateinit var notificationTools: NotificationTools
     private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
     private lateinit var mediaPlayerHelper: MediaPlayerHelper
@@ -66,9 +71,22 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         mediaPlayerHelper.stopRingtone()
     }
 
+    override fun onResume() {
+        super.onResume()
+        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
+            if (index == positionOfPlayingButtonItem) {
+                ringtoneObject.isPlaying = false
+                return@forEachIndexed
+            }
+        }
+        ringtonesRecycleViewAdapter.notifyItemChanged(positionOfPlayingButtonItem)
+    }
+
     override fun initializeDependOnContextVariables(context: Context) {
         notificationTools = NotificationTools(fragmentContext)
         mediaPlayerHelper = MediaPlayerHelper(fragmentContext)
+        ringtonePopulationList = getRingtonesForPopulation()
+
     }
 
     override fun initializeDependOnViewVariables(view: View?) {
@@ -76,7 +94,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         rvListOfRingtones.itemAnimator = DefaultItemAnimator()
         rvListOfRingtones.addItemDecoration(getCustomDividerItemDecoration())
 
-        ringtonesRecycleViewAdapter = RingtonesRecycleViewAdapter(fragmentContext, listGet(), SetRingtoneClickListener())
+        ringtonesRecycleViewAdapter = RingtonesRecycleViewAdapter(fragmentContext, ringtonePopulationList, SetRingtoneClickListener())
         rvListOfRingtones.adapter = ringtonesRecycleViewAdapter
     }
 
@@ -103,8 +121,8 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     private fun isRingtoneImagePlay(view: ImageView): Boolean =
             view.contentDescription == fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
 
-    private fun listGet(): ArrayList<RingtoneObject> {
-        ringtonesList.clear()
+    private fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
+        val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3))
@@ -130,76 +148,74 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     }
 
     inner class SetRingtoneClickListener : RingtoneClickListeners {
+
         override fun checkBoxClickListener(view: CheckBox, position: Int) {
             ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
             if (view.isChecked) {
-                ringtonesList.forEachIndexed { index, ringtoneObject ->
-                    if (index == position) {
-                        ringtoneObject.isChecked = true
-                        ringtonesRecycleViewAdapter.notifyItemChanged(position)
+                setClickedIndexToTrue({ it.isChecked = true }, { it.isChecked = false },
+                        { it.isChecked }, position)
 
-                    } else if (ringtoneObject.isChecked) {
-                        ringtoneObject.isChecked = false
-                        ringtonesRecycleViewAdapter.notifyItemChanged(index)
-
-                    }
-                }
             } else {
-                run loopBreaker@ {
-                    ringtonesList.forEach { ringtoneObject ->
-                        if (ringtoneObject.isChecked) {
-                            ringtoneObject.isChecked = false
-                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
-                            return@loopBreaker
-                        }
-                    }
-                }
+                setAllIndexesToFalse({ it.isChecked }, { it.isChecked = false }, position)
 
             }
         }
 
-        //todo think about putting similar code into one method for checkBoxClickListener and imageButtonClickListener
         override fun imageButtonClickListener(view: ImageButton, position: Int) {
             ShowLogs.log(TAG, "getRingtoneClickListeners imageButtonClickListener position: " + position)
-            if (isRingtoneImagePlay(view)) {
-                ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play true")
-                if (ringtonesList[position].uri == null) {
-                    mediaPlayerHelper.playRingtoneFromStringResource(ringtonesList[position].name)
-
-                } else {
-                    mediaPlayerHelper.playRingtoneFromUri(ringtonesList[position].uri!!)
-
-                }
-                ringtonesList.forEachIndexed { index, ringtoneObject ->
-                    if (index == position) {
-                        ringtoneObject.isPlaying = true
-                        ringtonesRecycleViewAdapter.notifyItemChanged(position)
-
-                    } else if (ringtoneObject.isPlaying) {
-                        ringtoneObject.isPlaying = false
-                        ringtonesRecycleViewAdapter.notifyItemChanged(index)
+            when {
+                isRingtoneImagePlay(view) -> {
+                    positionOfPlayingButtonItem = position
+                    if (ringtonePopulationList[position].uri == null) {
+                        mediaPlayerHelper.playRingtoneFromStringResource(ringtonePopulationList[position].name)
+                    } else {
+                        mediaPlayerHelper.playRingtoneFromUri(ringtonePopulationList[position].uri!!)
 
                     }
-                }
-            } else {
-                ShowLogs.log(TAG, "imageButtonClickListener isRingtoneIcon Play false")
-                mediaPlayerHelper.stopRingtone()
-                run loopBreaker@ {
-                    ringtonesList.forEach { ringtoneObject ->
-                        if (ringtoneObject.isPlaying) {
-                            ringtoneObject.isPlaying = false
-                            ringtonesRecycleViewAdapter.notifyItemChanged(position)
-                            return@loopBreaker
-                        }
-                    }
-                }
+                    setClickedIndexToTrue({ it.isPlaying = true }, { it.isPlaying = false },
+                            { it.isPlaying }, position)
 
+                }
+                !isRingtoneImagePlay(view) -> {
+                    mediaPlayerHelper.stopRingtone()
+                    setAllIndexesToFalse({ it.isPlaying }, { it.isPlaying = false }, position)
+                }
             }
         }
 
         override fun recycleViewClickListener(view: View, position: Int) {
             //in case of setting clickListener for whole row view
         }
+
+        private inline fun setClickedIndexToTrue(actionSetTrue: (RingtoneObject) -> Unit,
+                                                 actionSetFalse: (RingtoneObject) -> Unit,
+                                                 actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                                 position: Int) {
+            ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
+                if (index == position) {
+                    actionSetTrue(ringtoneObject)
+                    ringtonesRecycleViewAdapter.notifyItemChanged(position)
+
+                } else if (actionIsCheckedOrPlaying(ringtoneObject)) {
+                    actionSetFalse(ringtoneObject)
+                    ringtonesRecycleViewAdapter.notifyItemChanged(index)
+
+                }
+            }
+        }
+
+        private inline fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                                actionSetFalse: (RingtoneObject) -> Unit, position: Int) {
+            ringtonePopulationList.forEach { ringtoneObject ->
+                if (actionIsCheckedOrPlaying(ringtoneObject)) {
+                    actionSetFalse(ringtoneObject)
+                    ringtonesRecycleViewAdapter.notifyItemChanged(position)
+                    return
+
+                }
+            }
+        }
+
     }
 
 }

@@ -18,8 +18,6 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
                                   private val ringtoneClickListeners: RingtoneClickListeners)
     : RecyclerView.Adapter<RingtonesRecycleViewAdapter.RingtonesViewHolder>() {
 
-    private val TAG = this.javaClass.simpleName
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RingtonesViewHolder {
         return RingtonesViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.ringtone_list_row_layout, parent, false))
     }
@@ -50,11 +48,10 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
 
     private fun setRingtoneNameAndNumber(holder: RingtonesViewHolder?, position: Int) {
         holder?.tvRingtoneName?.text = ringtonesList[position].name
-        holder?.tvRingtoneNumberInList?.text = Integer.toString(position) + "."
+        holder?.tvRingtoneNumberInList?.text = String.format("%d" + ".", position)
         holder?.cbChosenAlarmRingtone?.isChecked = ringtonesList[position].isChecked
 
         if (ringtonesList[position].isPlaying) {
-            //todo download icon with bigger size
             holder?.ibPlayPauseRingtone?.setImageDrawable(AlarmTools.getDrawable(context.resources, R.drawable.ic_pause_ringtone_48dp))
             holder?.ibPlayPauseRingtone?.contentDescription = context.resources.getString(R.string.contentDescription_pauseRingtone)
 
@@ -63,8 +60,6 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
             holder?.ibPlayPauseRingtone?.contentDescription = context.resources.getString(R.string.contentDescription_playRingtone)
 
         }
-
     }
-
 
 }
