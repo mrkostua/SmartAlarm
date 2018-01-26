@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.R;
 
   class AlarmNotifications {
@@ -15,7 +16,7 @@ import com.mrkostua.mathalarm.R;
     //notification for MathService
     Notification NewNotification(Context context) {
         // snooze button
-        Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
+        Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
         PendingIntent piSnooze = PendingIntent.getBroadcast(context,0,snoozeIntent,0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
@@ -37,7 +38,7 @@ import com.mrkostua.mathalarm.R;
     //notification for WakeLock Service
     Notification NewNotification(Context context, String time) {
         //dismiss button
-        Intent dismissIntent = new Intent(MainMathAlarm.ALARM_DISMISS_ACTION);
+        Intent dismissIntent = new Intent(ConstantValues.INSTANCE.getDISMISS_ACTION());
         PendingIntent piDismiss = PendingIntent.getBroadcast(context,0,dismissIntent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder

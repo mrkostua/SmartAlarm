@@ -19,7 +19,6 @@
     <string name="edHintGood_morning_sir">Good morning sir</string>
 
 
-
     <string name="tvSAFH_delete_all">Delete all</string>
     <string name="tvSAFH_delete_chosen_row">delete chosen row</string>
 
@@ -39,7 +38,6 @@
     <string name="PreferenceCategory_title">Sound</string>
 
 
-
     <string name="WA_progressStatus">Progress: <xliff:g id="iProgressBarStatus">%d</xliff:g>/<xliff:g id="getMax">%d</xliff:g></string>
     <string name="AN_snoozeContentText">Hello I am alarm</string>
     <string name="AN_snoozeContentTitle">SmartAlarm</string>
@@ -50,9 +48,9 @@
     <string name="AN_dismissContentText">Alarm was set on <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">try</string>
     <string name="DAA_stopAlarmNegativeButtonText">back</string>
-    <string name="MMA_alertDialogAlarmPreview_Title">Preview</string>
-    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Confirm</string>
-    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Back</string>
+    <string name="settingsPreviewTitle">Preview</string>
+    <string name="settingsPreviewPostiveButtonText">Confirm</string>
+    <string name="setttingsPreviewNegativeButtonText">Back</string>
     <string name="MMA_timeNotSetToastText">To create alarm please first set the alarm time</string>
     <string name="MMA_alertDialogAlarmMessageText_Title">Write a message for yourself</string>
     <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ok</string>
@@ -63,4 +61,22 @@
     <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
     <string name="create">Create</string>
     <string name="good_morning">Good Morning</string>
+    <string name="main_button_time_default" translatable="false">20 : 35</string>
+    <string name="Tuesday">TUE</string>
+    <string name="yes">yes</string>
+    <string name="letsDoIt">Let\'s do it</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+
+    <string name="helpingMessageOne">Every next time you will see \nyour last set alarm there.</string>
+    <string name="helpingMessageTwo">So to set alarm in the future (with old \nsettings) just click the  circle button.</string>
+    <string name="helperFirstDialogMessage">Hi if you want to see how the Alarm work just follow appearing text and touch them to continue</string>
+    <string name="helperFirstDialogTitle">Smart helper :)</string>
+
+    <string name="timeUntilAlarmBoom">You will sleep only : <xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> hours <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> minutes</string>
+    <string name="blockedButtonMessage">Hi, this option is last one :(, please try moving other direction.</string>
+    <string name="helperHideDialogTitle">Do you want to continue without helping messages?</string>
+    <string name="alarmTimeLimitationMessage">Remember, you can set alarm only for nex 23 hours and 59 minutes :)</string>
+    <string name="contentDescription_playRingtone">Play ringtone</string>
+    <string name="contentDescription_pauseRingtone">Pause ringtone</string>
 </resources>

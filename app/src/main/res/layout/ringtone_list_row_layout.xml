@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp">
+
+    <TextView
+        android:id="@+id/tvRingtoneNumberInList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvRingtoneName"
+        android:layout_alignBottom="@+id/tvRingtoneName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvRingtoneName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cbChosenAlarmRingtone"
+        android:layout_alignBottom="@+id/cbChosenAlarmRingtone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/tvRingtoneNumberInList"
+        android:layout_toLeftOf="@+id/ibPlayPauseRingtone"
+        android:layout_toRightOf="@+id/tvRingtoneNumberInList"
+        android:layout_toStartOf="@+id/ibPlayPauseRingtone"
+        android:text="" />
+
+    <ImageButton
+        android:id="@+id/ibPlayPauseRingtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_toLeftOf="@+id/cbChosenAlarmRingtone"
+        android:layout_toStartOf="@+id/cbChosenAlarmRingtone"
+        android:background="@null"
+        android:contentDescription="@string/contentDescription_playRingtone"
+        app:srcCompat="@drawable/ic_play_ringtone_48dp" />
+
+    <CheckBox
+        android:id="@+id/cbChosenAlarmRingtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp" />
+</RelativeLayout>

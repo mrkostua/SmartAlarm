@@ -2,9 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/black">
-
+    -->
     <Button
         android:id="@+id/bCreateAlarm"
         android:text="@string/create"
@@ -27,13 +27,13 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TableRow android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:id="@+id/trChangeTime"
@@ -48,19 +48,20 @@
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/white"
                 android:id="@+id/tvSetTime"
+
                 />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:text="@string/bMMA_change_time"
-                android:textStyle="bold"
-                android:layout_column="2"
-                android:padding="20dp"
-                android:gravity="start"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+             <Button
                 android:id="@+id/bSetTime"
-                android:onClick="bSetAlarmTime_ClickMethod" />
+                android:layout_width="wrap_content"
+                android:layout_column="2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="start"
+                android:onClick="bSetAlarmTime_ClickMethod"
+                android:padding="20dp"
+                android:text="@string/bMMA_change_time"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow

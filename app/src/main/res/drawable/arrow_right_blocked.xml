@@ -1,0 +1,13 @@
+<!-- drawable/chevron-right.xml -->
+<!--todo save height and width values into dimens for small and big screens (maybe create dimens file for big and small screen)-->
+<!--t-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="30dp"
+    android:width="30dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!--todo add maybe transparency can be done in color (opacity)-->
+    <path
+        android:fillColor="@color/blockedButton"
+        android:pathData="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+</vector>

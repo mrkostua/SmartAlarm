@@ -73,7 +73,7 @@ public class MathAlarmTaskGenerator {
                      r = number1 / number2;
 
                     if (r == 1 || r==0) {
-                        if(ShowLogs.LOG_STATUS) ShowLogs.i("r == 1 || r==0 number1=" + number1 +" number2=" +number2);
+                        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("r == 1 || r==0 number1=" + number1 +" number2=" +number2);
                         acceptableEquation = true;
                         number1 = GenerateRandomNumber(99,2);
                         number2 = GenerateRandomNumber(9,2);
@@ -82,13 +82,13 @@ public class MathAlarmTaskGenerator {
                     }
                     if (number1 > number2) {
                         this.number1 = r * number2;
-                        if(ShowLogs.LOG_STATUS) ShowLogs.i("number1 > number2 number1=" + this.number1 +" number2=" +number2);
+                        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("number1 > number2 number1=" + this.number1 +" number2=" +number2);
                     }
                 }
                 return r;
             }
             default:
-                if(ShowLogs.LOG_STATUS) ShowLogs.i("CountResultOfEquation error symbol is " + symbol);
+                if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("CountResultOfEquation error symbol is " + symbol);
                 break;
         }
         return 0;
@@ -137,7 +137,7 @@ public class MathAlarmTaskGenerator {
             }break;
 
             default:
-                if(ShowLogs.LOG_STATUS) ShowLogs.i("GeneratorEquation error complexity > 4");
+                if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("GeneratorEquation error complexity > 4");
             break;
         }
     }

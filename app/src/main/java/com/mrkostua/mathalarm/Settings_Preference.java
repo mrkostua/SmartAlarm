@@ -8,7 +8,7 @@ public class Settings_Preference extends PreferenceActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("Settings_preference onCreate");
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("Settings_preference onCreate");
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new Fragment_Preference()).commit();
     }

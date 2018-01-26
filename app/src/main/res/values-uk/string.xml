@@ -49,9 +49,9 @@
     <string name="AN_dismissContentText">Будильник був встановленний на  <xliff:g id="alarmSetTime">%s</xliff:g></string>
     <string name="DAA_stopAlarmPositiveButtonText">спробуй</string>
     <string name="DAA_stopAlarmNegativeButtonText">назад</string>
-    <string name="MMA_alertDialogAlarmPreview_Title">Попередній перегляд</string>
-    <string name="MMA_alertDialogAlarmPreview_PositiveButtonText">Норм</string>
-    <string name="MMA_alertDialogAlarmPreview_NegativeButtonText">Назад</string>
+    <string name="settingsPreviewTitle">Попередній перегляд</string>
+    <string name="settingsPreviewPostiveButtonText">Норм</string>
+    <string name="setttingsPreviewNegativeButtonText">Назад</string>
     <string name="MMA_timeNotSetToastText">Щоб створити новий будильник спочатку встанови час "Встановити час"</string>
     <string name="MMA_alertDialogAlarmMessageText_Title">Напиши вітання дял себе,яке буде висвітленно разом з будильником</string>
     <string name="MMA_alertDialogAlarmMessageText_PositiveButtonText">Ок</string>

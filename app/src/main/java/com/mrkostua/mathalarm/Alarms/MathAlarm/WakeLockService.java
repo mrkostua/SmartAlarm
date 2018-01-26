@@ -7,7 +7,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 
-import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class WakeLockService extends Service {
     private static final int  NOTIFICATION_ID = 25;
@@ -22,7 +22,7 @@ public class WakeLockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService  onStartCommand");
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  onStartCommand");
         // Called implicitly when device is about to sleep or application is backgrounded
             createWakeLocks();
             wakeDevice("partialWakeLock");
@@ -39,7 +39,7 @@ public class WakeLockService extends Service {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService "+" onDestroy");
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService "+" onDestroy");
         ReleaseWakeLocks();
         stopSelf();
         alarmNotifications.CancelNotification(this,NOTIFICATION_ID);
@@ -61,7 +61,7 @@ public class WakeLockService extends Service {
                 *If the user presses the power button, then the screen will be turned off but the
                  CPU will be kept on until all partial wake locks have been released.*/
                 partialWakeLock.acquire();
-                if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService   partialWakeLock.acquire()");
+                if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService   partialWakeLock.acquire()");
                 break;
         }
     }
@@ -69,7 +69,7 @@ public class WakeLockService extends Service {
         if(partialWakeLock.isHeld()){
             partialWakeLock.release();
             partialWakeLock = null;
-            if(ShowLogs.LOG_STATUS)ShowLogs.i("WakeLockService  partialWakeLock released");
+            if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  partialWakeLock released");
         }
     }
 }

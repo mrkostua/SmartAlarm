@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
+//    buildToolsVersion "26.0.2"
     buildToolsVersion "23.0.3"
 
     defaultConfig {
+        vectorDrawables {
+            useSupportLibrary = true
+        }
         applicationId "com.mrkostua.mathalarm"
         minSdkVersion 14
         targetSdkVersion 25
@@ -17,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -25,4 +32,16 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+
+//    // Room
+//    implementation "android.arch.persistence.room:runtime:1.0.0"
+//    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+
 }
+repositories {
+    mavenCentral()
+}
+

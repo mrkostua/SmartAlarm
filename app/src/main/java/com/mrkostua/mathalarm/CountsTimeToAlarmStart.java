@@ -23,8 +23,8 @@ public class CountsTimeToAlarmStart {
         picked = pickedHour * 60 + pickedMinute;
         current = currentHour * 60 + currentMinute;
 
-        if(ShowLogs.LOG_STATUS)ShowLogs.i(" h current: " + currentHour + "  alarm hour: " + pickedHour);
-        if(ShowLogs.LOG_STATUS)ShowLogs.i(" min current: " + currentMinute + "  alarm min: " + pickedMinute);
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i(" h current: " + currentHour + "  alarm hour: " + pickedHour);
+        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i(" min current: " + currentMinute + "  alarm min: " + pickedMinute);
 
         if (pickedHour>currentHour) {
             timeToStartAlarm = picked - current;

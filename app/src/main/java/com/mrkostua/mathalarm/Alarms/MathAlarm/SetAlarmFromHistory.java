@@ -15,17 +15,17 @@ import android.widget.Toast;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBValues;
-import com.mrkostua.mathalarm.ShowLogs;
+import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
-
+    // TODO: 19.11.2017 delete alarms from history after 7 days without using. It depends if this func will be available in the release 2.0.
     private AlarmDBAdapter alarmDBAdapter;
     private ListView lvAllSetAlarms;
 
-    private ImageButton ibDeleteChosenRow,ibHistoryDeleteAllAlarms;
+    private ImageButton ibDeleteChosenRow, ibHistoryDeleteAllAlarms;
 
     private Cursor cursor;
-    private String[] alarmComplexityList,musicList,deepSleepMusicList;
+    private String[] alarmComplexityList, musicList, deepSleepMusicList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
         lvAllSetAlarms.setOnItemClickListener(SetAlarmFromHistory.this);
         openAlarmDB();
 
-       musicList = getResources().getStringArray(R.array.music_list);
-       alarmComplexityList = getResources().getStringArray(R.array.alarm_complexity_list);
+        musicList = getResources().getStringArray(R.array.music_list);
+        alarmComplexityList = getResources().getStringArray(R.array.alarm_complexity_list);
         deepSleepMusicList = getResources().getStringArray(R.array.deepSleepMusic_list);
     }
 
@@ -57,26 +57,29 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
         cursor.close();
     }
 
-    private void PopulateListViewAlarmDB(){
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory "+"PopulateListViewAlarmDB");
+    private void PopulateListViewAlarmDB() {
+        if (ShowLogsOld.LOG_STATUS)
+            ShowLogsOld.i("SetAlarmFromHistory " + "PopulateListViewAlarmDB");
         cursor = alarmDBAdapter.GetAllRowsAlarmDB();
 
-        CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this,cursor);
+        CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this, cursor);
         lvAllSetAlarms.setAdapter(cursorAdapterOverrider);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(ShowLogs.LOG_STATUS)ShowLogs.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
+        if (ShowLogsOld.LOG_STATUS)
+            ShowLogsOld.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
         AlarmDataPreviewAlertDialog_Method(id);
     }
 
-    private  int hour,minute,ringtoneName,complexityLevel,deepSleepMusicStatus= 0;
-    private String messageText ="";
+    private int hour, minute, ringtoneName, complexityLevel, deepSleepMusicStatus = 0;
+    private String messageText = "";
+
     private void ReplaceCursorDataToValues(long id) {
-         cursor =alarmDBAdapter.GetRowAlarmDB(id);
+        cursor = alarmDBAdapter.GetRowAlarmDB(id);
         //if cursor is not empty get data from it
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             hour = cursor.getInt(cursor.getColumnIndex(AlarmDBValues.COLUMN_HOUR));
             minute = cursor.getInt(cursor.getColumnIndex(AlarmDBValues.COLUMN_MINUTE));
             ringtoneName = cursor.getInt(cursor.getColumnIndex(AlarmDBValues.COLUMN_RINGTONE_NAME));
@@ -86,15 +89,15 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
         }
     }
 
-    private void AlarmDataPreviewAlertDialog_Method(final long id){
+    private void AlarmDataPreviewAlertDialog_Method(final long id) {
         ReplaceCursorDataToValues(id);
         final CharSequence[] alarmSettingsItems = {hour + " : " + minute, musicList[ringtoneName],
-                alarmComplexityList[complexityLevel], "\"" +messageText +"\"", deepSleepMusicList[deepSleepMusicStatus]};
+                alarmComplexityList[complexityLevel], "\"" + messageText + "\"", deepSleepMusicList[deepSleepMusicStatus]};
 
         AlertDialog.Builder alertDialogAlarmPreview = new AlertDialog.Builder(SetAlarmFromHistory.this,
-                R.style.alertDialogMainMathAlarmStyle);
+                R.style.AlertDialogCustomStyle);
         alertDialogAlarmPreview.setTitle("Preview")
-        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Class for setting alarm with specific alarm data
@@ -112,27 +115,27 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
                     }
                 })
 
-        .setItems(alarmSettingsItems, new DialogInterface.OnClickListener() {
+                .setItems(alarmSettingsItems, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intentUpdateRow = UpdateRowStartMainMathAlarm(id);
                         //0 timePicker , 1 alarmMusic, 2 alarmComplexity, 3 alarmMessage, 4 alarmDeepSleepMusic
-                        intentUpdateRow.putExtra("alertDialogKey",which);
+                        intentUpdateRow.putExtra("alertDialogKey", which);
                         startActivity(intentUpdateRow);
                     }
                 }).create().show();
     }
 
-    private Intent UpdateRowStartMainMathAlarm(long rowIdToUpdate){
-        Intent intentUpdateRow = new Intent(SetAlarmFromHistory.this,MainMathAlarm.class);
-        intentUpdateRow.putExtra("updateKey",true);
-        intentUpdateRow.putExtra("rowIdToUpdate",rowIdToUpdate);
-        intentUpdateRow.putExtra("hour",hour);
-        intentUpdateRow.putExtra("minute",minute);
-        intentUpdateRow.putExtra("ringtoneName",ringtoneName);
-        intentUpdateRow.putExtra("complexityLevel",complexityLevel);
-        intentUpdateRow.putExtra("messageText",messageText);
-        intentUpdateRow.putExtra("deepSleepMusicStatus",deepSleepMusicStatus);
+    private Intent UpdateRowStartMainMathAlarm(long rowIdToUpdate) {
+        Intent intentUpdateRow = new Intent(SetAlarmFromHistory.this, MainMathAlarm.class);
+        intentUpdateRow.putExtra("updateKey", true);
+        intentUpdateRow.putExtra("rowIdToUpdate", rowIdToUpdate);
+        intentUpdateRow.putExtra("hour", hour);
+        intentUpdateRow.putExtra("minute", minute);
+        intentUpdateRow.putExtra("ringtoneName", ringtoneName);
+        intentUpdateRow.putExtra("complexityLevel", complexityLevel);
+        intentUpdateRow.putExtra("messageText", messageText);
+        intentUpdateRow.putExtra("deepSleepMusicStatus", deepSleepMusicStatus);
         return intentUpdateRow;
     }
 
@@ -147,23 +150,25 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
             }
         });
     }
-    private void DeleteChosenRow(long id){
+
+    private void DeleteChosenRow(long id) {
         alarmDBAdapter.DeleteRowAlarmDB(id);
-        Toast.makeText(this, "row - " +id + " deleted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "row - " + id + " deleted", Toast.LENGTH_SHORT).show();
         PopulateListViewAlarmDB();
     }
-    private void HideAllViewsMethod(boolean state){
+
+    private void HideAllViewsMethod(boolean state) {
         state = !state;
         ibHistoryDeleteAllAlarms.setEnabled(state);
         ibDeleteChosenRow.setEnabled(state);
-        if(!state)
+        if (!state)
             lvAllSetAlarms.setBackgroundColor(getResources().getColor(R.color.colorListViewBackgroundDeleteRow));
         else
             lvAllSetAlarms.setBackgroundColor(getResources().getColor(R.color.colorListViewBackground));
-        }
+    }
 
-    public void imHistoryDeleteAllAlarms_OnClickMethod(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(SetAlarmFromHistory.this,R.style.alertDialogMainMathAlarmStyle);
+    public void imHistoryDeleteAllAlarms_OnClickMethod(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SetAlarmFromHistory.this, R.style.AlertDialogCustomStyle);
         builder.setTitle("Checkup")
                 .setMessage("Are you sure, you want to delete all the records")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -174,10 +179,10 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
                         PopulateListViewAlarmDB();
                     }
                 })
-                .setNegativeButton("Back",null).create().show();
+                .setNegativeButton("Back", null).create().show();
     }
 
-    private void openAlarmDB(){
+    private void openAlarmDB() {
         alarmDBAdapter = new AlarmDBAdapter(SetAlarmFromHistory.this);
         alarmDBAdapter.OpenAlarmDB();
     }
