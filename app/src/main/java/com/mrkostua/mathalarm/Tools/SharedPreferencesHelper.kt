@@ -8,7 +8,6 @@ import android.preference.PreferenceManager
  * @author Kostiantyn on 21.11.2017.
  */
 
-//todo Once more check this class for returning types like null etc
 public object SharedPreferencesHelper {
     private val TAG = this.javaClass.simpleName
     public fun defaultSharedPreferences(context: Context): SharedPreferences

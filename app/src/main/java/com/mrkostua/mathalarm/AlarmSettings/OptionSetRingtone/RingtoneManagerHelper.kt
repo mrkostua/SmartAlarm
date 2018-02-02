@@ -2,6 +2,7 @@ package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
 import android.content.Context
 import android.media.RingtoneManager
+import com.mrkostua.mathalarm.DatabaseUsingRoom.RingtoneObject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 23.01.2018.
