@@ -1,5 +1,6 @@
 package com.mrkostua.mathalarm.DatabaseUsingRoom
 
+import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
@@ -15,5 +16,11 @@ interface RingtoneDAO {
     fun getAllRingtones(): Flowable<List<RingtoneObject>>
 
     @Insert
-    fun insertRingtoneObject(ringtoneObject: RingtoneObject)
+    fun insertAllRingtones(vararg ringtoneObjects: RingtoneObject)
+
+    @Update
+    fun updateRingtoneObject(ringtoneToUpdate: RingtoneObject, newRingtone: RingtoneObject)
+
+    @Delete
+    fun deleteRingtoneObject(ringtoneObjects: RingtoneObject)
 }
