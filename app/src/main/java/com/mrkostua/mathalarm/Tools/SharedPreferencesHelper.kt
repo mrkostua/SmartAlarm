@@ -38,9 +38,9 @@ public object SharedPreferencesHelper {
                 edit({ it.putInt(key, value) })
             is Boolean ->
                 edit({ it.putBoolean(key, value) })
-            is MutableSet<*> -> {
+/*            is MutableSet<*> -> {
                     edit({ it.putStringSet(key, value as MutableSet<String>?) })
-            }
+            }*/
 
             else ->
                 throw UnsupportedOperationException("Not implemented")
