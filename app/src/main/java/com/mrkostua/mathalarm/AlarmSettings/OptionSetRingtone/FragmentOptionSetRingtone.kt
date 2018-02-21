@@ -16,7 +16,6 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
 import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
-import com.mrkostua.mathalarm.DatabaseUsingRoom.RingtoneObject
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
@@ -28,10 +27,11 @@ import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
  */
 class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
     /**
-     *1) todo think about if playing ringtone it will ends so the button need to change to Play back ?
+     *  1) todo think about if playing ringtone it will ends so the button need to change to Play back ?
      * we can check with mediaPlayer isPlaying or other way is play music in loop all the time???
      *
-     * 2) //todo increase ringtone rating think about it and way to save implement this solution
+     */
+     /** 2) //todo increase ringtone rating think about it and way to save implement this solution
      *  to solve this for sure we gonna need to save somewhere _rating and _name if the ringtone so in new user session data will be updated.
      *      * So it is SharedPreferences And Set<String> with names and probably one more for Rating.
      *      * Or local SQL like now new library or dependency : Room.
@@ -134,7 +134,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     }
 
     private fun addRingtoneFromExternalPath(): Int {
-
+        //TODO to do it faster we can just add one ringtone and save in SharedPreferences so one last added ringtone will be available all the time or SharedPreferences Set<String>
         TODO("not implemented")
         /**
          * return the path to this file and probably this list need to be saved somewhere (local DB ) SharedPreferences

@@ -50,4 +50,7 @@ public class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, K
         sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue()] = tvTextMessage.text.toString()
 
     }
+    /**
+     * TODO simplest plan is to just set text which will appear as a view or some animation at the screen.
+     */
 }

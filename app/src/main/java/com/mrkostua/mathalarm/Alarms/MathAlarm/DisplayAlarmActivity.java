@@ -19,7 +19,13 @@ import com.mrkostua.mathalarm.MathAlarmTaskGenerator;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
-
+/**
+ * TODO think about how do you want this activity to look :
+ *  Stop Button
+ *  Snooze Button
+ *  View for text message
+ *  Make it simple and big and text on different displays.
+ */
 public class DisplayAlarmActivity extends AppCompatActivity {
     private Boolean onOffMusicPlayingRemember;
     private TextView tvTaskToSolve,tvNumber3;

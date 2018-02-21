@@ -1,16 +1,13 @@
-package com.mrkostua.mathalarm.DatabaseUsingRoom
+package com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+
 import android.net.Uri
 
 
 /**
  * @author Kostiantyn Prysiazhnyi on 18.01.2018.
  */
-@Entity
-data class RingtoneObject(
-        @PrimaryKey
+ class RingtoneObject(
         val name: String,
         var rating: Int = 0,
         var isPlaying: Boolean = false,

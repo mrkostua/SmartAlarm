@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
-import com.mrkostua.mathalarm.DatabaseUsingRoom.RingtoneObject
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
 
