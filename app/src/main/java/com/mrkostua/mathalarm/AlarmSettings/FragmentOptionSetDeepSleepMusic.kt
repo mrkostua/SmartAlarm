@@ -17,7 +17,7 @@ import com.mrkostua.mathalarm.R
 /**
  * TODO Just ask user if he want this fun to be turn on (explain what it is,how it works)
  */
-class FragmentIptionSetDeepSleepMusic : Fragment(), KotlinActivitiesInterface, SettingsFragmentInterface {
+class FragmentOptionSetDeepSleepMusic : Fragment(), KotlinActivitiesInterface, SettingsFragmentInterface {
     override lateinit var fragmentContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +36,12 @@ class FragmentIptionSetDeepSleepMusic : Fragment(), KotlinActivitiesInterface, S
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun saveSettingsInSharedPreferences() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun initializeDependOnViewVariables(view: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
