@@ -10,9 +10,9 @@ import android.support.annotation.Nullable;
 import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class WakeLockService extends Service {
-    private static final int  NOTIFICATION_ID = 25;
+    private static final int NOTIFICATION_ID = 25;
     private PowerManager.WakeLock partialWakeLock;
-    private AlarmNotifications alarmNotifications = new AlarmNotifications();
+    private AlarmNotifications alarmNotifications;
 
     @Nullable
     @Override
@@ -22,34 +22,34 @@ public class WakeLockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  onStartCommand");
+        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  onStartCommand");
         // Called implicitly when device is about to sleep or application is backgrounded
-            createWakeLocks();
-            wakeDevice("partialWakeLock");
-
-        String timeToAlarmStart = intent.getExtras().getString("alarmTimeKey","00-00");
-       startForeground(NOTIFICATION_ID,alarmNotifications.NewNotification(this,timeToAlarmStart));
+        createWakeLocks();
+        wakeDevice("partialWakeLock");
+        alarmNotifications = new AlarmNotifications(this);
+        String timeToAlarmStart = intent.getStringExtra("alarmTimeKey");
+        startForeground(NOTIFICATION_ID, alarmNotifications.NewNotification(timeToAlarmStart));
 
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.
          * This mode makes sense for things that will be explicitly started and stopped
-        * to run for arbitrary periods of time, such as a service performing background music playback. */
+         * to run for arbitrary periods of time, such as a service performing background music playback. */
         return START_STICKY;
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService "+" onDestroy");
+        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
         ReleaseWakeLocks();
         stopSelf();
-        alarmNotifications.CancelNotification(this,NOTIFICATION_ID);
+        alarmNotifications.CancelNotification(this, NOTIFICATION_ID);
     }
 
-    protected void createWakeLocks(){
+    protected void createWakeLocks() {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        partialWakeLock=null;
+        partialWakeLock = null;
         //Wake lock flag: Turn the screen on when the wake lock is acquired.
-        partialWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK|PowerManager.ACQUIRE_CAUSES_WAKEUP, "Loneworker - PARTIAL WAKE LOCK");
+        partialWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "Loneworker - PARTIAL WAKE LOCK");
     }
 
     // Called whenever we need to wake up the device
@@ -61,15 +61,17 @@ public class WakeLockService extends Service {
                 *If the user presses the power button, then the screen will be turned off but the
                  CPU will be kept on until all partial wake locks have been released.*/
                 partialWakeLock.acquire();
-                if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService   partialWakeLock.acquire()");
+                if (ShowLogsOld.LOG_STATUS)
+                    ShowLogsOld.i("WakeLockService   partialWakeLock.acquire()");
                 break;
         }
     }
+
     private void ReleaseWakeLocks() {
-        if(partialWakeLock.isHeld()){
+        if (partialWakeLock.isHeld()) {
             partialWakeLock.release();
             partialWakeLock = null;
-            if(ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  partialWakeLock released");
+            if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  partialWakeLock released");
         }
     }
 }
