@@ -3,9 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-//    buildToolsVersion "26.0.2"
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         vectorDrawables {
@@ -13,7 +12,7 @@ android {
         }
         applicationId "com.mrkostua.mathalarm"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -29,15 +28,19 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
 
-//    // Room
-//    implementation "android.arch.persistence.room:runtime:1.0.0"
-//    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    compile 'android.arch.persistence.room:runtime:1.1.0-alpha1'
+    compile 'android.arch.persistence.room:rxjava2:1.1.0-alpha1'
+    kapt "android.arch.persistence.room:compiler:1.1.0-alpha1"
+
+    // RXJava
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
 
 }

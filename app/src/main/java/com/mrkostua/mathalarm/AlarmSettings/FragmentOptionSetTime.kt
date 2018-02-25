@@ -18,7 +18,9 @@ import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 
-
+/**
+ * TODO test on with 2 timePicker styles and maybe improve some design
+ */
 class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
     private val TAG = this.javaClass.simpleName
 

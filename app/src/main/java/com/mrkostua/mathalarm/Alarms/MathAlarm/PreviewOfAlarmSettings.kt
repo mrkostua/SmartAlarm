@@ -5,10 +5,8 @@ import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
+import com.mrkostua.mathalarm.AlarmSettings.*
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
@@ -19,9 +17,10 @@ import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
+class PreviewOfAlarmSettings(private val context: Context, private val mainActivity: Activity) {
     private val notificationTools = NotificationTools(context)
     private val fragmentHelper = FragmentCreationHelper(mainActivity)
+    private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
 
     //todo fix background color of the AlertDialog (in style file it is black but here is white (probably default color is overriding ours)
     fun showSettingsPreviewDialog() {
@@ -37,7 +36,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
         AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setItems(settingItemsList.toTypedArray(), { dialogInterface, whichClicked ->
-                    fragmentHelper.loadFragment(settingsFragmentsList[whichClicked])
+                    context.startActivity(alarmSettingActivityIntent)
                     dialogInterface.dismiss()
 
                 })
@@ -61,7 +60,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
         val ringtoneName: String = preferencesHelper[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
                 ?: PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName
 
-        return AlarmObject(hours, minutes, textMessage, ringtoneName, 0)
+        return AlarmObject(hours, minutes, textMessage, ringtoneName)
 
     }
 
@@ -72,6 +71,7 @@ class PreviewOfAlarmSettings(val context: Context, val mainActivity: Activity) {
                 FragmentOptionSetTime()))
         settingsList.add(Pair(alarmObject.textMessage, FragmentOptionSetMessage()))
         settingsList.add(Pair(alarmObject.ringToneName, FragmentOptionSetRingtone()))
+        settingsList.add(Pair(alarmObject.isDeepSleepMusicOn.toString(), FragmentOptionSetDeepSleepMusic()))
         return settingsList
     }
 

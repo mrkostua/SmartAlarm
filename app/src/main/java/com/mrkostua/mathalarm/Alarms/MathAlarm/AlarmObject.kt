@@ -5,7 +5,4 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm
  */
 
 class AlarmObject(var hours: Int, var minutes: Int, var textMessage: String,
-                  var ringToneName: String, var complexityLevel : Int) {
-
-
-}
+                  var ringToneName: String, var complexityLevel: Int = 0, var isDeepSleepMusicOn: Boolean = false)

@@ -8,7 +8,6 @@ import android.preference.PreferenceManager
  * @author Kostiantyn on 21.11.2017.
  */
 
-//todo Once more check this class for returning types like null etc
 public object SharedPreferencesHelper {
     private val TAG = this.javaClass.simpleName
     public fun defaultSharedPreferences(context: Context): SharedPreferences
@@ -39,9 +38,9 @@ public object SharedPreferencesHelper {
                 edit({ it.putInt(key, value) })
             is Boolean ->
                 edit({ it.putBoolean(key, value) })
-            is MutableSet<*> -> {
+/*            is MutableSet<*> -> {
                     edit({ it.putStringSet(key, value as MutableSet<String>?) })
-            }
+            }*/
 
             else ->
                 throw UnsupportedOperationException("Not implemented")

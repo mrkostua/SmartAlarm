@@ -14,6 +14,7 @@ import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
+import com.mrkostua.mathalarm.Tools.AlarmTools;
 
 public class MainActivity extends AppCompatActivity {
     private Button bMathAlarm;
@@ -25,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        bMathAlarm = (Button) findViewById(R.id.bMathAlarm);
+        bMathAlarm = findViewById(R.id.bMathAlarm);
 
         animationShake = AnimationUtils.loadAnimation(this, R.anim.incorrect_button_shake);
         animationShake.setRepeatCount(3);

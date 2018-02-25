@@ -40,11 +40,8 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //set layout to the full screen
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+       // AlarmTools.setFullScreenMode(this)
         setContentView(R.layout.activity_main_alarm)
-
         initializeDependOnContextVariables(this)
         calendar.timeInMillis = System.currentTimeMillis()
 
@@ -84,7 +81,9 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     fun ibAdditionalSettingsOnClickListener(view: View) {
         showAlarmSettingsActivity()
 
+
     }
+
 
     private fun clickOutsideOfHelpingViews() {
         AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
@@ -146,8 +145,10 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     private fun setSettingsFromLastAlarm() {
         val hours: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
         val minutes: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
-        tvAlarmTime.text = Integer.toString(hours ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
-                " : " + Integer.toString(minutes ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
+        tvAlarmTime.text = Integer.toString(hours
+                ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
+                " : " + Integer.toString(minutes
+                ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
 
 
     }
