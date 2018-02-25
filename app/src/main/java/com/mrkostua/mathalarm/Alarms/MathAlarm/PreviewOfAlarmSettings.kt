@@ -8,18 +8,15 @@ import android.content.Intent
 import com.mrkostua.mathalarm.AlarmSettings.*
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.Tools.NotificationTools
-import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.*
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
 class PreviewOfAlarmSettings(private val context: Context, private val mainActivity: Activity) {
+    private val TAG = this.javaClass.simpleName
     private val notificationTools = NotificationTools(context)
-    private val fragmentHelper = FragmentCreationHelper(mainActivity)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = getAlarmObjectWithAlarmSettings()
@@ -28,14 +25,14 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
     fun showSettingsPreviewDialog() {
         val settingsList = getAlarmSettingsList(alarmObject)
         val settingItemsList = ArrayList<String>(settingsList.size)
-        val settingsFragmentsList = ArrayList<Fragment>(settingsList.size)
         settingsList.forEach { pair ->
             settingItemsList.add(pair.first)
-            settingsFragmentsList.add(pair.second)
         }
         AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setItems(settingItemsList.toTypedArray(), { dialogInterface, whichClicked ->
+                    ShowLogs.log(TAG, "showSettingsPreviewDialog alarmSettings fragment to load : " + ConstantValues.alarmSettingsOptionsList[whichClicked])
+                    alarmSettingActivityIntent.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, whichClicked)
                     context.startActivity(alarmSettingActivityIntent)
                     dialogInterface.dismiss()
 
@@ -67,11 +64,11 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
     private fun getAlarmSettingsList(alarmObject: AlarmObject): ArrayList<Pair<String, Fragment>> {
         val settingsList = ArrayList<Pair<String, Fragment>>(ConstantValues.alarmSettingsOptionsList.size)
 
-        settingsList.add(Pair(notificationTools.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes),
+        settingsList.add(Pair("Time : " + notificationTools.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes),
                 FragmentOptionSetTime()))
-        settingsList.add(Pair(alarmObject.textMessage, FragmentOptionSetMessage()))
-        settingsList.add(Pair(alarmObject.ringToneName, FragmentOptionSetRingtone()))
-        settingsList.add(Pair(alarmObject.isDeepSleepMusicOn.toString(), FragmentOptionSetDeepSleepMusic()))
+        settingsList.add(Pair("Message : " + alarmObject.textMessage, FragmentOptionSetMessage()))
+        settingsList.add(Pair("Ringtone : " + alarmObject.ringtoneName, FragmentOptionSetRingtone()))
+        settingsList.add(Pair("On/Off deep sleep music : " + alarmObject.isDeepSleepMusicOn.toString(), FragmentOptionSetDeepSleepMusic()))
         return settingsList
     }
 

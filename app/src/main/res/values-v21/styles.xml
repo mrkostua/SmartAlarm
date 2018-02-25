@@ -32,8 +32,10 @@
 
 
     <style name="AlertDialogCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/alertDialogMainMathAlarmBackgroundColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/textColorWhite</item>
         <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
-        <item name="android:textColorPrimary">@color/activity_main_math_alarm_textColorWhite</item>
+        <item name="android:textColorPrimary">textColorWhite</item>
         <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
         <item name="textColorAlertDialogListItem">
             @color/alertDialogMainMathAlarmTextColorAlertDialogListItem
