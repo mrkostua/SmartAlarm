@@ -36,6 +36,7 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
                     context.startActivity(alarmSettingActivityIntent)
                     dialogInterface.dismiss()
 
+                    
                 })
                 .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
                     scheduleNewAlarm(alarmObject)
