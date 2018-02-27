@@ -31,13 +31,11 @@ class MediaPlayerHelper(private val context: Context) : MediaPlayer.OnErrorListe
 
     fun playRingtoneFromUri(ringtoneUri: Uri) {
         if (!isMpPlaying) {
-            mediaPlayer = getNewMediaPlayer(ringtoneUri)
-            mediaPlayer?.start()
+            startPlayingMusic(ringtoneUri)
         } else {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
-            mediaPlayer = getNewMediaPlayer(ringtoneUri)
-            mediaPlayer?.start()
+            startPlayingMusic(ringtoneUri)
         }
         isMpPlaying = true
     }
@@ -57,6 +55,12 @@ class MediaPlayerHelper(private val context: Context) : MediaPlayer.OnErrorListe
         mediaPlayer = null
         isMpPlaying = false
         return true
+    }
+
+    private fun startPlayingMusic(ringtoneUri: Uri) {
+        mediaPlayer = getNewMediaPlayer(ringtoneUri)
+        mediaPlayer?.isLooping = true
+        mediaPlayer?.start()
     }
 
     private fun getRawResourceId(resourceName: String): Int =

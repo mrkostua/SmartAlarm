@@ -38,13 +38,20 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         initializeDependOnContextVariables(this)
+        showChosenFragment(savedInstanceState?.getInt(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, 0)
+                ?: 0)
+
     }
 
     override fun onResume() {
         ShowLogs.log(TAG, "onResume")
         super.onResume()
-        showChosenFragment()
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, getCurrentFragmentIndex())
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
@@ -101,19 +108,13 @@ public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterf
         finish()
     }
 
-    private fun showChosenFragment() {
-        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, -1)
+    private fun showChosenFragment(fragmentIndexToLoad: Int) {
+        val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, fragmentIndexToLoad)
         ShowLogs.log(TAG, "showChosenFragment + indexOfFragmentToLoad : " + indexOfFragmentToLoad)
-        if (indexOfFragmentToLoad != -1) {
-            fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
-            when (indexOfFragmentToLoad) {
-                AlarmTools.getLastFragmentIndex() -> blockImageButton(ibMoveForward)
-                0 -> blockImageButton(ibMoveBack)
-
-            }
-
-        } else {
-            fragmentHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[0])
+        fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
+        when (indexOfFragmentToLoad) {
+            AlarmTools.getLastFragmentIndex() -> blockImageButton(ibMoveForward)
+            0 -> blockImageButton(ibMoveBack)
 
         }
     }

@@ -25,10 +25,6 @@ import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
 class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
-    /**
-     *  1) todo think about if playing ringtone it will ends so the button need to change to Play back ?
-     * solution : we can check with mediaPlayer isPlaying or other way is play music in loop all the time???
-     */
     override lateinit var fragmentContext: Context
     private val TAG = this.javaClass.simpleName
     private var positionOfPlayingButtonItem = 0
@@ -126,9 +122,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
          * file with proper type it will be added to the list of ringtone's.
          */
 
-        return 2
-        //todo so by adding some String path with name it need to be unique (because SharedPreferences can contain only Set<String>
-        //check by some filter of List or anything else
+        return 0
     }
 
     inner class SetRingtoneClickListener : RingtoneClickListeners {
@@ -136,8 +130,6 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         override fun checkBoxClickListener(view: CheckBox, position: Int) {
             ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
             if (view.isChecked) {
-                ShowLogs.log(TAG, "FragmentOptionSetRingtone bTestButton")
-                addRingtoneFromExternalPath()
                 setClickedIndexToTrue({ it.isChecked = true }, { it.isChecked = false },
                         { it.isChecked }, position)
 
