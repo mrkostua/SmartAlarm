@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -33,14 +34,12 @@ dependencies {
     compile 'com.android.support:support-v4:27.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile 'com.android.support:recyclerview-v7:27.0.2'
-
-    compile 'android.arch.persistence.room:runtime:1.1.0-alpha1'
-    compile 'android.arch.persistence.room:rxjava2:1.1.0-alpha1'
-    kapt "android.arch.persistence.room:compiler:1.1.0-alpha1"
-
     // RXJava
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    kapt 'com.google.dagger:dagger-compiler:2.5'
+    compile 'com.google.dagger:dagger:2.5'
 
 
 }
