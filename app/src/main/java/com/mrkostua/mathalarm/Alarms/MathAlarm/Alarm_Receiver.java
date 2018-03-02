@@ -54,11 +54,11 @@ public class Alarm_Receiver extends BroadcastReceiver
             context.stopService(new Intent(context,WakeLockService.class));
         }
         if(intent.getAction().equals(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION())) {
-             alarmCondition = intent.getExtras().getBoolean("alarmCondition",false);
-             selectedMusic = intent.getExtras().getInt("selectedMusic",0);
+             alarmCondition = intent.getBooleanExtra("alarmCondition",false);
+             selectedMusic = intent.getIntExtra("selectedMusic",0);
              String defaultAlarmMessageText = "Good morning sir";
              alarmMessageText = intent.getExtras().getString("alarmMessageText",defaultAlarmMessageText);
-             alarmComplexityLevel = intent.getExtras().getInt("alarmComplexityLevel",0);
+             alarmComplexityLevel = intent.getIntExtra("alarmComplexityLevel",0);
             selectedDeepSleepMusic = intent.getIntExtra("selectedDeepSleepMusic",0);
 
             SaveAlarmData(context);

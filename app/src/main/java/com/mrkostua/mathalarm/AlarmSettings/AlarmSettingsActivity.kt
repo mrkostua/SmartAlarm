@@ -28,7 +28,7 @@ Also there can 2-3 level of argent (importance of this alarm) (in some case app 
 
  */
 
-public class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface {
+ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface {
     private lateinit var fragmentHelper: FragmentCreationHelper
     private lateinit var notificationTools: NotificationTools
     private val TAG = this.javaClass.simpleName

@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
@@ -40,7 +38,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // AlarmTools.setFullScreenMode(this)
         setContentView(R.layout.activity_main_alarm)
         initializeDependOnContextVariables(this)
         calendar.timeInMillis = System.currentTimeMillis()
@@ -184,7 +181,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
-    //try to implemnt this function in java and check if it working if not search for more information
+    //try to implement this function in java and check if it working if not search for more information
 //Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
     @Suppress("DEPRECATION")
     private fun setTextAppearance(textView: TextView, style: Int) {

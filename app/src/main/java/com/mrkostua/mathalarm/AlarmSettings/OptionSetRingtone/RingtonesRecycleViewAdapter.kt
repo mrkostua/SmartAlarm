@@ -18,12 +18,12 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
                                   private val ringtoneClickListeners: RingtoneClickListeners)
     : RecyclerView.Adapter<RingtonesRecycleViewAdapter.RingtonesViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RingtonesViewHolder {
-        return RingtonesViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.ringtone_list_row_layout, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RingtonesViewHolder {
+        return RingtonesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ringtone_list_row_layout, parent, false))
     }
 
-    override fun onBindViewHolder(holder: RingtonesViewHolder?, position: Int) {
-        setRingtoneNameAndNumber(holder, holder?.adapterPosition ?: position)
+    override fun onBindViewHolder(holder: RingtonesViewHolder, position: Int) {
+        setRingtoneNameAndNumber(holder, holder.adapterPosition ?: position)
     }
 
     override fun getItemCount(): Int {

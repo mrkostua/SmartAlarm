@@ -3,7 +3,6 @@ package com.mrkostua.mathalarm.firstsScreens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,14 +13,12 @@ import com.mrkostua.mathalarm.Alarms.MathAlarm.MainMathAlarm;
 import com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
-import com.mrkostua.mathalarm.Tools.AlarmTools;
 
 public class MainActivity extends AppCompatActivity {
     private Button bMathAlarm;
     public static final String TAG = MainActivity.class.getSimpleName();
     Animation animationShake;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

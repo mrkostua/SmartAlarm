@@ -5,37 +5,32 @@ import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.AlarmSettings.*
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.ConstantValues
-import com.mrkostua.mathalarm.Tools.NotificationTools
-import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import com.mrkostua.mathalarm.Tools.*
 import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
 class PreviewOfAlarmSettings(private val context: Context, private val mainActivity: Activity) {
+    private val TAG = this.javaClass.simpleName
     private val notificationTools = NotificationTools(context)
-    private val fragmentHelper = FragmentCreationHelper(mainActivity)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = getAlarmObjectWithAlarmSettings()
 
-    //todo fix background color of the AlertDialog (in style file it is black but here is white (probably default color is overriding ours)
     fun showSettingsPreviewDialog() {
         val settingsList = getAlarmSettingsList(alarmObject)
         val settingItemsList = ArrayList<String>(settingsList.size)
-        val settingsFragmentsList = ArrayList<Fragment>(settingsList.size)
         settingsList.forEach { pair ->
             settingItemsList.add(pair.first)
-            settingsFragmentsList.add(pair.second)
         }
         AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setItems(settingItemsList.toTypedArray(), { dialogInterface, whichClicked ->
+                    ShowLogs.log(TAG, "showSettingsPreviewDialog alarmSettings fragment to load : " + ConstantValues.alarmSettingsOptionsList[whichClicked])
+                    alarmSettingActivityIntent.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, whichClicked)
                     context.startActivity(alarmSettingActivityIntent)
                     dialogInterface.dismiss()
 
@@ -66,13 +61,21 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
 
     private fun getAlarmSettingsList(alarmObject: AlarmObject): ArrayList<Pair<String, Fragment>> {
         val settingsList = ArrayList<Pair<String, Fragment>>(ConstantValues.alarmSettingsOptionsList.size)
-
-        settingsList.add(Pair(notificationTools.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes),
-                FragmentOptionSetTime()))
-        settingsList.add(Pair(alarmObject.textMessage, FragmentOptionSetMessage()))
-        settingsList.add(Pair(alarmObject.ringToneName, FragmentOptionSetRingtone()))
-        settingsList.add(Pair(alarmObject.isDeepSleepMusicOn.toString(), FragmentOptionSetDeepSleepMusic()))
+        val alarmOptionsPreviewText = getAlarmOptionsPreviewText(alarmObject)
+        (0 until ConstantValues.alarmSettingsOptionsList.size).mapTo(settingsList) {
+            Pair(alarmOptionsPreviewText[it], ConstantValues.alarmSettingsOptionsList[it])
+        }
         return settingsList
+    }
+
+    private fun getAlarmOptionsPreviewText(alarmObject: AlarmObject): Array<String> {
+        val alarmOptionsPreviewText = context.resources.getStringArray(R.array.alarmOptionsPreviewText)
+        alarmOptionsPreviewText[0] = alarmOptionsPreviewText[0] + notificationTools.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes)
+        alarmOptionsPreviewText[1] = alarmOptionsPreviewText[1] + alarmObject.ringtoneName
+        alarmOptionsPreviewText[2] = alarmOptionsPreviewText[2] + alarmObject.textMessage
+        alarmOptionsPreviewText[3] = alarmOptionsPreviewText[3] + alarmObject.isDeepSleepMusicOn.toString()
+        return alarmOptionsPreviewText
+
     }
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
