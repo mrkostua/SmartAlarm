@@ -34,7 +34,7 @@ enum class PreferencesConstants {
     abstract fun getKeyValue(): String
     abstract fun getDefaultIntValue(): Int
 
-    val defaultTextMessage = ""
+    val defaultTextMessage = "It is nice to see you alive."
     val defaultRingtoneName = "ringtone_energy"
 
 

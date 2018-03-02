@@ -21,11 +21,11 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
     private val notificationTools = NotificationTools(context)
     private val fragmentHelper = FragmentCreationHelper(mainActivity)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
+    private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
+    private val alarmObject = getAlarmObjectWithAlarmSettings()
 
     //todo fix background color of the AlertDialog (in style file it is black but here is white (probably default color is overriding ours)
     fun showSettingsPreviewDialog() {
-        val alarmObject = getAlarmObjectWithAlarmSettings()
-
         val settingsList = getAlarmSettingsList(alarmObject)
         val settingItemsList = ArrayList<String>(settingsList.size)
         val settingsFragmentsList = ArrayList<Fragment>(settingsList.size)
@@ -84,7 +84,8 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
     }
 
     private fun startNewWakeLockService() {
-        mainActivity.startService(Intent(context, WakeLockService()::class.java))
+        wakeLockServiceIntent.putExtra("alarmTimeKey", notificationTools.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes))
+        mainActivity.startService(wakeLockServiceIntent)
         notificationTools.showToastMessage("Service was activated")
     }
 
