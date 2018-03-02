@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
+
 import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.R;
 
@@ -29,8 +30,9 @@ class AlarmNotifications {
     Notification NewNotification() {
         // snooze button
         Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
+        snoozeIntent.setClass(context, Alarm_Receiver.class);
         PendingIntent piSnooze = PendingIntent.getBroadcast(context, 0, snoozeIntent, 0);
-
+        snoozeIntent.setClass(context, Alarm_Receiver.class);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -51,6 +53,7 @@ class AlarmNotifications {
     Notification NewNotification(String time) {
         //dismiss button
         Intent dismissIntent = new Intent(ConstantValues.INSTANCE.getDISMISS_ACTION());
+        dismissIntent.setClass(context, Alarm_Receiver.class);
         PendingIntent piDismiss = PendingIntent.getBroadcast(context, 0, dismissIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder
@@ -87,13 +90,15 @@ class AlarmNotifications {
         CharSequence name = "Media playback";
         // The user-visible description of the channel.
         String description = "Media playback controls";
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
         // Configure the notification channel.
         mChannel.setDescription(description);
         mChannel.setShowBadge(false);
         mChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-        mNotificationManager.createNotificationChannel(mChannel);
+        if (mNotificationManager != null) {
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
     }
 
 }

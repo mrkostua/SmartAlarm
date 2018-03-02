@@ -65,6 +65,7 @@ class OnOffAlarm {
                 // sending the condition of alarm if true - alarm on , if false - alarm off
                 .putExtra("alarmCondition", alarmCondition)
                 .putExtra("selectedDeepSleepMusic", selectedDeepSleepMusic);
+        receiverIntent.setClass(alarmContext, Alarm_Receiver.class);
         return receiverIntent;
     }
 
@@ -162,7 +163,8 @@ class OnOffAlarm {
         //start service with PartialWakeLock
         Intent wakeLockIntent = new Intent(alarmContext, WakeLockService.class);
         wakeLockIntent.putExtra("alarmTimeKey", MinuteHourConvertMethod(hour, min));
-        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm SNOOZE TIME1 :" + hour + " m :" + min);
+        if (ShowLogsOld.LOG_STATUS)
+            ShowLogsOld.i("OnOffAlarm SNOOZE TIME1 :" + hour + " m :" + min);
         alarmContext.startService(wakeLockIntent);
     }
 
