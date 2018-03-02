@@ -66,8 +66,7 @@
 
         <receiver
             android:name=".Alarms.MathAlarm.Alarm_Receiver"
-            android:enabled="true"
-            android:exported="false">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="alarm_snooze" />
                 <action android:name="alarm_dismiss" />
