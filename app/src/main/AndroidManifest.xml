@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/alarm_icon_test"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -65,7 +66,8 @@
 
         <receiver
             android:name=".Alarms.MathAlarm.Alarm_Receiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="alarm_snooze" />
                 <action android:name="alarm_dismiss" />

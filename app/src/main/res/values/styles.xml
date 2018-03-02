@@ -31,12 +31,11 @@
     </style>
 
     <style name="AlertDialogCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/alertDialogMainMathAlarmBackgroundColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/textColorWhite</item>
         <item name="colorAccent">@color/alertDialogMainMathAlarmAccentColor</item>
         <item name="android:textColorPrimary">@color/textColorWhite</item>
         <item name="android:colorBackground">@color/alertDialogMainMathAlarmBackgroundColor</item>
-        <item name="textColorAlertDialogListItem">
-            @color/alertDialogMainMathAlarmTextColorAlertDialogListItem
-        </item>
         <item name="android:textColorSecondary">@color/alertDialogMainMathAlarmTextColorSecondary
         </item>
         <item name="android:textStyle">italic</item>
