@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.mrkostua.mathalarm.Tools.ConstantValues;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.MathAlarmService;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
-import com.mrkostua.mathalarm.firstsScreens.MainActivity;
+import com.mrkostua.mathalarm.Tools.ConstantValues;
 
 
 public class Alarm_Receiver extends BroadcastReceiver
@@ -40,7 +41,7 @@ public class Alarm_Receiver extends BroadcastReceiver
             onOffAlarmSnooze.SnoozeSetAlarm(snoozeTime);
 
             //start MainMathActivity to hide DisplayAlarmActivity (because user had snooze alarm)
-            Intent intent1 = new Intent(context,MainActivity.class);
+            Intent intent1 = new Intent(context,MainAlarmActivity.class);
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent1);
         }

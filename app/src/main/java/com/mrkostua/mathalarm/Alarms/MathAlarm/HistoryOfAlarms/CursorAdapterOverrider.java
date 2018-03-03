@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm.HistoryOfAlarms;
 
 import android.content.Context;
 import android.database.Cursor;
