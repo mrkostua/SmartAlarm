@@ -3,11 +3,12 @@ package com.mrkostua.mathalarm.Tools
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import javax.inject.Singleton
 
 /**
  * @author Kostiantyn on 21.11.2017.
  */
-
+@Singleton
 public object SharedPreferencesHelper {
     private val TAG = this.javaClass.simpleName
     public fun defaultSharedPreferences(context: Context): SharedPreferences
