@@ -5,21 +5,33 @@ import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.AlarmSettings.*
+import android.content.SharedPreferences
+import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetDeepSleepMusic
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.Tools.*
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.Tools.ConstantValues
+import com.mrkostua.mathalarm.Tools.NotificationTools
+import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.Tools.ShowLogs
+import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.injections.annotation.ActivityContext
+import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-class PreviewOfAlarmSettings(private val context: Context, private val mainActivity: Activity) {
+class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context, private val mainActivity: Activity) {
     private val TAG = this.javaClass.simpleName
     private val notificationTools = NotificationTools(context)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = getAlarmObjectWithAlarmSettings()
+
+    @Inject
+    public lateinit var sharedPreferences: SharedPreferences
 
     //todo fix background color of the AlertDialog (in style file it is black but here is white (probably default color is overriding ours)
     fun showSettingsPreviewDialog() {
@@ -36,7 +48,7 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
                     context.startActivity(alarmSettingActivityIntent)
                     dialogInterface.dismiss()
 
-                    
+
                 })
                 .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
                     scheduleNewAlarm(alarmObject)
@@ -48,14 +60,14 @@ class PreviewOfAlarmSettings(private val context: Context, private val mainActiv
     }
 
     private fun getAlarmObjectWithAlarmSettings(): AlarmObject {
-        val preferencesHelper = SharedPreferencesHelper.customSharedPreferences(context, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
-        val hours: Int = preferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
+
+        val hours: Int = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
                 ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()
-        val minutes: Int = preferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
+        val minutes: Int = sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
                 ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()
-        val textMessage: String = preferencesHelper[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]
+        val textMessage: String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]
                 ?: PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage
-        val ringtoneName: String = preferencesHelper[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
+        val ringtoneName: String = sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
                 ?: PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName
 
         return AlarmObject(hours, minutes, textMessage, ringtoneName)

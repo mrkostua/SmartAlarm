@@ -18,10 +18,14 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.extensions.app
+import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.injections.components.ActivityComponent
+import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
+import com.mrkostua.mathalarm.injections.modules.ActivityModule
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 /**
@@ -30,16 +34,28 @@ import kotlin.collections.ArrayList
 
 public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface {
     private val TAG = this.javaClass.simpleName
-    private lateinit var sharedPreferencesHelper: SharedPreferences
     private lateinit var intentAlarmSettingsActivity: Intent
     private lateinit var userHelper: UserHelperLayout
 
     private val calendar = Calendar.getInstance()
 
+    @Inject
+    public lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    public lateinit var previewOfSetting: PreviewOfAlarmSettings
+
+     val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_alarm)
         initializeDependOnContextVariables(this)
+
+
         calendar.timeInMillis = System.currentTimeMillis()
 
         setThemeForAlarmButtonLayout()
@@ -48,9 +64,11 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        sharedPreferencesHelper = SharedPreferencesHelper.customSharedPreferences(this, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)
+
+        app.applicationComponent.inject(this)
+        activityComponent.inject(this)
     }
 
     fun rlBackgroundHelperOnClickListener(view: View) {
@@ -62,7 +80,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     fun rlButtonLayoutOnClickListener(view: View) {
-        if (AlarmTools.isFirstAlarmCreation(sharedPreferencesHelper)) {
+        if (AlarmTools.isFirstAlarmCreation(sharedPreferences)) {
             if (!userHelper.isHelpingViewsHidden()) {
                 clickOutsideOfHelpingViews()
             } else {
@@ -70,7 +88,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
             }
 
         } else {
-            val previewOfSetting = PreviewOfAlarmSettings(this, this)
             previewOfSetting.showSettingsPreviewDialog()
         }
     }
@@ -107,12 +124,11 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
-        if (AlarmTools.isFirstAlarmCreation(sharedPreferencesHelper)) {
+        if (AlarmTools.isFirstAlarmCreation(sharedPreferences)) {
             setCustomAlarmSettings()
 
         } else {
             setSettingsFromLastAlarm()
-
         }
     }
 
@@ -140,8 +156,8 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     private fun setSettingsFromLastAlarm() {
-        val hours: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
-        val minutes: Int? = sharedPreferencesHelper[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
+        val hours: Int? = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
+        val minutes: Int? = sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
         tvAlarmTime.text = Integer.toString(hours
                 ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
                 " : " + Integer.toString(minutes

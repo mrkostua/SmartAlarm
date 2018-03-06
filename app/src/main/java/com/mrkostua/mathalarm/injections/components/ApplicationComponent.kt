@@ -1,6 +1,12 @@
 package com.mrkostua.mathalarm.injections.components
 
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
+import android.content.SharedPreferences
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetDeepSleepMusic
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
+import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.SmartAlarmApp
 import com.mrkostua.mathalarm.injections.modules.ApplicationModule
 import dagger.Component
 import javax.inject.Singleton
@@ -11,5 +17,12 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [(ApplicationModule::class)])
 interface ApplicationComponent {
-    fun getPreferencesHelper() : SharedPreferencesHelper
+    fun getSharedPreferences(): SharedPreferences
+    fun getSmartAlarmApp() : SmartAlarmApp
+
+    fun inject(mainAlarmActivity: MainAlarmActivity)
+    fun inject(fragmentOptionSetMessage: FragmentOptionSetMessage)
+    fun inject(fragmentOptionSetDeepSleepMusic: FragmentOptionSetDeepSleepMusic)
+    fun inject(fragmentOptionSetTime: FragmentOptionSetTime)
+    fun inject(fragmentOptionSetRingtone: FragmentOptionSetRingtone)
 }

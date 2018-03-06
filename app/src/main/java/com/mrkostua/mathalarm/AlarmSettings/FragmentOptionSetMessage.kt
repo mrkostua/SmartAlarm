@@ -14,11 +14,12 @@ import android.widget.Toast
 import com.mrkostua.mathalarm.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.set
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
 import com.mrkostua.mathalarm.Tools.ShowLogs
+import com.mrkostua.mathalarm.extensions.app
+import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.extensions.set
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
+import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
@@ -28,7 +29,8 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
     override lateinit var fragmentContext: Context
 
     private val TAG = FragmentOptionSetTime::class.java.simpleName
-    private lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    public lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +47,11 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
         super.onResume()
         initializeTextViewWithLastMessage()
         saveSettingsInSharedPreferences()
-
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+        //sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+        app.applicationComponent.inject(this)
     }
 
     override fun initializeDependOnViewVariables(view: View?) {

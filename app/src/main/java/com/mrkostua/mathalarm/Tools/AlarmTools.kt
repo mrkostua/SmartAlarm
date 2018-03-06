@@ -10,7 +10,7 @@ import android.os.Build
 import android.view.Window
 import android.view.WindowManager
 import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper.get
+import com.mrkostua.mathalarm.extensions.get
 
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
@@ -48,8 +48,8 @@ object AlarmTools {
     }
 
     //todo fix this method default value of the hour is set to 7
-    public fun isFirstAlarmCreation(sharedPreferencesHelper: SharedPreferences): Boolean {
-        return sharedPreferencesHelper[PreferencesConstants.ALARM_HOURS.getKeyValue(), ConstantValues.PREFERENCES_WRONG_VALUE] == ConstantValues.PREFERENCES_WRONG_VALUE
+    public fun isFirstAlarmCreation(sharedPreferences: SharedPreferences): Boolean {
+        return sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), ConstantValues.PREFERENCES_WRONG_VALUE] == ConstantValues.PREFERENCES_WRONG_VALUE
 
     }
 

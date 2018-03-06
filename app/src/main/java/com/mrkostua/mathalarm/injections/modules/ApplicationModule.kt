@@ -1,8 +1,9 @@
 package com.mrkostua.mathalarm.injections.modules
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.mrkostua.mathalarm.SmartAlarmApp
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
-import com.mrkostua.mathalarm.Tools.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,6 +20,6 @@ public class ApplicationModule(private val app: SmartAlarmApp) {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(app: SmartAlarmApp) = SharedPreferencesHelper.customSharedPreferences(app, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
+    fun provideSharedPreferences(app: SmartAlarmApp): SharedPreferences = app.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
 
 }
