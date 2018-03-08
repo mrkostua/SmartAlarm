@@ -12,7 +12,7 @@ import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import com.mrkostua.mathalarm.extensions.app
-import com.mrkostua.mathalarm.injections.AddInjection
+import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.injections.components.ActivityComponent
 import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
 import com.mrkostua.mathalarm.injections.modules.ActivityModule

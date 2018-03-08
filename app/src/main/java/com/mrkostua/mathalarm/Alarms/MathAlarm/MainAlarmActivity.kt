@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
@@ -20,7 +21,6 @@ import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.extensions.app
 import com.mrkostua.mathalarm.extensions.get
-import com.mrkostua.mathalarm.injections.AddInjection
 import com.mrkostua.mathalarm.injections.components.ActivityComponent
 import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
 import com.mrkostua.mathalarm.injections.modules.ActivityModule

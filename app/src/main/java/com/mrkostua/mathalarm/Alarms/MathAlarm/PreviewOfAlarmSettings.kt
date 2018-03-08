@@ -7,11 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetDeepSleepMusic
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.WakeLockService
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues

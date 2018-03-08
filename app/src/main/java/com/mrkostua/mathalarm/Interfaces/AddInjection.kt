@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.injections
+package com.mrkostua.mathalarm.Interfaces
 
 /**
  * @author on 3/8/2018.
