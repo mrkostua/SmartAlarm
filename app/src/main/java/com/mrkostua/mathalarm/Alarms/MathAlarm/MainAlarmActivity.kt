@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
-import com.mrkostua.mathalarm.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.ConstantValues

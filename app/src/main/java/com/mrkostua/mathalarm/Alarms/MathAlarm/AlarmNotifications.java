@@ -14,11 +14,11 @@ import android.support.v4.app.NotificationCompat;
 import com.mrkostua.mathalarm.Tools.ConstantValues;
 import com.mrkostua.mathalarm.R;
 
-class AlarmNotifications {
+public class AlarmNotifications {
     private static final String CHANNEL_ID = "media_playback_channel";
     private Context context;
 
-    AlarmNotifications(Context context) {
+    public AlarmNotifications(Context context) {
         this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChanel();
@@ -27,7 +27,7 @@ class AlarmNotifications {
 
 
     //notification for MathService
-    Notification NewNotification() {
+    public Notification NewNotification() {
         // snooze button
         Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
         snoozeIntent.setClass(context, Alarm_Receiver.class);
@@ -50,7 +50,7 @@ class AlarmNotifications {
     }
 
     //notification for WakeLock Service
-    Notification NewNotification(String time) {
+    public Notification NewNotification(String time) {
         //dismiss button
         Intent dismissIntent = new Intent(ConstantValues.INSTANCE.getDISMISS_ACTION());
         dismissIntent.setClass(context, Alarm_Receiver.class);
@@ -70,7 +70,7 @@ class AlarmNotifications {
         return builder.build();
     }
 
-    void CancelNotification(Context context, int notificationID) {
+    public void CancelNotification(Context context, int notificationID) {
         NotificationManager notificationManager = getNotificationManager(context);
         notificationManager.cancel(notificationID);
     }

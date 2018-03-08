@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
-import com.mrkostua.mathalarm.AlarmSettings.SettingsFragmentInterface
-import com.mrkostua.mathalarm.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
+import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs

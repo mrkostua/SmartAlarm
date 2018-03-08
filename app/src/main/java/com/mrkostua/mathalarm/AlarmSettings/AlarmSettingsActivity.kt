@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
-import com.mrkostua.mathalarm.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.ConstantValues

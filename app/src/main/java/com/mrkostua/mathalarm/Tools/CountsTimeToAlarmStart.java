@@ -1,4 +1,6 @@
-package com.mrkostua.mathalarm;
+package com.mrkostua.mathalarm.Tools;
+import com.mrkostua.mathalarm.ShowLogsOld;
+
 import java.util.Calendar;
 
 

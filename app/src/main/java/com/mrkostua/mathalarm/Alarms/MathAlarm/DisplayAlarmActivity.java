@@ -2,9 +2,9 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,11 +13,12 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetMathTask.MathAlarmTaskGenerator;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.MathAlarmService;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.WakeLockService;
+import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.Tools.ConstantValues;
-import com.mrkostua.mathalarm.MathAlarmTaskGenerator;
-import com.mrkostua.mathalarm.R;
-import com.mrkostua.mathalarm.firstsScreens.MainActivity;
 
 /**
  * TODO think about how do you want this activity to look :
@@ -186,7 +187,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
         if (ShowLogsOld.LOG_STATUS)
             ShowLogsOld.i("DisplayAlarmActivity checkAlarmState_Method " + "stopService");
 
-        Intent intent_startMainActivity = new Intent(DisplayAlarmActivity.this, MainActivity.class);
+        Intent intent_startMainActivity = new Intent(DisplayAlarmActivity.this, MainAlarmActivity.class);
         intent_startMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent_startMainActivity);
         finish();

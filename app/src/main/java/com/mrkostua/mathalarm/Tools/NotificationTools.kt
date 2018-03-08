@@ -3,7 +3,6 @@ package com.mrkostua.mathalarm.Tools
 import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
-import com.mrkostua.mathalarm.CountsTimeToAlarmStart
 import com.mrkostua.mathalarm.R
 
 /**

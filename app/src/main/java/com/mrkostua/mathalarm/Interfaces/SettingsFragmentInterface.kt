@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.AlarmSettings
+package com.mrkostua.mathalarm.Interfaces
 
 import android.content.Context
 import android.view.View

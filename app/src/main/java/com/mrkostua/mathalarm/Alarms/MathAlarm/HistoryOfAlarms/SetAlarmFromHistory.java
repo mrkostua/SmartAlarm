@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm.HistoryOfAlarms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBAdapter;
 import com.mrkostua.mathalarm.SQLDataBase.AlarmDBValues;
@@ -101,9 +102,6 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Class for setting alarm with specific alarm data
-                        MathAlarmPreview mathAlarmPreview = new MathAlarmPreview(SetAlarmFromHistory.this, hour, minute, ringtoneName,
-                                complexityLevel, messageText, deepSleepMusicStatus);
-                        mathAlarmPreview.ConfirmAlarmPreview_Method();
                     }
                 })
                 .setNegativeButton("Back", null)
@@ -127,7 +125,7 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     }
 
     private Intent UpdateRowStartMainMathAlarm(long rowIdToUpdate) {
-        Intent intentUpdateRow = new Intent(SetAlarmFromHistory.this, MainMathAlarm.class);
+        Intent intentUpdateRow = new Intent(SetAlarmFromHistory.this, MainAlarmActivity.class);
         intentUpdateRow.putExtra("updateKey", true);
         intentUpdateRow.putExtra("rowIdToUpdate", rowIdToUpdate);
         intentUpdateRow.putExtra("hour", hour);

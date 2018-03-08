@@ -11,7 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.Tools.ShowLogs

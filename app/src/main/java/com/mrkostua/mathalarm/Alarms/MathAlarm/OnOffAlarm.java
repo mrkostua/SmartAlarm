@@ -5,12 +5,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.Tools.ConstantValues;
 
 import java.util.Calendar;
 
-import static com.mrkostua.mathalarm.CountsTimeToAlarmStart.MinuteHourConvertMethod;
+import static com.mrkostua.mathalarm.Tools.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 
 class OnOffAlarm {
     private int pickedHour, pickedMinute;

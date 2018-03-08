@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.Alarms.MathAlarm;
+package com.mrkostua.mathalarm.Alarms.MathAlarm.Services;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -14,6 +14,8 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.mrkostua.mathalarm.Alarms.MathAlarm.AlarmNotifications;
+import com.mrkostua.mathalarm.Alarms.MathAlarm.DisplayAlarmActivity;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.Tools.ConstantValues;
