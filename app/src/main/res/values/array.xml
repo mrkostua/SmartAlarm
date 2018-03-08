@@ -16,4 +16,11 @@
         <item>medium</item>
         <item>hard</item>
     </string-array>
+
+    <string-array name="alarmOptionsPreviewText">
+        <item>Time : </item>
+        <item>Ringtone : </item>
+        <item>Message : </item>
+        <item>On/Off deep sleep music : </item>
+    </string-array>
 </resources>

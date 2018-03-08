@@ -12,6 +12,7 @@
     <application
         android:name=".SmartAlarmApp"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/alarm_icon_test"
         android:label="@string/app_name"
         android:supportsRtl="true"
