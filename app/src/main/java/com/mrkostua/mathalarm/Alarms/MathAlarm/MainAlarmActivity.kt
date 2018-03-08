@@ -20,6 +20,7 @@ import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.extensions.app
 import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.injections.AddInjection
 import com.mrkostua.mathalarm.injections.components.ActivityComponent
 import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
 import com.mrkostua.mathalarm.injections.modules.ActivityModule
@@ -32,7 +33,7 @@ import kotlin.collections.ArrayList
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
 
-public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface {
+public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface, AddInjection {
     private val TAG = this.javaClass.simpleName
     private lateinit var intentAlarmSettingsActivity: Intent
     private lateinit var userHelper: UserHelperLayout
@@ -72,9 +73,8 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     }
 
-    private fun injectDependencies() {
+    override fun injectDependencies() {
         activityComponent.inject(this)
-
     }
 
 

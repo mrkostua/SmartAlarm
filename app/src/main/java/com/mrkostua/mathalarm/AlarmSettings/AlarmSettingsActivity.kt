@@ -11,7 +11,13 @@ import com.mrkostua.mathalarm.Tools.AlarmTools
 import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
+import com.mrkostua.mathalarm.extensions.app
+import com.mrkostua.mathalarm.injections.AddInjection
+import com.mrkostua.mathalarm.injections.components.ActivityComponent
+import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
+import com.mrkostua.mathalarm.injections.modules.ActivityModule
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
+import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 01.12.2017.
@@ -28,15 +34,25 @@ Also there can 2-3 level of argent (importance of this alarm) (in some case app 
 
  */
 
- class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface {
-    private lateinit var fragmentHelper: FragmentCreationHelper
+class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, AddInjection {
     private lateinit var notificationTools: NotificationTools
     private val TAG = this.javaClass.simpleName
+
+    @Inject
+    public lateinit var fragmentHelper: FragmentCreationHelper
+
+    private val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .applicationComponent(app.applicationComponent)
+                .build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ShowLogs.log(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
+
         initializeDependOnContextVariables(this)
         showChosenFragment(savedInstanceState?.getInt(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, 0)
                 ?: 0)
@@ -55,9 +71,13 @@ Also there can 2-3 level of argent (importance of this alarm) (in some case app 
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        fragmentHelper = FragmentCreationHelper(this)
+        injectDependencies()
         notificationTools = NotificationTools(this)
 
+    }
+
+    override fun injectDependencies() {
+        activityComponent.inject(this)
     }
 
     override fun onBackPressed() {
