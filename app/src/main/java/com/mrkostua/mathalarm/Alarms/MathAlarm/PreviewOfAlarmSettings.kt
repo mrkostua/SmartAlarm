@@ -23,15 +23,13 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context, private val mainActivity: Activity) {
+public class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context,
+                                                        private val mainActivity: Activity, private val sharedPreferences: SharedPreferences) {
     private val TAG = this.javaClass.simpleName
     private val notificationTools = NotificationTools(context)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = getAlarmObjectWithAlarmSettings()
-
-    @Inject
-    public lateinit var sharedPreferences: SharedPreferences
 
     //todo fix background color of the AlertDialog (in style file it is black but here is white (probably default color is overriding ours)
     fun showSettingsPreviewDialog() {

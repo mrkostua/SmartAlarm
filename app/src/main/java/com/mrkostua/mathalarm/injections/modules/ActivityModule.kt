@@ -14,7 +14,7 @@ import dagger.Provides
 public class ActivityModule(private val activity: Activity) {
     @Provides
     @ActivityContext
-    fun provideActivityContext(): Context = activity
+    fun provideContext(): Context = activity
 
     @Provides
     fun provideActivity(): Activity = activity

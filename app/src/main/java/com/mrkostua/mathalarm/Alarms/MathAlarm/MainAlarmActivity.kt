@@ -41,12 +41,14 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
 
     @Inject
     public lateinit var sharedPreferences: SharedPreferences
+
     @Inject
     public lateinit var previewOfSetting: PreviewOfAlarmSettings
 
-     val activityComponent: ActivityComponent by lazy {
+    private val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
+                .applicationComponent(app.applicationComponent)
                 .build()
     }
 
@@ -64,12 +66,17 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface 
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
+        injectDependencies()
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)
 
-        app.applicationComponent.inject(this)
-        activityComponent.inject(this)
     }
+
+    private fun injectDependencies() {
+        activityComponent.inject(this)
+
+    }
+
 
     fun rlBackgroundHelperOnClickListener(view: View) {
         if (!userHelper.isHelpingViewsHidden()) {
