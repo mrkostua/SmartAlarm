@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 import static com.mrkostua.mathalarm.Tools.CountsTimeToAlarmStart.MinuteHourConvertMethod;
 
-class OnOffAlarm {
+class OnOffAlarm { 
     private int pickedHour, pickedMinute;
     private Context alarmContext;
     private int alarmComplexityLevel, selectedMusic;
