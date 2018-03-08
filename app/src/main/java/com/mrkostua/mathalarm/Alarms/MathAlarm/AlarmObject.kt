@@ -6,3 +6,4 @@ package com.mrkostua.mathalarm.Alarms.MathAlarm
 
 class AlarmObject(var hours: Int, var minutes: Int, var textMessage: String,
                   var ringToneName: String, var complexityLevel: Int = 0, var isDeepSleepMusicOn: Boolean = false)
+//TODO delete all previous updates and leave just java code
