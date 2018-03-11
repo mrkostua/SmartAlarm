@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
-import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
+import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
@@ -24,8 +24,9 @@ import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
 /**
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
-class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetRingtoneContract.View {
     override lateinit var fragmentContext: Context
+    override lateinit var presenter: OptionSetRingtoneContract.Presenter
     private val TAG = this.javaClass.simpleName
     private var positionOfPlayingButtonItem = 0
 

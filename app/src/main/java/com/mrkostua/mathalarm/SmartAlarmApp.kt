@@ -26,8 +26,4 @@ open class SmartAlarmApp : Application() {
     }
 
 }
-/** learning injection with Dagger 2
- * So modules - they provides some variables as Context any other complex or simple objects.
- * Components - they with help of interfaces give to actual developer access to variables provided by Modules.
- */
 

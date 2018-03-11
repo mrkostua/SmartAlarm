@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
@@ -23,7 +24,7 @@ import javax.inject.Inject
 /**
  * TODO test on with 2 timePicker styles and maybe improve some design
  */
-class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, AddInjection {
     private val TAG = this.javaClass.simpleName
     @Inject
     public lateinit var sharedPreferences: SharedPreferences
@@ -56,9 +57,18 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
         saveSettingsInSharedPreferences()
     }
 
+    override fun onAttach(context: Context?) {
+        injectDependencies()
+        super.onAttach(context)
+    }
+
+    override fun injectDependencies() {
+        app.applicationComponent.inject(this)
+
+    }
+
     override fun initializeDependOnContextVariables(context: Context) {
         notificationTools = NotificationTools(fragmentContext)
-        app.applicationComponent.inject(this)
 
     }
 

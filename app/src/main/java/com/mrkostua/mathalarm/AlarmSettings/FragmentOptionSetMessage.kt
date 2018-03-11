@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
@@ -25,7 +26,7 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
  */
-class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface {
+class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface,AddInjection {
     //can be only set after onAttach() otherwise getContext() return null
     override lateinit var fragmentContext: Context
 
@@ -50,10 +51,18 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
         saveSettingsInSharedPreferences()
     }
 
-    override fun initializeDependOnContextVariables(context: Context) {
-        //sharedPreferences = SharedPreferencesHelper.customSharedPreferences(fragmentContext, PreferencesConstants.ALARM_SP_NAME.getKeyValue())
-        app.applicationComponent.inject(this)
+    override fun onAttach(context: Context?) {
+        injectDependencies()
+        super.onAttach(context)
     }
+    override fun injectDependencies() {
+        app.applicationComponent.inject(this)
+
+    }
+
+    override fun initializeDependOnContextVariables(context: Context) {
+    }
+
 
     override fun initializeDependOnViewVariables(view: View?) {
     }

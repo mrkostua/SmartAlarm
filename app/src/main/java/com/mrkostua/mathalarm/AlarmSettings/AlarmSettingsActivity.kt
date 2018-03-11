@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.OptionSetRingtonePresenter
+import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.AlarmTools
@@ -12,7 +15,6 @@ import com.mrkostua.mathalarm.Tools.ConstantValues
 import com.mrkostua.mathalarm.Tools.NotificationTools
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import com.mrkostua.mathalarm.extensions.app
-import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.injections.components.ActivityComponent
 import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
 import com.mrkostua.mathalarm.injections.modules.ActivityModule
@@ -49,8 +51,9 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ShowLogs.log(TAG, "onCreate")
+        injectDependencies()
         super.onCreate(savedInstanceState)
+        ShowLogs.log(TAG, "onCreate")
         setContentView(R.layout.activity_container_for_alarm_setttings)
 
         initializeDependOnContextVariables(this)
@@ -71,7 +74,6 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        injectDependencies()
         notificationTools = NotificationTools(this)
 
     }
@@ -132,6 +134,10 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
         val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, fragmentIndexToLoad)
         ShowLogs.log(TAG, "showChosenFragment + indexOfFragmentToLoad : " + indexOfFragmentToLoad)
         fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
+        if (indexOfFragmentToLoad == ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetRingtone())) {
+            OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone)
+
+        }
         when (indexOfFragmentToLoad) {
             AlarmTools.getLastFragmentIndex() -> blockImageButton(ibMoveForward)
             0 -> blockImageButton(ibMoveBack)

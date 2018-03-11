@@ -54,6 +54,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_alarm)
         initializeDependOnContextVariables(this)
@@ -67,7 +68,6 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        injectDependencies()
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)
 
