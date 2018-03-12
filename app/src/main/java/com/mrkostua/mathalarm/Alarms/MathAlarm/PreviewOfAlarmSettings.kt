@@ -6,7 +6,7 @@ import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.AlarmSettings.settings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.Alarms.MathAlarm.Services.WakeLockService
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.ConstantValues

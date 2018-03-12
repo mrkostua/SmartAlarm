@@ -44,7 +44,7 @@
         <activity android:name=".Alarms.MathAlarm.HistoryOfAlarms.SetAlarmFromHistory" />
 
         <activity
-            android:name=".AlarmSettings.AlarmSettingsActivity"
+            android:name=".AlarmSettings.settings.AlarmSettingsActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait" />

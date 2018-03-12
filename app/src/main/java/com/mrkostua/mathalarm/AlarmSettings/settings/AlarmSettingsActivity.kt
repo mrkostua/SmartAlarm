@@ -1,12 +1,16 @@
-package com.mrkostua.mathalarm.AlarmSettings
+package com.mrkostua.mathalarm.AlarmSettings.settings
 
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
+import com.mrkostua.mathalarm.AlarmSettings.FragmentCreationHelper
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.OptionSetRingtonePresenter
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetTime.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetTime.OptionSetTimePresenter
+import com.mrkostua.mathalarm.Alarms.MathAlarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
@@ -42,6 +46,8 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
 
     @Inject
     public lateinit var fragmentHelper: FragmentCreationHelper
+    @Inject
+    public lateinit var alarmDataHelper: AlarmDataHelper
 
     private val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
@@ -134,10 +140,17 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
         val indexOfFragmentToLoad = intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, fragmentIndexToLoad)
         ShowLogs.log(TAG, "showChosenFragment + indexOfFragmentToLoad : " + indexOfFragmentToLoad)
         fragmentHelper.loadFragment((ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad]))
-        if (indexOfFragmentToLoad == ConstantValues.alarmSettingsOptionsList.indexOf(FragmentOptionSetRingtone())) {
-            OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone)
-
+        when (indexOfFragmentToLoad) {
+            AlarmSettingsNames.OPTION_SET_TIME.getKeyValue() -> {
+                ShowLogs.log(TAG, " OptionSetRingtonePresenter initialized")
+                OptionSetTimePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetTime, alarmDataHelper)
+            }
+            AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue() -> {
+                ShowLogs.log(TAG, " OptionSetTimePresenter initialized")
+                OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone)
+            }
         }
+
         when (indexOfFragmentToLoad) {
             AlarmTools.getLastFragmentIndex() -> blockImageButton(ibMoveForward)
             0 -> blockImageButton(ibMoveBack)

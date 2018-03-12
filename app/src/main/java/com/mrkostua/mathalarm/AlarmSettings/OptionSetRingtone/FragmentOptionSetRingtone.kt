@@ -129,6 +129,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     inner class SetRingtoneClickListener : RingtoneClickListeners {
 
         override fun checkBoxClickListener(view: CheckBox, position: Int) {
+            //TODO ringtone name need to be saved in SP!! so we can play it during alarm boom (requiring  updating AlarmService)
             ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
             if (view.isChecked) {
                 setClickedIndexToTrue({ it.isChecked = true }, { it.isChecked = false },

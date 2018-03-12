@@ -3,8 +3,9 @@ package com.mrkostua.mathalarm.Tools
 import android.app.Fragment
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetDeepSleepMusic
 import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetTime
 import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
+import com.mrkostua.mathalarm.AlarmSettings.OptionSetTime.FragmentOptionSetTime
+import com.mrkostua.mathalarm.AlarmSettings.settings.AlarmSettingsNames
 
 /**
  * @author Kostiantyn on 07.11.2017.
@@ -32,10 +33,10 @@ object ConstantValues {
     val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()
 
     init {
-        alarmSettingsOptionsList.add(0, FragmentOptionSetTime())
-        alarmSettingsOptionsList.add(1, FragmentOptionSetRingtone())
-        alarmSettingsOptionsList.add(2, FragmentOptionSetMessage())
-        alarmSettingsOptionsList.add(3, FragmentOptionSetDeepSleepMusic())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_TIME.getKeyValue(), FragmentOptionSetTime())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue(), FragmentOptionSetRingtone())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue(), FragmentOptionSetMessage())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_DEEP_SLEEP_MUSIC.getKeyValue(), FragmentOptionSetDeepSleepMusic())
     }
 }
 

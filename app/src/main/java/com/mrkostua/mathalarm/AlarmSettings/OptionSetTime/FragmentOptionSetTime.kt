@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.AlarmSettings
+package com.mrkostua.mathalarm.AlarmSettings.OptionSetTime
 
 import android.app.Fragment
 import android.content.Context
@@ -13,18 +13,17 @@ import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.Tools.NotificationTools
-import com.mrkostua.mathalarm.Tools.PreferencesConstants
 import com.mrkostua.mathalarm.Tools.ShowLogs
 import com.mrkostua.mathalarm.extensions.app
-import com.mrkostua.mathalarm.extensions.get
-import com.mrkostua.mathalarm.extensions.set
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 import javax.inject.Inject
 
 /**
  * TODO test on with 2 timePicker styles and maybe improve some design
  */
-class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, AddInjection {
+class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, AddInjection, OptionSetTimeContract.View {
+    override lateinit var presenter: OptionSetTimeContract.Presenter
+
     private val TAG = this.javaClass.simpleName
     @Inject
     public lateinit var sharedPreferences: SharedPreferences
@@ -53,7 +52,7 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
 
     override fun onResume() {
         super.onResume()
-        initializeTimePicker()
+        initializeTimePicker(presenter.getSavedHour(), presenter.getSavedMinute())
         saveSettingsInSharedPreferences()
     }
 
@@ -78,8 +77,7 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
     override fun saveSettingsInSharedPreferences() {
         tpSetAlarmTime.setOnTimeChangedListener({ timePicker, hourOfDay, minute ->
             showTimeUntilAlarmBoom(hourOfDay, minute)
-            sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
-            sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minute
+            presenter.saveTime(hourOfDay, minute)
         })
     }
 
@@ -90,23 +88,18 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
     }
 
     @Suppress("DEPRECATION")
-    private fun initializeTimePicker() {
-        val hours = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
-                ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()
-        val minutes = sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
-                ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()
-
+    override fun initializeTimePicker(hourOfDay: Int, minutes: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            tpSetAlarmTime.hour = hours
+            tpSetAlarmTime.hour = hourOfDay
             tpSetAlarmTime.minute = minutes
             tvTimeUntilAlarmBoom.text = resources.getString(R.string.timeUntilAlarmBoom, tpSetAlarmTime.hour, tpSetAlarmTime.minute)
 
         } else {
-            tpSetAlarmTime.currentHour = hours
+            tpSetAlarmTime.currentHour = hourOfDay
             tpSetAlarmTime.currentMinute = minutes
 
         }
-        showTimeUntilAlarmBoom(hours, minutes)
+        showTimeUntilAlarmBoom(hourOfDay, minutes)
     }
 
 }

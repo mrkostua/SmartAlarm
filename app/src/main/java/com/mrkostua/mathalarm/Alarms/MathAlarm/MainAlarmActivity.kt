@@ -12,7 +12,7 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.AlarmSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.AlarmSettings.settings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
@@ -284,7 +284,7 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
 
     private fun showAlarmSettingsActivity(whichFragmentToLoadFirst: Int = 0) {
         intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                if (AlarmTools.checkIfFragmentExistForThisIndex(whichFragmentToLoadFirst)) whichFragmentToLoadFirst
+                if (AlarmTools.isFragmentExistsForThisIndex(whichFragmentToLoadFirst)) whichFragmentToLoadFirst
                 else 0)
 
         startActivity(intentAlarmSettingsActivity)

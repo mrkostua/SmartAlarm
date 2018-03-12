@@ -35,7 +35,7 @@ object AlarmTools {
     public fun getRingtoneNameByResId(context: Context, ringtoneResId: Int): String =
             context.resources.getResourceName(ringtoneResId)
 
-    public fun checkIfFragmentExistForThisIndex(index: Int): Boolean =
+    public fun isFragmentExistsForThisIndex(index: Int): Boolean =
             (index > 0 && index <= ConstantValues.alarmSettingsOptionsList.size - 1)
 
 

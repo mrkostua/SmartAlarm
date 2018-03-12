@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.extensions
 import android.content.SharedPreferences
 
 /**
- * Created by User on 3/5/2018.
+ * @author Kostiantyn Prysiazhnyi on 3/5/2018.
  */
 //extension function,
 //inline keyword (read! use it in small func with extension func to avoid the cost of higher-order functions
@@ -34,7 +34,7 @@ public operator fun SharedPreferences.set(key: String, value: Any?) {
 /**
  * to use extension in different package this fun need to be imported like .get or .*
  */
-public operator inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
+public inline operator fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
     return when (T::class) {
         String::class ->
             getString(key, defaultValue as? String) as T?
@@ -47,3 +47,22 @@ public operator inline fun <reified T : Any> SharedPreferences.get(key: String, 
     }
 
 }
+
+/**
+ * Testing fun without additional checking for null
+ */
+public inline operator fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T, test: String?): T {
+    return when (T::class) {
+        String::class ->
+            getString(key, defaultValue as String) as T
+        Boolean::class ->
+            getBoolean(key, defaultValue as Boolean) as T
+        Int::class ->
+            getInt(key, defaultValue as Int) as T
+        else ->
+            throw UnsupportedOperationException("Not implemented")
+    }
+
+
+}
+

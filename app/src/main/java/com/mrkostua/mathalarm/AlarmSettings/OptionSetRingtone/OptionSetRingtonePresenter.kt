@@ -8,8 +8,9 @@ class OptionSetRingtonePresenter(private val optionSetRingtoneView : OptionSetRi
         optionSetRingtoneView.presenter = this
     }
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("here we can start some transmission of data to View as it run start() in onCreate method")
     }
+
 
 
 }
