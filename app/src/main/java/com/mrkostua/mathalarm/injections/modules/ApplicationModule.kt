@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.injections.modules
 import android.content.Context
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.SmartAlarmApp
-import com.mrkostua.mathalarm.Tools.PreferencesConstants
+import com.mrkostua.mathalarm.tools.PreferencesConstants
 import com.mrkostua.mathalarm.injections.annotation.ApplicationContext
 import dagger.Module
 import dagger.Provides

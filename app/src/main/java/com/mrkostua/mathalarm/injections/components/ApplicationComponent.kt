@@ -2,12 +2,10 @@ package com.mrkostua.mathalarm.injections.components
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetDeepSleepMusic
-import com.mrkostua.mathalarm.AlarmSettings.FragmentOptionSetMessage
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetRingtone.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.AlarmSettings.OptionSetTime.FragmentOptionSetTime
-import com.mrkostua.mathalarm.Alarms.MathAlarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.SmartAlarmApp
+import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetDeepSleepMusic
+import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetMessage
+import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.injections.annotation.ApplicationContext
 import com.mrkostua.mathalarm.injections.modules.ApplicationModule
 import dagger.Component
@@ -22,8 +20,6 @@ interface ApplicationComponent {
     fun inject(smartAlarmApp: SmartAlarmApp)
     fun inject(fragmentOptionSetMessage: FragmentOptionSetMessage)
     fun inject(fragmentOptionSetDeepSleepMusic: FragmentOptionSetDeepSleepMusic)
-    fun inject(fragmentOptionSetTime: FragmentOptionSetTime)
-    fun inject(fragmentOptionSetRingtone: FragmentOptionSetRingtone)
 
     fun getSharedPreferences(): SharedPreferences
 
