@@ -9,12 +9,28 @@ import com.mrkostua.mathalarm.Interfaces.BaseView
 interface OptionSetRingtoneContract {
 
     interface View : BaseView<Presenter> {
-        fun itemChangedRefreshRecycleView()
+        var positionOfPlayingButtonItem: Int
+        fun itemChangedRefreshRecycleView(itemPosition: Int)
     }
 
     interface Presenter : BasePresenter {
-         var positionOfPlayingButtonItem : Int
-        fun setIsPlayingToFalse(ringtoneList: ArrayList<RingtoneObject>): ArrayList<RingtoneObject>
+        val ringtonePopulationList: ArrayList<RingtoneObject>
+        fun setIsPlayingToFalse(whichIndex: Int)
         fun stopPlayingRingtone()
+
+        fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                 actionSetFalse: (RingtoneObject) -> Unit, position: Int)
+
+        fun setClickedIndexToTrue(actionSetTrue: (RingtoneObject) -> Unit,
+                                  actionSetFalse: (RingtoneObject) -> Unit,
+                                  actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                  position: Int)
+
+        fun playChosenRingtone(position: Int)
+
+        fun saveRingtoneFromExternalPath()
+
+        fun saveChosenRingtone()
+
     }
 }

@@ -1,32 +1,86 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
+import com.mrkostua.mathalarm.data.AlarmDataHelper
+
 /**
  * @author Kostiantyn Prysiazhnyi on 3/11/2018.
  */
-class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRingtoneContract.View, private val playerHelper: MediaPlayerHelper) : OptionSetRingtoneContract.Presenter {
-    override var positionOfPlayingButtonItem: Int = 0
+class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRingtoneContract.View,
+                                 private val alarmDataHelper: AlarmDataHelper,
+                                 private val playerHelper: MediaPlayerHelper) : OptionSetRingtoneContract.Presenter {
 
-    override fun setIsPlayingToFalse(ringtoneList: ArrayList<RingtoneObject>): ArrayList<RingtoneObject> {
-        ringtoneList.forEachIndexed { index, ringtoneObject ->
-            if (index == positionOfPlayingButtonItem) {
+    override lateinit var ringtonePopulationList: ArrayList<RingtoneObject>
+
+    init {
+        optionSetRingtoneView.presenter = this
+        start()
+    }
+
+    override fun setIsPlayingToFalse(whichIndex: Int) {
+        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
+            if (index == whichIndex) {
                 ringtoneObject.isPlaying = false
                 return@forEachIndexed
             }
         }
-        return ringtoneList
     }
 
     override fun stopPlayingRingtone() {
         playerHelper.stopRingtone()
     }
 
-    init {
-        optionSetRingtoneView.presenter = this
-    }
 
     override fun start() {
-        TODO("here we can start some transmission of data to View as it run start() in onCreate method")
+        ringtonePopulationList = alarmDataHelper.getRingtonesForPopulation()
+        // TODO here we can start some transmission of data to View as it run start() in onCreate method
     }
 
+
+    override fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                      actionSetFalse: (RingtoneObject) -> Unit, position: Int) {
+        ringtonePopulationList.forEach { ringtoneObject ->
+            if (actionIsCheckedOrPlaying(ringtoneObject)) {
+                actionSetFalse(ringtoneObject)
+                optionSetRingtoneView.itemChangedRefreshRecycleView(position)
+                return
+
+            }
+        }
+    }
+
+    override fun setClickedIndexToTrue(actionSetTrue: (RingtoneObject) -> Unit,
+                                       actionSetFalse: (RingtoneObject) -> Unit,
+                                       actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                       position: Int) {
+        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
+            if (index == position) {
+                actionSetTrue(ringtoneObject)
+                optionSetRingtoneView.itemChangedRefreshRecycleView(position)
+
+            } else if (actionIsCheckedOrPlaying(ringtoneObject)) {
+                actionSetFalse(ringtoneObject)
+                optionSetRingtoneView.itemChangedRefreshRecycleView(position)
+
+            }
+        }
+    }
+
+    override fun playChosenRingtone(position: Int) {
+        if (ringtonePopulationList[position].uri == null) {
+            playerHelper.playRingtoneFromStringResource(ringtonePopulationList[position].name)
+
+        } else {
+            playerHelper.playRingtoneFromUri(ringtonePopulationList[position].uri!!)
+
+        }
+    }
+
+    override fun saveRingtoneFromExternalPath() {
+        TODO("not implemented")
+    }
+
+    override fun saveChosenRingtone() {
+
+    }
 
 }

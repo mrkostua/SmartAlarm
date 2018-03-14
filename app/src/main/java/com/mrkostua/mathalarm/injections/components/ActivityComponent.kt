@@ -8,6 +8,7 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.PreviewOfAlarmSettings
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.injections.modules.ActivityModule
+import com.mrkostua.mathalarm.injections.modules.RingtoneManagerModule
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
 import dagger.Component
 
@@ -15,20 +16,21 @@ import dagger.Component
  * @author Kostiantyn Prysiazhnyi on 3/6/2018.
  */
 @ActivityScope
-@Component(dependencies = [(ApplicationComponent::class)], modules = [(ActivityModule::class)])
+@Component(dependencies = [(ApplicationComponent::class)], modules = [(ActivityModule::class), (RingtoneManagerModule::class)])
 interface ActivityComponent {
     fun inject(mainActivity: MainAlarmActivity)
     fun inject(alarmSettingsActivity: AlarmSettingsActivity)
 
-    fun getSharedPreferences() : SharedPreferences
+    fun getSharedPreferences(): SharedPreferences
 
-    fun getPreviewOfAlarmSettings() : PreviewOfAlarmSettings
+    fun getPreviewOfAlarmSettings(): PreviewOfAlarmSettings
 
-    fun getFragmentCreationHelper() : FragmentCreationHelper
+    fun getFragmentCreationHelper(): FragmentCreationHelper
 
-    fun getAlarmDataHelper() : AlarmDataHelper
+    fun getAlarmDataHelper(): AlarmDataHelper
 
-    fun getMediaPlayerHelper() : MediaPlayerHelper
+    fun getMediaPlayerHelper(): MediaPlayerHelper
+
 
     /**
      * read more about Dependency components -> from what I have understand we need explicitly show

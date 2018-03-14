@@ -150,7 +150,7 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
             }
             AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue() -> {
                 ShowLogs.log(TAG, " OptionSetTimePresenter initialized")
-                OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone,playerHelper)
+                OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone,alarmDataHelper,playerHelper)
             }
         }
 

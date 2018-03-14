@@ -19,25 +19,23 @@ class MediaPlayerHelper @Inject constructor(@ActivityContext private val context
     fun playRingtoneFromStringResource(ringtoneResourceId: String) {
         val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
         if (!isMpPlaying) {
-            mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-            mediaPlayer?.start()
+            startPlayingMusic(getNewMediaPlayer(ringtoneResourceName))
 
         } else {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
-            mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-            mediaPlayer?.start()
+            startPlayingMusic(getNewMediaPlayer(ringtoneResourceName))
         }
         isMpPlaying = true
     }
 
     fun playRingtoneFromUri(ringtoneUri: Uri) {
         if (!isMpPlaying) {
-            startPlayingMusic(ringtoneUri)
+            startPlayingMusic(getNewMediaPlayer(ringtoneUri))
         } else {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
-            startPlayingMusic(ringtoneUri)
+            startPlayingMusic(getNewMediaPlayer(ringtoneUri))
         }
         isMpPlaying = true
     }
@@ -59,10 +57,9 @@ class MediaPlayerHelper @Inject constructor(@ActivityContext private val context
         return true
     }
 
-    private fun startPlayingMusic(ringtoneUri: Uri) {
-        mediaPlayer = getNewMediaPlayer(ringtoneUri)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+    private fun startPlayingMusic(mp: MediaPlayer?) {
+        mp?.isLooping = true
+        mp?.start()
     }
 
     private fun getRawResourceId(resourceName: String): Int =
