@@ -6,17 +6,18 @@ import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.Services.WakeLockService
-import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.tools.*
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.injections.annotation.ActivityContext
+import com.mrkostua.mathalarm.tools.*
 import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
+//TODO think about changing design of the Preview alertDialog by simply changing it from itemsList to custom activity(gives us a lot of features(different color of text size etc) to use)
 public class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context,
                                                         private val mainActivity: Activity, private val sharedPreferences: SharedPreferences) {
     private val TAG = this.javaClass.simpleName

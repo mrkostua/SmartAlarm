@@ -1,6 +1,7 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
 import com.mrkostua.mathalarm.data.AlarmDataHelper
+import com.mrkostua.mathalarm.tools.ShowLogs
 
 /**
  * @author Kostiantyn Prysiazhnyi on 3/11/2018.
@@ -10,6 +11,7 @@ class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRin
                                  private val playerHelper: MediaPlayerHelper) : OptionSetRingtoneContract.Presenter {
 
     override lateinit var ringtonePopulationList: ArrayList<RingtoneObject>
+    private val TAG = this.javaClass.simpleName
 
     init {
         optionSetRingtoneView.presenter = this
@@ -28,7 +30,6 @@ class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRin
     override fun stopPlayingRingtone() {
         playerHelper.stopRingtone()
     }
-
 
     override fun start() {
         ringtonePopulationList = alarmDataHelper.getRingtonesForPopulation()
@@ -79,7 +80,22 @@ class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRin
         TODO("not implemented")
     }
 
-    override fun saveChosenRingtone() {
+    override fun saveChosenRingtoneNameSP(elementIndex: Int) {
+        alarmDataHelper.saveAlarmRingtoneInSP(ringtonePopulationList[elementIndex].name)
+
+    }
+
+    override fun getSavedRingtonePosition(): RingtoneObject {
+        val ringtoneName: String = alarmDataHelper.getAlarmRingtoneFromSP()
+        return ringtonePopulationList.find { ao -> ao.name == ringtoneName }
+                ?: ringtonePopulationList[1]
+    }
+
+    override fun initializeLastSavedRingtone() {
+        val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())
+        ringtonePopulationList[ringtonePosition].isChecked = true
+        optionSetRingtoneView.itemChangedRefreshRecycleView(ringtonePosition)
+        ShowLogs.log(TAG, "initializeLastSavedRingtone  ringtone position : " + ringtonePosition)
 
     }
 

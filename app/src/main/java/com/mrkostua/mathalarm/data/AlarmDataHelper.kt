@@ -19,14 +19,22 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
         sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minutes
     }
 
-    fun getAlarmTimeFromSP(): Pair<Int, Int> {
-        return Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue(), null],
-                sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue(), null])
+    fun getAlarmTimeFromSP(): Pair<Int, Int> =
+            Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue(), null],
+                    sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue(), null])
+
+    fun saveAlarmRingtoneInSP(ringtoneName: String) {
+        sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue()] = ringtoneName
+
     }
+
+    fun getAlarmRingtoneFromSP(): String =
+            sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(),
+                    PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName, null]
 
 
     //TODO move this code to Model layer as DB implement it using Room library ( can be useful in the future in case of implementing list of all set alarms)
-     fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
+    fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))

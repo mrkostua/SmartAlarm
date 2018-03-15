@@ -47,6 +47,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
         ShowLogs.log(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         initializeDependOnViewVariables(view)
+        presenter.initializeLastSavedRingtone()
 
     }
 
@@ -64,7 +65,7 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     override fun itemChangedRefreshRecycleView(itemPosition: Int) {
         ShowLogs.log(TAG,"itemChangedRefreshRecycleView position : " + positionOfPlayingButtonItem)
         ringtonesRecycleViewAdapter.notifyItemChanged(itemPosition)
-        TODO("fix problem with notify changes (calling this fun from Presenter")
+       // TODO fix problem with notify changes (calling this fun from Presenter
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
@@ -110,11 +111,11 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
 
     inner class SetRingtoneClickListener : RingtoneClickListeners {
         override fun checkBoxClickListener(view: CheckBox, position: Int) {
-            //TODO ringtone name need to be saved in SP!! so we can play it during alarm boom (requiring  updating AlarmService)
             ShowLogs.log(TAG, "getRingtoneClickListeners checkBoxClickListener position: " + position)
             if (view.isChecked) {
                 presenter.setClickedIndexToTrue({ it.isChecked = true }, { it.isChecked = false },
                         { it.isChecked }, position)
+                presenter.saveChosenRingtoneNameSP(position)
 
             } else {
                 presenter.setAllIndexesToFalse({ it.isChecked }, { it.isChecked = false }, position)

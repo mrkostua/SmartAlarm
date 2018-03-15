@@ -68,11 +68,13 @@ class MediaPlayerHelper @Inject constructor(@ActivityContext private val context
     private inline fun <reified T : Any> getNewMediaPlayer(ringtone: T): MediaPlayer? {
         return when (T::class) {
             Int::class -> {
+                ShowLogs.log(TAG,"getNewMediaPlayer int ringtone : " + (ringtone as Int).toString())
                 mediaPlayer = MediaPlayer.create(context, ringtone as Int)
                 mediaPlayer?.setOnErrorListener(this)
                 mediaPlayer
             }
             Uri::class -> {
+                ShowLogs.log(TAG,"getNewMediaPlayer int ringtone : " + (ringtone as Uri).toString())
                 mediaPlayer = MediaPlayer.create(context, ringtone as Uri)
                 mediaPlayer?.setOnErrorListener(this)
                 mediaPlayer
