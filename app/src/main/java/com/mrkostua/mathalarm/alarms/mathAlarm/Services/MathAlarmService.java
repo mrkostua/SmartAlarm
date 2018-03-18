@@ -154,7 +154,7 @@ public class MathAlarmService extends Service {
         //set STREAM_ALARM to volume (volume
         audioManagerVolumeFixer.setStreamVolume(AudioManager.STREAM_ALARM, volume, 0);
         AlarmStopPlayingMusic();
-        notificationsTools.CancelNotification(this, NOTIFICATION_ID);
+        notificationsTools.CancelNotification(NOTIFICATION_ID);
     }
 
     /**

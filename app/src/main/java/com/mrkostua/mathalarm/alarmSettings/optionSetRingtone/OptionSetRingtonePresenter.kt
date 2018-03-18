@@ -2,20 +2,25 @@ package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.tools.ShowLogs
+import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 3/11/2018.
  */
-class OptionSetRingtonePresenter(private val optionSetRingtoneView: OptionSetRingtoneContract.View,
-                                 private val alarmDataHelper: AlarmDataHelper,
-                                 private val playerHelper: MediaPlayerHelper) : OptionSetRingtoneContract.Presenter {
+class OptionSetRingtonePresenter @Inject constructor(
+        private val alarmDataHelper: AlarmDataHelper,
+        private val playerHelper: MediaPlayerHelper) : OptionSetRingtoneContract.Presenter {
 
     override lateinit var ringtonePopulationList: ArrayList<RingtoneObject>
     private val TAG = this.javaClass.simpleName
+    private lateinit var optionSetRingtoneView: OptionSetRingtoneContract.View
 
     init {
-        optionSetRingtoneView.presenter = this
         start()
+    }
+
+    override fun takeView(view: OptionSetRingtoneContract.View) {
+        optionSetRingtoneView = view
     }
 
     override fun setIsPlayingToFalse(whichIndex: Int) {

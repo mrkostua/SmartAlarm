@@ -7,10 +7,12 @@ import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
 import com.mrkostua.mathalarm.tools.PreferencesConstants
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * @author Kostiantyn Prysiazhnyi on 3/12/2018.
  */
+@Singleton
 class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
     private val TAG = this.javaClass.simpleName
 

@@ -13,7 +13,7 @@ interface OptionSetRingtoneContract {
         fun itemChangedRefreshRecycleView(itemPosition: Int)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         val ringtonePopulationList: ArrayList<RingtoneObject>
         fun setIsPlayingToFalse(whichIndex: Int)
         fun stopPlayingRingtone()

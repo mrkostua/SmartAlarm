@@ -3,8 +3,8 @@ package com.mrkostua.mathalarm.alarmSettings
 import android.app.Activity
 import android.app.Fragment
 import android.app.FragmentManager
-import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.tools.ShowLogs
 import javax.inject.Inject
 
@@ -26,7 +26,7 @@ class FragmentCreationHelper @Inject constructor(activity: Activity) {
     }
 
     fun getFragmentFormContainer(): Fragment {
-        return fragmentManager.findFragmentById(R.id.flFragmentsContainer) ?: FragmentOptionSetTime()
+        return fragmentManager.findFragmentById(R.id.flFragmentsContainer) ?: FragmentOptionSetRingtone()
 
     }
 }

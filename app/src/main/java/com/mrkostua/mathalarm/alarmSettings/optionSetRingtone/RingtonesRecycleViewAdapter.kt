@@ -23,7 +23,7 @@ class RingtonesRecycleViewAdapter(private val context: Context, private val ring
     }
 
     override fun onBindViewHolder(holder: RingtonesViewHolder, position: Int) {
-        setRingtoneNameAndNumber(holder, holder.adapterPosition ?: position)
+        setRingtoneNameAndNumber(holder, holder.adapterPosition)
     }
 
     override fun getItemCount(): Int {

@@ -12,21 +12,16 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.PreferencesConstants
-import com.mrkostua.mathalarm.extensions.app
-import com.mrkostua.mathalarm.extensions.get
-import com.mrkostua.mathalarm.injections.components.ActivityComponent
-import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
-import com.mrkostua.mathalarm.injections.modules.ActivityModule
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 /**
@@ -40,18 +35,9 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
 
     private val calendar = Calendar.getInstance()
 
-    @Inject
     public lateinit var sharedPreferences: SharedPreferences
 
-    @Inject
     public lateinit var previewOfSetting: PreviewOfAlarmSettings
-
-    private val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .applicationComponent(app.applicationComponent)
-                .build()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
@@ -68,13 +54,15 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
+        sharedPreferences = this.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
+        previewOfSetting = PreviewOfAlarmSettings(this, this, sharedPreferences)
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)
 
     }
 
     override fun injectDependencies() {
-        activityComponent.inject(this)
+        //activityComponent.inject(this)
     }
 
 

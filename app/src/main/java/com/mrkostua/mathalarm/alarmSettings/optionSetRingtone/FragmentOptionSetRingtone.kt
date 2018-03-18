@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
-import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -17,35 +16,41 @@ import android.widget.ImageView
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.ShowLogs
+import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
+import javax.inject.Inject
 
 /**
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
-class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetRingtoneContract.View {
-    override lateinit var fragmentContext: Context
-    override lateinit var presenter: OptionSetRingtoneContract.Presenter
-    override var positionOfPlayingButtonItem: Int = 0
-
+@FragmentScope
+class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetRingtoneContract.View {
     private val TAG = this.javaClass.simpleName
     private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
+    override lateinit var fragmentContext: Context
+    override var positionOfPlayingButtonItem: Int = 0
+
+    @Inject
+    public lateinit var presenter: OptionSetRingtoneContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ShowLogs.log(TAG, "onCreate")
         super.onCreate(savedInstanceState)
-        fragmentContext = activity.applicationContext
+        fragmentContext = activity!!.applicationContext
         initializeDependOnContextVariables(fragmentContext)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         ShowLogs.log(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        presenter.takeView(this)
         initializeDependOnViewVariables(view)
         presenter.initializeLastSavedRingtone()
 
@@ -63,9 +68,9 @@ class FragmentOptionSetRingtone : Fragment(), SettingsFragmentInterface, KotlinA
     }
 
     override fun itemChangedRefreshRecycleView(itemPosition: Int) {
-        ShowLogs.log(TAG,"itemChangedRefreshRecycleView position : " + positionOfPlayingButtonItem)
+        ShowLogs.log(TAG, "itemChangedRefreshRecycleView position : " + positionOfPlayingButtonItem)
         ringtonesRecycleViewAdapter.notifyItemChanged(itemPosition)
-       // TODO fix problem with notify changes (calling this fun from Presenter
+        // TODO fix problem with notify changes (calling this fun from Presenter
     }
 
     override fun initializeDependOnContextVariables(context: Context) {

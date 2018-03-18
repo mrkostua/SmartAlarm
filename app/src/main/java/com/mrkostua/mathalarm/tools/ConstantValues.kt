@@ -3,9 +3,9 @@ package com.mrkostua.mathalarm.tools
 import android.app.Fragment
 import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetDeepSleepMusic
 import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetMessage
+import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 
 /**
  * @author Kostiantyn on 07.11.2017.

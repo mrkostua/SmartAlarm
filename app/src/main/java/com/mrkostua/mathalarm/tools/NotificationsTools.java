@@ -13,9 +13,8 @@ import android.support.v4.app.NotificationCompat;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver;
 import com.mrkostua.mathalarm.R;
-
+import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver;
 import kotlin.Pair;
 
 public class NotificationsTools {
@@ -28,7 +27,6 @@ public class NotificationsTools {
             createNotificationChanel();
         }
     }
-
 
     //notification for MathService
     public Notification NewNotification() {
@@ -74,8 +72,8 @@ public class NotificationsTools {
         return builder.build();
     }
 
-    public void CancelNotification(Context context, int notificationID) {
-        NotificationManager notificationManager = getNotificationManager(context);
+    public void CancelNotification(int notificationID) {
+        NotificationManager notificationManager = getNotificationManager();
         notificationManager.cancel(notificationID);
     }
 
@@ -94,7 +92,7 @@ public class NotificationsTools {
 
     }
 
-    private NotificationManager getNotificationManager(Context context) {
+    private NotificationManager getNotificationManager() {
         return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 

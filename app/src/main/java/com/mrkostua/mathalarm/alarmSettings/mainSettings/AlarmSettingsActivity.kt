@@ -5,26 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
-import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.FragmentCreationHelper
-import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
-import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
-import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.OptionSetRingtonePresenter
-import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
-import com.mrkostua.mathalarm.alarmSettings.optionSetTime.OptionSetTimePresenter
-import com.mrkostua.mathalarm.data.AlarmDataHelper
-import com.mrkostua.mathalarm.extensions.app
-import com.mrkostua.mathalarm.injections.components.ActivityComponent
-import com.mrkostua.mathalarm.injections.components.DaggerActivityComponent
-import com.mrkostua.mathalarm.injections.modules.ActivityModule
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationsTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 01.12.2017.
@@ -40,27 +28,14 @@ In all this cases inform user by mail or etc.
 Also there can 2-3 level of argent (importance of this alarm) (in some case app will automatically changed Settings or start Playing music to attract user attention to low battery level).
 
  */
-
-class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, AddInjection {
+class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface {
     private lateinit var notificationsTools: NotificationsTools
     private val TAG = this.javaClass.simpleName
 
-    @Inject
     public lateinit var fragmentHelper: FragmentCreationHelper
-    @Inject
-    public lateinit var alarmDataHelper: AlarmDataHelper
-    @Inject
-    public lateinit var playerHelper: MediaPlayerHelper
 
-    private val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .applicationComponent(app.applicationComponent)
-                .build()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         ShowLogs.log(TAG, "onCreate")
         setContentView(R.layout.activity_container_for_alarm_setttings)
@@ -84,12 +59,12 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
 
     override fun initializeDependOnContextVariables(context: Context) {
         notificationsTools = NotificationsTools(this)
+        fragmentHelper = FragmentCreationHelper(this)
+        val sharedPreferences = this.getSharedPreferences("fdfd", Context.MODE_PRIVATE)
+
 
     }
 
-    override fun injectDependencies() {
-        activityComponent.inject(this)
-    }
 
     override fun onBackPressed() {
         moveBackToMainActivity(this)
@@ -146,11 +121,9 @@ class AlarmSettingsActivity : AppCompatActivity(), KotlinActivitiesInterface, Ad
         when (indexOfFragmentToLoad) {
             AlarmSettingsNames.OPTION_SET_TIME.getKeyValue() -> {
                 ShowLogs.log(TAG, " OptionSetRingtonePresenter initialized")
-                OptionSetTimePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetTime, alarmDataHelper)
             }
             AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue() -> {
                 ShowLogs.log(TAG, " OptionSetTimePresenter initialized")
-                OptionSetRingtonePresenter(ConstantValues.alarmSettingsOptionsList[indexOfFragmentToLoad] as FragmentOptionSetRingtone,alarmDataHelper,playerHelper)
             }
         }
 

@@ -43,7 +43,7 @@ public class WakeLockService extends Service {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
         ReleaseWakeLocks();
         stopSelf();
-        notificationsTools.CancelNotification(this, NOTIFICATION_ID);
+        notificationsTools.CancelNotification(NOTIFICATION_ID);
     }
 
     protected void createWakeLocks() {

@@ -11,28 +11,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.tools.PreferencesConstants
-import com.mrkostua.mathalarm.tools.ShowLogs
-import com.mrkostua.mathalarm.extensions.app
+import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
+import com.mrkostua.mathalarm.tools.PreferencesConstants
+import com.mrkostua.mathalarm.tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 08.12.2017.
  */
-class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface,AddInjection {
+class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, AddInjection {
     //can be only set after onAttach() otherwise getContext() return null
     override lateinit var fragmentContext: Context
 
     private val TAG = FragmentOptionSetTime::class.java.simpleName
-    @Inject
+
     public lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,12 +54,14 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
         injectDependencies()
         super.onAttach(context)
     }
+
     override fun injectDependencies() {
-        app.applicationComponent.inject(this)
+        //app.applicationComponent.inject(this)
 
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
+        sharedPreferences = context.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
     }
 
 

@@ -3,14 +3,13 @@ package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
-import com.mrkostua.mathalarm.injections.annotation.ActivityContext
 import com.mrkostua.mathalarm.tools.ShowLogs
 import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 17.01.2018.
  */
-class MediaPlayerHelper @Inject constructor(@ActivityContext private val context: Context) : MediaPlayer.OnErrorListener {
+class MediaPlayerHelper @Inject constructor(private val context: Context) : MediaPlayer.OnErrorListener {
     private val TAG = this.javaClass.simpleName
     private val rawType = "raw"
     private var isMpPlaying = false

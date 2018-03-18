@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetTime
 
-import android.app.Fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -10,36 +9,42 @@ import android.view.ViewGroup
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.NotificationsTools
 import com.mrkostua.mathalarm.tools.ShowLogs
+import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
+import javax.inject.Inject
 
 /**
  * TODO test on with 2 timePicker styles and maybe improve some design
  * TODO is there place for injection in View using MVP design pattern
  */
-class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {
+@FragmentScope
+class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {
     private val TAG = this.javaClass.simpleName
-
-    override lateinit var presenter: OptionSetTimeContract.Presenter
     override lateinit var fragmentContext: Context
+    @Inject
+    public lateinit var notificationTools: NotificationsTools
 
-    private lateinit var notificationTools: NotificationsTools
+    @Inject
+    public lateinit var presenter: OptionSetTimeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentContext = activity.applicationContext
+        fragmentContext = activity!!.applicationContext
         initializeDependOnContextVariables(fragmentContext)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_option_set_time, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_option_set_time, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         ShowLogs.log(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        presenter.takeView(this)
         initializeDependOnViewVariables(view)
         notificationTools.showToastMessage(getString(R.string.alarmTimeLimitationMessage))
 
@@ -52,7 +57,6 @@ class FragmentOptionSetTime : Fragment(), SettingsFragmentInterface, KotlinActiv
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        notificationTools = NotificationsTools(fragmentContext)
 
     }
 
