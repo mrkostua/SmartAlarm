@@ -2,8 +2,8 @@ package com.mrkostua.mathalarm.data.sqlDB;
 
 import android.provider.BaseColumns;
 
-/** @author Konstantyn
- * Created by Администратор on 02.03.2017.
+/**
+ * @author Konstantyn on 02.03.2017.
  */
 
 public final class AlarmDBValues implements BaseColumns{
