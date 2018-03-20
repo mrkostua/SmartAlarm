@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name=".SmartAlarmApp"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/alarm_icon_test"
@@ -17,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Alarms.MathAlarm.MainAlarmActivity"
+            android:name=".alarms.mathAlarm.MainAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -36,26 +37,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/Preference_style" />
         <activity
-            android:name=".Alarms.MathAlarm.DisplayAlarmActivity"
+            android:name=".alarms.mathAlarm.DisplayAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".Alarms.MathAlarm.HistoryOfAlarms.SetAlarmFromHistory" />
+        <activity android:name=".alarms.mathAlarm.HistoryOfAlarms.SetAlarmFromHistory" />
 
         <activity
-            android:name=".AlarmSettings.AlarmSettingsActivity"
+            android:name=".alarmSettings.mainSettings.AlarmSettingsActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait" />
         <service
-            android:name=".Alarms.MathAlarm.Services.MathAlarmService"
+            android:name=".alarms.mathAlarm.Services.MathAlarmService"
             android:enabled="true" />
         <service
-            android:name=".Alarms.MathAlarm.Services.WakeLockService"
+            android:name=".alarms.mathAlarm.Services.WakeLockService"
             android:enabled="true" />
 
         <receiver
-            android:name=".Alarms.MathAlarm.Alarm_Receiver"
+            android:name=".alarms.mathAlarm.Alarm_Receiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="alarm_snooze" />
