@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#4d4c4c"
-    tools:context="com.mrkostua.mathalarm.Alarms.MathAlarm.SetAlarmFromHistory">
+    tools:context="com.mrkostua.mathalarm.alarms.mathAlarm.HistoryOfAlarms.SetAlarmFromHistory">
 
     <TextView
         android:text="@string/tvSAFH_delete_all"
