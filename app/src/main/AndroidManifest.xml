@@ -41,7 +41,7 @@
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".alarms.mathAlarm.HistoryOfAlarms.SetAlarmFromHistory" />
+        <activity android:name=".alarms.mathAlarm.historyOfAlarms.SetAlarmFromHistory" />
 
         <activity
             android:name=".alarmSettings.mainSettings.AlarmSettingsActivity"
@@ -49,10 +49,10 @@
             android:label="new screen"
             android:screenOrientation="portrait" />
         <service
-            android:name=".alarms.mathAlarm.Services.MathAlarmService"
+            android:name=".alarms.mathAlarm.services.MathAlarmService"
             android:enabled="true" />
         <service
-            android:name=".alarms.mathAlarm.Services.WakeLockService"
+            android:name=".alarms.mathAlarm.services.WakeLockService"
             android:enabled="true" />
 
         <receiver

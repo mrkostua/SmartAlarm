@@ -8,7 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.WakeLockService
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.injections.annotation.ActivityContext
 import com.mrkostua.mathalarm.tools.*

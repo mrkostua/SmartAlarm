@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mrkostua.mathalarm.alarmSettings.optionSetMathTask.MathAlarmTaskGenerator;
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.MathAlarmService;
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.WakeLockService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.MathAlarmService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.tools.ConstantValues;

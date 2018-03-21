@@ -3,49 +3,61 @@ package com.mrkostua.mathalarm.alarms.mathAlarm
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.Interfaces.AddInjection
+import com.mrkostua.mathalarm.BR
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel
+import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.PreferencesConstants
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main_alarm.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 /**
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
 
-public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface, AddInjection {
+/**
+ * from what I think MVVM is different from MVP -> MVVM use observable (bind to observable created in ViewModel and wait for any changes) which means
+ * we don't need interface for View because like in MVP scenario Presenter can call methods form View using this interface.
+ */
+public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInterface {
     private val TAG = this.javaClass.simpleName
     private lateinit var intentAlarmSettingsActivity: Intent
     private lateinit var userHelper: UserHelperLayout
 
     private val calendar = Calendar.getInstance()
 
+    @Inject
     public lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    public lateinit var viewModule: MainAlarmViewModel
 
     public lateinit var previewOfSetting: PreviewOfAlarmSettings
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_alarm)
+        val dataBinding: ActivityMainAlarmBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_alarm)
+        dataBinding.setVariable(BR.viewModel, viewModule)
+        dataBinding.executePendingBindings()
+
         initializeDependOnContextVariables(this)
-
-
         calendar.timeInMillis = System.currentTimeMillis()
 
         setThemeForAlarmButtonLayout()
@@ -54,17 +66,11 @@ public class MainAlarmActivity : AppCompatActivity(), KotlinActivitiesInterface,
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        sharedPreferences = this.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
         previewOfSetting = PreviewOfAlarmSettings(this, this, sharedPreferences)
         intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
         userHelper = UserHelperLayout(this)
 
     }
-
-    override fun injectDependencies() {
-        //activityComponent.inject(this)
-    }
-
 
     fun rlBackgroundHelperOnClickListener(view: View) {
         if (!userHelper.isHelpingViewsHidden()) {

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.MathAlarmService;
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.WakeLockService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.MathAlarmService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.tools.ConstantValues;
 

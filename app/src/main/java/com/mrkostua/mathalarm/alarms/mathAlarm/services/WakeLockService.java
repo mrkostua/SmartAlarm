@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm.Services;
+package com.mrkostua.mathalarm.alarms.mathAlarm.services;
 
 import android.app.Service;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm.HistoryOfAlarms;
+package com.mrkostua.mathalarm.alarms.mathAlarm.historyOfAlarms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
