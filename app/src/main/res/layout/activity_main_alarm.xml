@@ -34,7 +34,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="60dp"
                 android:padding="5dp"
-                android:text="@{viewModel.testic}"
+                android:text="@string/helpingMessageOne"
                 android:theme="@style/HelperDark_Theme"
                 android:visibility="gone" />
 
@@ -73,7 +73,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
-                android:text="@string/main_button_time_default"
+                android:text="@{viewModel.alarmTime}"
                 android:theme="@style/alarmTime_TextTheme" />
 
 

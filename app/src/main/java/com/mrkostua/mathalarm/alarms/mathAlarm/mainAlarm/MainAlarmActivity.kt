@@ -12,7 +12,6 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.mrkostua.mathalarm.BR
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
@@ -42,20 +41,23 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
     private lateinit var userHelper: UserHelperLayout
 
     private val calendar = Calendar.getInstance()
+    private lateinit var viewDataBinding: ActivityMainAlarmBinding
 
     @Inject
     public lateinit var sharedPreferences: SharedPreferences
     @Inject
-    public lateinit var viewModule: MainAlarmViewModel
+    public lateinit var mainAlarmViewModule: MainAlarmViewModel
 
     public lateinit var previewOfSetting: PreviewOfAlarmSettings
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dataBinding: ActivityMainAlarmBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_alarm)
-        dataBinding.setVariable(BR.viewModel, viewModule)
-        dataBinding.executePendingBindings()
+        viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_alarm)
+        with(viewDataBinding) {
+            viewModel = mainAlarmViewModule
+            executePendingBindings()
+        }
 
         initializeDependOnContextVariables(this)
         calendar.timeInMillis = System.currentTimeMillis()
@@ -126,10 +128,10 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
         if (AlarmTools.isFirstAlarmCreation(sharedPreferences)) {
-            setCustomAlarmSettings()
+            //setCustomAlarmSettings()
 
         } else {
-            setSettingsFromLastAlarm()
+            //setSettingsFromLastAlarm()
         }
     }
 
