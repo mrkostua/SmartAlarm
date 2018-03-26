@@ -31,7 +31,7 @@ public class NotificationsTools {
     //notification for MathService
     public Notification NewNotification() {
         // snooze button
-        Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
+        Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
         snoozeIntent.setClass(context, Alarm_Receiver.class);
         PendingIntent piSnooze = PendingIntent.getBroadcast(context, 0, snoozeIntent, 0);
         snoozeIntent.setClass(context, Alarm_Receiver.class);
@@ -54,7 +54,7 @@ public class NotificationsTools {
     //notification for WakeLock Service
     public Notification NewNotification(String time) {
         //dismiss button
-        Intent dismissIntent = new Intent(ConstantValues.INSTANCE.getDISMISS_ACTION());
+        Intent dismissIntent = new Intent(ConstantValues.DISMISS_ACTION);
         dismissIntent.setClass(context, Alarm_Receiver.class);
         PendingIntent piDismiss = PendingIntent.getBroadcast(context, 0, dismissIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);

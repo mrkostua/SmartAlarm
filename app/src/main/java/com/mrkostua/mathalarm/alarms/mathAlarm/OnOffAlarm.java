@@ -58,7 +58,7 @@ public class OnOffAlarm {
     }
 
     private Intent GetAlarmIntentExtras() {
-        Intent receiverIntent = new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION());
+        Intent receiverIntent = new Intent(ConstantValues.START_NEW_ALARM_ACTION);
         //sending the type of alarm 2(math)
         receiverIntent.putExtra("selectedMusic", selectedMusic)
                 .putExtra("alarmMessageText", alarmMessageText)
@@ -137,7 +137,8 @@ public class OnOffAlarm {
     void CancelSetAlarm() {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  CancelSetAlarm");
         try {
-            PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION()), PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0,
+                    new Intent(ConstantValues.START_NEW_ALARM_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = getAlarmManager();
             alarmManager.cancel(cancelPendingIntent);
         } catch (Exception e) {

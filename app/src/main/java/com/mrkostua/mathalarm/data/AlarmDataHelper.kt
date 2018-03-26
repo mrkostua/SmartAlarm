@@ -44,4 +44,7 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
         ringtonesList.addAll(ringtoneManagerHelper.getDefaultAlarmRingtonesList())
         return ringtonesList
     }
+
+    fun isFirstAlarmSaving() = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.emptyPreferencesValue] ==
+            PreferencesConstants.ALARM_HOURS.emptyPreferencesValue
 }

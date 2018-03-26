@@ -6,6 +6,8 @@
     <!--TODO fix design problems and test on few APi's-->
     <data>
 
+        <import type="com.mrkostua.mathalarm.R" />
+
         <variable
             name="viewModel"
             type="com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel" />
@@ -14,14 +16,14 @@
     <RelativeLayout
         android:id="@+id/rlBackgroundLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@{viewModel.isDarkTime() ? @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}">
 
         <RelativeLayout
             android:id="@+id/rlBackgroundHelper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="rlBackgroundHelperOnClickListener"
-            android:visibility="gone">
+            android:onClick="rlBackgroundHelperOnClickListener">
 
             <TextView
                 android:id="@+id/tvFirstHelpingMessage"
@@ -35,7 +37,8 @@
                 android:layout_marginTop="60dp"
                 android:padding="5dp"
                 android:text="@string/helpingMessageOne"
-                android:theme="@style/HelperDark_Theme"
+                android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
+                android:theme="@style/HelperTheme"
                 android:visibility="gone" />
 
             <TextView
@@ -50,7 +53,8 @@
                 android:layout_marginRight="15dp"
                 android:padding="5dp"
                 android:text="@string/helpingMessageTwo"
-                android:theme="@style/HelperDark_Theme"
+                android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
+                android:theme="@style/HelperTheme"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -146,7 +150,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-
                     android:id="@+id/tvSaturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,7 +177,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
-            android:background="@null"
+            android:background="@{viewModel.isDarkTime() ? R.color.main_layout_backgroundEvening : R.color.main_layout_backgroundDay}"
             android:clickable="true"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"

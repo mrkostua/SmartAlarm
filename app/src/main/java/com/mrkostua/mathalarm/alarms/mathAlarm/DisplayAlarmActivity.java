@@ -223,7 +223,7 @@ public class DisplayAlarmActivity extends AppCompatActivity {
     }
 
     public void bSnoozeAlarm_OnClickListener(View view) {
-        Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
+        Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
         snoozeIntent.setClass(this, Alarm_Receiver.class);
         sendBroadcast(snoozeIntent);
     }

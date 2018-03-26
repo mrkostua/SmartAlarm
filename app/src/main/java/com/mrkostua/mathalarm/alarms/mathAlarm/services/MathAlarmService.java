@@ -51,7 +51,7 @@ public class MathAlarmService extends Service {
             if (msg.what == KILLER_HANDLE_SERVICE_SILENT) {
                 if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("handleMessage, silentKiller msg");
                 //start receiver with action Snooze
-                Intent snoozeIntent = new Intent(ConstantValues.INSTANCE.getSNOOZE_ACTION());
+                Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
                 sendBroadcast(snoozeIntent);
                 stopSelf();
             }

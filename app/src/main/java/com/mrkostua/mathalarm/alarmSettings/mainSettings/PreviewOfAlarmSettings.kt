@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm
+package com.mrkostua.mathalarm.alarmSettings.mainSettings
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -7,7 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
+import com.mrkostua.mathalarm.alarms.mathAlarm.OnOffAlarm
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.injections.annotation.ActivityContext

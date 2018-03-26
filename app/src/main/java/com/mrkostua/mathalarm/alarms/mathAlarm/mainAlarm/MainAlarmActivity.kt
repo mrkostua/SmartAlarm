@@ -1,31 +1,22 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
+import com.mrkostua.mathalarm.alarmSettings.mainSettings.PreviewOfAlarmSettings
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.UserHelper
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
-import com.mrkostua.mathalarm.extensions.get
-import com.mrkostua.mathalarm.tools.AlarmTools
-import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.PreferencesConstants
+import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main_alarm.*
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 /**
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
@@ -35,21 +26,17 @@ import kotlin.collections.ArrayList
  * from what I think MVVM is different from MVP -> MVVM use observable (bind to observable created in ViewModel and wait for any changes) which means
  * we don't need interface for View because like in MVP scenario Presenter can call methods form View using this interface.
  */
-public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInterface {
+public class MainAlarmActivity : DaggerAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
-    private lateinit var intentAlarmSettingsActivity: Intent
-    private lateinit var userHelper: UserHelperLayout
-
-    private val calendar = Calendar.getInstance()
     private lateinit var viewDataBinding: ActivityMainAlarmBinding
-
-    @Inject
-    public lateinit var sharedPreferences: SharedPreferences
     @Inject
     public lateinit var mainAlarmViewModule: MainAlarmViewModel
-
+    @Inject
+    public lateinit var userHelper: UserHelper
+    @Inject
+    public lateinit var intentSettingActivity: Intent
+    @Inject
     public lateinit var previewOfSetting: PreviewOfAlarmSettings
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,19 +45,7 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
             viewModel = mainAlarmViewModule
             executePendingBindings()
         }
-
-        initializeDependOnContextVariables(this)
-        calendar.timeInMillis = System.currentTimeMillis()
-
-        setThemeForAlarmButtonLayout()
         initializeAlarmButton()
-
-    }
-
-    override fun initializeDependOnContextVariables(context: Context) {
-        previewOfSetting = PreviewOfAlarmSettings(this, this, sharedPreferences)
-        intentAlarmSettingsActivity = Intent(this, AlarmSettingsActivity::class.java)
-        userHelper = UserHelperLayout(this)
 
     }
 
@@ -79,11 +54,10 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
             clickOutsideOfHelpingViews()
 
         }
-
     }
 
     fun rlButtonLayoutOnClickListener(view: View) {
-        if (AlarmTools.isFirstAlarmCreation(sharedPreferences)) {
+        if (mainAlarmViewModule.isFirstAlarmCreation()) {
             if (!userHelper.isHelpingViewsHidden()) {
                 clickOutsideOfHelpingViews()
             } else {
@@ -98,9 +72,7 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
     fun ibAdditionalSettingsOnClickListener(view: View) {
         showAlarmSettingsActivity()
 
-
     }
-
 
     private fun clickOutsideOfHelpingViews() {
         AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
@@ -115,175 +87,30 @@ public class MainAlarmActivity : DaggerAppCompatActivity(), KotlinActivitiesInte
                 .create().show()
     }
 
-    private fun setThemeForAlarmButtonLayout() {
-        if (isDarkTime()) {
-            setDayLayoutTheme()
-
-        } else {
-            setEveningLayoutTheme()
-
-        }
-    }
-
     private fun initializeAlarmButton() {
         showWeekDaysAndCurrentDay()
-        if (AlarmTools.isFirstAlarmCreation(sharedPreferences)) {
-            //setCustomAlarmSettings()
-
-        } else {
-            //setSettingsFromLastAlarm()
-        }
-    }
-
-    private fun setDayLayoutTheme() {
-        setViewBackgroundColor(ibAdditionalSettings, R.color.main_layout_backgroundDay)
-        setViewBackgroundColor(rlBackgroundLayout, R.color.main_layout_backgroundDay)
-    }
-
-    private fun setEveningLayoutTheme() {
-        setViewBackgroundColor(ibAdditionalSettings, R.color.main_layout_backgroundEvening)
-        setViewBackgroundColor(rlBackgroundLayout, R.color.main_layout_backgroundEvening)
-    }
-
-    /**
-     *  set background color of the @param[view] using deprecated @see[getColor] for api < M.
-     */
-    private fun setViewBackgroundColor(view: View, colorResource: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            view.setBackgroundColor(resources.getColor(colorResource, null))
-
-        } else {
-            view.setBackgroundColor(resources.getColor(colorResource))
-
-        }
-    }
-
-    private fun setSettingsFromLastAlarm() {
-        val hours: Int? = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
-        val minutes: Int? = sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
-        tvAlarmTime.text = Integer.toString(hours
-                ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()) +
-                " : " + Integer.toString(minutes
-                ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue())
-
-
-    }
-
-    private fun setCustomAlarmSettings() {
-        tvAlarmTime.text = Integer.toString(ConstantValues.CUSTOM_ALARM_SETTINGS_HOURS) + " : " + Integer.toString(ConstantValues.CUSTOM_ALARM_SETTINGS_MINUTES)
-
     }
 
     private fun showWeekDaysAndCurrentDay() {
-        val listDaysOfWeekViews = ArrayList<TextView>(7)
-        listDaysOfWeekViews.add(tvSunday)
-        listDaysOfWeekViews.add(tvMonday)
-        listDaysOfWeekViews.add(tvTuesday)
-        listDaysOfWeekViews.add(tvWednesday)
-        listDaysOfWeekViews.add(tvThursday)
-        listDaysOfWeekViews.add(tvFriday)
-        listDaysOfWeekViews.add(tvSaturday)
-        listDaysOfWeekViews.forEachIndexed { indexOfDay, dayView ->
-            if (indexOfDay == calendar.get(Calendar.DAY_OF_WEEK) - 1) {
-                setDayOfWeekTextStyle(dayView)
-            }
+        arrayListOf<TextView>(tvSunday, tvMonday, tvTuesday, tvWednesday, tvThursday, tvFriday, tvSaturday)
+                .forEachIndexed { indexOfDay, dayView ->
+                    if (indexOfDay == mainAlarmViewModule.getCurrentDayOfWeek()) {
+                        setDayOfWeekTextStyle(dayView)
+                    }
 
-        }
+                }
     }
 
     private fun setDayOfWeekTextStyle(tvDayOfWeek: TextView) {
         val ssContent = SpannableString(tvDayOfWeek.text)
         ssContent.setSpan(UnderlineSpan(), 0, ssContent.length, 0)
         tvDayOfWeek.text = ssContent
-
-        setTextAppearance(tvDayOfWeek, R.style.ChosenDayOfTheWeek_TextTheme)
-    }
-
-    //TODO work with deprecated method kotlin is blocking them as (no matter if Build version is right)
-    //try to implement this function in java and check if it working if not search for more information
-//Could not find method android.widget.TextView.setTextAppearance, referenced from method com.mrkostua.mathalarm.Alarms.MathAlarm.MainAlarmActivity.setTextAppearance
-    @Suppress("DEPRECATION")
-    private fun setTextAppearance(textView: TextView, style: Int) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            textView.setTextAppearance(this, style)
-        } else {
-            textView.setTextAppearance(style)
-        }
-    }
-
-    private fun isDarkTime(): Boolean {
-        //todo Update method and make it more precise
-        return calendar.get(Calendar.AM_PM) == Calendar.PM
-    }
-
-    inner class UserHelperLayout constructor(val context: Context) {
-        private val helpingViewsList: MutableList<View> = ArrayList()
-
-        init {
-            rlBackgroundHelper.visibility = View.VISIBLE
-            initializeViews()
-        }
-
-        fun showHelpingAlertDialog() {
-            AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
-                    .setTitle(getString(R.string.helperFirstDialogTitle))
-                    .setMessage(getString(R.string.helperFirstDialogMessage))
-                    .setPositiveButton(getString(R.string.letsDoIt), { dialog, which ->
-                        showFirstHelpingTextMessage()
-                        dialog.dismiss()
-                    })
-                    .setNegativeButton(getString(R.string.back), { dialog, which ->
-                        Toast.makeText(context, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
-                        dialog.dismiss()
-                    }).create().show()
-        }
-
-        fun isHelpingViewsHidden(): Boolean = helpingViewsList.isEmpty()
-
-        fun hideHelpingViews() {
-            helpingViewsList.forEach({ view -> view.visibility = View.GONE })
-            helpingViewsList.clear()
-        }
-
-        private fun initializeViews() {
-            if (isDarkTime()) {
-                setTextAppearance(tvFirstHelpingMessage, R.style.HelperDark_Theme)
-                setTextAppearance(tvSecondHelpingMessage, R.style.HelperDark_Theme)
-            } else {
-                setTextAppearance(tvFirstHelpingMessage, R.style.HelperLight_Theme)
-                setTextAppearance(tvSecondHelpingMessage, R.style.HelperLight_Theme)
-            }
-
-        }
-
-        private fun showFirstHelpingTextMessage() {
-            helpingViewsList.add(tvFirstHelpingMessage)
-            tvFirstHelpingMessage.visibility = View.VISIBLE
-            tvFirstHelpingMessage.setOnClickListener { view ->
-                view.visibility = View.GONE
-                showSecondHelpingTextMessage()
-            }
-        }
-
-        private fun showSecondHelpingTextMessage() {
-            helpingViewsList.add(tvSecondHelpingMessage)
-            tvSecondHelpingMessage.visibility = View.VISIBLE
-            tvSecondHelpingMessage.setOnClickListener { view ->
-                view.visibility = View.GONE
-                showAlarmSettingsActivity()
-                helpingViewsList.clear()
-
-            }
-        }
+        tvDayOfWeek.setTextAppearance(R.style.ChosenDayOfTheWeek_TextTheme, this)
 
     }
 
-    private fun showAlarmSettingsActivity(whichFragmentToLoadFirst: Int = 0) {
-        intentAlarmSettingsActivity.putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                if (AlarmTools.isFragmentExistsForThisIndex(whichFragmentToLoadFirst)) whichFragmentToLoadFirst
-                else 0)
-
-        startActivity(intentAlarmSettingsActivity)
+    private fun showAlarmSettingsActivity() {
+        startActivity(intentSettingActivity)
     }
 
 }
