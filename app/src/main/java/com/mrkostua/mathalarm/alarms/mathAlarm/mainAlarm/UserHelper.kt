@@ -18,7 +18,6 @@ class UserHelper @Inject constructor(private val context: Context,
                                      private val alarmSettingsIntent: Intent) {
     private val helpingViewsList: MutableList<View> = ArrayList()
     fun showHelpingAlertDialog() {
-        //mainActivity.rlBackgroundHelper.visibility = View.VISIBLE
         AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(context.getString(R.string.helperFirstDialogTitle))
                 .setMessage(context.getString(R.string.helperFirstDialogMessage))

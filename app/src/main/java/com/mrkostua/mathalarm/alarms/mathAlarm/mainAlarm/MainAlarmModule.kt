@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
@@ -23,15 +22,15 @@ public class MainAlarmModule {
 
     @ActivityScope
     @Provides
-    fun provideAlarmSettingIntent(context: Context): Intent {
-        return Intent(context, AlarmSettingsActivity::class.java)
+    fun provideAlarmSettingIntent(activity: MainAlarmActivity): Intent {
+        return Intent(activity, AlarmSettingsActivity::class.java)
                 .putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, 0)
     }
 
     @ActivityScope
     @Provides
-    fun provideUserHelper(context: Context, activity: MainAlarmActivity, intent: Intent) =
-            UserHelper(context, activity, intent)
+    fun provideUserHelper(activity: MainAlarmActivity, intent: Intent) =
+            UserHelper(activity, activity, intent)
 
     @ActivityScope
     @Provides
