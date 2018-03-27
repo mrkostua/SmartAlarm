@@ -67,37 +67,12 @@ public class MathAlarmService extends Service {
             }
         }
     };
-    //Phone state listener for situation where alarm triggered in time of call
-    // so we will save and snooze our alarm
 
-    /*private PhoneStateListener phoneStateListener = new PhoneStateListener()
-    {
-        @Override
-        public void onCallStateChanged(int state, String incomingNumber) {
-            // The user might already be in a call when the alarm fires. When
-            // we register onCallStateChanged, we get the initial in-call state
-            // which kills the alarm. Check against the initial call state so
-            // we don't kill the alarm during a call.
-            if(state != TelephonyManager.CALL_STATE_IDLE && state !=initialCallState) {
-                if(ShowLogsOld.LOG_STATUS)ShowLogsOld.i("phoneStateListener true (snooze alarm)");
-                //start receiver with action Snooze
-                Intent snoozeIntent = new Intent(MainMathAlarm.ALARM_SNOOZE_ACTION);
-                startActivity(snoozeIntent);
-                stopSelf();
-            }
-        }
-    };*/
     @Override
     public void onCreate() {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("MathAlarmService " + " onCreate");
         super.onCreate();
         notificationsTools = new NotificationsTools(this);
-        // telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        //Registers a listener object to receive notification of changes in specified telephony states.
-        // @PhoneStateListener.LISTEN_CALL_STATE The telephony state(s) of interest to the listener
-      /*  telephonyManager.listen(
-                phoneStateListener,
-                phoneStateListener.LISTEN_CALL_STATE);*/
         audioManagerVolumeFixer = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         volume = audioManagerVolumeFixer.getStreamVolume(AudioManager.STREAM_ALARM);
     }

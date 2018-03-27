@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel" />
+    </data>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <!--TODO think is there sens of creating every column in separate fragment so it can be reused in the future ?-->
+        <TableRow
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_marginEnd="100dp"
+                android:layout_marginRight="100dp"
+                android:text="Boom time :"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvTimePreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@{viewModel.alarmTime}"
+                android:background="#ffff"
+                android:textColor="#6771ff"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffd84a"
+                android:textStyle="bold"
+                android:text="Ringtone : " />
+
+            <TextView
+                android:id="@+id/tvRingtonePreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Energy_ringtone"
+                android:textColor="#c21e1e"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message : "
+                android:textColor="#d292d2"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvTextMessagePreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Hello man"
+                android:textStyle="italic"
+                android:textColor="@color/white"/>
+
+
+        </TableRow>
+
+
+    </TableLayout>
+</layout>

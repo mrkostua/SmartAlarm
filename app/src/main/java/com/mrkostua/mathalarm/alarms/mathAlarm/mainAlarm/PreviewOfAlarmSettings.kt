@@ -1,31 +1,36 @@
-package com.mrkostua.mathalarm.alarmSettings.mainSettings
+package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
+import android.databinding.DataBindingUtil
+import android.view.LayoutInflater
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.OnOffAlarm
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
-import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.databinding.CustomViewAlertDialogSettingsPreviewBinding
 import com.mrkostua.mathalarm.injections.annotation.ActivityContext
-import com.mrkostua.mathalarm.tools.*
+import com.mrkostua.mathalarm.tools.ConstantValues
+import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.ShowLogs
+import com.mrkostua.mathalarm.tools.TimeToAlarmStart
 import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
 //TODO think about changing design of the Preview alertDialog by simply changing it from itemsList to custom activity(gives us a lot of features(different color of text size etc) to use)
-public class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context,
-                                                        private val mainActivity: Activity, private val sharedPreferences: SharedPreferences) {
+class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private val context: Context,
+                                                 private val mainActivity: Activity, private val mainViewModel: MainAlarmViewModel) {
     private val TAG = this.javaClass.simpleName
     private val alarmNotifications = NotificationsTools(context)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
-    private val alarmObject = getAlarmObjectWithAlarmSettings()
+    private val alarmObject = mainViewModel.getAlarmDataObject()
 
     fun showSettingsPreviewDialog() {
         val settingsList = getAlarmSettingsList(alarmObject)
@@ -51,18 +56,23 @@ public class PreviewOfAlarmSettings @Inject constructor(@ActivityContext private
 
     }
 
-    private fun getAlarmObjectWithAlarmSettings(): AlarmObject {
+    fun showSettingsPreviewDialog2() {
+        val binding: CustomViewAlertDialogSettingsPreviewBinding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.custom_view_alert_dialog_settings_preview,
+                null,false)
+        with(binding) {
+            viewModel = mainViewModel
+            executePendingBindings()
+        }
+        AlertDialog.Builder(context)
+                .setTitle(R.string.settingsPreviewTitle)
+                .setView(binding.root)
+                .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
+                    scheduleNewAlarm(alarmObject)
+                })
+                .setNegativeButton(R.string.setttingsPreviewNegativeButtonText, { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                }).create().show()
 
-        val hours: Int = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()]
-                ?: PreferencesConstants.ALARM_HOURS.getDefaultIntValue()
-        val minutes: Int = sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()]
-                ?: PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()
-        val textMessage: String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]
-                ?: PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage
-        val ringtoneName: String = sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(), PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
-                ?: PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName
-
-        return AlarmObject(hours, minutes, textMessage, ringtoneName)
 
     }
 

@@ -1,9 +1,7 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
 import android.content.Intent
-import android.content.SharedPreferences
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.PreviewOfAlarmSettings
 import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
@@ -34,6 +32,6 @@ public class MainAlarmModule {
 
     @ActivityScope
     @Provides
-    fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, sharedPreferences: SharedPreferences) =
-            PreviewOfAlarmSettings(activity, activity, sharedPreferences)
+    fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, viewModule : MainAlarmViewModel) =
+            PreviewOfAlarmSettings(activity, activity,viewModule)
 }

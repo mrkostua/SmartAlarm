@@ -181,7 +181,8 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"
-            app:srcCompat="@drawable/ic_settings_white_36dp" />
+            app:srcCompat="@drawable/ic_settings_white_36dp"
+            android:contentDescription="settings" />
     </RelativeLayout>
 
 </layout>

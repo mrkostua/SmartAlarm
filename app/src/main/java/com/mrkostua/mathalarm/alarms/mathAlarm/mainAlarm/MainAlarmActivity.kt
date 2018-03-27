@@ -9,8 +9,8 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarmSettings.mainSettings.PreviewOfAlarmSettings
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.PreviewOfAlarmSettings
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.UserHelper
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
@@ -28,7 +28,6 @@ import javax.inject.Inject
  */
 public class MainAlarmActivity : DaggerAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
-    private lateinit var viewDataBinding: ActivityMainAlarmBinding
     @Inject
     public lateinit var mainAlarmViewModule: MainAlarmViewModel
     @Inject
@@ -40,13 +39,12 @@ public class MainAlarmActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_alarm)
+        val viewDataBinding: ActivityMainAlarmBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_alarm)
         with(viewDataBinding) {
             viewModel = mainAlarmViewModule
             executePendingBindings()
         }
         initializeAlarmButton()
-
     }
 
     fun rlBackgroundHelperOnClickListener(view: View) {
@@ -65,7 +63,7 @@ public class MainAlarmActivity : DaggerAppCompatActivity() {
             }
 
         } else {
-            previewOfSetting.showSettingsPreviewDialog()
+            previewOfSetting.showSettingsPreviewDialog2()
         }
     }
 

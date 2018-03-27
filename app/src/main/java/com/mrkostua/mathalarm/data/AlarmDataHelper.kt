@@ -3,6 +3,7 @@ package com.mrkostua.mathalarm.data
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneManagerHelper
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
 import com.mrkostua.mathalarm.tools.PreferencesConstants
@@ -16,23 +17,30 @@ import javax.inject.Singleton
 class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
     private val TAG = this.javaClass.simpleName
 
-    fun saveAlarmTimeInSP(hourOfDay: Int, minutes: Int) {
+    fun getAlarmDataObject(): AlarmObject {
+        val time = getTimeFromSP()
+        return AlarmObject(time.first, time.second, getTextMessageFromSP(), getRingtoneFromSP())
+    }
+
+    fun saveTimeInSP(hourOfDay: Int, minutes: Int) {
         sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
         sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minutes
     }
 
-    fun getAlarmTimeFromSP(): Pair<Int, Int> =
+    fun getTimeFromSP(): Pair<Int, Int> =
             Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue(), null],
                     sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue(), null])
 
-    fun saveAlarmRingtoneInSP(ringtoneName: String) {
+    fun saveRingtoneInSP(ringtoneName: String) {
         sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue()] = ringtoneName
 
     }
 
-    fun getAlarmRingtoneFromSP(): String =
+    fun getRingtoneFromSP(): String =
             sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(),
                     PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName, null]
+
+    fun getTextMessageFromSP(): String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage, null]
 
 
     //TODO move this code to Model layer as DB implement it using Room library ( can be useful in the future in case of implementing list of all set alarms)

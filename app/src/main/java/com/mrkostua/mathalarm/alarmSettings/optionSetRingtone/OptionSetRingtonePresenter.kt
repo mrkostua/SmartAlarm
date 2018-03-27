@@ -86,12 +86,12 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun saveChosenRingtoneNameSP(elementIndex: Int) {
-        alarmDataHelper.saveAlarmRingtoneInSP(ringtonePopulationList[elementIndex].name)
+        alarmDataHelper.saveRingtoneInSP(ringtonePopulationList[elementIndex].name)
 
     }
 
     override fun getSavedRingtonePosition(): RingtoneObject {
-        val ringtoneName: String = alarmDataHelper.getAlarmRingtoneFromSP()
+        val ringtoneName: String = alarmDataHelper.getRingtoneFromSP()
         return ringtonePopulationList.find { ao -> ao.name == ringtoneName }
                 ?: ringtonePopulationList[1]
     }

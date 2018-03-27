@@ -27,14 +27,12 @@ class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHe
     }
 
     private fun start() {
-        val time = dataHelper.getAlarmTimeFromSP()
+        val time = dataHelper.getTimeFromSP()
         alarmTime.set(Integer.toString(time.first) + " : " + Integer.toString(time.second))
-
         calendar.timeInMillis = System.currentTimeMillis()
         setDayOrNight()
     }
 
-    //TODO MAYBE move fun with using calender instance to some AlarmTools.kt
     private fun setDayOrNight() {
         isDarkTime.set(calendar.get(Calendar.HOUR_OF_DAY) !in 6 until 20)
         ShowLogs.log(TAG, "setDayOrNight : " + isDarkTime.get())
@@ -47,4 +45,6 @@ class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHe
     }
 
     fun isFirstAlarmCreation() = dataHelper.isFirstAlarmSaving()
+
+    fun getAlarmDataObject() = dataHelper.getAlarmDataObject()
 }
