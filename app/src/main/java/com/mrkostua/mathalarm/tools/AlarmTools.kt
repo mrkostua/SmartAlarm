@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.Window
 import android.view.WindowManager
-import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.

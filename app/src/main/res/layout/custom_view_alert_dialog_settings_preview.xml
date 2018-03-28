@@ -1,6 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
 
     <data>
 
@@ -9,83 +10,114 @@
             type="com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel" />
     </data>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <!--TODO think is there sens of creating every column in separate fragment so it can be reused in the future ?-->
-        <TableRow
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!--TODO think is there sens of creating every column in separate fragment so it can be reused in the future ?-->
 
             <TextView
+                android:id="@+id/tvBoomTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginEnd="100dp"
-                android:layout_marginRight="100dp"
-                android:text="Boom time :"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/preview_dialog_boom_time"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvTimePreview"
+                android:id="@+id/tvHourPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="@{viewModel.alarmTime}"
+                android:layout_alignBaseline="@+id/tvBoomTimeText"
+                android:layout_alignLeft="@+id/tvRingtonePreview"
+                android:layout_alignStart="@+id/tvRingtonePreview"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:background="#ffff"
+                android:text="@{viewModel.alarmHour}"
                 android:textColor="#6771ff"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-        </TableRow>
+                android:textSize="20sp"
+                android:theme="@style/previewTextViewStyle" />
 
-        <TableRow
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/tvMinutePreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvBoomTimeText"
+                android:layout_toEndOf="@+id/tvHourPreview"
+                android:text="@{viewModel.alarmMinute}"
+                android:textColor="#6771ff"
+                android:textSize="20sp"
+                android:theme="@style/previewTextViewStyle"
+                android:layout_toRightOf="@+id/tvHourPreview" />
+
+            <TextView
+                android:id="@+id/tvRingtoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvBoomTimeText"
+                android:layout_alignStart="@+id/tvBoomTimeText"
+                android:layout_below="@+id/tvBoomTimeText"
+                android:layout_marginTop="30dp"
+                android:text="@string/preview_dialog_ringtone"
                 android:textColor="#ffd84a"
-                android:textStyle="bold"
-                android:text="Ringtone : " />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvRingtonePreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="Energy_ringtone"
+                android:layout_alignBaseline="@+id/tvRingtoneText"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/tvRingtoneText"
+                android:layout_toRightOf="@+id/tvRingtoneText"
+                android:text="@{viewModel.alarmRingtone}"
                 android:textColor="#c21e1e"
-                android:textStyle="bold" />
-        </TableRow>
+                android:theme="@style/previewTextViewStyle" />
 
-        <TableRow
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/tvMessageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message : "
+                android:layout_alignLeft="@+id/tvBoomTimeText"
+                android:layout_alignStart="@+id/tvBoomTimeText"
+                android:layout_below="@+id/tvRingtoneText"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/preview_dialog_message"
                 android:textColor="#d292d2"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTextMessagePreview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="Hello man"
+                android:layout_alignBaseline="@+id/tvMessageText"
+                android:layout_alignLeft="@+id/tvRingtonePreview"
+                android:layout_alignStart="@+id/tvRingtonePreview"
+                android:text="@{viewModel.alarmMessage}"
+                android:textColor="@color/white"
                 android:textStyle="italic"
-                android:textColor="@color/white"/>
+                android:theme="@style/previewTextViewStyle" />
 
-
-        </TableRow>
-
-
-    </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
 </layout>

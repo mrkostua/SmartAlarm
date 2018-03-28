@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm
+package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -9,9 +9,6 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel
-import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.PreviewOfAlarmSettings
-import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.UserHelper
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
@@ -22,12 +19,9 @@ import javax.inject.Inject
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
 
-/**
- * from what I think MVVM is different from MVP -> MVVM use observable (bind to observable created in ViewModel and wait for any changes) which means
- * we don't need interface for View because like in MVP scenario Presenter can call methods form View using this interface.
- */
-public class MainAlarmActivity : DaggerAppCompatActivity() {
+class MainAlarmActivity : DaggerAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
+
     @Inject
     public lateinit var mainAlarmViewModule: MainAlarmViewModel
     @Inject
@@ -63,7 +57,7 @@ public class MainAlarmActivity : DaggerAppCompatActivity() {
             }
 
         } else {
-            previewOfSetting.showSettingsPreviewDialog2()
+            previewOfSetting.showSettingsPreviewDialog()
         }
     }
 

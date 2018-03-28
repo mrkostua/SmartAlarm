@@ -18,17 +18,24 @@ import javax.inject.Inject
  */
 class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHelper) : ViewModel() {
     private val TAG = this.javaClass.simpleName
+    private val calendar = Calendar.getInstance()
+    private val time = dataHelper.getTimeFromSP()
+
     val alarmTime = ObservableField<String>()
     val isDarkTime = ObservableBoolean()
-    private val calendar = Calendar.getInstance()
+
+    val alarmHour = time.first.toString()
+    val alarmMinute = time.second.toString()
+    val alarmRingtone = dataHelper.getRingtoneFromSP()
+    val alarmMessage = dataHelper.getTextMessageFromSP()
 
     init {
         start()
+
     }
 
     private fun start() {
-        val time = dataHelper.getTimeFromSP()
-        alarmTime.set(Integer.toString(time.first) + " : " + Integer.toString(time.second))
+        alarmTime.set(alarmHour + " : " + alarmMinute)
         calendar.timeInMillis = System.currentTimeMillis()
         setDayOrNight()
     }

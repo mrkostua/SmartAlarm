@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".alarms.mathAlarm.MainAlarmActivity">
+    tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
     <!--TODO fix design problems and test on few APi's-->
     <data>
 

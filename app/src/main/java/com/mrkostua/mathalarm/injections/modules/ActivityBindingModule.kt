@@ -7,7 +7,7 @@ import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetR
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.OptionSetRingtoneModule
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.OptionSetTimeModule
-import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import dagger.Module
