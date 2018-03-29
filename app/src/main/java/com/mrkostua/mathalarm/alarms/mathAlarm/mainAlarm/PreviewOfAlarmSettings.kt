@@ -12,6 +12,7 @@ import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.OnOffAlarm
+import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.databinding.CustomViewAlertDialogSettingsPreviewBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
@@ -23,14 +24,17 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-//TODO think about changing design of the Preview alertDialog by simply changing it from itemsList to custom activity(gives us a lot of features(different color of text size etc) to use)
+//TODO update design (style) of Preview views colors,size etc.
 class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
-                                                 private val mainActivity: Activity, private val mainViewModel: MainAlarmViewModel) : View.OnClickListener {
+                                                 private val mainActivity: Activity,
+                                                 private val mainViewModel: MainAlarmViewModel,
+                                                 private val notificationsTools: NotificationsTools) : View.OnClickListener {
     private val TAG = this.javaClass.simpleName
-    private val alarmNotifications = NotificationsTools(context)
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = mainViewModel.getAlarmDataObject()
+
+    private lateinit var alertDialog: AlertDialog
     private lateinit var binding: CustomViewAlertDialogSettingsPreviewBinding
 
     fun showSettingsPreviewDialog() {
@@ -42,7 +46,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
         }
         setOnClickListeners()
 
-        AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
+        alertDialog = AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setView(binding.root)
                 .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
@@ -50,7 +54,9 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                 })
                 .setNegativeButton(R.string.setttingsPreviewNegativeButtonText, { dialogInterface, i ->
                     dialogInterface.dismiss()
-                }).create().show()
+                }).create()
+
+        alertDialog.show()
 
     }
 
@@ -64,10 +70,12 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue())
                 }
                 tvTextMessagePreview -> {
-                    showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
+                    //showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
+                    context.startActivity(Intent(context, DisplayAlarmActivity::class.java))
                 }
             }
         }
+        alertDialog.dismiss()
     }
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
@@ -81,7 +89,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
     private fun startNewWakeLockService(alarmObject: AlarmObject) {
         wakeLockServiceIntent.putExtra("alarmTimeKey", TimeToAlarmStart.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes))
         mainActivity.startService(wakeLockServiceIntent)
-        alarmNotifications.showToastMessage("Service was activated")
+        notificationsTools.showToastMessage("Service was activated")
     }
 
     private fun showChosenSettingsFragment(which: Int) {

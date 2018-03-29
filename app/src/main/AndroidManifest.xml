@@ -37,7 +37,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Preference_style" />
         <activity
-            android:name=".alarms.mathAlarm.DisplayAlarmActivity"
+            android:name=".alarms.mathAlarm.displayAlarm.DisplayAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />
 

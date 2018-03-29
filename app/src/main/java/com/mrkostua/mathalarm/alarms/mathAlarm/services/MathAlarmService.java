@@ -14,11 +14,11 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.tools.NotificationsTools;
-import com.mrkostua.mathalarm.alarms.mathAlarm.DisplayAlarmActivity;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.ShowLogsOld;
+import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity;
 import com.mrkostua.mathalarm.tools.ConstantValues;
+import com.mrkostua.mathalarm.tools.NotificationsTools;
 
 import java.io.IOException;
 

@@ -129,4 +129,11 @@
         <item name="android:background">@drawable/background_preview_text_views</item>
     </style>
 
+    <style name="displayAlarmButtonsStyle" parent="android:Widget.Button">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">40dp</item>
+
+    </style>
+
 </resources>
