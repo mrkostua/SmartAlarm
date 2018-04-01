@@ -70,6 +70,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue())
                 }
                 tvTextMessagePreview -> {
+                    //todo for testing
                     //showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
                     context.startActivity(Intent(context, DisplayAlarmActivity::class.java))
                 }

@@ -43,11 +43,11 @@ dependencies {
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     compile "com.google.dagger:dagger-android:$rootProject.daggerVersion"
     compile "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
 
-    kapt "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
+    annotationProcessor "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
 
 
 
