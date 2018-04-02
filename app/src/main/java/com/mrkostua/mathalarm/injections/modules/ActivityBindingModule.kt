@@ -10,8 +10,11 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmModule
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmModule
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmServiceModule
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
+import com.mrkostua.mathalarm.injections.scope.ServiceScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -33,10 +36,14 @@ public abstract class ActivityBindingModule {
     public abstract fun getAlarmSettingActivty(): AlarmSettingsActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [(MainAlarmModule::class),(DisplayHelperModule::class)])
+    @ContributesAndroidInjector(modules = [(MainAlarmModule::class), (DisplayHelperModule::class)])
     public abstract fun getMainAlarmActivity(): MainAlarmActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [(DisplayAlarmModule::class)])
-    public abstract fun  getDisplayAlarmActivity() : DisplayAlarmActivity
+    public abstract fun getDisplayAlarmActivity(): DisplayAlarmActivity
+
+    @ServiceScope
+    @ContributesAndroidInjector(modules = [(DisplayAlarmServiceModule::class), (DisplayHelperModule::class)])
+    public abstract fun getDisplayAlarmService(): DisplayAlarmService
 }

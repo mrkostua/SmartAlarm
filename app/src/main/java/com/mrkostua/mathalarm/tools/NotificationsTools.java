@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver;
+
 import kotlin.Pair;
 
 public class NotificationsTools {
@@ -29,7 +30,7 @@ public class NotificationsTools {
     }
 
     //notification for MathService
-    public Notification NewNotification() {
+    public Notification newNotification() {
         // snooze button
         Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
         snoozeIntent.setClass(context, Alarm_Receiver.class);
@@ -52,7 +53,7 @@ public class NotificationsTools {
     }
 
     //notification for WakeLock Service
-    public Notification NewNotification(String time) {
+    public Notification newNotification(String time) {
         //dismiss button
         Intent dismissIntent = new Intent(ConstantValues.DISMISS_ACTION);
         dismissIntent.setClass(context, Alarm_Receiver.class);
@@ -72,7 +73,7 @@ public class NotificationsTools {
         return builder.build();
     }
 
-    public void CancelNotification(int notificationID) {
+    public void cancelNotification(int notificationID) {
         NotificationManager notificationManager = getNotificationManager();
         notificationManager.cancel(notificationID);
     }

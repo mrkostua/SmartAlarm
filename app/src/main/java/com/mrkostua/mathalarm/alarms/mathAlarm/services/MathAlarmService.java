@@ -109,7 +109,7 @@ public class MathAlarmService extends Service {
         else {
             Toast.makeText(this, "alarmCondition" + " false", Toast.LENGTH_LONG).show();
         }
-        startForeground(NOTIFICATION_ID, notificationsTools.NewNotification());
+        startForeground(NOTIFICATION_ID, notificationsTools.newNotification());
         //  initialCallState = telephonyManager.getCallState();
         return START_STICKY;
     }
@@ -129,7 +129,7 @@ public class MathAlarmService extends Service {
         //set STREAM_ALARM to volume (volume
         audioManagerVolumeFixer.setStreamVolume(AudioManager.STREAM_ALARM, volume, 0);
         AlarmStopPlayingMusic();
-        notificationsTools.CancelNotification(NOTIFICATION_ID);
+        notificationsTools.cancelNotification(NOTIFICATION_ID);
     }
 
     /**
