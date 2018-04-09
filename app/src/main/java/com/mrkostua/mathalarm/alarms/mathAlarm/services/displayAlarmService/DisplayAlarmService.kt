@@ -38,9 +38,8 @@ public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.
         }
 
         presenter.takeView(this)
-        //TODO MediaPlayerHelper -> update or add fun specifically for playing alarm ringtone
-        //            mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         //TODO read more about static Handler etc. find proper solution
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -57,6 +56,7 @@ public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.
         super.onDestroy()
         disableHandlerSilenceKiller()
         presenter.stopAlarmRingtone()
+        presenter.releaseObjects()
         notificationsTools.cancelNotification(NOTIFICATION_ID)
     }
 

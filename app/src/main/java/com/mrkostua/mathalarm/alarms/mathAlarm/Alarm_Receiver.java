@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity;
-import com.mrkostua.mathalarm.alarms.mathAlarm.services.MathAlarmService;
-import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService;
 import com.mrkostua.mathalarm.tools.ConstantValues;
 
 
@@ -33,7 +33,7 @@ public class Alarm_Receiver extends BroadcastReceiver
         //snooze alarm for 5 minutes and stop current alarm
         if(intent.getAction().equals(ConstantValues.SNOOZE_ACTION)) {
             //this stops the service no matter how many times it was started.
-            context.stopService(new Intent(context,MathAlarmService.class));
+            context.stopService(new Intent(context, DisplayAlarmService.class));
 
             GetAlarmData(context);
             OnOffAlarm onOffAlarmSnooze = new OnOffAlarm(context,alarmComplexityLevel,selectedMusic,alarmCondition,alarmMessageText,selectedDeepSleepMusic);
@@ -70,7 +70,7 @@ public class Alarm_Receiver extends BroadcastReceiver
 
     private void startMathAlarmService(Context context) {
                 //An intent to the ringtone service
-                Intent serviceIntent = new Intent(context, MathAlarmService.class);
+                Intent serviceIntent = new Intent(context, DisplayAlarmService.class);
                 //serviceIntent.putExtra("Alarm condition", alarmCondition)
                 serviceIntent.putExtra("selectedMusic", selectedMusic)
                         .putExtra("alarmMessageText", alarmMessageText)

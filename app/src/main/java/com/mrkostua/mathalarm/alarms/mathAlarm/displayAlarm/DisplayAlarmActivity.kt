@@ -9,7 +9,7 @@ import android.view.WindowManager
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.alarms.mathAlarm.services.MathAlarmService
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
 import com.mrkostua.mathalarm.databinding.ActivityDisplayAlarmBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
 import dagger.android.support.DaggerAppCompatActivity
@@ -74,7 +74,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
     }
 
     private fun stopMathService() {
-        stopService(Intent(this, MathAlarmService::class.java))
+        stopService(Intent(this, DisplayAlarmService::class.java))
 
     }
 

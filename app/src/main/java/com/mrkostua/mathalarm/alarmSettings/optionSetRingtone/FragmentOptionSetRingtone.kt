@@ -59,6 +59,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
     override fun onPause() {
         super.onPause()
         presenter.stopPlayingRingtone()
+        presenter.releaseObjects()
     }
 
     override fun onResume() {

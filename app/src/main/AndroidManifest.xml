@@ -49,9 +49,9 @@
             android:label="new screen"
             android:screenOrientation="portrait" />
 
-        <service
+ <!--       <service
             android:name=".alarms.mathAlarm.services.MathAlarmService"
-            android:enabled="true" />
+            android:enabled="true" />-->
         <service
             android:name=".alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService"
             android:enabled="true" />
