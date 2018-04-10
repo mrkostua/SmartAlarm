@@ -1,6 +1,6 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService
 
-import com.mrkostua.mathalarm.injections.scope.ServiceScope
+import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import dagger.Binds
 import dagger.Module
 
@@ -9,8 +9,8 @@ import dagger.Module
  */
 @Module
 abstract class DisplayAlarmServiceModule {
-    @ServiceScope
+    @DisplayAlarmServiceScope
     @Binds
-    abstract fun bindDisplayAlarmServicePresenter(presenter: DisplayAlarmServicePresenter): DisplayAlarmServiceContract.Presenter
+    abstract fun provideDisplayAlarmServicePresenter(presenter: DisplayAlarmServicePresenter): DisplayAlarmServiceContract.Presenter
 
 }

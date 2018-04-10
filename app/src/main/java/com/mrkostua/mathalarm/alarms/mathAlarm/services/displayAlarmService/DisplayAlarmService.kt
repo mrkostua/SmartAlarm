@@ -7,9 +7,12 @@ import android.media.AudioManager
 import android.os.Handler
 import android.os.IBinder
 import android.os.Message
+import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
+import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerService
 import javax.inject.Inject
 
@@ -17,10 +20,11 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 4/1/2018.
  */
 
-public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.View {
+//TODO read more about static Handler etc. find proper solution
+@DisplayAlarmServiceScope
+public class DisplayAlarmService : DaggerService() {
     private val TAG = this.javaClass.simpleName
-    private val NOTIFICATION_ID = 2
-
+    private val notificationId = 2
     private val killerHandleServiceSilent = 1
     private val handler = CustomHandler()
 
@@ -29,17 +33,9 @@ public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.
     @Inject
     public lateinit var presenter: DisplayAlarmServiceContract.Presenter
 
-
     override fun onCreate() {
         super.onCreate()
-        with(getSystemService(Context.AUDIO_SERVICE) as AudioManager) {
-            //FLAG_SHOW_UI Show a toast containing the current volume.
-            setStreamVolume(AudioManager.STREAM_ALARM, getStreamVolume(AudioManager.STREAM_ALARM), 0)
-        }
-
-        presenter.takeView(this)
-        //TODO read more about static Handler etc. find proper solution
-
+        setStreamVolume()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -47,21 +43,29 @@ public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.
         enableHandlerSilenceKiller()
         presenter.playAlarmRingtone()
 
-        startForeground(NOTIFICATION_ID, notificationsTools.newNotification())
+        startForeground(notificationId, notificationsTools.newNotification())
         return Service.START_STICKY
     }
 
 
     override fun onDestroy() {
+        ShowLogs.log(TAG, "onDestroy")
         super.onDestroy()
         disableHandlerSilenceKiller()
         presenter.stopAlarmRingtone()
         presenter.releaseObjects()
-        notificationsTools.cancelNotification(NOTIFICATION_ID)
+        notificationsTools.cancelNotification(notificationId)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    private fun setStreamVolume() {
+        with(getSystemService(Context.AUDIO_SERVICE) as AudioManager) {
+            //FLAG_SHOW_UI Show a toast containing the current volume.
+            setStreamVolume(AudioManager.STREAM_ALARM, getStreamVolume(AudioManager.STREAM_ALARM), 0)
+        }
     }
 
     private fun startAlarmDisplayActivity() {
@@ -84,10 +88,16 @@ public class DisplayAlarmService : DaggerService(), DisplayAlarmServiceContract.
         override fun handleMessage(msg: Message?) {
             when (msg?.what) {
                 killerHandleServiceSilent -> {
-                    sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION))
+                    ShowLogs.log(TAG, "handleMessage : stop")
+                    snoozeAlarm()
                     stopSelf()
                 }
             }
         }
+    }
+
+    private fun snoozeAlarm() {
+        sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
+                .setClass(this, Alarm_Receiver::class.java))
     }
 }

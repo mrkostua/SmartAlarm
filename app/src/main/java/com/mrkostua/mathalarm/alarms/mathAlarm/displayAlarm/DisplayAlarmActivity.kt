@@ -33,8 +33,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
         }
 
         anabelWindowsFlags()
-
-        stopMathService()
     }
 
     override fun onDestroy() {

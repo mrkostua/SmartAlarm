@@ -41,9 +41,9 @@ public class WakeLockService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
+        notificationsTools.cancelNotification(NOTIFICATION_ID);
         ReleaseWakeLocks();
         stopSelf();
-        notificationsTools.cancelNotification(NOTIFICATION_ID);
     }
 
     protected void createWakeLocks() {

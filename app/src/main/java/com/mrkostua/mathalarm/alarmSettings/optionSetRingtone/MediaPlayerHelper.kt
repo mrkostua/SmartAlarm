@@ -20,6 +20,8 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
     fun playRingtoneFromStringResource(ringtoneResourceId: String, isAlarmStreamType: Boolean = false) {
         val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
+        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and : res id : " + ringtoneResourceId)
+
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
@@ -38,6 +40,8 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     }
 
     fun playRingtoneFromUri(ringtoneUri: Uri, isAlarmStreamType: Boolean = false) {
+        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and uri : " + ringtoneUri)
+
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()

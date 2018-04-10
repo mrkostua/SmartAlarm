@@ -13,8 +13,8 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmModule
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmServiceModule
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
+import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
-import com.mrkostua.mathalarm.injections.scope.ServiceScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -43,7 +43,7 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [(DisplayAlarmModule::class)])
     public abstract fun getDisplayAlarmActivity(): DisplayAlarmActivity
 
-    @ServiceScope
+    @DisplayAlarmServiceScope
     @ContributesAndroidInjector(modules = [(DisplayAlarmServiceModule::class), (DisplayHelperModule::class)])
     public abstract fun getDisplayAlarmService(): DisplayAlarmService
 }
