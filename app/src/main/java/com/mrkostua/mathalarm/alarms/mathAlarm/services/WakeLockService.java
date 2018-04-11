@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 
+import com.mrkostua.mathalarm.tools.ConstantValues;
 import com.mrkostua.mathalarm.tools.NotificationsTools;
 import com.mrkostua.mathalarm.ShowLogsOld;
 
@@ -28,7 +29,7 @@ public class WakeLockService extends Service {
         createWakeLocks();
         wakeDevice("partialWakeLock");
         notificationsTools = new NotificationsTools(this);
-        String timeToAlarmStart = intent.getStringExtra("alarmTimeKey");
+        String timeToAlarmStart = intent.getStringExtra(ConstantValues.WAKE_LOCK_NOTF_TIME_KEY);
         startForeground(NOTIFICATION_ID, notificationsTools.newNotification(timeToAlarmStart));
 
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.

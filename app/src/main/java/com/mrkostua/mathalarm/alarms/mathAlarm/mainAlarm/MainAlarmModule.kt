@@ -34,5 +34,5 @@ public class MainAlarmModule {
     @Provides
     fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, viewModule: MainAlarmViewModel,
                                       notificationsTools: NotificationsTools) =
-            PreviewOfAlarmSettings(activity, activity, viewModule, notificationsTools)
+            PreviewOfAlarmSettings(activity, viewModule, notificationsTools)
 }

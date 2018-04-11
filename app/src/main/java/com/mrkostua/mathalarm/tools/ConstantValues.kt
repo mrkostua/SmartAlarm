@@ -27,6 +27,8 @@ object ConstantValues {
     const val ALARM_TIMEOUT_MILLISECONDS: Long = 5 * 60 * 1000
     const val DEFAULT_SNOOZE_TIME_MIN = 5
 
+    const val WAKE_LOCK_NOTF_TIME_KEY = "notificationTimeKey"
+
     const val INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST = "whichFragmentToLoadFirst"
     val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()
 

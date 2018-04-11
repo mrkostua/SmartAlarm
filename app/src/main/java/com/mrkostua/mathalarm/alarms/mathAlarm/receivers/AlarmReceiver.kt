@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.alarms.mathAlarm.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.alarms.mathAlarm.OnOffAlarm
+import com.mrkostua.mathalarm.alarms.mathAlarm.alarmTools.AlarmManagerHelper
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
@@ -14,7 +14,7 @@ import com.mrkostua.mathalarm.tools.ConstantValues
  */
 
 class AlarmReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent?) {
         when (intent?.action) {
             ConstantValues.SNOOZE_ACTION -> {
                 snoozeAlarm(context)
@@ -29,28 +29,31 @@ class AlarmReceiver : BroadcastReceiver() {
                 startDisplayService(context)
 
             }
+            else -> {
+                throw UnsupportedOperationException("no such intent action or intent is null")
+            }
         }
     }
 
-    private fun snoozeAlarm(context: Context?) {
-        context?.stopService(Intent(context, DisplayAlarmService::class.java))
-        OnOffAlarm(context).SnoozeSetAlarm(ConstantValues.DEFAULT_SNOOZE_TIME_MIN)
+    private fun snoozeAlarm(context: Context) {
+        context.stopService(Intent(context, DisplayAlarmService::class.java))
+        AlarmManagerHelper(context).snoozeAlarm(ConstantValues.DEFAULT_SNOOZE_TIME_MIN)
 
     }
 
-    private fun startMainActivity(context: Context?) {
-        context?.startActivity(Intent(context, MainAlarmActivity::class.java)
+    private fun startMainActivity(context: Context) {
+        context.startActivity(Intent(context, MainAlarmActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
-    private fun dismissAlarm(context: Context?) {
-        context?.stopService(Intent(context, WakeLockService::class.java))
-        OnOffAlarm(context).CancelSetAlarm()
+    private fun dismissAlarm(context: Context) {
+        context.stopService(Intent(context, WakeLockService::class.java))
+        AlarmManagerHelper(context).cancelLastSetAlarm()
 
     }
 
-    private fun startDisplayService(context: Context?) {
-        context?.startService(Intent(context, DisplayAlarmService::class.java))
+    private fun startDisplayService(context: Context) {
+        context.startService(Intent(context, DisplayAlarmService::class.java))
 
     }
 }
