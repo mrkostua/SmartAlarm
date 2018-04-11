@@ -27,16 +27,16 @@ class OptionSetTimePresenter @Inject constructor(private val alarmDataHelper: Al
 
     override fun saveTime(hourOfDay: Int, minutes: Int) {
         optionSetTimeView.showTimeUntilAlarmBoom(hourOfDay, minutes)
-        alarmDataHelper.saveAlarmTimeInSP(hourOfDay, minutes)
+        alarmDataHelper.saveTimeInSP(hourOfDay, minutes)
 
     }
 
     override fun getSavedHour(): Int =
-            alarmDataHelper.getAlarmTimeFromSP().first
+            alarmDataHelper.getTimeFromSP().first
 
 
     override fun getSavedMinute(): Int =
-            alarmDataHelper.getAlarmTimeFromSP().second
+            alarmDataHelper.getTimeFromSP().second
 
 
 }

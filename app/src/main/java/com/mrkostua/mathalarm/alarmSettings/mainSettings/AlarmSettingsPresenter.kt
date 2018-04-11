@@ -17,7 +17,7 @@ class AlarmSettingsPresenter @Inject constructor(private var fragmentToLoadFirst
     }
 
     override fun start() {
-        TODO("not implemented") //To change bodyFile Templates.
+
     }
 
     override fun showChosenFragment(fragmentIndex: Int) {
@@ -63,6 +63,5 @@ class AlarmSettingsPresenter @Inject constructor(private var fragmentToLoadFirst
 
     override fun isFirstSettingsFragment(whichFragmentIndex: Int): Boolean =
             alarmSettingsView.getCurrentFragmentIndex() - whichFragmentIndex == 0
-
 
 }

@@ -36,5 +36,7 @@ interface OptionSetRingtoneContract {
 
         fun initializeLastSavedRingtone()
 
+        fun releaseObjects()
+
     }
 }

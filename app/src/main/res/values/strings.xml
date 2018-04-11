@@ -81,4 +81,7 @@
     <string name="contentDescription_pauseRingtone">Pause ringtone</string>
     <string name="hint_for_tvSetAlarmMessage">Type some message for future yourself here (will appear on alarm screen).</string>
     <string name="toast_message_was_saved">Message was successfully saved.</string>
+    <string name="preview_dialog_boom_time">Boom time :</string>
+    <string name="preview_dialog_ringtone">Ringtone :</string>
+    <string name="preview_dialog_message">Message :</string>
 </resources>

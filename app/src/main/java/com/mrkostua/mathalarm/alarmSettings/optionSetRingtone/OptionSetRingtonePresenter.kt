@@ -36,9 +36,10 @@ class OptionSetRingtonePresenter @Inject constructor(
         playerHelper.stopRingtone()
     }
 
+
     override fun start() {
+        // here we can start some transmission of data to View as it run start() in onCreate method
         ringtonePopulationList = alarmDataHelper.getRingtonesForPopulation()
-        // TODO here we can start some transmission of data to View as it run start() in onCreate method
     }
 
 
@@ -72,11 +73,12 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun playChosenRingtone(position: Int) {
-        if (ringtonePopulationList[position].uri == null) {
-            playerHelper.playRingtoneFromStringResource(ringtonePopulationList[position].name)
+        val ringtoneOb = ringtonePopulationList[position]
+        if (ringtoneOb.uri == null) {
+            playerHelper.playRingtoneFromStringResource(ringtoneOb.name)
 
         } else {
-            playerHelper.playRingtoneFromUri(ringtonePopulationList[position].uri!!)
+            playerHelper.playRingtoneFromUri(ringtoneOb.uri)
 
         }
     }
@@ -86,21 +88,23 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun saveChosenRingtoneNameSP(elementIndex: Int) {
-        alarmDataHelper.saveAlarmRingtoneInSP(ringtonePopulationList[elementIndex].name)
+        alarmDataHelper.saveRingtoneInSP(ringtonePopulationList[elementIndex].name)
 
     }
 
-    override fun getSavedRingtonePosition(): RingtoneObject {
-        val ringtoneName: String = alarmDataHelper.getAlarmRingtoneFromSP()
-        return ringtonePopulationList.find { ao -> ao.name == ringtoneName }
-                ?: ringtonePopulationList[1]
-    }
+    override fun getSavedRingtonePosition(): RingtoneObject =
+            alarmDataHelper.getSavedRingtoneAlarmObject(ringtonePopulationList)
 
     override fun initializeLastSavedRingtone() {
         val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())
         ringtonePopulationList[ringtonePosition].isChecked = true
         optionSetRingtoneView.itemChangedRefreshRecycleView(ringtonePosition)
         ShowLogs.log(TAG, "initializeLastSavedRingtone  ringtone position : " + ringtonePosition)
+
+    }
+
+    override fun releaseObjects() {
+        playerHelper.releaseMediaPlayer()
 
     }
 

@@ -21,6 +21,7 @@ import javax.inject.Singleton
     (AndroidSupportInjectionModule::class),
     (ActivityBindingModule::class)])
 public interface ApplicationComponent : AndroidInjector<SmartAlarmApp> {
+
     public fun getAlarmDataHelper(): AlarmDataHelper
 
     @Component.Builder

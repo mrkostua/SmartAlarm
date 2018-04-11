@@ -3,20 +3,18 @@ package com.mrkostua.mathalarm.tools
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.Window
 import android.view.WindowManager
-import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.extensions.get
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
  */
 object AlarmTools {
-    private val TAG = AlarmTools::class.java.simpleName
+    private val TAG = this.javaClass.simpleName
 
     @Suppress("DEPRECATION")
     public fun getDrawable(resources: Resources, drawableId: Int): Drawable {
@@ -45,12 +43,6 @@ object AlarmTools {
 
     public fun startMainActivity(context: Context) {
         context.startActivity(Intent(context, MainAlarmActivity::class.java))
-    }
-
-    //todo fix this method default value of the hour is set to 7
-    public fun isFirstAlarmCreation(sharedPreferences: SharedPreferences): Boolean {
-        return sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), ConstantValues.PREFERENCES_WRONG_VALUE] == ConstantValues.PREFERENCES_WRONG_VALUE
-
     }
 
     fun setFullScreenMode(activity: Activity) {

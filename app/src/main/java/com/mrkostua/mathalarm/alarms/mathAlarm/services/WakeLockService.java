@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm.Services;
+package com.mrkostua.mathalarm.alarms.mathAlarm.services;
 
 import android.app.Service;
 import android.content.Context;
@@ -29,7 +29,7 @@ public class WakeLockService extends Service {
         wakeDevice("partialWakeLock");
         notificationsTools = new NotificationsTools(this);
         String timeToAlarmStart = intent.getStringExtra("alarmTimeKey");
-        startForeground(NOTIFICATION_ID, notificationsTools.NewNotification(timeToAlarmStart));
+        startForeground(NOTIFICATION_ID, notificationsTools.newNotification(timeToAlarmStart));
 
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.
          * This mode makes sense for things that will be explicitly started and stopped
@@ -41,9 +41,9 @@ public class WakeLockService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
+        notificationsTools.cancelNotification(NOTIFICATION_ID);
         ReleaseWakeLocks();
         stopSelf();
-        notificationsTools.CancelNotification(NOTIFICATION_ID);
     }
 
     protected void createWakeLocks() {

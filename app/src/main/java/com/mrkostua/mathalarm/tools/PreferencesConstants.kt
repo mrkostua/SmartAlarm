@@ -36,6 +36,8 @@ enum class PreferencesConstants {
 
     val defaultTextMessage = "It is nice to see you alive."
     val defaultRingtoneName = "ringtone_energy"
+    val emptyPreferencesValue = -1
+
 
 
 }

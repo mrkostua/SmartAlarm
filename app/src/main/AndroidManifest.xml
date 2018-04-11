@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".alarms.mathAlarm.MainAlarmActivity"
+            android:name=".alarms.mathAlarm.mainAlarm.MainAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -37,23 +37,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/Preference_style" />
         <activity
-            android:name=".alarms.mathAlarm.DisplayAlarmActivity"
+            android:name=".alarms.mathAlarm.displayAlarm.DisplayAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".alarms.mathAlarm.HistoryOfAlarms.SetAlarmFromHistory" />
+        <activity android:name=".alarms.mathAlarm.historyOfAlarms.SetAlarmFromHistory" />
 
         <activity
             android:name=".alarmSettings.mainSettings.AlarmSettingsActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="new screen"
             android:screenOrientation="portrait" />
+
         <service
-            android:name=".alarms.mathAlarm.Services.MathAlarmService"
+            android:name=".alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService"
             android:enabled="true" />
         <service
-            android:name=".alarms.mathAlarm.Services.WakeLockService"
+            android:name=".alarms.mathAlarm.services.WakeLockService"
             android:enabled="true" />
+
 
         <receiver
             android:name=".alarms.mathAlarm.Alarm_Receiver"

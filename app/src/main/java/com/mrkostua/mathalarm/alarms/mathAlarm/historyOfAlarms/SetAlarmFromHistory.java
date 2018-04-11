@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm.HistoryOfAlarms;
+package com.mrkostua.mathalarm.alarms.mathAlarm.historyOfAlarms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.MainAlarmActivity;
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.data.sqlDB.AlarmDBAdapter;
 import com.mrkostua.mathalarm.data.sqlDB.AlarmDBValues;

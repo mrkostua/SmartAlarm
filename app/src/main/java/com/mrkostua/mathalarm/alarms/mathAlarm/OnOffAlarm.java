@@ -5,7 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.Services.WakeLockService;
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.tools.ConstantValues;
 
@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 import static com.mrkostua.mathalarm.tools.TimeToAlarmStart.convertTimeToReadableTime;
 
-class OnOffAlarm {
+public class OnOffAlarm {
     private int pickedHour, pickedMinute;
     private Context alarmContext;
     private int alarmComplexityLevel, selectedMusic;
@@ -22,7 +22,7 @@ class OnOffAlarm {
     private int selectedDeepSleepMusic;
 
     //constructor for SetNewAlarm
-    OnOffAlarm(Context alarmContext, int pickedHour, int pickedMinute,
+    public OnOffAlarm(Context alarmContext, int pickedHour, int pickedMinute,
                int alarmComplexityLevel, int selectedMusic,
                boolean alarmCondition, String alarmMessageText, int selectedDeepSleepMusic) {
         this.pickedHour = pickedHour;
@@ -37,7 +37,7 @@ class OnOffAlarm {
     }
 
     //constructor for SnoozeSetAlarm method( with all alarm settings)
-    OnOffAlarm(Context alarmContext, int alarmComplexityLevel,
+    public OnOffAlarm(Context alarmContext, int alarmComplexityLevel,
                int selectedMusic, boolean alarmCondition, String alarmMessageText, int selectedDeepSleepMusic) {
         this.alarmContext = alarmContext;
         //alarm additional data
@@ -49,7 +49,7 @@ class OnOffAlarm {
     }
 
     //constructor for CancelSetAlarm
-    OnOffAlarm(Context alarmContext) {
+    public OnOffAlarm(Context alarmContext) {
         this.alarmContext = alarmContext;
     }
 
@@ -58,7 +58,7 @@ class OnOffAlarm {
     }
 
     private Intent GetAlarmIntentExtras() {
-        Intent receiverIntent = new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION());
+        Intent receiverIntent = new Intent(ConstantValues.START_NEW_ALARM_ACTION);
         //sending the type of alarm 2(math)
         receiverIntent.putExtra("selectedMusic", selectedMusic)
                 .putExtra("alarmMessageText", alarmMessageText)
@@ -70,7 +70,7 @@ class OnOffAlarm {
         return receiverIntent;
     }
 
-    void SetNewAlarm() {
+    public void SetNewAlarm() {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  SetNewAlarm");
         //initialize alarmManager
         AlarmManager alarmManager = getAlarmManager();
@@ -137,7 +137,8 @@ class OnOffAlarm {
     void CancelSetAlarm() {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  CancelSetAlarm");
         try {
-            PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0, new Intent(ConstantValues.INSTANCE.getSTART_NEW_ALARM_ACTION()), PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0,
+                    new Intent(ConstantValues.START_NEW_ALARM_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = getAlarmManager();
             alarmManager.cancel(cancelPendingIntent);
         } catch (Exception e) {

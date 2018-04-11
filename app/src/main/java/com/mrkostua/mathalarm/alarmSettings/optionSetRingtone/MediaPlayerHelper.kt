@@ -1,8 +1,11 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import com.mrkostua.mathalarm.tools.ShowLogs
 import javax.inject.Inject
 
@@ -15,29 +18,45 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     private var isMpPlaying = false
     private var mediaPlayer: MediaPlayer? = null
 
-    fun playRingtoneFromStringResource(ringtoneResourceId: String) {
+    fun playRingtoneFromStringResource(ringtoneResourceId: String, isAlarmStreamType: Boolean = false) {
         val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
-        if (!isMpPlaying) {
-            startPlayingMusic(getNewMediaPlayer(ringtoneResourceName))
+        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and : res id : " + ringtoneResourceId)
 
-        } else {
+        if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
-            startPlayingMusic(getNewMediaPlayer(ringtoneResourceName))
+
         }
+        if (isAlarmStreamType) {
+            setAlarmStream(mediaPlayer)
+
+        }
+        mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
+        startPlayingMusic(mediaPlayer)
+
+
+        isMpPlaying = true
+
+    }
+
+    fun playRingtoneFromUri(ringtoneUri: Uri, isAlarmStreamType: Boolean = false) {
+        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and uri : " + ringtoneUri)
+
+        if (isMpPlaying) {
+            mediaPlayer?.stop()
+            mediaPlayer?.reset()
+
+        }
+        if (isAlarmStreamType) {
+            setAlarmStream(mediaPlayer)
+
+        }
+        mediaPlayer = getNewMediaPlayer(ringtoneUri)
+        startPlayingMusic(mediaPlayer)
+
         isMpPlaying = true
     }
 
-    fun playRingtoneFromUri(ringtoneUri: Uri) {
-        if (!isMpPlaying) {
-            startPlayingMusic(getNewMediaPlayer(ringtoneUri))
-        } else {
-            mediaPlayer?.stop()
-            mediaPlayer?.reset()
-            startPlayingMusic(getNewMediaPlayer(ringtoneUri))
-        }
-        isMpPlaying = true
-    }
 
     fun stopRingtone() {
         if (isMpPlaying) {
@@ -45,6 +64,10 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
             mediaPlayer?.reset()
             isMpPlaying = false
         }
+    }
+
+    fun releaseMediaPlayer() {
+        mediaPlayer?.release()
     }
 
     override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
@@ -61,19 +84,31 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         mp?.start()
     }
 
+    private fun setAlarmStream(mp: MediaPlayer?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mp?.setAudioAttributes(AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
+        } else {
+            @Suppress("DEPRECATION")
+            mp?.setAudioStreamType(AudioManager.STREAM_ALARM)
+
+        }
+    }
+
     private fun getRawResourceId(resourceName: String): Int =
             context.resources.getIdentifier(resourceName, rawType, context.packageName)
 
     private inline fun <reified T : Any> getNewMediaPlayer(ringtone: T): MediaPlayer? {
         return when (T::class) {
             Int::class -> {
-                ShowLogs.log(TAG,"getNewMediaPlayer int ringtone : " + (ringtone as Int).toString())
+                ShowLogs.log(TAG, "getNewMediaPlayer int ringtone : " + (ringtone as Int).toString())
                 mediaPlayer = MediaPlayer.create(context, ringtone as Int)
                 mediaPlayer?.setOnErrorListener(this)
                 mediaPlayer
             }
             Uri::class -> {
-                ShowLogs.log(TAG,"getNewMediaPlayer int ringtone : " + (ringtone as Uri).toString())
+                ShowLogs.log(TAG, "getNewMediaPlayer int ringtone : " + (ringtone as Uri).toString())
                 mediaPlayer = MediaPlayer.create(context, ringtone as Uri)
                 mediaPlayer?.setOnErrorListener(this)
                 mediaPlayer

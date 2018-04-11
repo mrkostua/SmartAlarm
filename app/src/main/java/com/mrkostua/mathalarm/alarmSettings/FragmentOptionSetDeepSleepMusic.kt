@@ -16,7 +16,7 @@ import com.mrkostua.mathalarm.R
 
 
 /**
- * TODO Just ask user if he want this fun to be turn on (explain what it is,how it works)
+ * TODO Just ask user if he want this fun to be turn on (explain what it is, how it works)
  */
 class FragmentOptionSetDeepSleepMusic : Fragment(), KotlinActivitiesInterface, SettingsFragmentInterface {
     override lateinit var fragmentContext: Context

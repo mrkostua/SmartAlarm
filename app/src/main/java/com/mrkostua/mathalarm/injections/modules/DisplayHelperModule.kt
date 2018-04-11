@@ -9,7 +9,7 @@ import dagger.Provides
  * @author Kostiantyn Prysiazhnyi on 3/18/2018.
  */
 @Module
-class DisplayModule {
+class DisplayHelperModule {
     @Provides
     fun getNotificationsTools(context: Context): NotificationsTools = NotificationsTools(context)
 }

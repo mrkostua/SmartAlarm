@@ -40,5 +40,9 @@
     <color name="blockedButton">#88a69898</color>
     <color name="darkOrange">#ba2f00</color>
 
+    <color name="pressedPreviewTextView">#aa004d40</color>
+    <color name="snoozeButtonColor">#afafaf</color>
+    <color name="displayMessageTextColor">#1a237e</color>
+
 
 </resources>
