@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver;
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService;
 import com.mrkostua.mathalarm.ShowLogsOld;
 import com.mrkostua.mathalarm.tools.ConstantValues;
@@ -13,42 +14,10 @@ import java.util.Calendar;
 
 import static com.mrkostua.mathalarm.tools.TimeToAlarmStart.convertTimeToReadableTime;
 
+//TODO refactoring!! delete all private alarm data variables and use SP data
 public class OnOffAlarm {
-    private int pickedHour, pickedMinute;
     private Context alarmContext;
-    private int alarmComplexityLevel, selectedMusic;
-    private boolean alarmCondition;
-    private String alarmMessageText;
-    private int selectedDeepSleepMusic;
 
-    //constructor for SetNewAlarm
-    public OnOffAlarm(Context alarmContext, int pickedHour, int pickedMinute,
-               int alarmComplexityLevel, int selectedMusic,
-               boolean alarmCondition, String alarmMessageText, int selectedDeepSleepMusic) {
-        this.pickedHour = pickedHour;
-        this.pickedMinute = pickedMinute;
-        this.alarmContext = alarmContext;
-        //alarm additional data
-        this.alarmComplexityLevel = alarmComplexityLevel;
-        this.selectedMusic = selectedMusic;
-        this.alarmCondition = alarmCondition;
-        this.alarmMessageText = alarmMessageText;
-        this.selectedDeepSleepMusic = selectedDeepSleepMusic;
-    }
-
-    //constructor for SnoozeSetAlarm method( with all alarm settings)
-    public OnOffAlarm(Context alarmContext, int alarmComplexityLevel,
-               int selectedMusic, boolean alarmCondition, String alarmMessageText, int selectedDeepSleepMusic) {
-        this.alarmContext = alarmContext;
-        //alarm additional data
-        this.alarmComplexityLevel = alarmComplexityLevel;
-        this.selectedMusic = selectedMusic;
-        this.alarmCondition = alarmCondition;
-        this.alarmMessageText = alarmMessageText;
-        this.selectedDeepSleepMusic = selectedDeepSleepMusic;
-    }
-
-    //constructor for CancelSetAlarm
     public OnOffAlarm(Context alarmContext) {
         this.alarmContext = alarmContext;
     }
@@ -59,18 +28,13 @@ public class OnOffAlarm {
 
     private Intent GetAlarmIntentExtras() {
         Intent receiverIntent = new Intent(ConstantValues.START_NEW_ALARM_ACTION);
-        //sending the type of alarm 2(math)
-        receiverIntent.putExtra("selectedMusic", selectedMusic)
-                .putExtra("alarmMessageText", alarmMessageText)
-                .putExtra("alarmComplexityLevel", alarmComplexityLevel)
-                // sending the condition of alarm if true - alarm on , if false - alarm off
-                .putExtra("alarmCondition", alarmCondition)
-                .putExtra("selectedDeepSleepMusic", selectedDeepSleepMusic);
-        receiverIntent.setClass(alarmContext, Alarm_Receiver.class);
+        receiverIntent.setClass(alarmContext, AlarmReceiver.class);
         return receiverIntent;
     }
 
-    public void SetNewAlarm() {
+    public void SetNewAlarm(AlarmObject alarmObject) {
+        int pickedHour = alarmObject.getHours();
+        int pickedMinute = alarmObject.getMinutes();
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  SetNewAlarm");
         //initialize alarmManager
         AlarmManager alarmManager = getAlarmManager();
@@ -134,11 +98,12 @@ public class OnOffAlarm {
         }
     }
 
-    void CancelSetAlarm() {
+    public void CancelSetAlarm() {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  CancelSetAlarm");
         try {
             PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(alarmContext, 0,
-                    new Intent(ConstantValues.START_NEW_ALARM_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
+                    new Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(alarmContext, AlarmReceiver.class),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = getAlarmManager();
             alarmManager.cancel(cancelPendingIntent);
         } catch (Exception e) {
@@ -147,7 +112,7 @@ public class OnOffAlarm {
     }
 
     //snooze alarm for 5 minutes
-    void SnoozeSetAlarm(int snoozeTime) {
+    public void SnoozeSetAlarm(int snoozeTime) {
         if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("OnOffAlarm" + "  SnoozeSetAlarm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(alarmContext, 0, GetAlarmIntentExtras(),
                 PendingIntent.FLAG_UPDATE_CURRENT);

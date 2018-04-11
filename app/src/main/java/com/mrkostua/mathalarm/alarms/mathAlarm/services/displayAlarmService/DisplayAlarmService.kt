@@ -7,8 +7,8 @@ import android.media.AudioManager
 import android.os.Handler
 import android.os.IBinder
 import android.os.Message
-import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationsTools
@@ -98,6 +98,6 @@ public class DisplayAlarmService : DaggerService() {
 
     private fun snoozeAlarm() {
         sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
-                .setClass(this, Alarm_Receiver::class.java))
+                .setClass(this, AlarmReceiver::class.java))
     }
 }

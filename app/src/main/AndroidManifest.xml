@@ -56,9 +56,8 @@
             android:name=".alarms.mathAlarm.services.WakeLockService"
             android:enabled="true" />
 
-
         <receiver
-            android:name=".alarms.mathAlarm.Alarm_Receiver"
+            android:name=".alarms.mathAlarm.receivers.AlarmReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="alarm_snooze" />

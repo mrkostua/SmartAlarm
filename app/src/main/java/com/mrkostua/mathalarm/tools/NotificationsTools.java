@@ -14,7 +14,7 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.mrkostua.mathalarm.R;
-import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver;
+import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver;
 
 import kotlin.Pair;
 
@@ -33,9 +33,9 @@ public class NotificationsTools {
     public Notification newNotification() {
         // snooze button
         Intent snoozeIntent = new Intent(ConstantValues.SNOOZE_ACTION);
-        snoozeIntent.setClass(context, Alarm_Receiver.class);
+        snoozeIntent.setClass(context, AlarmReceiver.class);
         PendingIntent piSnooze = PendingIntent.getBroadcast(context, 0, snoozeIntent, 0);
-        snoozeIntent.setClass(context, Alarm_Receiver.class);
+        snoozeIntent.setClass(context, AlarmReceiver.class);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -56,7 +56,7 @@ public class NotificationsTools {
     public Notification newNotification(String time) {
         //dismiss button
         Intent dismissIntent = new Intent(ConstantValues.DISMISS_ACTION);
-        dismissIntent.setClass(context, Alarm_Receiver.class);
+        dismissIntent.setClass(context, AlarmReceiver.class);
         PendingIntent piDismiss = PendingIntent.getBroadcast(context, 0, dismissIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder

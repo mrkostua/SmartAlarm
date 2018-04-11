@@ -24,7 +24,8 @@ object ConstantValues {
     const val SNOOZE_ACTION = "alarm_snooze"
     const val DISMISS_ACTION = "alarm_dismiss"
     const val START_NEW_ALARM_ACTION = "alarm_start_new"
-    const val ALARM_TIMEOUT_MILLISECONDS : Long = 5 * 60 * 1000
+    const val ALARM_TIMEOUT_MILLISECONDS: Long = 5 * 60 * 1000
+    const val DEFAULT_SNOOZE_TIME_MIN = 5
 
     const val INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST = "whichFragmentToLoadFirst"
     val alarmSettingsOptionsList: MutableList<Fragment> = ArrayList()

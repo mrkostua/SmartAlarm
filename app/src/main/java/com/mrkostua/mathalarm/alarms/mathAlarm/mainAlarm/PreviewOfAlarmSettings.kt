@@ -81,9 +81,8 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
         //todo think about  : stop set alarm if exist(in the future after testing)
-        val onOffAlarm = OnOffAlarm(context, alarmObject.hours, alarmObject.minutes, alarmObject.complexityLevel,
-                1, true, alarmObject.textMessage, 0)
-        onOffAlarm.SetNewAlarm()
+        val onOffAlarm = OnOffAlarm(context)
+        onOffAlarm.SetNewAlarm(alarmObject)
         startNewWakeLockService(alarmObject)
     }
 
