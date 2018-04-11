@@ -43,7 +43,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
 
     fun bStopAlarmOnClickListener(view: View) {
         finish()
-        //TODO fix problem mainActivity staring 2 times blinking!!
+        //TODO fix problem mainActivity starting 2 times blinking!!
     }
 
     fun bSnoozeAlarmOnClickListener(view: View) {

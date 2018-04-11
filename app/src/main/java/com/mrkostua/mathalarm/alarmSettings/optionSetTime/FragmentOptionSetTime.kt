@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 /**
  * TODO test on with 2 timePicker styles and maybe improve some design
- * TODO is there place for injection in View using MVP design pattern
  */
 @FragmentScope
 class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {

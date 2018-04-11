@@ -104,11 +104,13 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
         presenter.saveRingtoneFromExternalPath()
         startActivity(openFileActionIntent)
 
-        //TODO to do it faster we can just add one ringtone and save in SharedPreferences so one last added ringtone will be available all the time or SharedPreferences Set<String>
+        // to do it faster we can just add one ringtone and save in SharedPreferences so one last added
+        // ringtone will be available all the time or SharedPreferences Set<String>
         /**
          * return the path to this file and probably this list need to be saved somewhere (local DB ) SharedPreferences
          *  1 need to be some ListView populated by some ArrayList of music that can be updated by user
-         * todo user can click the button and search throw files tree to music location and by choosing ->
+         *
+         * user can click the button and search throw files tree to music location and by choosing ->
          * file with proper type it will be added to the list of ringtone's.
          */
 

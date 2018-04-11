@@ -36,9 +36,10 @@ class OptionSetRingtonePresenter @Inject constructor(
         playerHelper.stopRingtone()
     }
 
+
     override fun start() {
+        // here we can start some transmission of data to View as it run start() in onCreate method
         ringtonePopulationList = alarmDataHelper.getRingtonesForPopulation()
-        // TODO here we can start some transmission of data to View as it run start() in onCreate method
     }
 
 

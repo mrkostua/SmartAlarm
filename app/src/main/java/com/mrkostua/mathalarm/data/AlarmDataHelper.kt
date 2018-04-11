@@ -28,8 +28,8 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     }
 
     fun getTimeFromSP(): Pair<Int, Int> =
-            Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue(), null],
-                    sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue(), null])
+            Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()],
+                    sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()])
 
     fun saveRingtoneInSP(ringtoneName: String) {
         sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue()] = ringtoneName
@@ -38,9 +38,10 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
 
     fun getRingtoneFromSP(): String =
             sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(),
-                    PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName, null]
+                    PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
 
-    fun getTextMessageFromSP(): String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage, null]
+    fun getTextMessageFromSP(): String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(),
+            PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
 
     //TODO move this code to Model layer as DB implement it using Room library ( can be useful in the future in case of implementing list of all set alarms)
