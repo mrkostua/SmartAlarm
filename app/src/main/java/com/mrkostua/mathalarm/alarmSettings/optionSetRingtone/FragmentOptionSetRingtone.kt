@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.ImageView
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
@@ -154,6 +153,6 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
 
     }
 
-    private fun isRingtoneImagePlay(view: ImageView): Boolean =
+    private fun isRingtoneImagePlay(view: ImageButton): Boolean =
             view.contentDescription == fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
 }

@@ -1,7 +1,7 @@
 package com.mrkostua.mathalarm.tools
 
 import android.app.Fragment
-import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetDeepSleepMusic
+import com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic.FragmentOptionSetDeepWakeUp
 import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetMessage
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
@@ -43,7 +43,7 @@ object ConstantValues {
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_TIME.getKeyValue(), FragmentOptionSetTime())
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue(), FragmentOptionSetRingtone())
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue(), FragmentOptionSetMessage())
-        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_DEEP_SLEEP_MUSIC.getKeyValue(), FragmentOptionSetDeepSleepMusic())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_DEEP_SLEEP_MUSIC.getKeyValue(), FragmentOptionSetDeepWakeUp())
     }
 }
 

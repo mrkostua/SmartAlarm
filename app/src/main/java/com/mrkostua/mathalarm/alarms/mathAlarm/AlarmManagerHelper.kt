@@ -10,12 +10,11 @@ import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
 import java.util.*
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 4/11/2018.
  */
-class AlarmManagerHelper @Inject constructor(private val context: Context) {
+class AlarmManagerHelper constructor(private val context: Context) {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

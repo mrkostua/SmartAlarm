@@ -84,4 +84,7 @@
     <string name="preview_dialog_boom_time">Boom time :</string>
     <string name="preview_dialog_ringtone">Ringtone :</string>
     <string name="preview_dialog_message">Message :</string>
+    <string name="deepSleepOptionTitle">Deep sleep wake up</string>
+    <string name="deepSleepOptionDescription">Short Description of this option.</string>
+    <string name="contentDescriptionSleepIcon">sleep zzz icon</string>
 </resources>
