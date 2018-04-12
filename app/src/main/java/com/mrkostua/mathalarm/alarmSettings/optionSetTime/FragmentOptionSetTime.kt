@@ -10,7 +10,7 @@ import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
@@ -24,7 +24,7 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
     private val TAG = this.javaClass.simpleName
     override lateinit var fragmentContext: Context
     @Inject
-    public lateinit var notificationTools: NotificationsTools
+    public lateinit var notificationTools: NotificationTools
 
     @Inject
     public lateinit var presenter: OptionSetTimeContract.Presenter

@@ -8,13 +8,12 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 
 import com.mrkostua.mathalarm.tools.ConstantValues;
-import com.mrkostua.mathalarm.tools.NotificationsTools;
-import com.mrkostua.mathalarm.ShowLogsOld;
+import com.mrkostua.mathalarm.tools.NotificationTools;
 
 public class WakeLockService extends Service {
     private static final int NOTIFICATION_ID = 25;
     private PowerManager.WakeLock partialWakeLock;
-    private NotificationsTools notificationsTools;
+    private NotificationTools notificationsTools;
 
     @Nullable
     @Override
@@ -24,13 +23,13 @@ public class WakeLockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  onStartCommand");
+//        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  onStartCommand");
         // Called implicitly when device is about to sleep or application is backgrounded
         createWakeLocks();
         wakeDevice("partialWakeLock");
-        notificationsTools = new NotificationsTools(this);
-        String timeToAlarmStart = intent.getStringExtra(ConstantValues.WAKE_LOCK_NOTF_TIME_KEY);
-        startForeground(NOTIFICATION_ID, notificationsTools.newNotification(timeToAlarmStart));
+        notificationsTools = new NotificationTools(this);
+        String timeToAlarmStart = intent.getStringExtra(ConstantValues.WAKE_LOCK_NOTIFICATION_TIME_KEY);
+        startForeground(NOTIFICATION_ID, notificationsTools.alarmNotification(timeToAlarmStart));
 
         /**if this service's process is killed while it is started.Later the system will try to re-create the service.
          * This mode makes sense for things that will be explicitly started and stopped
@@ -41,7 +40,7 @@ public class WakeLockService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
+//        if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService " + " onDestroy");
         notificationsTools.cancelNotification(NOTIFICATION_ID);
         ReleaseWakeLocks();
         stopSelf();
@@ -63,8 +62,8 @@ public class WakeLockService extends Service {
                 *If the user presses the power button, then the screen will be turned off but the
                  CPU will be kept on until all partial wake locks have been released.*/
                 partialWakeLock.acquire();
-                if (ShowLogsOld.LOG_STATUS)
-                    ShowLogsOld.i("WakeLockService   partialWakeLock.acquire()");
+//                if (ShowLogsOld.LOG_STATUS)
+//                    ShowLogsOld.i("WakeLockService   partialWakeLock.acquire()");
                 break;
         }
     }
@@ -73,7 +72,7 @@ public class WakeLockService extends Service {
         if (partialWakeLock.isHeld()) {
             partialWakeLock.release();
             partialWakeLock = null;
-            if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  partialWakeLock released");
+//            if (ShowLogsOld.LOG_STATUS) ShowLogsOld.i("WakeLockService  partialWakeLock released");
         }
     }
 }

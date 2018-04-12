@@ -11,7 +11,7 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerService
 import javax.inject.Inject
@@ -29,7 +29,7 @@ public class DisplayAlarmService : DaggerService() {
     private val handler = CustomHandler()
 
     @Inject
-    public lateinit var notificationsTools: NotificationsTools
+    public lateinit var notificationsTools: NotificationTools
     @Inject
     public lateinit var presenter: DisplayAlarmServiceContract.Presenter
 
@@ -43,7 +43,7 @@ public class DisplayAlarmService : DaggerService() {
         enableHandlerSilenceKiller()
         presenter.playAlarmRingtone()
 
-        startForeground(notificationId, notificationsTools.newNotification())
+        startForeground(notificationId, notificationsTools.snoozeNotification())
         return Service.START_STICKY
     }
 

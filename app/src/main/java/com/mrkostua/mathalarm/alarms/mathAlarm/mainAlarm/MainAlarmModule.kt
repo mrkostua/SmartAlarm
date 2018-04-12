@@ -5,7 +5,7 @@ import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
 import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import dagger.Module
 import dagger.Provides
 
@@ -33,6 +33,6 @@ public class MainAlarmModule {
     @ActivityScope
     @Provides
     fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, viewModule: MainAlarmViewModel,
-                                      notificationsTools: NotificationsTools) =
+                                      notificationsTools: NotificationTools) =
             PreviewOfAlarmSettings(activity, viewModule, notificationsTools)
 }

@@ -1,7 +1,7 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetTime
 
 import com.mrkostua.mathalarm.data.AlarmDataHelper
-import com.mrkostua.mathalarm.tools.TimeToAlarmStart
+import com.mrkostua.mathalarm.tools.AlarmTools
 import javax.inject.Inject
 
 /**
@@ -9,7 +9,6 @@ import javax.inject.Inject
  */
 
 class OptionSetTimePresenter @Inject constructor(private val alarmDataHelper: AlarmDataHelper) : OptionSetTimeContract.Presenter {
-    private val countsTimeToAlarmStart = TimeToAlarmStart()
     private lateinit var optionSetTimeView: OptionSetTimeContract.View
 
     override fun takeView(view: OptionSetTimeContract.View) {
@@ -21,7 +20,7 @@ class OptionSetTimePresenter @Inject constructor(private val alarmDataHelper: Al
     }
 
     override fun getTimeUntilAlarmBoom(hourOfDay: Int, minutes: Int): Pair<Int, Int> {
-        return countsTimeToAlarmStart.howMuchTimeToStart(hourOfDay, minutes)
+        return AlarmTools.getTimeToAlarmStart(hourOfDay, minutes)
 
     }
 

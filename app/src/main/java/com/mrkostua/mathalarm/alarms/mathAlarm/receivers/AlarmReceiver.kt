@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.alarms.mathAlarm.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.alarms.mathAlarm.alarmTools.AlarmManagerHelper
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmManagerHelper
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService

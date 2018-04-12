@@ -1,7 +1,7 @@
 package com.mrkostua.mathalarm.injections.modules
 
 import android.content.Context
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import dagger.Module
 import dagger.Provides
 
@@ -11,5 +11,5 @@ import dagger.Provides
 @Module
 class DisplayHelperModule {
     @Provides
-    fun getNotificationsTools(context: Context): NotificationsTools = NotificationsTools(context)
+    fun getNotificationsTools(context: Context) = NotificationTools(context)
 }

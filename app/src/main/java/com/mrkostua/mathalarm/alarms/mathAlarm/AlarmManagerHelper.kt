@@ -1,15 +1,14 @@
-package com.mrkostua.mathalarm.alarms.mathAlarm.alarmTools
+package com.mrkostua.mathalarm.alarms.mathAlarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
+import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
-import com.mrkostua.mathalarm.tools.TimeToAlarmStart
 import java.util.*
 import javax.inject.Inject
 
@@ -95,8 +94,8 @@ class AlarmManagerHelper @Inject constructor(private val context: Context) {
 
     private fun startWakeLockService(alarmHour: Int, alarmMin: Int) {
         context.startService(Intent(context, WakeLockService::class.java)
-                .putExtra(ConstantValues.WAKE_LOCK_NOTF_TIME_KEY,
-                        TimeToAlarmStart.convertTimeToReadableTime(alarmHour, alarmMin)))
+                .putExtra(ConstantValues.WAKE_LOCK_NOTIFICATION_TIME_KEY,
+                        AlarmTools.getReadableTime(alarmHour, alarmMin)))
     }
 
     private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {

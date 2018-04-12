@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".Settings_Preference"
+            android:name=".appSettingsPreference.SettingsPreference"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:icon="@drawable/ic_settings_white_36dp"
             android:label="@string/preference_settings"

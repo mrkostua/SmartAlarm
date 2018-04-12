@@ -10,11 +10,11 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
-import com.mrkostua.mathalarm.alarms.mathAlarm.alarmTools.AlarmManagerHelper
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmManagerHelper
 import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.databinding.CustomViewAlertDialogSettingsPreviewBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import javax.inject.Inject
 
 
@@ -24,7 +24,7 @@ import javax.inject.Inject
 //TODO update design (style) of Preview views colors,size etc.
 class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                                                  private val mainViewModel: MainAlarmViewModel,
-                                                 private val notificationsTools: NotificationsTools) : View.OnClickListener {
+                                                 private val notificationsTools: NotificationTools) : View.OnClickListener {
     private val TAG = this.javaClass.simpleName
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
     private val alarmObject = mainViewModel.getAlarmDataObject()
