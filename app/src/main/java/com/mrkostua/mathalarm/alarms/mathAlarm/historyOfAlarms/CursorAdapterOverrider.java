@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.mrkostua.mathalarm.R;
 import com.mrkostua.mathalarm.data.sqlDB.AlarmDBValues;
-import com.mrkostua.mathalarm.ShowLogsOld;
+import com.mrkostua.mathalarm.tools.ShowLogs;
 
 /**
  * @author Konstantyn
@@ -45,7 +45,7 @@ import com.mrkostua.mathalarm.ShowLogsOld;
          minute =cursor.getInt(cursor.getColumnIndexOrThrow(AlarmDBValues.COLUMN_MINUTE));
         }
         catch (IllegalArgumentException e){
-            ShowLogsOld.i("CursorAdapterOverrider IllegalArgumentException");
+            ShowLogs.INSTANCE.log(this.getClass().getSimpleName(),"CursorAdapterOverrider IllegalArgumentException");
         }
 
         if(minute<10)

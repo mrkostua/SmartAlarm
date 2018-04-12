@@ -7,8 +7,9 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarms.mathAlarm.Alarm_Receiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
+import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
 import com.mrkostua.mathalarm.databinding.ActivityDisplayAlarmBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
@@ -31,7 +32,8 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
             viewModel = displayViewModel
             executePendingBindings()
         }
-
+        //stops WakeLockService when activity is visible and also cancel old notification in onDestroy()
+        stopService(Intent(this, WakeLockService::class.java))
         anabelWindowsFlags()
     }
 
@@ -48,7 +50,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
 
     fun bSnoozeAlarmOnClickListener(view: View) {
         sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
-                .setClass(this, Alarm_Receiver::class.java))
+                .setClass(this, AlarmReceiver::class.java))
     }
 
     //TODO maybe add some fun as pushing KEYCODE_VOLUME_UP alarm will be snoozed for 5 m

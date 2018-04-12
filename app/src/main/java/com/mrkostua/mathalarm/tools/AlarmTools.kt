@@ -1,23 +1,21 @@
 package com.mrkostua.mathalarm.tools
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.view.Window
-import android.view.WindowManager
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
+import java.util.*
 
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
  */
-object AlarmTools {
+public object AlarmTools {
     private val TAG = this.javaClass.simpleName
 
     @Suppress("DEPRECATION")
-    public fun getDrawable(resources: Resources, drawableId: Int): Drawable {
+    fun getDrawable(resources: Resources, drawableId: Int): Drawable {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             resources.getDrawable(drawableId, null)
 
@@ -27,27 +25,57 @@ object AlarmTools {
         }
     }
 
-    public fun getCustomRingtoneResId(context: Context): Int =
-            context.resources.getIdentifier(ConstantValues.CUSTOM_ALARM_RINGTONE, "raw", context.packageName)
-
-    public fun getRingtoneNameByResId(context: Context, ringtoneResId: Int): String =
-            context.resources.getResourceName(ringtoneResId)
-
-    public fun isFragmentExistsForThisIndex(index: Int): Boolean =
-            (index > 0 && index <= ConstantValues.alarmSettingsOptionsList.size - 1)
-
-
-    public fun getLastFragmentIndex(): Int {
+    fun getLastFragmentIndex(): Int {
         return ConstantValues.alarmSettingsOptionsList.size - 1
     }
 
-    public fun startMainActivity(context: Context) {
+    fun startMainActivity(context: Context) {
         context.startActivity(Intent(context, MainAlarmActivity::class.java))
     }
 
-    fun setFullScreenMode(activity: Activity) {
-        //set layout to the full screen
-        activity.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        activity.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    fun getTimeToAlarmStart(alarmHour: Int, alarmMinute: Int): Pair<Int, Int> {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = calendar.get(Calendar.MINUTE)
+        ShowLogs.log(TAG, " h currentTimeInMinutes: " + currentHour + "  alarm hour: " + alarmHour)
+        ShowLogs.log(TAG, " min currentTimeInMinutes: " + currentMinute + "  alarm min: " + alarmMinute)
+
+        val alarmTimeInMinutes = alarmHour * 60 + alarmMinute
+        val currentTimeInMinutes: Int = currentHour * 60 + currentMinute
+        val timeToStartAlarm = when {
+            alarmHour > currentHour -> alarmTimeInMinutes - currentTimeInMinutes
+
+            alarmHour < currentHour -> ConstantValues.DAY_IN_MINUTES - (currentTimeInMinutes - alarmTimeInMinutes)
+
+            alarmHour == currentHour -> {
+                if (currentMinute > alarmMinute) {
+                    ConstantValues.DAY_IN_MINUTES - (currentTimeInMinutes - alarmTimeInMinutes)
+                } else {
+                    alarmTimeInMinutes - currentTimeInMinutes
+                }
+            }
+
+            else -> throw UnsupportedOperationException("imposable action")
+        }
+        return Pair(covertTo24Format(timeToStartAlarm).first,
+                covertTo24Format(timeToStartAlarm).second)
+    }
+
+    fun getReadableTime(hour: Int, min: Int) =
+            if (hour == 0) {
+                hour.toString() + "0"
+            } else {
+                hour.toString()
+            } + " : " + if (min < 10) {
+                "0" + min.toString()
+            } else {
+                min.toString()
+            }
+
+    private fun covertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
+        val resultH = minToAlarmStart / 60
+        return Pair(resultH, minToAlarmStart - resultH * 60)
+
     }
 }

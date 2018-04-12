@@ -7,7 +7,7 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.FragmentCreationHelper
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.NotificationsTools
+import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_container_for_alarm_setttings.*
@@ -31,7 +31,7 @@ class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.V
     private val TAG = this.javaClass.simpleName
 
     @Inject
-    public lateinit var notificationsTools: NotificationsTools
+    public lateinit var notificationsTools: NotificationTools
     @Inject
     public lateinit var presenter: AlarmSettingsContract.Presenter
     @Inject

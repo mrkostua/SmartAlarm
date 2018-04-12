@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -11,13 +10,11 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
-import com.mrkostua.mathalarm.alarms.mathAlarm.OnOffAlarm
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmManagerHelper
 import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
-import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.databinding.CustomViewAlertDialogSettingsPreviewBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
-import com.mrkostua.mathalarm.tools.NotificationsTools
-import com.mrkostua.mathalarm.tools.TimeToAlarmStart
+import com.mrkostua.mathalarm.tools.NotificationTools
 import javax.inject.Inject
 
 
@@ -26,12 +23,10 @@ import javax.inject.Inject
  */
 //TODO update design (style) of Preview views colors,size etc.
 class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
-                                                 private val mainActivity: Activity,
                                                  private val mainViewModel: MainAlarmViewModel,
-                                                 private val notificationsTools: NotificationsTools) : View.OnClickListener {
+                                                 private val notificationsTools: NotificationTools) : View.OnClickListener {
     private val TAG = this.javaClass.simpleName
     private val alarmSettingActivityIntent = Intent(context, AlarmSettingsActivity::class.java)
-    private val wakeLockServiceIntent = Intent(context, WakeLockService::class.java)
     private val alarmObject = mainViewModel.getAlarmDataObject()
 
     private lateinit var alertDialog: AlertDialog
@@ -81,16 +76,9 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
         //todo think about  : stop set alarm if exist(in the future after testing)
-        val onOffAlarm = OnOffAlarm(context, alarmObject.hours, alarmObject.minutes, alarmObject.complexityLevel,
-                1, true, alarmObject.textMessage, 0)
-        onOffAlarm.SetNewAlarm()
-        startNewWakeLockService(alarmObject)
-    }
-
-    private fun startNewWakeLockService(alarmObject: AlarmObject) {
-        wakeLockServiceIntent.putExtra("alarmTimeKey", TimeToAlarmStart.convertTimeToReadableTime(alarmObject.hours, alarmObject.minutes))
-        mainActivity.startService(wakeLockServiceIntent)
+        AlarmManagerHelper(context).setNewAlarm(alarmObject)
         notificationsTools.showToastMessage("Service was activated")
+
     }
 
     private fun showChosenSettingsFragment(which: Int) {

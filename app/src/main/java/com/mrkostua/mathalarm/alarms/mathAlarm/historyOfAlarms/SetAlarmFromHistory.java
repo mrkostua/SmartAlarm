@@ -3,23 +3,21 @@ package com.mrkostua.mathalarm.alarms.mathAlarm.historyOfAlarms;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.R;
+import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity;
 import com.mrkostua.mathalarm.data.sqlDB.AlarmDBAdapter;
 import com.mrkostua.mathalarm.data.sqlDB.AlarmDBValues;
-import com.mrkostua.mathalarm.ShowLogsOld;
 
 public class SetAlarmFromHistory extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    // TODO: 19.11.2017 delete alarms from history after 7 days without using. It depends if this func will be available in the release 2.0.
     private AlarmDBAdapter alarmDBAdapter;
     private ListView lvAllSetAlarms;
 
@@ -59,8 +57,8 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
     }
 
     private void PopulateListViewAlarmDB() {
-        if (ShowLogsOld.LOG_STATUS)
-            ShowLogsOld.i("SetAlarmFromHistory " + "PopulateListViewAlarmDB");
+//        if (ShowLogsOld.LOG_STATUS)
+//            ShowLogsOld.i("SetAlarmFromHistory " + "PopulateListViewAlarmDB");
         cursor = alarmDBAdapter.GetAllRowsAlarmDB();
 
         CursorAdapterOverrider cursorAdapterOverrider = new CursorAdapterOverrider(SetAlarmFromHistory.this, cursor);
@@ -69,8 +67,8 @@ public class SetAlarmFromHistory extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (ShowLogsOld.LOG_STATUS)
-            ShowLogsOld.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
+//        if (ShowLogsOld.LOG_STATUS)
+//            ShowLogsOld.i("SetAlarmFromHistory " + "OnClickListViewMethod -" + id);
         AlarmDataPreviewAlertDialog_Method(id);
     }
 
