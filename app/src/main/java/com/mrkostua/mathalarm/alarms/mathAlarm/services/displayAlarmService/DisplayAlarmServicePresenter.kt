@@ -13,15 +13,7 @@ class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: A
 
     override fun playAlarmRingtone() {
         val ringtoneOb = dataHelper.getSavedRingtoneAlarmObject()
-
-        if (ringtoneOb.uri == null) {
-            mediaPlayer.playRingtoneFromStringResource(ringtoneOb.name, true)
-
-        } else {
-            mediaPlayer.playRingtoneFromUri(ringtoneOb.uri, true)
-
-        }
-
+        mediaPlayer.playRingtoneFromRingtoneOb(ringtoneOb)
     }
 
     override fun stopAlarmRingtone() {

@@ -18,6 +18,17 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     private var isMpPlaying = false
     private var mediaPlayer: MediaPlayer? = null
 
+     fun playRingtoneFromRingtoneOb(ringtoneOb : RingtoneObject) {
+        if (ringtoneOb.uri == null) {
+            playRingtoneFromStringResource(ringtoneOb.name, true)
+
+        } else {
+            playRingtoneFromUri(ringtoneOb.uri, true)
+
+        }
+    }
+
+
     fun playRingtoneFromStringResource(ringtoneResourceId: String, isAlarmStreamType: Boolean = false) {
         val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
         ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and : res id : " + ringtoneResourceId)

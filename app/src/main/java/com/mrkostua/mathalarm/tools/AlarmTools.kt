@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.widget.ImageButton
+import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import java.util.*
 
@@ -24,6 +26,9 @@ public object AlarmTools {
 
         }
     }
+
+     fun isRingtoneImagePlay(context : Context, view: ImageButton): Boolean =
+            view.contentDescription == context.resources.getString(R.string.contentDescription_playRingtone)
 
     fun getLastFragmentIndex(): Int {
         return ConstantValues.alarmSettingsOptionsList.size - 1
@@ -78,4 +83,5 @@ public object AlarmTools {
         return Pair(resultH, minToAlarmStart - resultH * 60)
 
     }
+
 }

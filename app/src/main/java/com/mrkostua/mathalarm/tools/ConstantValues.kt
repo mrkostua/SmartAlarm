@@ -43,7 +43,7 @@ object ConstantValues {
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_TIME.getKeyValue(), FragmentOptionSetTime())
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue(), FragmentOptionSetRingtone())
         alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue(), FragmentOptionSetMessage())
-        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_DEEP_SLEEP_MUSIC.getKeyValue(), FragmentOptionSetDeepWakeUp())
+        alarmSettingsOptionsList.add(AlarmSettingsNames.OPTION_SET_DEEP_WAKE_UP.getKeyValue(), FragmentOptionSetDeepWakeUp())
     }
 }
 

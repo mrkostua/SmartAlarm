@@ -28,6 +28,7 @@ class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHe
     val alarmMinute = time.second.toString()
     val alarmRingtone = dataHelper.getRingtoneFromSP()
     val alarmMessage = dataHelper.getTextMessageFromSP()
+    val alarmDeepWakeUp = dataHelper.getDeepWakeUpStateFromSP()
 
     init {
         start()

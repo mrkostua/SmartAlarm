@@ -6,7 +6,7 @@ import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
-import com.mrkostua.mathalarm.tools.PreferencesConstants
+import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,25 +23,35 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     }
 
     fun saveTimeInSP(hourOfDay: Int, minutes: Int) {
-        sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue()] = hourOfDay
-        sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue()] = minutes
+        sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue()] = hourOfDay
+        sharedPreferences[ConstantsPreferences.ALARM_MINUTES.getKeyValue()] = minutes
     }
 
     fun getTimeFromSP(): Pair<Int, Int> =
-            Pair(sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.getDefaultIntValue()],
-                    sharedPreferences[PreferencesConstants.ALARM_MINUTES.getKeyValue(), PreferencesConstants.ALARM_MINUTES.getDefaultIntValue()])
+            Pair(sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.getDefaultIntValue()],
+                    sharedPreferences[ConstantsPreferences.ALARM_MINUTES.getKeyValue(), ConstantsPreferences.ALARM_MINUTES.getDefaultIntValue()])
 
     fun saveRingtoneInSP(ringtoneName: String) {
-        sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue()] = ringtoneName
+        sharedPreferences[ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue()] = ringtoneName
 
     }
 
-    fun getRingtoneFromSP(): String =
-            sharedPreferences[PreferencesConstants.ALARM_RINGTONE_NAME.getKeyValue(),
-                    PreferencesConstants.ALARM_RINGTONE_NAME.defaultRingtoneName]
+    fun getDeepWakeUpStateFromSP(): Boolean =
+            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP.getDefaultIntValue()] == 1
 
-    fun getTextMessageFromSP(): String = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(),
-            PreferencesConstants.ALARM_TEXT_MESSAGE.defaultTextMessage]
+
+    fun saveDeepWakeUpStateInSP(state: Boolean) {
+        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP.getKeyValue()] = if (state) 1 else 0
+
+    }
+
+
+    fun getRingtoneFromSP(): String =
+            sharedPreferences[ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue(),
+                    ConstantsPreferences.ALARM_RINGTONE_NAME.defaultRingtoneName]
+
+    fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
+            ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
 
     //TODO move this code to Model layer as DB implement it using Room library ( can be useful in the future in case of implementing list of all set alarms)
@@ -60,6 +70,6 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
                 ?: ringtoneList[1]
     }
 
-    fun isFirstAlarmSaving() = sharedPreferences[PreferencesConstants.ALARM_HOURS.getKeyValue(), PreferencesConstants.ALARM_HOURS.emptyPreferencesValue] ==
-            PreferencesConstants.ALARM_HOURS.emptyPreferencesValue
+    fun isFirstAlarmSaving() = sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue] ==
+            ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue
 }

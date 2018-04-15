@@ -1,16 +1,17 @@
 package com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic
 
-import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.ImageButton
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.injections.scope.FragmentScope
+import com.mrkostua.mathalarm.tools.AlarmTools
+import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_deep_wake_up.*
 import kotlinx.android.synthetic.main.ringtone_list_row_layout.view.*
 import javax.inject.Inject
@@ -22,11 +23,10 @@ import javax.inject.Inject
 /**
  * TODO Just ask user if he want this fun to be turn on (explain what it is, how it works)
  */
-class FragmentOptionSetDeepWakeUp : Fragment(), SettingsFragmentInterface, KotlinActivitiesInterface,
-        OptionSetDeepWakeUpContract.View, CompoundButton.OnCheckedChangeListener {
-
+@FragmentScope
+class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, View.OnClickListener {
     @Inject
-    private lateinit var presenter: OptionSetDeepWakeUpContract.Presenter
+    public lateinit var presenter: OptionSetDeepWakeUpContract.Presenter
 
     override lateinit var fragmentContext: Context
 
@@ -41,37 +41,47 @@ class FragmentOptionSetDeepWakeUp : Fragment(), SettingsFragmentInterface, Kotli
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeDependOnViewVariables(view)
+        saveSettingsInSharedPreferences()
+
     }
 
 
     override fun saveSettingsInSharedPreferences() {
-    }
+        swDeepWakeUpOption.setOnCheckedChangeListener { buttonView, isChecked ->
+            presenter.saveStateInSP(isChecked)
 
-    override fun initializeDependOnViewVariables(view: View?) {
-        swDeepWakeUpOption.setOnCheckedChangeListener(this)
-        layoutDeepWakeUpPlayer.ibPlayPauseRingtone.setOnClickListener {
-            if (isRingtoneImagePlay(it as ImageButton)) {
-                it.contentDescription = fragmentContext.resources.getString(R.string.contentDescription_pauseRingtone)
-                presenter.playRingtone()
-
-            } else {
-                presenter.stopPlayingRingtone()
-                it.contentDescription = fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
-
-            }
         }
     }
 
-    private fun isRingtoneImagePlay(view: ImageButton): Boolean =
-            view.contentDescription == fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
+    override fun initializeDependOnViewVariables(view: View?) {
+        swDeepWakeUpOption.isChecked = presenter.getStateFromSP()
+
+        layoutDeepWakeUpPlayer.tvRingtoneName.text = presenter.getDeepWakeUpRingtoneName()
+        layoutDeepWakeUpPlayer.ibPlayPauseRingtone.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            layoutDeepWakeUpPlayer.ibPlayPauseRingtone -> {
+                if (AlarmTools.isRingtoneImagePlay(fragmentContext, v as ImageButton)) {
+                    v.contentDescription = fragmentContext.resources.getString(R.string.contentDescription_pauseRingtone)
+                    v.setImageDrawable(AlarmTools.getDrawable(fragmentContext.resources, R.drawable.ic_pause_ringtone_48dp))
+                    presenter.playRingtone()
+
+                } else {
+                    presenter.stopPlayingRingtone()
+                    v.setImageDrawable(AlarmTools.getDrawable(fragmentContext.resources, R.drawable.ic_play_ringtone_48dp))
+                    v.contentDescription = fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
+
+                }
+            }
+        }
+
+    }
+
 
     override fun initializeDependOnContextVariables(context: Context) {
-
     }
-
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        presenter.saveStateInSP(isChecked)
-    }
-
 
 }

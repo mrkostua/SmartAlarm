@@ -18,7 +18,7 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
-import com.mrkostua.mathalarm.tools.PreferencesConstants
+import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import com.mrkostua.mathalarm.tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
 
@@ -61,7 +61,7 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
-        sharedPreferences = context.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences(ConstantsPreferences.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
     }
 
 
@@ -73,7 +73,7 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
             override fun afterTextChanged(s: Editable?) {
                 ShowLogs.log(TAG, "message is : " + s?.toString())
                 Toast.makeText(fragmentContext, getString(R.string.toast_message_was_saved), Toast.LENGTH_LONG).show()
-                sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue()] = s?.toString()
+                sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue()] = s?.toString()
 
             }
 
@@ -88,7 +88,7 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
     }
 
     private fun initializeTextViewWithLastMessage() {
-        val savedMessage = sharedPreferences[PreferencesConstants.ALARM_TEXT_MESSAGE.getKeyValue(), ""]
+        val savedMessage = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(), ""]
         etSetAlarmMessage.setText(savedMessage, TextView.BufferType.EDITABLE)
     }
 }

@@ -9,9 +9,8 @@ import android.view.View
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
-import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmManagerHelper
-import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
+import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.databinding.CustomViewAlertDialogSettingsPreviewBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationTools
@@ -65,9 +64,13 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue())
                 }
                 tvTextMessagePreview -> {
-                    //todo for testing
-                    //showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
-                    context.startActivity(Intent(context, DisplayAlarmActivity::class.java))
+                    showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
+                }
+                swDeepWakeUpPreview ->{
+                    showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_DEEP_WAKE_UP.getKeyValue())
+                    if(swDeepWakeUpPreview.isChecked){
+                        swDeepWakeUpPreview
+                    }
                 }
             }
         }
@@ -92,6 +95,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
             tvMinutePreview.setOnClickListener(this@PreviewOfAlarmSettings)
             tvRingtonePreview.setOnClickListener(this@PreviewOfAlarmSettings)
             tvTextMessagePreview.setOnClickListener(this@PreviewOfAlarmSettings)
+            swDeepWakeUpPreview.setOnClickListener(this@PreviewOfAlarmSettings)
         }
     }
 

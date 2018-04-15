@@ -46,8 +46,12 @@
         android:layout_above="@+id/layoutDeepWakeUpPlayer"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
+        android:scaleX="2"
+        android:scaleY="2"
         android:text="Do you wanna try? "
-        android:textStyle="bold" />
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        android:theme="@style/SCBSwitch" />
 
     <include
         android:id="@+id/layoutDeepWakeUpPlayer"
@@ -57,7 +61,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="20dp"
+        android:textColor="#642b05" />
 
 
 </RelativeLayout>

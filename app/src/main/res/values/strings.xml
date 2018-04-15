@@ -87,4 +87,7 @@
     <string name="deepSleepOptionTitle">Deep sleep wake up</string>
     <string name="deepSleepOptionDescription">Short Description of this option.</string>
     <string name="contentDescriptionSleepIcon">sleep zzz icon</string>
+    <string name="preview_dialog_deep_wake_up">Deep wake up :</string>
+    <string name="true_text">true</string>
+    <string name="false_text">false</string>
 </resources>

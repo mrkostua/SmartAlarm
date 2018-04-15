@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneManagerHelper
-import com.mrkostua.mathalarm.tools.PreferencesConstants
+import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class DataModule {
     @Provides
     @Singleton
-    fun provideSharedPreferences(app: Application): SharedPreferences = app.getSharedPreferences(PreferencesConstants.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
+    fun provideSharedPreferences(app: Application): SharedPreferences = app.getSharedPreferences(ConstantsPreferences.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
 
     @Provides
     fun provideRingtoneManagerHelper(context: Context): RingtoneManagerHelper = RingtoneManagerHelper(context)

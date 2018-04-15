@@ -1,26 +1,30 @@
 package com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic
 
+import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
+import com.mrkostua.mathalarm.data.AlarmDataHelper
+import javax.inject.Inject
+
 /**
  * @author Kostiantyn Prysiazhnyi on 4/12/2018.
  */
-class OptionSetDeepWakeUpPresenter : OptionSetDeepWakeUpContract.Presenter {
+class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : OptionSetDeepWakeUpContract.Presenter {
     override fun playRingtone() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO for playing deepWakeUp ringtone we need to slowly increase music volume -> it need to be implemented in here and Service during Alarm boom
+        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmObject())
+
     }
 
     override fun stopPlayingRingtone() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mediaPlayer.stopRingtone()
     }
+
+    override fun getDeepWakeUpRingtoneName() =
+            dataHelper.getRingtoneFromSP()
 
     override fun saveStateInSP(isChecked: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        dataHelper.saveDeepWakeUpStateInSP(isChecked)
     }
 
-    override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getStateFromSP(): Boolean = dataHelper.getDeepWakeUpStateFromSP()
 
-    override fun takeView(view: OptionSetDeepWakeUpContract.View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
