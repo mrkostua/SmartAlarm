@@ -1,11 +1,15 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Message
+import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
 import javax.inject.Inject
 
@@ -17,22 +21,70 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     private val rawType = "raw"
     private var isMpPlaying = false
     private var mediaPlayer: MediaPlayer? = null
+    private val handleAdjustVolume = 3
+    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val userMaxVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 
-     fun playRingtoneFromRingtoneOb(ringtoneOb : RingtoneObject) {
-        if (ringtoneOb.uri == null) {
-            playRingtoneFromStringResource(ringtoneOb.name, true)
+    @SuppressLint("HandlerLeak")
+    private val handler = object : Handler() {
+        private var volumeAdjustment = 0
+        override fun handleMessage(msg: Message?) {
+            when (msg?.what) {
+                handleAdjustVolume -> {
+                    ShowLogs.log(TAG, "handleMessage : handleAdjustVolume")
+                    adjustVolume(volumeAdjustment)
+                    ++volumeAdjustment
 
-        } else {
-            playRingtoneFromUri(ringtoneOb.uri, true)
+                }
 
+            }
         }
     }
 
 
-    fun playRingtoneFromStringResource(ringtoneResourceId: String, isAlarmStreamType: Boolean = false) {
-        val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
-        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and : res id : " + ringtoneResourceId)
+    fun playRingtoneFromRingtoneOb(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
+        if (ringtoneOb.uri == null) {
+            playRingtoneFromStringResource(ringtoneOb.name, isAlarmStreamType)
 
+        } else {
+            playRingtoneFromUri(ringtoneOb.uri, isAlarmStreamType)
+
+        }
+    }
+
+    fun setAlarmStreamVolume() {
+        with(context.getSystemService(Context.AUDIO_SERVICE) as AudioManager) {
+            setStreamVolume(AudioManager.STREAM_ALARM, getStreamVolume(AudioManager.STREAM_ALARM), 0)
+
+        }
+    }
+
+    fun playDeepWakeUpRingtone(ringtoneOb: RingtoneObject) {
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
+                audioManager.getStreamVolume(AudioManager.STREAM_ALARM) / 5, 0)
+
+        playRingtoneFromRingtoneOb(ringtoneOb, true)
+        sendHandlerDelayAdjustVolume()
+
+    }
+
+    fun stopRingtone() {
+        if (isMpPlaying) {
+            mediaPlayer?.stop()
+            mediaPlayer?.reset()
+            isMpPlaying = false
+        }
+        disableHandlerMessages(handleAdjustVolume)
+
+    }
+
+    fun releaseMediaPlayer() {
+        mediaPlayer?.release()
+    }
+
+    private fun playRingtoneFromStringResource(ringtoneResourceId: String, isAlarmStreamType: Boolean = false) {
+        val ringtoneResourceName: Int = getRawResourceId(ringtoneResourceId)
+        ShowLogs.log(TAG, "playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and : res id : " + ringtoneResourceId)
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
@@ -50,9 +102,8 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
     }
 
-    fun playRingtoneFromUri(ringtoneUri: Uri, isAlarmStreamType: Boolean = false) {
-        ShowLogs.log(TAG,"playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and uri : " + ringtoneUri)
-
+    private fun playRingtoneFromUri(ringtoneUri: Uri, isAlarmStreamType: Boolean = false) {
+        ShowLogs.log(TAG, "playRingtoneFromStringResource : isAlarmStream type : " + isAlarmStreamType + " and uri : " + ringtoneUri)
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
@@ -68,18 +119,6 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         isMpPlaying = true
     }
 
-
-    fun stopRingtone() {
-        if (isMpPlaying) {
-            mediaPlayer?.stop()
-            mediaPlayer?.reset()
-            isMpPlaying = false
-        }
-    }
-
-    fun releaseMediaPlayer() {
-        mediaPlayer?.release()
-    }
 
     override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
         ShowLogs.log(TAG, "getNewMediaPlayer onErrorListener what :" + what + " extra : " + extra)
@@ -127,4 +166,30 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
             else -> throw UnsupportedOperationException("Not implemented")
         }
     }
+
+    private fun sendHandlerDelayAdjustVolume() {
+        handler.sendMessageDelayed(handler.obtainMessage(handleAdjustVolume),
+                ConstantValues.DEEP_WAKE_UP_VOLUME_ADJUSTMENT_MILLISECONDS)
+
+    }
+
+    private fun disableHandlerMessages(what: Int) {
+        handler.removeMessages(what)
+
+    }
+
+    private fun adjustVolume(volume: Int) {
+        if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) < userMaxVolume) {
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
+                    audioManager.getStreamVolume(AudioManager.STREAM_ALARM) + 1,
+                    0)
+
+        } else {
+            ShowLogs.log(TAG, "adjustVolume() volume " + volume + " is set to max")
+            
+        }
+
+
+    }
+
 }

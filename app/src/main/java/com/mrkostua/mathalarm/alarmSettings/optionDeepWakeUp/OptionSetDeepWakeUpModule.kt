@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic
+package com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp
 
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import dagger.Binds

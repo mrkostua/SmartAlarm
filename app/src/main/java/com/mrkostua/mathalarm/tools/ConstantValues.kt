@@ -1,9 +1,9 @@
 package com.mrkostua.mathalarm.tools
 
 import android.app.Fragment
-import com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic.FragmentOptionSetDeepWakeUp
 import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetMessage
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
+import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.FragmentOptionSetDeepWakeUp
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 
@@ -17,14 +17,15 @@ object ConstantValues {
      */
     const val LOG_DEBUG_STATUS = true
 
-    val ALARM_RINGTONE_NAMES = arrayOf("ringtone_mechanic_clock", "ringtone_energy", "ringtone_loud", "ringtone_digital_clock")
-    const val CUSTOM_ALARM_RINGTONE = "ringtone_energy"
+    const val DEEP_WAKE_UP_RINGTONE_KEY = "deepWakeUpRingtoneKey"
 
     //actions for alarm receiver
     const val SNOOZE_ACTION = "alarm_snooze"
     const val DISMISS_ACTION = "alarm_dismiss"
     const val START_NEW_ALARM_ACTION = "alarm_start_new"
     const val ALARM_TIMEOUT_MILLISECONDS: Long = 5 * 60 * 1000
+    const val DEEP_WAKE_UP_VOLUME_ADJUSTMENT_MILLISECONDS : Long = 10 * 1000
+    const val ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS: Long = 2 * 60 * 1000
     const val DEFAULT_SNOOZE_TIME_MIN = 5
 
     const val WAKE_LOCK_NOTIFICATION_TIME_KEY = "notificationTimeKey"

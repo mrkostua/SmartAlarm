@@ -1,4 +1,4 @@
-package com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic
+package com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp
 
 import android.content.Context
 import android.os.Bundle
@@ -41,6 +41,7 @@ class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), Sett
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.start()
         initializeDependOnViewVariables(view)
         saveSettingsInSharedPreferences()
 

@@ -2,8 +2,8 @@ package com.mrkostua.mathalarm.injections.modules
 
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsModule
-import com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic.FragmentOptionSetDeepWakeUp
-import com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic.OptionSetDeepWakeUpModule
+import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.FragmentOptionSetDeepWakeUp
+import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.OptionSetDeepWakeUpModule
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.OptionSetRingtoneModule
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime

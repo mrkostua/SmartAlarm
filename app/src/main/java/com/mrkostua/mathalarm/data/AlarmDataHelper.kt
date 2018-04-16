@@ -6,6 +6,7 @@ import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
+import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -66,6 +67,13 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
 
     fun getSavedRingtoneAlarmObject(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
         val ringtoneName: String = getRingtoneFromSP()
+        return ringtoneList.find { ao -> ao.name == ringtoneName }
+                ?: ringtoneList[1]
+    }
+
+    fun getDeepWakeUpRingtoneObject(): RingtoneObject {
+        val ringtoneList = getRingtonesForPopulation()
+        val ringtoneName = sharedPreferences[ConstantValues.DEEP_WAKE_UP_RINGTONE_KEY, getRingtoneFromSP()]
         return ringtoneList.find { ao -> ao.name == ringtoneName }
                 ?: ringtoneList[1]
     }

@@ -1,6 +1,7 @@
-package com.mrkostua.mathalarm.alarmSettings.optionDeepSleepMusic
+package com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp
 
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
+import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import javax.inject.Inject
 
@@ -8,9 +9,14 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 4/12/2018.
  */
 class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : OptionSetDeepWakeUpContract.Presenter {
+    override lateinit var ringtoneObject: RingtoneObject
+
+    override fun start() {
+        ringtoneObject = dataHelper.getDeepWakeUpRingtoneObject()
+    }
+
     override fun playRingtone() {
-        //TODO for playing deepWakeUp ringtone we need to slowly increase music volume -> it need to be implemented in here and Service during Alarm boom
-        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmObject())
+        mediaPlayer.playDeepWakeUpRingtone(ringtoneObject)
 
     }
 
@@ -18,8 +24,7 @@ class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: A
         mediaPlayer.stopRingtone()
     }
 
-    override fun getDeepWakeUpRingtoneName() =
-            dataHelper.getRingtoneFromSP()
+    override fun getDeepWakeUpRingtoneName() = ringtoneObject.name
 
     override fun saveStateInSP(isChecked: Boolean) {
         dataHelper.saveDeepWakeUpStateInSP(isChecked)
@@ -27,4 +32,7 @@ class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: A
 
     override fun getStateFromSP(): Boolean = dataHelper.getDeepWakeUpStateFromSP()
 
+    override fun releaseObjects() {
+        mediaPlayer.releaseMediaPlayer()
+    }
 }
