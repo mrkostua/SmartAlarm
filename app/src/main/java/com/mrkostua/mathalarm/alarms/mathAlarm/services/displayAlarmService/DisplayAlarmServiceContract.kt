@@ -8,7 +8,6 @@ import com.mrkostua.mathalarm.tools.BaseMediaContract
 interface DisplayAlarmServiceContract {
     interface Presenter : BaseMediaContract {
         fun playDeepWakeUpRingtone()
-        fun setAlarmStreamVolume()
         fun getDeepWakeUpState() : Boolean
         fun start()
     }

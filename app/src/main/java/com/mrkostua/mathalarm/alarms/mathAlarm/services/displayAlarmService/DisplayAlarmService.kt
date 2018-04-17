@@ -33,6 +33,7 @@ public class DisplayAlarmService : DaggerService() {
     public lateinit var presenter: DisplayAlarmServiceContract.Presenter
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        presenter.start()
         startAlarmDisplayActivity()
         playRingtone()
 
@@ -59,7 +60,6 @@ public class DisplayAlarmService : DaggerService() {
             presenter.playDeepWakeUpRingtone()
             enableHandlerDeepWakeUp()
         } else {
-            presenter.setAlarmStreamVolume()
             presenter.playRingtone()
             enableHandlerSilenceKiller()
 
@@ -98,7 +98,6 @@ public class DisplayAlarmService : DaggerService() {
                 handleDeepWakeUpFinishedPlaying -> {
                     presenter.stopPlayingRingtone()
                     enableHandlerSilenceKiller()
-                    presenter.setAlarmStreamVolume()
                     presenter.playRingtone()
                 }
             }

@@ -36,8 +36,4 @@ class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: A
         mediaPlayer.releaseMediaPlayer()
     }
 
-    override fun setAlarmStreamVolume(){
-        mediaPlayer.setAlarmStreamVolume()
-    }
-
 }

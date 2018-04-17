@@ -16,6 +16,7 @@ object ConstantValues {
      * LOG_DEBUG_STATUS true for debug mode, false for production.
      */
     const val LOG_DEBUG_STATUS = true
+    const val ANDROID_RESOURCE_PATH = "android.resource://"
 
     const val DEEP_WAKE_UP_RINGTONE_KEY = "deepWakeUpRingtoneKey"
 
@@ -24,7 +25,7 @@ object ConstantValues {
     const val DISMISS_ACTION = "alarm_dismiss"
     const val START_NEW_ALARM_ACTION = "alarm_start_new"
     const val ALARM_TIMEOUT_MILLISECONDS: Long = 5 * 60 * 1000
-    const val DEEP_WAKE_UP_VOLUME_ADJUSTMENT_MILLISECONDS : Long = 10 * 1000
+    const val DEEP_WAKE_UP_VOLUME_ADJUSTMENT_MILLISECONDS: Long = 10 * 1000
     const val ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS: Long = 2 * 60 * 1000
     const val DEFAULT_SNOOZE_TIME_MIN = 5
 

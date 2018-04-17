@@ -47,6 +47,11 @@ class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), Sett
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.stopPlayingRingtone()
+        presenter.releaseObjects()
+    }
 
     override fun saveSettingsInSharedPreferences() {
         swDeepWakeUpOption.setOnCheckedChangeListener { buttonView, isChecked ->
