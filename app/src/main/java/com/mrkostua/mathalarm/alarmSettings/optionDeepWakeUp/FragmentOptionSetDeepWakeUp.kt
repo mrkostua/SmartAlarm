@@ -27,7 +27,6 @@ import javax.inject.Inject
 class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, View.OnClickListener {
     @Inject
     public lateinit var presenter: OptionSetDeepWakeUpContract.Presenter
-
     override lateinit var fragmentContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,18 +52,18 @@ class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), Sett
         presenter.releaseObjects()
     }
 
-    override fun saveSettingsInSharedPreferences() {
-        swDeepWakeUpOption.setOnCheckedChangeListener { buttonView, isChecked ->
-            presenter.saveStateInSP(isChecked)
-
-        }
-    }
-
     override fun initializeDependOnViewVariables(view: View?) {
         swDeepWakeUpOption.isChecked = presenter.getStateFromSP()
 
         layoutDeepWakeUpPlayer.tvRingtoneName.text = presenter.getDeepWakeUpRingtoneName()
         layoutDeepWakeUpPlayer.ibPlayPauseRingtone.setOnClickListener(this)
+    }
+
+    override fun saveSettingsInSharedPreferences() {
+        swDeepWakeUpOption.setOnCheckedChangeListener { buttonView, isChecked ->
+            presenter.saveStateInSP(isChecked)
+
+        }
     }
 
     override fun onClick(v: View?) {
@@ -85,7 +84,6 @@ class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), Sett
         }
 
     }
-
 
     override fun initializeDependOnContextVariables(context: Context) {
     }

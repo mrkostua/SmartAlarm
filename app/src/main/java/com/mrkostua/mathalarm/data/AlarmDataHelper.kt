@@ -6,7 +6,6 @@ import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.alarms.mathAlarm.AlarmObject
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
-import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,14 +37,18 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     }
 
     fun getDeepWakeUpStateFromSP(): Boolean =
-            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP.getDefaultIntValue()] == 1
+            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getDefaultIntValue()] == 1
 
 
     fun saveDeepWakeUpStateInSP(state: Boolean) {
-        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP.getKeyValue()] = if (state) 1 else 0
+        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue()] = if (state) 1 else 0
 
     }
 
+    fun saveDeepWakeUpRingtoneInSP(ringtoneName: String) {
+        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.getKeyValue()] = ringtoneName
+
+    }
 
     fun getRingtoneFromSP(): String =
             sharedPreferences[ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue(),
@@ -65,15 +68,15 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
         return ringtonesList
     }
 
-    fun getSavedRingtoneAlarmObject(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
+    fun getSavedRingtoneAlarmOb(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
         val ringtoneName: String = getRingtoneFromSP()
         return ringtoneList.find { ao -> ao.name == ringtoneName }
                 ?: ringtoneList[1]
     }
 
-    fun getDeepWakeUpRingtoneObject(): RingtoneObject {
+    fun getSavedDeepWakeUpRingtoneOb(): RingtoneObject {
         val ringtoneList = getRingtonesForPopulation()
-        val ringtoneName = sharedPreferences[ConstantValues.DEEP_WAKE_UP_RINGTONE_KEY, getRingtoneFromSP()]
+        val ringtoneName = sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.defaultDeepWakeUpRingtone]
         return ringtoneList.find { ao -> ao.name == ringtoneName }
                 ?: ringtoneList[1]
     }

@@ -78,6 +78,7 @@ public class DisplayAlarmService : DaggerService() {
     }
 
     private fun enableHandlerDeepWakeUp() {
+        ShowLogs.log(TAG, "enableHandlerDeepWakeUp()")
         handler.sendMessageDelayed(handler.obtainMessage(handleDeepWakeUpFinishedPlaying),
                 ConstantValues.ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS)
     }
@@ -96,6 +97,7 @@ public class DisplayAlarmService : DaggerService() {
                     stopSelf()
                 }
                 handleDeepWakeUpFinishedPlaying -> {
+                    ShowLogs.log(TAG,"handleMessage -> handleDeepWakeUPFinishedPlaying()")
                     presenter.stopPlayingRingtone()
                     enableHandlerSilenceKiller()
                     presenter.playRingtone()
@@ -108,4 +110,5 @@ public class DisplayAlarmService : DaggerService() {
         sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
                 .setClass(this, AlarmReceiver::class.java))
     }
+
 }

@@ -88,7 +88,7 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun getSavedRingtonePosition(): RingtoneObject =
-            alarmDataHelper.getSavedRingtoneAlarmObject(ringtonePopulationList)
+            alarmDataHelper.getSavedRingtoneAlarmOb(ringtonePopulationList)
 
     override fun initializeLastSavedRingtone() {
         val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())

@@ -1,7 +1,6 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService
 
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
-import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import javax.inject.Inject
 
@@ -10,21 +9,18 @@ import javax.inject.Inject
  */
 
 class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : DisplayAlarmServiceContract.Presenter {
-    private val TAG = this.javaClass.simpleName
-    override lateinit var ringtoneObject: RingtoneObject
-
     override fun start() {
-        ringtoneObject = dataHelper.getSavedRingtoneAlarmObject()
+
     }
 
     override fun playRingtone() {
-        mediaPlayer.playRingtoneFromRingtoneOb(ringtoneObject,true)
+        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmOb(), true)
     }
 
     override fun getDeepWakeUpState() = dataHelper.getDeepWakeUpStateFromSP()
 
     override fun playDeepWakeUpRingtone() {
-        mediaPlayer.playDeepWakeUpRingtone(ringtoneObject)
+        mediaPlayer.playDeepWakeUpRingtone(dataHelper.getSavedDeepWakeUpRingtoneOb())
     }
 
     override fun stopPlayingRingtone() {

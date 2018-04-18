@@ -9,15 +9,14 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 4/12/2018.
  */
 class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : OptionSetDeepWakeUpContract.Presenter {
-    override lateinit var ringtoneObject: RingtoneObject
+    private lateinit var ringtoneObject: RingtoneObject
 
     override fun start() {
-        ringtoneObject = dataHelper.getDeepWakeUpRingtoneObject()
+        ringtoneObject = dataHelper.getSavedDeepWakeUpRingtoneOb()
     }
 
     override fun playRingtone() {
         mediaPlayer.playDeepWakeUpRingtone(ringtoneObject)
-
     }
 
     override fun stopPlayingRingtone() {

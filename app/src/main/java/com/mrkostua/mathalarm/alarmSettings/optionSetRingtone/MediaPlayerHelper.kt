@@ -31,16 +31,13 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     private val handlerAdjustVolume = 3
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
-        private var volumeAdjustment = 0
         override fun handleMessage(msg: Message?) {
             when (msg?.what) {
                 handlerAdjustVolume -> {
                     ShowLogs.log(TAG, "handleMessage : handlerAdjustVolume")
-                    adjustVolume(volumeAdjustment)
-                    ++volumeAdjustment
+                    adjustVolume()
 
                 }
-
             }
         }
     }
@@ -166,7 +163,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
     }
 
-    private fun adjustVolume(volume: Int) {
+    private fun adjustVolume() {
         if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) < userVolume) {
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     audioManager.getStreamVolume(AudioManager.STREAM_ALARM) + 1,
@@ -174,9 +171,9 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
             sendHandlerDelayAdjustVolume()
 
         } else {
-            ShowLogs.log(TAG, "adjustVolume() volume " + volume + " is set to max")
+            ShowLogs.log(TAG, "adjustVolume() volume " +
+                    audioManager.getStreamVolume(AudioManager.STREAM_ALARM) + " is set to max")
         }
-
     }
 
 }
