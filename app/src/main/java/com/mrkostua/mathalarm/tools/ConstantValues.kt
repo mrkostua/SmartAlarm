@@ -27,7 +27,8 @@ object ConstantValues {
     const val ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS: Long = 30 * 1000
     const val DEFAULT_SNOOZE_TIME_MIN = 5
 
-    const val WAKE_LOCK_NOTIFICATION_TIME_KEY = "notificationTimeKey"
+    const val WAKE_LOCK_HOUR_KEY = "wakeLockHourKey"
+    const val WAKE_LOCK_MINUTE_KEY = "wakeLockMinuteKey"
 
     const val NOTIFICATION_CHANNEL_ID = "alarm_kotlin"
     const val NOTIFICATION_CHANEL_NAME = "Smart Alarm"

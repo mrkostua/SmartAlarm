@@ -45,7 +45,6 @@ class OptionSetRingtonePresenter @Inject constructor(
 
     override fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
                                       actionSetFalse: (RingtoneObject) -> Unit) {
-        ShowLogs.log(TAG, "setAllIndexesToFalse")
         ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
             if (actionIsCheckedOrPlaying(ringtoneObject)) {
                 actionSetFalse(ringtoneObject)

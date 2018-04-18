@@ -71,7 +71,6 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
     override fun itemChangedRefreshRecycleView(itemPosition: Int) {
         ShowLogs.log(TAG, "itemChangedRefreshRecycleView position : " + itemPosition)
         ringtonesRecycleViewAdapter.notifyItemChanged(itemPosition)
-        // TODO fix problem with notify changes (calling this fun from Presenter)
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
