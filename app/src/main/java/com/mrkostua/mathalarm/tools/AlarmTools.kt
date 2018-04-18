@@ -63,8 +63,8 @@ public object AlarmTools {
 
             else -> throw UnsupportedOperationException("imposable action")
         }
-        return Pair(covertTo24Format(timeToStartAlarm).first,
-                covertTo24Format(timeToStartAlarm).second)
+        return Pair(convertTo24Format(timeToStartAlarm).first,
+                convertTo24Format(timeToStartAlarm).second)
     }
 
     fun getReadableTime(hour: Int, min: Int) =
@@ -78,7 +78,7 @@ public object AlarmTools {
                 min.toString()
             }
 
-    private fun covertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
+     fun convertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
         val resultH = minToAlarmStart / 60
         return Pair(resultH, minToAlarmStart - resultH * 60)
 
