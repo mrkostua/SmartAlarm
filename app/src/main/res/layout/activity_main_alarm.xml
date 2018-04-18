@@ -177,7 +177,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
-            android:background="@{viewModel.isDarkTime() ?  @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}"
+            android:background="@color/customTransparentColor"
             android:clickable="true"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"

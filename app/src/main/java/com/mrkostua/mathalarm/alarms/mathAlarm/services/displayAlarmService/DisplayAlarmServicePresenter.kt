@@ -9,22 +9,21 @@ import javax.inject.Inject
  */
 
 class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : DisplayAlarmServiceContract.Presenter {
-    private val TAG = this.javaClass.simpleName
-
-    override fun playAlarmRingtone() {
-        val ringtoneOb = dataHelper.getSavedRingtoneAlarmObject()
-
-        if (ringtoneOb.uri == null) {
-            mediaPlayer.playRingtoneFromStringResource(ringtoneOb.name, true)
-
-        } else {
-            mediaPlayer.playRingtoneFromUri(ringtoneOb.uri, true)
-
-        }
+    override fun start() {
 
     }
 
-    override fun stopAlarmRingtone() {
+    override fun playRingtone() {
+        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmOb(), true)
+    }
+
+    override fun getDeepWakeUpState() = dataHelper.getDeepWakeUpStateFromSP()
+
+    override fun playDeepWakeUpRingtone() {
+        mediaPlayer.playDeepWakeUpRingtone(dataHelper.getSavedDeepWakeUpRingtoneOb())
+    }
+
+    override fun stopPlayingRingtone() {
         mediaPlayer.stopRingtone()
 
     }

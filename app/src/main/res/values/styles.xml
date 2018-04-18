@@ -133,7 +133,11 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
         <item name="android:padding">40dp</item>
+    </style>
 
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#27ff00</item>
+        <item name="android:colorForeground">#f70000</item>
     </style>
 
 </resources>

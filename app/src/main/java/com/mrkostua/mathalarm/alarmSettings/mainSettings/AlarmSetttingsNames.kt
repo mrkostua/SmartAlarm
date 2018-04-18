@@ -16,7 +16,7 @@ enum class AlarmSettingsNames {
         override fun getKeyValue(): Int = 2
 
     },
-    OPTION_SET_DEEP_SLEEP_MUSIC {
+    OPTION_SET_DEEP_WAKE_UP {
         override fun getKeyValue(): Int = 3
 
     },
@@ -31,7 +31,7 @@ enum class AlarmSettingsNames {
             OPTION_SET_TIME.getKeyValue() -> OPTION_SET_TIME
             OPTION_SET_RINGTONE.getKeyValue() -> OPTION_SET_RINGTONE
             OPTION_SET_MESSAGE.getKeyValue() -> OPTION_SET_MESSAGE
-            OPTION_SET_DEEP_SLEEP_MUSIC.getKeyValue() -> OPTION_SET_DEEP_SLEEP_MUSIC
+            OPTION_SET_DEEP_WAKE_UP.getKeyValue() -> OPTION_SET_DEEP_WAKE_UP
             else -> OPTION_SET_TIME
         }
     }

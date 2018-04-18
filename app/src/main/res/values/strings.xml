@@ -84,4 +84,12 @@
     <string name="preview_dialog_boom_time">Boom time :</string>
     <string name="preview_dialog_ringtone">Ringtone :</string>
     <string name="preview_dialog_message">Message :</string>
+    <string name="deepSleepOptionTitle">Deep sleep wake up</string>
+    <string name="deepSleepOptionDescription">DeepWakeUp option gives you a way to wake up calmly as it was in natural way.
+         It just plays some calm music in the background and slowly increase it is volume until you will wake up.</string>
+    <string name="contentDescriptionSleepIcon">sleep zzz icon</string>
+    <string name="preview_dialog_deep_wake_up">Deep wake up :</string>
+    <string name="true_text">true</string>
+    <string name="false_text">false</string>
+    <string name="deepWakeUpSwitchText">Do you want to try? </string>
 </resources>

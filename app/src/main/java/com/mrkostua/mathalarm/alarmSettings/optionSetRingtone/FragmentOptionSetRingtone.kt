@@ -12,11 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.ImageView
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
+import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
@@ -43,7 +43,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
     }
 
@@ -134,14 +134,14 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
         override fun imageButtonClickListener(view: ImageButton, position: Int) {
             ShowLogs.log(TAG, "getRingtoneClickListeners imageButtonClickListener position: " + position)
             when {
-                isRingtoneImagePlay(view) -> {
+                AlarmTools.isRingtoneImagePlay(fragmentContext, view) -> {
                     positionOfPlayingButtonItem = position
                     presenter.playChosenRingtone(position)
                     presenter.setClickedIndexToTrue({ it.isPlaying = true }, { it.isPlaying = false },
                             { it.isPlaying }, position)
 
                 }
-                !isRingtoneImagePlay(view) -> {
+                !AlarmTools.isRingtoneImagePlay(fragmentContext, view) -> {
                     presenter.stopPlayingRingtone()
                     presenter.setAllIndexesToFalse({ it.isPlaying }, { it.isPlaying = false }, position)
                 }
@@ -153,7 +153,4 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
         }
 
     }
-
-    private fun isRingtoneImagePlay(view: ImageView): Boolean =
-            view.contentDescription == fragmentContext.resources.getString(R.string.contentDescription_playRingtone)
 }

@@ -3,7 +3,7 @@ package com.mrkostua.mathalarm.tools
 /**
  * @author Kostiantyn Prysiazhnyi on 10.12.2017.
  */
-enum class PreferencesConstants {
+enum class ConstantsPreferences {
     ALARM_SP_NAME {
         override fun getKeyValue(): String = "last_alarm_data"
         override fun getDefaultIntValue(): Int = -1
@@ -26,9 +26,13 @@ enum class PreferencesConstants {
         override fun getKeyValue(): String = "ringtone_name"
         override fun getDefaultIntValue(): Int = -1
     },
-    ALARM_DEEP_SLEEP_MUSIC() {
-        override fun getKeyValue(): String = "deep_sleep_music"
+    ALARM_DEEP_WAKE_UP_STATE() {
+        override fun getKeyValue(): String = "deep_wake_up_state"
         override fun getDefaultIntValue(): Int = 0 //0 false, 1 true
+    },
+    ALARM_DEEP_WAKE_UP_RINGTONE() {
+        override fun getKeyValue(): String = "deep_wake_up_ringtone"
+        override fun getDefaultIntValue(): Int = -1
     };
 
     abstract fun getKeyValue(): String
@@ -36,8 +40,8 @@ enum class PreferencesConstants {
 
     val defaultTextMessage = "It is nice to see you alive."
     val defaultRingtoneName = "ringtone_energy"
+    val defaultDeepWakeUpRingtone = "ringtone_energy"
     val emptyPreferencesValue = -1
-
 
 
 }

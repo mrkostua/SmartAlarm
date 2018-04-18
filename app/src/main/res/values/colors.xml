@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="customTransparentColor">#00ffffff</color>
+
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#E0E0E0</color>
@@ -43,6 +45,5 @@
     <color name="pressedPreviewTextView">#aa004d40</color>
     <color name="snoozeButtonColor">#afafaf</color>
     <color name="displayMessageTextColor">#1a237e</color>
-
 
 </resources>

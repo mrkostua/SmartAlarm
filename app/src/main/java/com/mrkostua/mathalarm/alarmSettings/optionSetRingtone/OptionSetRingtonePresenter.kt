@@ -74,13 +74,8 @@ class OptionSetRingtonePresenter @Inject constructor(
 
     override fun playChosenRingtone(position: Int) {
         val ringtoneOb = ringtonePopulationList[position]
-        if (ringtoneOb.uri == null) {
-            playerHelper.playRingtoneFromStringResource(ringtoneOb.name)
+        playerHelper.playRingtoneFromRingtoneOb(ringtoneOb)
 
-        } else {
-            playerHelper.playRingtoneFromUri(ringtoneOb.uri)
-
-        }
     }
 
     override fun saveRingtoneFromExternalPath() {
@@ -93,7 +88,7 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun getSavedRingtonePosition(): RingtoneObject =
-            alarmDataHelper.getSavedRingtoneAlarmObject(ringtonePopulationList)
+            alarmDataHelper.getSavedRingtoneAlarmOb(ringtonePopulationList)
 
     override fun initializeLastSavedRingtone() {
         val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())

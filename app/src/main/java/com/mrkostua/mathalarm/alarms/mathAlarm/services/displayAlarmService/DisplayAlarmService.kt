@@ -1,9 +1,7 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
-import android.media.AudioManager
 import android.os.Handler
 import android.os.IBinder
 import android.os.Message
@@ -25,7 +23,8 @@ import javax.inject.Inject
 public class DisplayAlarmService : DaggerService() {
     private val TAG = this.javaClass.simpleName
     private val notificationId = 2
-    private val killerHandleServiceSilent = 1
+    private val handleServiceSilent = 1
+    private val handleDeepWakeUpFinishedPlaying = 2
     private val handler = CustomHandler()
 
     @Inject
@@ -33,26 +32,21 @@ public class DisplayAlarmService : DaggerService() {
     @Inject
     public lateinit var presenter: DisplayAlarmServiceContract.Presenter
 
-    override fun onCreate() {
-        super.onCreate()
-        setStreamVolume()
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        presenter.start()
         startAlarmDisplayActivity()
-        enableHandlerSilenceKiller()
-        presenter.playAlarmRingtone()
+        playRingtone()
 
         startForeground(notificationId, notificationsTools.snoozeNotification())
         return Service.START_STICKY
     }
 
-
     override fun onDestroy() {
         ShowLogs.log(TAG, "onDestroy")
         super.onDestroy()
-        disableHandlerSilenceKiller()
-        presenter.stopAlarmRingtone()
+        disableHandlerSilenceKiller(handleServiceSilent)
+        disableHandlerSilenceKiller(handleDeepWakeUpFinishedPlaying)
+        presenter.stopPlayingRingtone()
         presenter.releaseObjects()
         notificationsTools.cancelNotification(notificationId)
     }
@@ -61,10 +55,14 @@ public class DisplayAlarmService : DaggerService() {
         return null
     }
 
-    private fun setStreamVolume() {
-        with(getSystemService(Context.AUDIO_SERVICE) as AudioManager) {
-            //FLAG_SHOW_UI Show a toast containing the current volume.
-            setStreamVolume(AudioManager.STREAM_ALARM, getStreamVolume(AudioManager.STREAM_ALARM), 0)
+    private fun playRingtone() {
+        if (presenter.getDeepWakeUpState()) {
+            presenter.playDeepWakeUpRingtone()
+            enableHandlerDeepWakeUp()
+        } else {
+            presenter.playRingtone()
+            enableHandlerSilenceKiller()
+
         }
     }
 
@@ -74,23 +72,35 @@ public class DisplayAlarmService : DaggerService() {
     }
 
     private fun enableHandlerSilenceKiller() {
-        handler.sendMessageDelayed(handler.obtainMessage(killerHandleServiceSilent),
+        handler.sendMessageDelayed(handler.obtainMessage(handleServiceSilent),
                 ConstantValues.ALARM_TIMEOUT_MILLISECONDS)
 
     }
 
-    private fun disableHandlerSilenceKiller() {
-        handler.removeMessages(killerHandleServiceSilent)
+    private fun enableHandlerDeepWakeUp() {
+        ShowLogs.log(TAG, "enableHandlerDeepWakeUp()")
+        handler.sendMessageDelayed(handler.obtainMessage(handleDeepWakeUpFinishedPlaying),
+                ConstantValues.ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS)
+    }
+
+    private fun disableHandlerSilenceKiller(what: Int) {
+        handler.removeMessages(what)
 
     }
 
     private inner class CustomHandler : Handler() {
         override fun handleMessage(msg: Message?) {
             when (msg?.what) {
-                killerHandleServiceSilent -> {
+                handleServiceSilent -> {
                     ShowLogs.log(TAG, "handleMessage : stop")
                     snoozeAlarm()
                     stopSelf()
+                }
+                handleDeepWakeUpFinishedPlaying -> {
+                    ShowLogs.log(TAG,"handleMessage -> handleDeepWakeUPFinishedPlaying()")
+                    presenter.stopPlayingRingtone()
+                    enableHandlerSilenceKiller()
+                    presenter.playRingtone()
                 }
             }
         }
@@ -100,4 +110,5 @@ public class DisplayAlarmService : DaggerService() {
         sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
                 .setClass(this, AlarmReceiver::class.java))
     }
+
 }

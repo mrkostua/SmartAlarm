@@ -2,6 +2,8 @@ package com.mrkostua.mathalarm.injections.modules
 
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsModule
+import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.FragmentOptionSetDeepWakeUp
+import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.OptionSetDeepWakeUpModule
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.OptionSetRingtoneModule
 import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
@@ -46,4 +48,8 @@ public abstract class ActivityBindingModule {
     @DisplayAlarmServiceScope
     @ContributesAndroidInjector(modules = [(DisplayAlarmServiceModule::class), (DisplayHelperModule::class)])
     public abstract fun getDisplayAlarmService(): DisplayAlarmService
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(OptionSetDeepWakeUpModule::class)])
+    public abstract fun getFragmentOptionSetDeepWakeUp(): FragmentOptionSetDeepWakeUp
 }
