@@ -44,11 +44,12 @@ class OptionSetRingtonePresenter @Inject constructor(
 
 
     override fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
-                                      actionSetFalse: (RingtoneObject) -> Unit, position: Int) {
-        ringtonePopulationList.forEach { ringtoneObject ->
+                                      actionSetFalse: (RingtoneObject) -> Unit) {
+        ShowLogs.log(TAG, "setAllIndexesToFalse")
+        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
             if (actionIsCheckedOrPlaying(ringtoneObject)) {
                 actionSetFalse(ringtoneObject)
-                optionSetRingtoneView.itemChangedRefreshRecycleView(position)
+                optionSetRingtoneView.itemChangedRefreshRecycleView(index)
                 return
 
             }
@@ -66,7 +67,7 @@ class OptionSetRingtonePresenter @Inject constructor(
 
             } else if (actionIsCheckedOrPlaying(ringtoneObject)) {
                 actionSetFalse(ringtoneObject)
-                optionSetRingtoneView.itemChangedRefreshRecycleView(position)
+                optionSetRingtoneView.itemChangedRefreshRecycleView(index)
 
             }
         }
@@ -94,7 +95,7 @@ class OptionSetRingtonePresenter @Inject constructor(
         val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())
         ringtonePopulationList[ringtonePosition].isChecked = true
         optionSetRingtoneView.itemChangedRefreshRecycleView(ringtonePosition)
-        ShowLogs.log(TAG, "initializeLastSavedRingtone  ringtone position : " + ringtonePosition)
+        ShowLogs.log(TAG, "initializeLastSavedRingtone()  ringtone position : " + ringtonePosition)
 
     }
 

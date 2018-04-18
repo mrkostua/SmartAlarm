@@ -69,9 +69,9 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
     }
 
     override fun itemChangedRefreshRecycleView(itemPosition: Int) {
-        ShowLogs.log(TAG, "itemChangedRefreshRecycleView position : " + positionOfPlayingButtonItem)
+        ShowLogs.log(TAG, "itemChangedRefreshRecycleView position : " + itemPosition)
         ringtonesRecycleViewAdapter.notifyItemChanged(itemPosition)
-        // TODO fix problem with notify changes (calling this fun from Presenter
+        // TODO fix problem with notify changes (calling this fun from Presenter)
     }
 
     override fun initializeDependOnContextVariables(context: Context) {
@@ -126,7 +126,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
                 presenter.saveChosenRingtoneNameSP(position)
 
             } else {
-                presenter.setAllIndexesToFalse({ it.isChecked }, { it.isChecked = false }, position)
+                presenter.setAllIndexesToFalse({ it.isChecked }, { it.isChecked = false })
 
             }
         }
@@ -143,7 +143,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
                 }
                 !AlarmTools.isRingtoneImagePlay(fragmentContext, view) -> {
                     presenter.stopPlayingRingtone()
-                    presenter.setAllIndexesToFalse({ it.isPlaying }, { it.isPlaying = false }, position)
+                    presenter.setAllIndexesToFalse({ it.isPlaying }, { it.isPlaying = false })
                 }
             }
         }
