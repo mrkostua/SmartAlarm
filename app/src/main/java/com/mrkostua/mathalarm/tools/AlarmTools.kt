@@ -27,7 +27,7 @@ public object AlarmTools {
         }
     }
 
-     fun isRingtoneImagePlay(context : Context, view: ImageButton): Boolean =
+    fun isRingtoneImagePlay(context: Context, view: ImageButton): Boolean =
             view.contentDescription == context.resources.getString(R.string.contentDescription_playRingtone)
 
     fun getLastFragmentIndex(): Int {
@@ -67,16 +67,19 @@ public object AlarmTools {
                 covertTo24Format(timeToStartAlarm).second)
     }
 
-    fun getReadableTime(hour: Int, min: Int) =
-            if (hour == 0) {
-                hour.toString() + "0"
-            } else {
-                hour.toString()
-            } + " : " + if (min < 10) {
-                "0" + min.toString()
-            } else {
-                min.toString()
-            }
+    fun getReadableTime(hour: Int, min: Int) = getReadableHour(hour) + " : " + getReadableMinute(min)
+
+    fun getReadableHour(hour: Int) = if (hour == 0) {
+        hour.toString() + "0"
+    } else {
+        hour.toString()
+    }
+
+    fun getReadableMinute(min: Int) = if (min < 10) {
+        "0" + min.toString()
+    } else {
+        min.toString()
+    }
 
     private fun covertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
         val resultH = minToAlarmStart / 60
