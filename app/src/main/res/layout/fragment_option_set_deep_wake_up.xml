@@ -54,7 +54,7 @@
         android:text="@string/deepWakeUpSwitchText"
         android:textColor="@color/white"
         android:textStyle="italic"
-        android:theme="@style/SCBSwitch" />
+        android:theme="@style/switchColorsTheme" />
 
     <include
         android:id="@+id/layoutDeepWakeUpPlayer"

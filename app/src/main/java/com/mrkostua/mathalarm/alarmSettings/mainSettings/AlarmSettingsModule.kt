@@ -9,7 +9,6 @@ import dagger.Provides
 /**
  * @author Kostiantyn Prysiazhnyi on 3/19/2018.
  */
-//TODO practice how to do Bind and Provide in one Module using kotlin
 @Module
 class AlarmSettingsModule {
     @ActivityScope

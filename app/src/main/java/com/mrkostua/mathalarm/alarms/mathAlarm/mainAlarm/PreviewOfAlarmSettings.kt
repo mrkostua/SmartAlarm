@@ -66,9 +66,9 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                 tvTextMessagePreview -> {
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_MESSAGE.getKeyValue())
                 }
-                swDeepWakeUpPreview ->{
+                swDeepWakeUpPreview -> {
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_DEEP_WAKE_UP.getKeyValue())
-                    if(swDeepWakeUpPreview.isChecked){
+                    if (swDeepWakeUpPreview.isChecked) {
                         swDeepWakeUpPreview
                     }
                 }

@@ -27,25 +27,18 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityDisplayAlarmBinding = DataBindingUtil.setContentView(this, R.layout.activity_display_alarm)
-        with(binding) {
+        with(DataBindingUtil.setContentView(this, R.layout.activity_display_alarm) as ActivityDisplayAlarmBinding) {
             viewModel = displayViewModel
             executePendingBindings()
+
         }
-        //stops WakeLockService when activity is visible and also cancel old notification in onDestroy()
         stopService(Intent(this, WakeLockService::class.java))
         anabelWindowsFlags()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    fun bStopAlarmOnClickListener(view: View) {
         finishDisplayingAlarm()
 
-    }
-
-    fun bStopAlarmOnClickListener(view: View) {
-        finish()
-        //TODO fix problem mainActivity starting 2 times blinking!!
     }
 
     fun bSnoozeAlarmOnClickListener(view: View) {
@@ -53,7 +46,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
                 .setClass(this, AlarmReceiver::class.java))
     }
 
-    //TODO maybe add some fun as pushing KEYCODE_VOLUME_UP alarm will be snoozed for 5 m
     override fun onKeyDown(keyCode: Int, event: KeyEvent?) =
             when (keyCode) {
                 KeyEvent.KEYCODE_BACK -> true
@@ -63,7 +55,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
             }
 
     private fun finishDisplayingAlarm() {
-        stopMathService()
+        stopDisplayAlarmService()
         startMainActivity()
     }
 
@@ -73,21 +65,11 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
 
     }
 
-    private fun stopMathService() {
+    private fun stopDisplayAlarmService() {
         stopService(Intent(this, DisplayAlarmService::class.java))
 
     }
 
-    /**
-     * @FLAG_DISMISS_KEYGUARD
-     * Window flag: when set the window will cause the keyguard to be dismissed, only if it is
-     * not a secure lock keyguard. Because such a keyguard is not needed for security, it will
-     * never re-appear if the user navigates to another window (in contrast to FLAG_SHOW_WHEN_LOCKED,
-     * which will only temporarily hide both secure and non-secure keyguards but ensure they reappear
-     * when the user moves to another UI that doesn't hide them). If the keyguard is currently active
-     * and is secure (requires an unlock pattern) than the user will still need to confirm it before
-     * seeing this window, unless FLAG_SHOW_WHEN_LOCKED has also been set.
-     */
     private fun anabelWindowsFlags() {
         /*flags to show activity if user device have keyguard*/
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED

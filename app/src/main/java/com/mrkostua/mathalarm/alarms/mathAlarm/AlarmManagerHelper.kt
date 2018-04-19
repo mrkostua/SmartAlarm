@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
-import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
 import java.util.*
@@ -93,8 +92,8 @@ class AlarmManagerHelper constructor(private val context: Context) {
 
     private fun startWakeLockService(alarmHour: Int, alarmMin: Int) {
         context.startService(Intent(context, WakeLockService::class.java)
-                .putExtra(ConstantValues.WAKE_LOCK_NOTIFICATION_TIME_KEY,
-                        AlarmTools.getReadableTime(alarmHour, alarmMin)))
+                .putExtra(ConstantValues.WAKE_LOCK_HOUR_KEY, alarmHour)
+                .putExtra(ConstantValues.WAKE_LOCK_MINUTE_KEY, alarmMin))
     }
 
     private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {
