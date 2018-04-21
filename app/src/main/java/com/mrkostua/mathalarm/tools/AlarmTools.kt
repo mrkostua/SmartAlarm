@@ -37,9 +37,8 @@ public object AlarmTools {
     fun startMainActivity(context: Context) {
         context.startActivity(Intent(context, MainAlarmActivity::class.java))
     }
-
-    fun getTimeToAlarmStart(alarmHour: Int, alarmMinute: Int): Pair<Int, Int> {
-        val calendar = Calendar.getInstance()
+    //for testing
+    fun getTimeToAlarmStart(alarmHour: Int, alarmMinute: Int,calendar: Calendar = Calendar.getInstance()): Pair<Int, Int> {
         calendar.timeInMillis = System.currentTimeMillis()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)

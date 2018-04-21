@@ -15,7 +15,7 @@ object ConstantValues {
     /**
      * LOG_DEBUG_STATUS true for debug mode, false for production.
      */
-    const val LOG_DEBUG_STATUS = true
+    const val LOG_DEBUG_STATUS = false
     const val ANDROID_RESOURCE_PATH = "android.resource://"
 
     //actions for alarm receiver
