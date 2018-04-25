@@ -32,8 +32,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.8.47'
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:2.13.0"
+    testImplementation "org.mockito:mockito-inline:2.13.0"
+
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
@@ -49,7 +51,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
 
     annotationProcessor "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
-
 
 
 }
