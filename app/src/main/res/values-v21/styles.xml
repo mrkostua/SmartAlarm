@@ -56,7 +56,6 @@
     </style>
 
     <style name="basicTimePickerStyle" parent="android:Widget.Material.TimePicker">
-        <!--todo add some value here and test on api 21 and hire-->
     </style>
 
 </resources>

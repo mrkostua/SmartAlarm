@@ -1,5 +1,4 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
 
@@ -20,8 +19,6 @@
             android:layout_margin="10dp"
             android:orientation="vertical"
             android:padding="10dp">
-
-            <!--TODO think is there sens of creating every column in separate fragment so it can be reused in the future ?-->
 
             <TextView
                 android:id="@+id/tvBoomTimeText"
@@ -99,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tvBoomTimeText"
                 android:layout_alignStart="@+id/tvBoomTimeText"
-                android:layout_below="@+id/tvRingtoneText"
+                android:layout_below="@+id/tvRingtonePreview"
                 android:layout_marginTop="30dp"
                 android:text="@string/preview_dialog_message"
                 android:textColor="#d292d2"
@@ -123,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tvBoomTimeText"
                 android:layout_alignStart="@+id/tvBoomTimeText"
-                android:layout_below="@+id/tvMessageText"
+                android:layout_below="@+id/tvTextMessagePreview"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/preview_dialog_deep_wake_up"
@@ -139,9 +136,7 @@
                 android:layout_alignStart="@+id/tvTextMessagePreview"
                 android:checked="@{viewModel.alarmDeepWakeUp}"
                 android:textColor="#642b05"
-                android:theme="@style/SCBSwitch" />
-
-
+                android:theme="@style/switchColorsTheme" />
         </RelativeLayout>
     </ScrollView>
 </layout>

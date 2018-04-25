@@ -102,7 +102,6 @@
     <style name="AlarmSettingImagineButtonTheme" parent="android:Theme">
         <item name="android:imageButtonStyle">@style/alarmSettingImagineButtonStyle</item>
     </style>
-    <!--todo why background don't work?????-->
     <style name="alarmSettingImagineButtonStyle" parent="android:Widget.ImageButton">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -135,7 +134,7 @@
         <item name="android:padding">40dp</item>
     </style>
 
-    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+    <style name="switchColorsTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">#27ff00</item>
         <item name="android:colorForeground">#f70000</item>
     </style>

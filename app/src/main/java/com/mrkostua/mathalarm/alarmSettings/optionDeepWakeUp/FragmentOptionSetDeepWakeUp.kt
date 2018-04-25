@@ -20,9 +20,6 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 2/21/2018.
  */
 
-/**
- * TODO Just ask user if he want this fun to be turn on (explain what it is, how it works)
- */
 @FragmentScope
 class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, View.OnClickListener {
     @Inject
