@@ -1,15 +1,15 @@
 package com.mrkostua.mathalarm.tools
 
-import com.mrkostua.mathalarm.tools.AlarmTools
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Ignore
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import org.mockito.BDDMockito.given
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoRule
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,20 +20,19 @@ import kotlin.collections.ArrayList
 @RunWith(Parameterized::class)
 class AlarmToolsTest(private val calendarTime: Pair<Int, Int>, private val alarmTime: Pair<Int, Int>,
                      private val expected: Pair<Int, Int>) {
+
+    @JvmField
+    @Rule
+    public val mockitoRule: MockitoRule = MockitoJUnit.rule()
+
     @Mock
     private lateinit var calendar: Calendar
-
-    @Before
-    fun initiate() {
-        MockitoAnnotations.initMocks(this)
-
-    }
 
     @Test
     fun testGetTimeToAlarmStart() {
         calendar.timeInMillis = System.currentTimeMillis()
-        `when`(calendar.get(Calendar.HOUR_OF_DAY)).thenReturn(calendarTime.first)
-        `when`(calendar.get(Calendar.MINUTE)).thenReturn(calendarTime.second)
+        given(calendar.get(Calendar.HOUR_OF_DAY)).willReturn(calendarTime.first)
+        given(calendar.get(Calendar.MINUTE)).willReturn(calendarTime.second)
 
         val result = AlarmTools.getTimeToAlarmStart(alarmTime.first, alarmTime.second, calendar)
         assertEquals("time (hour) to alarm boom is wrong", expected.first, result.first)
