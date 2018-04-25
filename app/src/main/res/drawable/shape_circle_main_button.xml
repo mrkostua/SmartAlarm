@@ -5,8 +5,8 @@
             <solid
                 android:color="@color/color_alarm_not_set"/>
             <size
-                android:width="120dp"
-                android:height="120dp" />
+                android:width="220dp"
+                android:height="160dp" />
 
 
         </shape>

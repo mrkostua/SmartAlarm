@@ -38,7 +38,7 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-
+    compile "com.android.support.constraint:constraint-layout:1.1.0"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     compile "com.google.dagger:dagger-android:$rootProject.daggerVersion"
@@ -48,7 +48,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
 
     annotationProcessor "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
-
 
 
 }
