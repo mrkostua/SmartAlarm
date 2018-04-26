@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.mrkostua.mathalarm.data.AlarmDataHelper
+import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import java.util.*
 import javax.inject.Inject
@@ -11,32 +12,27 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/21/2018.
  */
-/**
- * In other words, this means that a ViewModel will not be destroyed if its owner is destroyed for a
- * configuration change (e.g. rotation). The new instance of the owner will just re-connected to the existing ViewModel.
- * The purpose of the ViewModel is to acquire and keep the information that is necessary for an Activity or a Fragment.
- */
+
 class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHelper) : ViewModel() {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()
     private val time = dataHelper.getTimeFromSP()
 
-    val alarmTime = ObservableField<String>()
+    val alarmTime = ObservableField<String>() //no sens in using observable (just practicing)
     val isDarkTime = ObservableBoolean()
 
-    val alarmHour = time.first.toString()
-    val alarmMinute = time.second.toString()
+    val alarmHour = AlarmTools.getReadableHour(time.first)
+    val alarmMinute = AlarmTools.getReadableMinute(time.second)
     val alarmRingtone = dataHelper.getRingtoneFromSP()
     val alarmMessage = dataHelper.getTextMessageFromSP()
     val alarmDeepWakeUp = dataHelper.getDeepWakeUpStateFromSP()
 
     init {
         start()
-
     }
 
     private fun start() {
-        alarmTime.set(alarmHour + " : " + alarmMinute)
+        alarmTime.set(AlarmTools.getReadableTime(time.first, time.second))
         calendar.timeInMillis = System.currentTimeMillis()
         setDayOrNight()
     }

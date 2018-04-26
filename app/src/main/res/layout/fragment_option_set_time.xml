@@ -28,6 +28,5 @@
         android:text=""
         android:textAlignment="center"
         android:textColor="@color/darkOrange" />
-    <!--todo create some style for this TextView-->
 
 </RelativeLayout>

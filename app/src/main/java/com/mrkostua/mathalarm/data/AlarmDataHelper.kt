@@ -57,8 +57,6 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
             ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
-
-    //TODO move this code to Model layer as DB implement it using Room library ( can be useful in the future in case of implementing list of all set alarms)
     fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
