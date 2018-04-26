@@ -9,8 +9,8 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 23.01.2018.
  */
 class RingtoneManagerHelper @Inject constructor(@ApplicationContext private val context: Context) {
-    fun getDefaultAlarmRingtonesList(): ArrayList<RingtoneObject> {
-        val ringtoneManager = RingtoneManager(context)
+    fun getDefaultAlarmRingtonesList(ringtoneManager : RingtoneManager = RingtoneManager(context)): ArrayList<RingtoneObject> {
+        //val ringtoneManager = RingtoneManager(context)
         ringtoneManager.setType(RingtoneManager.TYPE_ALARM)
         val ringtonesCursor = ringtoneManager.cursor
         val cursorSize = ringtonesCursor.count

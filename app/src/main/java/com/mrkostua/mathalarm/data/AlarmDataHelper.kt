@@ -37,11 +37,11 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     }
 
     fun getDeepWakeUpStateFromSP(): Boolean =
-            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getDefaultIntValue()] == 1
+            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getDefaultIntValue() == 1]
 
 
     fun saveDeepWakeUpStateInSP(state: Boolean) {
-        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue()] = if (state) 1 else 0
+        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue()] = state
 
     }
 
