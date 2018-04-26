@@ -2,10 +2,12 @@ package com.mrkostua.mathalarm.data
 
 import android.content.SharedPreferences
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneManagerHelper
+import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.tools.ConstantsPreferences
-import org.junit.AfterClass
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.Mockito.*
@@ -19,6 +21,10 @@ class AlarmDataHelperTest {
      * MockitoJUnit.rule() can't be static so we can't use @Mock annotation to create mocked objects and to use @BeforeClass
      */
     companion object {
+        private const val mockedRingtoneName = "don't worry, be happy"
+        private val mockedRingtoneArray = arrayListOf(RingtoneObject("bla"), RingtoneObject("Shape of you"),
+                RingtoneObject("TNT"), RingtoneObject(mockedRingtoneName))
+
         private lateinit var dataHelper: AlarmDataHelper
         private lateinit var mRingtoneManagerHelper: RingtoneManagerHelper
         private lateinit var mSharedPreferences: SharedPreferences
@@ -33,12 +39,6 @@ class AlarmDataHelperTest {
             mEditor = mock(SharedPreferences.Editor::class.java)
 
             dataHelper = AlarmDataHelper(initializeMockedSharedPreferences(), mRingtoneManagerHelper)
-        }
-
-        @JvmStatic
-        @AfterClass
-        fun tearDownClass() {
-            //todo is it important to destroy initialized objects or garbage collector is ok?
         }
 
         private fun initializeMockedSharedPreferences(): SharedPreferences {
@@ -124,6 +124,38 @@ class AlarmDataHelperTest {
         val result = dataHelper.isFirstAlarmSaving()
         verify(mSharedPreferences).getInt(ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue)
         assertEquals("", true, result)
+    }
+
+    @Test
+    fun getSavedRingtoneAlarmObTest() {
+        //mock the ringtoneList
+        given(mSharedPreferences.getString(ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue(),
+                ConstantsPreferences.ALARM_RINGTONE_NAME.defaultRingtoneName)).willReturn(mockedRingtoneName)
+
+        val actual = dataHelper.getSavedRingtoneAlarmOb(mockedRingtoneArray)
+
+        assertEquals("returned object is different from saved one", mockedRingtoneName, actual.name)
+
+    }
+
+    @Ignore
+    @Test
+    fun getSavedDeepWakeUpRingtoneObTest() {
+        TODO("fix this test")
+        dataHelper.saveDeepWakeUpRingtoneInSP(mockedRingtoneName + "2")
+        given(mSharedPreferences.getString(ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(),
+                ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.defaultDeepWakeUpRingtone)).willReturn(mockedRingtoneName)
+        given(dataHelper.getRingtonesForPopulation()).willReturn(mockedRingtoneArray)
+
+        dataHelper.getSavedDeepWakeUpRingtoneOb()
+    }
+
+    @Test
+    fun getRingtonesForPopulationTest() {
+        val result = dataHelper.getRingtonesForPopulation()
+
+        verify(mRingtoneManagerHelper, atLeastOnce()).getDefaultAlarmRingtonesList()
+        assertTrue("min size of list must be 3", result.size > 2)
     }
 
 }

@@ -16,20 +16,21 @@ import org.mockito.junit.MockitoRule
 /**
  * @author Kostiantyn Prysiazhnyi on 4/26/2018.
  */
-
+//TODO this test can be tested only on the emulator or real device use Espresso library for testing
 class RingtoneManagerHelperTest {
     @JvmField
     @Rule
     public val mockitoRule: MockitoRule = MockitoJUnit.rule()
     @Mock
     private lateinit var ringtoneManagerHelper: RingtoneManagerHelper
-
+    @Mock
     private lateinit var context: Context
 
     @Before
     fun setUp() {
         given(context.applicationContext).willReturn(context)
         ringtoneManagerHelper = RingtoneManagerHelper(context)
+
     }
 
     @Test
@@ -37,7 +38,7 @@ class RingtoneManagerHelperTest {
         val ringtoneManager = mock(RingtoneManager::class.java)
         given(ringtoneManager.cursor).willReturn(mock(Cursor::class.java))
 
-        val result = ringtoneManagerHelper.getDefaultAlarmRingtonesList(ringtoneManager)
+        val result = ringtoneManagerHelper.getDefaultAlarmRingtonesList()
         Assert.assertEquals("empty ringtone list", false, result.isEmpty())
     }
 }

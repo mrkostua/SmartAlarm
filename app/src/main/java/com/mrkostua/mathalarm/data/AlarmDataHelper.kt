@@ -15,8 +15,6 @@ import javax.inject.Singleton
  */
 @Singleton
 class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
-    private val TAG = this.javaClass.simpleName
-
     fun getAlarmDataObject(): AlarmObject {
         val time = getTimeFromSP()
         return AlarmObject(time.first, time.second, getTextMessageFromSP(), getRingtoneFromSP())
