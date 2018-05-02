@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 4/1/2018.
  */
-
+//TODO write test for this Class maybe check if notification is visible etc
 //TODO read more about static Handler etc. find proper solution
 @DisplayAlarmServiceScope
 public class DisplayAlarmService : DaggerService() {
@@ -33,7 +33,6 @@ public class DisplayAlarmService : DaggerService() {
     public lateinit var presenter: DisplayAlarmServiceContract.Presenter
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        presenter.start()
         startAlarmDisplayActivity()
         playRingtone()
 

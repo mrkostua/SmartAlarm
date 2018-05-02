@@ -10,8 +10,8 @@ import org.junit.BeforeClass
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.BDDMockito.given
+import org.mockito.InOrder
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 
 /**
  * @author Kostiantyn Prysiazhnyi on 4/23/2018.
@@ -33,7 +33,6 @@ class AlarmDataHelperTest {
         @JvmStatic
         @BeforeClass
         fun setUpClass() {
-            MockitoAnnotations.initMocks(this)
             mSharedPreferences = mock(SharedPreferences::class.java)
             mRingtoneManagerHelper = mock(RingtoneManagerHelper::class.java)
             mEditor = mock(SharedPreferences.Editor::class.java)
@@ -50,9 +49,9 @@ class AlarmDataHelperTest {
     @Test
     fun saveTimeInSPTest() {
         dataHelper.saveTimeInSP(20, 22)
-
-        verify(mEditor).putInt(ConstantsPreferences.ALARM_HOURS.getKeyValue(), 20)
-        verify(mEditor).putInt(ConstantsPreferences.ALARM_MINUTES.getKeyValue(), 22)
+        val order: InOrder = inOrder(mEditor)
+        order.verify(mEditor).putInt(ConstantsPreferences.ALARM_HOURS.getKeyValue(), 20)
+        order.verify(mEditor).putInt(ConstantsPreferences.ALARM_MINUTES.getKeyValue(), 22)
         verify(mEditor, never()).putInt(ConstantsPreferences.ALARM_MINUTES.getKeyValue(), 10)
     }
 

@@ -13,6 +13,7 @@ import java.util.*
 /**
  * @author Kostiantyn Prysiazhnyi on 4/11/2018.
  */
+//TODO write test for this class (maybe it is possible just to mock AlarmManager so it will be local test)
 class AlarmManagerHelper constructor(private val context: Context) {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()
@@ -28,7 +29,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
 
         calendar.timeInMillis = System.currentTimeMillis()
         val currentHour = calendar[Calendar.HOUR_OF_DAY]
-        val currentMinute = calendar.get(Calendar.MINUTE)
+        val currentMinute = calendar[Calendar.MINUTE]
 
         refreshAndSetCalendar(alarmHour, alarmMin)
         when {
@@ -95,7 +96,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
                 .putExtra(ConstantValues.WAKE_LOCK_HOUR_KEY, alarmHour)
                 .putExtra(ConstantValues.WAKE_LOCK_MINUTE_KEY, alarmMin))
     }
-
+    //TODO update this method Day_Of_Week is incorrect (in case of last day of the week)
     private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {
         with(calendar) {
             timeInMillis = System.currentTimeMillis()

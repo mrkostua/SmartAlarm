@@ -18,7 +18,7 @@ import javax.inject.Inject
 /**
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
-
+//TODO write test for this class
 class MainAlarmActivity : DaggerAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
 

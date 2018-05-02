@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : DisplayAlarmServiceContract.Presenter {
     override fun start() {
-
     }
 
     override fun playRingtone() {
