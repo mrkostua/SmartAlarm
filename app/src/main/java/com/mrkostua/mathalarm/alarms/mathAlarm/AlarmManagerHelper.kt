@@ -72,17 +72,12 @@ class AlarmManagerHelper constructor(private val context: Context) {
     }
 
     fun snoozeAlarm(snoozeMinutes: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + snoozeMinutes)
-        if (calendar.get(Calendar.MINUTE) + snoozeMinutes > 60) {
-            throw UnsupportedOperationException(" This is bad snoozeAlarm method wasn't tested properly")
-
-        }
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + snoozeMinutes * 60 * 1000,
+                newAlarmPendingIntent)
         startWakeLockService(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+
     }
+
 
     private fun getCancelPendingIntent(): PendingIntent {
         return PendingIntent.getBroadcast(context,
@@ -96,7 +91,9 @@ class AlarmManagerHelper constructor(private val context: Context) {
                 .putExtra(ConstantValues.WAKE_LOCK_HOUR_KEY, alarmHour)
                 .putExtra(ConstantValues.WAKE_LOCK_MINUTE_KEY, alarmMin))
     }
+
     //TODO update this method Day_Of_Week is incorrect (in case of last day of the week)
+    //after testing snoozeAlarm try to add one day in millisec and add to the alarmTime
     private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {
         with(calendar) {
             timeInMillis = System.currentTimeMillis()
