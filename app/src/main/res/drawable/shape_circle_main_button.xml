@@ -2,21 +2,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <shape android:shape="oval">
-            <solid
-                android:color="@color/color_alarm_not_set"/>
-            <size
-                android:width="220dp"
-                android:height="160dp" />
-
-
+            <solid android:color="@color/color_alarm_not_set" />
+            <size android:width="220dp" android:height="160dp" />
         </shape>
     </item>
+
     <item android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/color_alarm_set"/>
-            <size
-                android:width="120dp"
-                android:height="120dp" />
+            <solid android:color="@color/color_alarm_set" />
+            <size android:width="220dp" android:height="160dp" />
         </shape>
     </item>
 </selector>

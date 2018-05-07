@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
-    <!--TODO fix design problems and test on few APi's-->
+
     <data>
 
         <import type="com.mrkostua.mathalarm.R" />
@@ -13,177 +13,174 @@
             type="com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmViewModel" />
     </data>
 
-    <RelativeLayout
-        android:id="@+id/rlBackgroundLayout"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clMainAlarm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{viewModel.isDarkTime() ? @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}">
+        android:background="@{viewModel.isDarkTime() ? @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}"
+        android:onClick="rlBackgroundHelperOnClickListener">
+        <!--todo change if helper group is visible hide it otherwise do nothing (or create listener only during using helping view after set it to null)-->
 
-        <RelativeLayout
-            android:id="@+id/rlBackgroundHelper"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="rlBackgroundHelperOnClickListener">
-
-            <TextView
-                android:id="@+id/tvFirstHelpingMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="60dp"
-                android:padding="5dp"
-                android:text="@string/helpingMessageOne"
-                android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
-                android:theme="@style/HelperTheme"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvSecondHelpingMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="60dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:padding="5dp"
-                android:text="@string/helpingMessageTwo"
-                android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
-                android:theme="@style/HelperTheme"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/rlButtonLayout"
+        <TextView
+            android:id="@+id/tvFirstHelpingMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/shape_circle_main_button"
+            android:layout_marginTop="50dp"
+            android:padding="5dp"
+            android:text="@string/helpingMessageTwo"
+            android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
+            android:theme="@style/HelperTheme"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSecondHelpingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:text="@string/helpingMessageOne"
+            android:textAppearance="@{viewModel.isDarkTime() ? R.style.helperDarkTextAppearance : R.style.helperLightAppearance}"
+            android:theme="@style/HelperTheme"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivMainAlarmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:clickable="true"
+            android:contentDescription="time"
             android:focusable="true"
             android:onClick="rlButtonLayoutOnClickListener"
-            android:orientation="vertical">
+            android:padding="25dp"
+            android:scaleX="1.5"
+            android:scaleY="1.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shape_circle_main_button" />
 
-            <TextView
-                android:id="@+id/tvAlarmTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="32dp"
-                android:text="@{viewModel.alarmTime}"
-                android:theme="@style/alarmTime_TextTheme" />
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvAlarmTime"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/tvMonday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="MON"
-                    android:theme="@style/dayOfWeekStyle" />
-
-                <TextView
-                    android:id="@+id/tvTuesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="TUE"
-                    android:theme="@style/dayOfWeekStyle" />
-
-                <TextView
-                    android:id="@+id/tvWednesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="WED"
-                    android:theme="@style/dayOfWeekStyle" />
-
-                <TextView
-                    android:id="@+id/tvThursday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="THU"
-                    android:theme="@style/dayOfWeekStyle" />
-
-                <TextView
-                    android:id="@+id/tvFriday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="FRI"
-                    android:theme="@style/dayOfWeekStyle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="32dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvSaturday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:text="SUT"
-                    android:theme="@style/dayOfWeekStyle" />
-
-                <TextView
-                    android:id="@+id/tvSunday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SUN"
-                    android:theme="@style/dayOfWeekStyle" />
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/ibAdditionalSettings"
+        <TextView
+            android:id="@+id/tvAlarmTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:text="@{viewModel.alarmTime}"
+            android:theme="@style/alarmTime_TextTheme"
+            app:layout_constraintEnd_toEndOf="@+id/ivMainAlarmButton"
+            app:layout_constraintStart_toStartOf="@+id/ivMainAlarmButton"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton" />
+
+        <TextView
+            android:id="@+id/tvMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="MON"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toStartOf="@+id/tvTuesday"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/ivMainAlarmButton"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton" />
+
+        <TextView
+            android:id="@+id/tvTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="TUE"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toStartOf="@+id/tvWednesday"
+            app:layout_constraintStart_toEndOf="@+id/tvMonday"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton" />
+
+        <TextView
+            android:id="@+id/tvWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="WED"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toStartOf="@+id/tvThursday"
+            app:layout_constraintStart_toEndOf="@+id/tvTuesday"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton" />
+
+        <TextView
+            android:id="@+id/tvThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="THU"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toStartOf="@+id/tvFriday"
+            app:layout_constraintStart_toEndOf="@+id/tvWednesday"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton"
+            tools:layout_editor_absoluteY="280dp" />
+
+        <TextView
+            android:id="@+id/tvFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="FRI"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toEndOf="@+id/ivMainAlarmButton"
+            app:layout_constraintStart_toEndOf="@+id/tvThursday"
+            app:layout_constraintTop_toTopOf="@+id/ivMainAlarmButton"
+            tools:layout_editor_absoluteY="280dp" />
+
+        <TextView
+            android:id="@+id/tvSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="SAT"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toStartOf="@id/tvSunday"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/ivMainAlarmButton"
+            app:layout_constraintTop_toBottomOf="@+id/tvWednesday" />
+
+        <TextView
+            android:id="@+id/tvSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="SUN"
+            android:theme="@style/dayOfWeekStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMainAlarmButton"
+            app:layout_constraintEnd_toEndOf="@+id/ivMainAlarmButton"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tvSaturday"
+            app:layout_constraintTop_toBottomOf="@+id/tvWednesday" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/customTransparentColor"
             android:clickable="true"
+            android:contentDescription="settings"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"
-            app:srcCompat="@drawable/ic_settings_white_36dp"
-            android:contentDescription="settings" />
-    </RelativeLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_settings_white_36dp" />
 
+    </android.support.constraint.ConstraintLayout>
 </layout>
-

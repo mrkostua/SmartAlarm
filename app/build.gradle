@@ -50,6 +50,7 @@ dependencies {
     annotationProcessor "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
 
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 repositories {
     mavenCentral()
