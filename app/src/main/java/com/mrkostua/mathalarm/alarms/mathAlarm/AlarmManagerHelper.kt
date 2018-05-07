@@ -93,7 +93,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
     }
 
     //TODO update this method Day_Of_Week is incorrect (in case of last day of the week)
-    //after testing snoozeAlarm try to add one day in millisec and add to the alarmTime
+    //after testing snoozeAlarm try to add one day in ms and add to the alarmTime
     private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {
         with(calendar) {
             timeInMillis = System.currentTimeMillis()

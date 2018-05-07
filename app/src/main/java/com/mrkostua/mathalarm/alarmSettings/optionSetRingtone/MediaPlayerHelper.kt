@@ -42,7 +42,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         }
     }
 
-    fun playRingtoneFromRingtoneOb(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
+    fun playRingtone(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
         if (ringtoneOb.uri == null) {
             playRingtoneFromStringResource(ringtoneOb.name, isAlarmStreamType)
 
@@ -58,12 +58,12 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     fun playDeepWakeUpRingtone(ringtoneOb: RingtoneObject) {
         userVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 1, 0)
-        playRingtoneFromRingtoneOb(ringtoneOb, true)
+        playRingtone(ringtoneOb, true)
         sendHandlerDelayAdjustVolume()
 
     }
 
-    fun stopRingtone() {
+    fun stopPlaying() {
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()

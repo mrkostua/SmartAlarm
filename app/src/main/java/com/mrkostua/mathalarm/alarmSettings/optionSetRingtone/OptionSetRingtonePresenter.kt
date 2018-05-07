@@ -33,7 +33,7 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun stopPlayingRingtone() {
-        playerHelper.stopRingtone()
+        playerHelper.stopPlaying()
     }
 
 
@@ -74,7 +74,7 @@ class OptionSetRingtonePresenter @Inject constructor(
 
     override fun playChosenRingtone(position: Int) {
         val ringtoneOb = ringtonePopulationList[position]
-        playerHelper.playRingtoneFromRingtoneOb(ringtoneOb)
+        playerHelper.playRingtone(ringtoneOb)
 
     }
 

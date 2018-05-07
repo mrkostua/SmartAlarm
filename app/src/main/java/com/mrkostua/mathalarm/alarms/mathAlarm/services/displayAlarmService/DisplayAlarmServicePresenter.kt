@@ -13,7 +13,7 @@ class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: A
     }
 
     override fun playRingtone() {
-        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmOb(), true)
+        mediaPlayer.playRingtone(dataHelper.getSavedRingtoneAlarmOb(), true)
     }
 
     override fun getDeepWakeUpState() = dataHelper.getDeepWakeUpStateFromSP()
@@ -23,7 +23,7 @@ class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: A
     }
 
     override fun stopPlayingRingtone() {
-        mediaPlayer.stopRingtone()
+        mediaPlayer.stopPlaying()
 
     }
 

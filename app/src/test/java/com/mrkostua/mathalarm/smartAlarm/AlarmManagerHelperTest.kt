@@ -24,7 +24,6 @@ import java.util.*
  */
 @RunWith(RobolectricTestRunner::class)
 class AlarmManagerHelperTest {
-    private lateinit var alarmManager: AlarmManager
     private lateinit var shadowAlarmManager: ShadowAlarmManager
     private lateinit var context: Context
     private lateinit var alarmManagerHelper: AlarmManagerHelper
@@ -33,10 +32,10 @@ class AlarmManagerHelperTest {
     @Before
     fun setUp() {
         context = RuntimeEnvironment.application.applicationContext
-        alarmManager = RuntimeEnvironment.application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        shadowAlarmManager = shadowOf(alarmManager)
+        shadowAlarmManager = shadowOf(RuntimeEnvironment.application.getSystemService(Context.ALARM_SERVICE) as AlarmManager)
         alarmManagerHelper = AlarmManagerHelper(context)
         activityManager = RuntimeEnvironment.application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+
 
     }
 

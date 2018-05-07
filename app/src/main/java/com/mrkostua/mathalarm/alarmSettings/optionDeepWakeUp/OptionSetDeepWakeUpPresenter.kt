@@ -20,7 +20,7 @@ class OptionSetDeepWakeUpPresenter @Inject constructor(private val dataHelper: A
     }
 
     override fun stopPlayingRingtone() {
-        mediaPlayer.stopRingtone()
+        mediaPlayer.stopPlaying()
     }
 
     override fun getDeepWakeUpRingtoneName() = ringtoneObject.name
