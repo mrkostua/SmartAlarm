@@ -86,7 +86,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
         }
         mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-        startPlayingMusic(mediaPlayer, isAlarmStreamType)
+        startPlayingMusic(isAlarmStreamType)
         isMpPlaying = true
 
     }
@@ -99,7 +99,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
         }
         mediaPlayer = getNewMediaPlayer(ringtoneUri)
-        startPlayingMusic(mediaPlayer, isAlarmStreamType)
+        startPlayingMusic(isAlarmStreamType)
         isMpPlaying = true
 
     }
@@ -113,12 +113,12 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         return true
     }
 
-    private fun startPlayingMusic(mp: MediaPlayer?, isAlarmStreamType: Boolean = false) {
+    private fun startPlayingMusic(isAlarmStreamType: Boolean = false) {
         if (isAlarmStreamType) {
             setAlarmStream()
 
         }
-        mp?.isLooping = true
+        mediaPlayer?.isLooping = true
         mediaPlayer?.setOnPreparedListener({
             it.start()
         })
@@ -140,6 +140,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     private inline fun <reified T : Any> getNewMediaPlayer(ringtone: T): MediaPlayer? {
         ShowLogs.log(TAG, "getNewMediaPlayer int ringtone : " + ringtone.toString())
         mediaPlayer = MediaPlayer()
+
         when (T::class) {
             String::class -> mediaPlayer?.setDataSource(context,
                     Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + ringtone))

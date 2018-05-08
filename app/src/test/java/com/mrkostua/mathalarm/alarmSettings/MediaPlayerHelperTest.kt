@@ -3,24 +3,31 @@ package com.mrkostua.mathalarm.alarmSettings
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.net.Uri
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
+import com.mrkostua.mathalarm.extentions.MyShadowMediaPlayer
+import com.mrkostua.mathalarm.extentions.MyShadows
+import com.mrkostua.mathalarm.tools.ConstantValues
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowMediaPlayer
+import org.robolectric.shadows.util.DataSource
+
 
 /**
  * @author Kostiantyn Prysiazhnyi on 5/7/2018.
  */
 @RunWith(RobolectricTestRunner::class)
+@Config(shadows = [(MyShadowMediaPlayer::class)])
 class MediaPlayerHelperTest {
     private lateinit var context: Context
-    private lateinit var shadowMediaPlayer: ShadowMediaPlayer
+    private lateinit var shadowMediaPlayer: MyShadowMediaPlayer
     private lateinit var mediaPlayerHelper: MediaPlayerHelper
     private val ringtoneName = "energy_ringtone"
     private val defaultRingtoneObject = RingtoneObject(ringtoneName)
@@ -29,18 +36,22 @@ class MediaPlayerHelperTest {
      * second AndroidTest to test actual playing music (read more about it)
      * TODO write some test with simulating player scenario.
      */
-
     @Before
     fun setUp() {
         context = RuntimeEnvironment.application.applicationContext
         mediaPlayerHelper = MediaPlayerHelper(context)
-        shadowMediaPlayer = shadowOf(MediaPlayer())
+        shadowMediaPlayer = MyShadows.myShadowOf(MediaPlayer())
+
+        MyShadowMediaPlayer.addMediaInfo(DataSource.toDataSource(context,
+                Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + ringtoneName)),
+                ShadowMediaPlayer.MediaInfo(8000,-1))
 
     }
 
     @Test
     fun playRingtoneTest() {
         mediaPlayerHelper.playRingtone(defaultRingtoneObject)
+        shadowMediaPlayer.invokePreparedListener()
         assertTrue("mp is not set to looping", shadowMediaPlayer.isLooping)
         assertTrue("mp is not playing", shadowMediaPlayer.isPlaying)
         assertTrue("playback events wasn't updated as time passes", shadowMediaPlayer.isReallyPlaying)
