@@ -28,6 +28,7 @@ class AlarmManagerHelperTest {
     private lateinit var context: Context
     private lateinit var alarmManagerHelper: AlarmManagerHelper
     private lateinit var activityManager: ActivityManager
+    private val alarmObject = AlarmObject(2, 20, "test message", "test ringtone")
 
     @Before
     fun setUp() {
@@ -41,9 +42,10 @@ class AlarmManagerHelperTest {
 
     @Test
     fun setNewAlarmTest() {
-        val alarmObject = AlarmObject(10, 20, "test message", "test ringtone")
+        assertNull("alarm is set before initializing new one", shadowAlarmManager.nextScheduledAlarm)
         alarmManagerHelper.setNewAlarm(alarmObject)
         assertEquals("more than one alarm was scheduled", 1, shadowAlarmManager.scheduledAlarms.size)
+
         checkAlarmType()
         checkAlarmTime(alarmObject)
         checkAlarmIntent()
@@ -53,6 +55,7 @@ class AlarmManagerHelperTest {
 
     @Test
     fun cancelLastSetAlarm() {
+        alarmManagerHelper.setNewAlarm(alarmObject)
         val penIntent = shadowOf(shadowAlarmManager.nextScheduledAlarm.operation)
         alarmManagerHelper.cancelLastSetAlarm()
         assertTrue("this pending intent wasn't canceled", penIntent.isCanceled)
@@ -63,15 +66,11 @@ class AlarmManagerHelperTest {
 
     @Test
     fun snoozeAlarmTest() {
-        //write this method in TDD style
-        //1 writing simple test -> test fails
-        //2 updating method in simplest way to pass the test -> test pass
-        //3 making test harder -> test fails
-        //go to point 2 (do until it until test is good enough)
+        alarmManagerHelper.setNewAlarm(alarmObject)
         val snoozeTime = 5
-        val expectedSnoozeTime = snoozeTime * 60 * 1000 + shadowAlarmManager.nextScheduledAlarm.alarmClockInfo.triggerTime
+        val expectedSnoozeTime = snoozeTime * 60 * 1000 + System.currentTimeMillis()
         alarmManagerHelper.snoozeAlarm(snoozeTime)
-        assertEquals("triggerAtTime value is not as expected", expectedSnoozeTime, shadowAlarmManager.nextScheduledAlarm.triggerAtTime)
+        assertEquals("triggerAtTime value is not as expected", expectedSnoozeTime, shadowAlarmManager.peekNextScheduledAlarm().triggerAtTime)
 
     }
 
@@ -80,15 +79,13 @@ class AlarmManagerHelperTest {
         val alarmObject = AlarmObject(2, 3, "", "")
         alarmManagerHelper.setNewAlarm(alarmObject)
         alarmManagerHelper.setNewAlarm(alarmObject)
-        alarmManagerHelper.setNewAlarm(alarmObject)
+        alarmManagerHelper.setNewAlarm(this.alarmObject)
 
         assertEquals("more than one alarm was scheduled", 1, shadowAlarmManager.scheduledAlarms.size)
     }
 
-
     private fun checkAlarmType() {
-        assertNull("alarm is set before initializing new one", shadowAlarmManager.nextScheduledAlarm)
-        val scheduledAlarm = shadowAlarmManager.nextScheduledAlarm
+        val scheduledAlarm = shadowAlarmManager.peekNextScheduledAlarm()
         assertEquals("the type of set alarm is incorrect", AlarmManager.RTC_WAKEUP, scheduledAlarm.type)
 
     }
@@ -101,19 +98,20 @@ class AlarmManagerHelperTest {
         with(calendar) {
             set(Calendar.HOUR_OF_DAY, alarmObject.hours)
             set(Calendar.MINUTE, alarmObject.minutes)
-            if (alarmObject.hours < currentHour || alarmObject.hours == currentHour && alarmObject.minutes < currentMinute) {
-                set(Calendar.DAY_OF_WEEK, calendar[Calendar.DAY_OF_WEEK] + 1)
+            if (alarmObject.hours < currentHour || (alarmObject.hours == currentHour && alarmObject.minutes < currentMinute)) {
+                set(Calendar.DAY_OF_WEEK, getSpecialCalendarDay(calendar))
             }
+
         }
         alarmManagerHelper.setNewAlarm(alarmObject)
-        val scheduledAlarm = shadowAlarmManager.nextScheduledAlarm
-        assertEquals("actual alarmManager trigger time is different from expected", calendar.timeInMillis, scheduledAlarm.triggerAtTime)
+        assertEquals("actual alarmManager trigger time is different from expected", calendar.timeInMillis,
+                shadowAlarmManager.peekNextScheduledAlarm().triggerAtTime)
 
     }
 
     private fun checkAlarmIntent() {
         val expectedIntent = Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(context, AlarmReceiver::class.java)
-        val pendingIntentShadow = shadowOf(shadowAlarmManager.nextScheduledAlarm.operation)
+        val pendingIntentShadow = shadowOf(shadowAlarmManager.peekNextScheduledAlarm().operation)
 
         assertTrue("pending intent is not broadcastIntent", pendingIntentShadow.isBroadcastIntent)
         assertEquals("only one intent is allowed", 1, pendingIntentShadow.savedIntents.size)
@@ -122,13 +120,15 @@ class AlarmManagerHelperTest {
     }
 
     private fun checkIfWakeLockServiceRunning() {
-        for (runningServiceInfo in activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (runningServiceInfo.service.className == WakeLockService::class.java.simpleName) {
-                return
-            }
-        }
-        fail("${WakeLockService::class.java.simpleName} isn't running")
+        val expectedIntent = Intent(context, WakeLockService::class.java)
+        assertEquals("wakeLockService wasn't started", expectedIntent.component, shadowOf(RuntimeEnvironment.application).peekNextStartedService().component)
+
     }
 
-
+    private fun getSpecialCalendarDay(calendar: Calendar): Int =
+            if (calendar[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY) {
+                Calendar.SUNDAY
+            } else {
+                calendar[Calendar.DAY_OF_WEEK] + 1
+            }
 }

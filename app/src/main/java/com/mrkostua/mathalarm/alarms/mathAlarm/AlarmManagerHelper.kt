@@ -13,7 +13,6 @@ import java.util.*
 /**
  * @author Kostiantyn Prysiazhnyi on 4/11/2018.
  */
-//TODO write test for this class (maybe it is possible just to mock AlarmManager so it will be local test)
 class AlarmManagerHelper constructor(private val context: Context) {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()
@@ -24,44 +23,41 @@ class AlarmManagerHelper constructor(private val context: Context) {
             PendingIntent.FLAG_CANCEL_CURRENT)
 
     fun setNewAlarm(alarmObject: AlarmObject) {
-        val alarmHour = alarmObject.hours
-        val alarmMin = alarmObject.minutes
-
         calendar.timeInMillis = System.currentTimeMillis()
         val currentHour = calendar[Calendar.HOUR_OF_DAY]
         val currentMinute = calendar[Calendar.MINUTE]
 
-        refreshAndSetCalendar(alarmHour, alarmMin)
+        val alarmHour = alarmObject.hours
+        val alarmMin = alarmObject.minutes
+        calendar.set(Calendar.HOUR_OF_DAY, alarmHour)
+        calendar.set(Calendar.MINUTE, alarmMin)
         when {
             alarmHour > currentHour -> {
                 ShowLogs.log(TAG, "h current: $currentHour alarm hour: $alarmHour  Today")
                 ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Today")
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
 
             }
             alarmHour < currentHour -> {
                 ShowLogs.log(TAG, "h current: $currentHour  alarm hour: $alarmHour Next Day")
                 ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Next Day")
-                refreshAndSetCalendar(alarmHour, alarmMin, 1)
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
+                setCalendarDay(1)
 
             }
             alarmHour == currentHour -> {
                 if (alarmMin < currentMinute) {
                     ShowLogs.log(TAG, "h current: $currentHour alarm hour: $alarmHour Next Day ")
                     ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Next Day")
-                    refreshAndSetCalendar(alarmHour, alarmMin, 1)
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
+                    setCalendarDay(1)
 
                 } else {
                     ShowLogs.log(TAG, "h current: $currentHour alarm hour: $alarmHour  Today")
                     ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Today")
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
 
                 }
 
             }
         }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, newAlarmPendingIntent)
         startWakeLockService(alarmHour, alarmMin)
 
     }
@@ -78,7 +74,6 @@ class AlarmManagerHelper constructor(private val context: Context) {
 
     }
 
-
     private fun getCancelPendingIntent(): PendingIntent {
         return PendingIntent.getBroadcast(context,
                 0,
@@ -92,14 +87,12 @@ class AlarmManagerHelper constructor(private val context: Context) {
                 .putExtra(ConstantValues.WAKE_LOCK_MINUTE_KEY, alarmMin))
     }
 
-    //TODO update this method Day_Of_Week is incorrect (in case of last day of the week)
-    //after testing snoozeAlarm try to add one day in ms and add to the alarmTime
-    private fun refreshAndSetCalendar(hour: Int, minute: Int, day: Int = 0) {
-        with(calendar) {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.DAY_OF_WEEK, calendar[Calendar.DAY_OF_WEEK] + day)
-            set(Calendar.HOUR_OF_DAY, hour)
-            set(Calendar.MINUTE, minute)
-        }
+    private fun setCalendarDay(day: Int) {
+        calendar.set(Calendar.DAY_OF_WEEK, if (calendar[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY) {
+            Calendar.SUNDAY
+        } else {
+            calendar[Calendar.DAY_OF_WEEK] + day
+        })
+
     }
 }
