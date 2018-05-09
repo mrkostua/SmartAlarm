@@ -31,11 +31,7 @@ class MediaPlayerHelperTest {
     private lateinit var mediaPlayerHelper: MediaPlayerHelper
     private val ringtoneName = "energy_ringtone"
     private val defaultRingtoneObject = RingtoneObject(ringtoneName)
-    /**
-     * TODO maybe create 2 tests from MediaPlayerHelper -> UnitTest to test logic and all other things,
-     * second AndroidTest to test actual playing music (read more about it)
-     * TODO write some test with simulating player scenario.
-     */
+
     @Before
     fun setUp() {
         context = RuntimeEnvironment.application.applicationContext
@@ -43,15 +39,21 @@ class MediaPlayerHelperTest {
         shadowMediaPlayer = MyShadows.myShadowOf(MediaPlayer())
 
         MyShadowMediaPlayer.addMediaInfo(DataSource.toDataSource(context,
-                Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + ringtoneName)),
-                ShadowMediaPlayer.MediaInfo(8000,-1))
-
+                Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + defaultRingtoneObject.name)),
+                ShadowMediaPlayer.MediaInfo())
     }
 
     @Test
     fun playRingtoneTest() {
         mediaPlayerHelper.playRingtone(defaultRingtoneObject)
-        shadowMediaPlayer.invokePreparedListener()
+        println("isPrepared : ${shadowMediaPlayer.isPrepared}")
+        println(" isLooping : ${shadowMediaPlayer.isLooping}")
+        println(" isReallyPlaying : ${shadowMediaPlayer.isReallyPlaying}")
+        println(" sourceUri : ${shadowMediaPlayer.sourceUri}")
+        println(" dataSource : ${shadowMediaPlayer.dataSource}")
+        println(" mediaInfo : ${shadowMediaPlayer.mediaInfo}")
+        println(" state : ${shadowMediaPlayer.state}")
+        assertNotNull("data must be set before playing", shadowMediaPlayer.sourceUri)
         assertTrue("mp is not set to looping", shadowMediaPlayer.isLooping)
         assertTrue("mp is not playing", shadowMediaPlayer.isPlaying)
         assertTrue("playback events wasn't updated as time passes", shadowMediaPlayer.isReallyPlaying)

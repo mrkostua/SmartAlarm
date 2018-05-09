@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.smartAlarm
 
-import android.app.ActivityManager
 import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
@@ -27,7 +26,6 @@ class AlarmManagerHelperTest {
     private lateinit var shadowAlarmManager: ShadowAlarmManager
     private lateinit var context: Context
     private lateinit var alarmManagerHelper: AlarmManagerHelper
-    private lateinit var activityManager: ActivityManager
     private val alarmObject = AlarmObject(2, 20, "test message", "test ringtone")
 
     @Before
@@ -35,8 +33,6 @@ class AlarmManagerHelperTest {
         context = RuntimeEnvironment.application.applicationContext
         shadowAlarmManager = shadowOf(RuntimeEnvironment.application.getSystemService(Context.ALARM_SERVICE) as AlarmManager)
         alarmManagerHelper = AlarmManagerHelper(context)
-        activityManager = RuntimeEnvironment.application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-
 
     }
 
