@@ -9,25 +9,17 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Message
-import android.support.annotation.RequiresApi
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 17.01.2018.
  */
-class MediaPlayerHelper @Inject constructor(private val context: Context) : MediaPlayer.OnErrorListener {
+class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
     private val TAG = this.javaClass.simpleName
     private var isMpPlaying = false
-    private var mediaPlayer: MediaPlayer? = null
-
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private var userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
-
     private val handlerAdjustVolume = 3
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
@@ -41,6 +33,29 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
             }
         }
     }
+
+    constructor(context: Context, mp: MediaPlayer?) : this() {
+    }
+
+    companion object {
+        private val mediaPlayerH: MediaPlayerHelper? = null
+        private var mediaPlayer: MediaPlayer? = null
+        private lateinit var context: Context
+        fun getInstance(context: Context, mp: MediaPlayer?): MediaPlayerHelper {
+            if (mediaPlayerH == null) {
+                mediaPlayer = mp
+                this.context = context
+                return MediaPlayerHelper(context, mp)
+            }
+            return mediaPlayerH
+        }
+
+        @JvmStatic
+        fun getMediaPlayer(): MediaPlayer {
+            return mediaPlayer!!
+        }
+    }
+
 
     fun playRingtone(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
         if (ringtoneOb.uri == null) {
@@ -128,7 +143,8 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
     private fun setAlarmStream() {
         if (Build.VERSION.SDK_INT >= 26) {
-            mediaPlayer?.setAudioAttributes(audioAttributes)
+            mediaPlayer?.setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
         } else {
             @Suppress("DEPRECATION")
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_ALARM)

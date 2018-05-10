@@ -19,6 +19,6 @@ class DataModule {
     fun provideSharedPreferences(app: Application): SharedPreferences = app.getSharedPreferences(ConstantsPreferences.ALARM_SP_NAME.getKeyValue(), Context.MODE_PRIVATE)
 
     @Provides
-    fun provideRingtoneManagerHelper(context: Context): RingtoneManagerHelper = RingtoneManagerHelper(context)
+    fun provideRingtoneManagerHelper(context: Context) = RingtoneManagerHelper(context)
 
 }

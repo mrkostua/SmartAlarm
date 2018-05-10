@@ -1,6 +1,5 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
-import android.content.Context
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import dagger.Module
 import dagger.Provides
@@ -14,7 +13,4 @@ public class OptionSetRingtoneModule {
     @Provides
     public fun provideOptionSetRingtonePresenter(presenter: OptionSetRingtonePresenter): OptionSetRingtoneContract.Presenter = presenter
 
-    @FragmentScope
-    @Provides
-    public fun provideMediaPlayerHelper(context: Context): MediaPlayerHelper = MediaPlayerHelper(context)
 }
