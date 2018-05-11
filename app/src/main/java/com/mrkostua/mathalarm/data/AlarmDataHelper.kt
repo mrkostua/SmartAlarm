@@ -62,6 +62,7 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3))
+        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 3))
         ringtonesList.addAll(ringtoneManagerHelper.getDefaultAlarmRingtonesList())
         return ringtonesList
     }
