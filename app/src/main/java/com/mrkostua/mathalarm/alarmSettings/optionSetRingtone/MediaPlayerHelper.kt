@@ -9,13 +9,17 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Message
+import android.support.annotation.VisibleForTesting
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
 
 /**
  * @author Kostiantyn Prysiazhnyi on 17.01.2018.
  */
-class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
+class MediaPlayerHelper(private val context: Context, mp: MediaPlayer?) : MediaPlayer.OnErrorListener {
+    init {
+        mediaPlayer = mp
+    }
     private val TAG = this.javaClass.simpleName
     private var isMpPlaying = false
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -34,28 +38,30 @@ class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
         }
     }
 
-    constructor(context: Context, mp: MediaPlayer?) : this() {
-    }
-
     companion object {
-        private val mediaPlayerH: MediaPlayerHelper? = null
         private var mediaPlayer: MediaPlayer? = null
-        private lateinit var context: Context
-        fun getInstance(context: Context, mp: MediaPlayer?): MediaPlayerHelper {
-            if (mediaPlayerH == null) {
-                mediaPlayer = mp
-                this.context = context
-                return MediaPlayerHelper(context, mp)
-            }
-            return mediaPlayerH
-        }
-
+        private var playingRingtoneName: String = ""
+        @VisibleForTesting()
         @JvmStatic
         fun getMediaPlayer(): MediaPlayer {
-            return mediaPlayer!!
+            if (mediaPlayer != null) {
+                return mediaPlayer!!
+            } else {
+                throw NullPointerException("mediaPlayer is null don't use this method before creating MediaPlayerHelper")
+            }
         }
-    }
 
+        @VisibleForTesting()
+        @JvmStatic
+        fun getPlayingRingtoneName(): String {
+            if (playingRingtoneName.isEmpty()) {
+                throw UnsupportedOperationException("playingRingtoneName is empty")
+            } else {
+                return playingRingtoneName
+            }
+        }
+
+    }
 
     fun playRingtone(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
         if (ringtoneOb.uri == null) {
@@ -65,6 +71,7 @@ class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
             playRingtoneFromUri(ringtoneOb.uri, isAlarmStreamType)
 
         }
+        playingRingtoneName = ringtoneOb.name
     }
 
     /**
@@ -85,7 +92,7 @@ class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
             isMpPlaying = false
         }
         disableHandlerMessages(handlerAdjustVolume)
-
+        playingRingtoneName = ""
     }
 
     fun releaseMediaPlayer() {
@@ -125,6 +132,7 @@ class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
         mp.release()
         mediaPlayer = null
         isMpPlaying = false
+        playingRingtoneName = ""
         return true
     }
 
@@ -156,7 +164,6 @@ class MediaPlayerHelper() : MediaPlayer.OnErrorListener {
     private inline fun <reified T : Any> getNewMediaPlayer(ringtone: T): MediaPlayer? {
         ShowLogs.log(TAG, "getNewMediaPlayer int ringtone : " + ringtone.toString())
         mediaPlayer = MediaPlayer()
-
         when (T::class) {
             String::class -> mediaPlayer?.setDataSource(context,
                     Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + ringtone))

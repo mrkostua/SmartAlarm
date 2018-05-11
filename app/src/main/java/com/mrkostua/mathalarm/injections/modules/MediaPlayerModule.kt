@@ -12,5 +12,5 @@ import dagger.Provides
 @Module
 class MediaPlayerHelperModule {
     @Provides
-    fun provideMediaPlayerHelper(context: Context): MediaPlayerHelper = MediaPlayerHelper.getInstance(context, MediaPlayer())
+    fun provideMediaPlayerHelper(context: Context): MediaPlayerHelper = MediaPlayerHelper(context, MediaPlayer())
 }
