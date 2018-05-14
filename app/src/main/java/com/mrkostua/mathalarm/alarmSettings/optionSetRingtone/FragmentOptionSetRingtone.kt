@@ -125,7 +125,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
                 presenter.saveChosenRingtoneNameSP(position)
 
             } else {
-                presenter.setAllIndexesToFalse({ it.isChecked }, { it.isChecked = false })
+                presenter.setCheckedOrPlayingToFalse({ it.isChecked })
 
             }
         }
@@ -142,7 +142,7 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
                 }
                 !AlarmTools.isRingtoneImagePlay(fragmentContext, view) -> {
                     presenter.stopPlayingRingtone()
-                    presenter.setAllIndexesToFalse({ it.isPlaying }, { it.isPlaying = false })
+                    presenter.setCheckedOrPlayingToFalse({ it.isPlaying })
                 }
             }
         }

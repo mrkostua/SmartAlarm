@@ -3,12 +3,10 @@ package com.mrkostua.mathalarm.alarmSettings
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.net.Uri
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.MediaPlayerHelper
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.RingtoneObject
 import com.mrkostua.mathalarm.extentions.MyShadowMediaPlayer
 import com.mrkostua.mathalarm.extentions.MyShadows
-import com.mrkostua.mathalarm.tools.ConstantValues
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -16,8 +14,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowMediaPlayer
-import org.robolectric.shadows.util.DataSource
 
 
 /**
@@ -47,9 +43,6 @@ class MediaPlayerHelperTest {
         mediaPlayerHelper = MediaPlayerHelper(context, MediaPlayer())
         shadowMediaPlayer = MyShadows.myShadowOf(MediaPlayer())
 
-        MyShadowMediaPlayer.addMediaInfo(DataSource.toDataSource(context,
-                Uri.parse(ConstantValues.ANDROID_RESOURCE_PATH + context.packageName + "/raw/" + defaultRingtoneObject.name)),
-                ShadowMediaPlayer.MediaInfo())
     }
 
     @Test

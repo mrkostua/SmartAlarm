@@ -24,12 +24,8 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun setIsPlayingToFalse(whichIndex: Int) {
-        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
-            if (index == whichIndex) {
-                ringtoneObject.isPlaying = false
-                return@forEachIndexed
-            }
-        }
+        ringtonePopulationList[whichIndex].isPlaying = false
+
     }
 
     override fun stopPlayingRingtone() {
@@ -43,11 +39,10 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
 
-    override fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
-                                      actionSetFalse: (RingtoneObject) -> Unit) {
+    override fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean) {
         ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
             if (actionIsCheckedOrPlaying(ringtoneObject)) {
-                actionSetFalse(ringtoneObject)
+                ringtoneObject.isPlaying = false
                 optionSetRingtoneView.itemChangedRefreshRecycleView(index)
                 return
 
