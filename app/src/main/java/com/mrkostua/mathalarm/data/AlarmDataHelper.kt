@@ -14,9 +14,7 @@ import javax.inject.Singleton
  * @author Kostiantyn Prysiazhnyi on 3/12/2018.
  */
 @Singleton
-class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
-    private val TAG = this.javaClass.simpleName
-
+open class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
     fun getAlarmDataObject(): AlarmObject {
         val time = getTimeFromSP()
         return AlarmObject(time.first, time.second, getTextMessageFromSP(), getRingtoneFromSP())
@@ -37,11 +35,11 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     }
 
     fun getDeepWakeUpStateFromSP(): Boolean =
-            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getDefaultIntValue()] == 1
+            sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getDefaultIntValue() == 1]
 
 
     fun saveDeepWakeUpStateInSP(state: Boolean) {
-        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue()] = if (state) 1 else 0
+        sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue()] = state
 
     }
 
@@ -57,17 +55,17 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
             ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
-    fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
+    open fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 3))
+        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 4))
         ringtonesList.addAll(ringtoneManagerHelper.getDefaultAlarmRingtonesList())
         return ringtonesList
     }
 
-    fun getSavedRingtoneAlarmOb(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
+    open fun getSavedRingtoneAlarmOb(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
         val ringtoneName: String = getRingtoneFromSP()
         return ringtoneList.find { ao -> ao.name == ringtoneName }
                 ?: ringtoneList[1]

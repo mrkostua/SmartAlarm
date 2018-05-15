@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/21/2018.
  */
-
+//TODO write test for this class
 class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHelper) : ViewModel() {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()

@@ -13,7 +13,7 @@ import java.util.*
 /**
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
  */
-public object AlarmTools {
+object AlarmTools {
     private val TAG = this.javaClass.simpleName
 
     @Suppress("DEPRECATION")
@@ -38,8 +38,11 @@ public object AlarmTools {
         context.startActivity(Intent(context, MainAlarmActivity::class.java))
     }
 
-    fun getTimeToAlarmStart(alarmHour: Int, alarmMinute: Int): Pair<Int, Int> {
-        val calendar = Calendar.getInstance()
+    fun getTimeToAlarmStart(alarmHour: Int, alarmMinute: Int, calendar: Calendar = Calendar.getInstance()): Pair<Int, Int> {
+        if (alarmHour !in 0..24 || alarmMinute !in 0..60) {
+            throw UnsupportedOperationException("wrong alarm hour and time values only 24 hours and 60 minutes")
+
+        }
         calendar.timeInMillis = System.currentTimeMillis()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
@@ -63,8 +66,8 @@ public object AlarmTools {
 
             else -> throw UnsupportedOperationException("imposable action")
         }
-        return Pair(covertTo24Format(timeToStartAlarm).first,
-                covertTo24Format(timeToStartAlarm).second)
+        return Pair(convertTo24Format(timeToStartAlarm).first,
+                convertTo24Format(timeToStartAlarm).second)
     }
 
     fun getReadableTime(hour: Int, min: Int) = getReadableHour(hour) + " : " + getReadableMinute(min)
@@ -81,7 +84,7 @@ public object AlarmTools {
         min.toString()
     }
 
-    private fun covertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
+    private fun convertTo24Format(minToAlarmStart: Int): Pair<Int, Int> {
         val resultH = minToAlarmStart / 60
         return Pair(resultH, minToAlarmStart - resultH * 60)
 

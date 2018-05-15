@@ -12,6 +12,7 @@ import com.mrkostua.mathalarm.tools.NotificationTools
 /**
  * @author Kostiantyn Prysiazhnyi on 4/18/2018.
  */
+//TODO write test for this class so we can check if service is running or phone can be unlocked without password
 class WakeLockService : Service() {
     private val notificationID = 25
     private val TAG = this.javaClass.simpleName

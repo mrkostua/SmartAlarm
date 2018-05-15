@@ -10,11 +10,10 @@ import javax.inject.Inject
 
 class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: AlarmDataHelper, private val mediaPlayer: MediaPlayerHelper) : DisplayAlarmServiceContract.Presenter {
     override fun start() {
-
     }
 
     override fun playRingtone() {
-        mediaPlayer.playRingtoneFromRingtoneOb(dataHelper.getSavedRingtoneAlarmOb(), true)
+        mediaPlayer.playRingtone(dataHelper.getSavedRingtoneAlarmOb(), true)
     }
 
     override fun getDeepWakeUpState() = dataHelper.getDeepWakeUpStateFromSP()
@@ -24,7 +23,7 @@ class DisplayAlarmServicePresenter @Inject constructor(private val dataHelper: A
     }
 
     override fun stopPlayingRingtone() {
-        mediaPlayer.stopRingtone()
+        mediaPlayer.stopPlaying()
 
     }
 

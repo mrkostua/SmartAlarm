@@ -24,16 +24,12 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
     override fun setIsPlayingToFalse(whichIndex: Int) {
-        ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
-            if (index == whichIndex) {
-                ringtoneObject.isPlaying = false
-                return@forEachIndexed
-            }
-        }
+        ringtonePopulationList[whichIndex].isPlaying = false
+
     }
 
     override fun stopPlayingRingtone() {
-        playerHelper.stopRingtone()
+        playerHelper.stopPlaying()
     }
 
 
@@ -43,7 +39,7 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
 
-    override fun setAllIndexesToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+    override fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
                                       actionSetFalse: (RingtoneObject) -> Unit) {
         ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
             if (actionIsCheckedOrPlaying(ringtoneObject)) {
@@ -74,7 +70,7 @@ class OptionSetRingtonePresenter @Inject constructor(
 
     override fun playChosenRingtone(position: Int) {
         val ringtoneOb = ringtonePopulationList[position]
-        playerHelper.playRingtoneFromRingtoneOb(ringtoneOb)
+        playerHelper.playRingtone(ringtoneOb)
 
     }
 

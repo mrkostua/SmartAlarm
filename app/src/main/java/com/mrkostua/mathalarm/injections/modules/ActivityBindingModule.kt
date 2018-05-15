@@ -30,7 +30,7 @@ public abstract class ActivityBindingModule {
     public abstract fun optionSetTimeFragment(): FragmentOptionSetTime
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [(OptionSetRingtoneModule::class), (DisplayHelperModule::class)])
+    @ContributesAndroidInjector(modules = [(OptionSetRingtoneModule::class), (DisplayHelperModule::class), (MediaPlayerHelperModule::class)])
     public abstract fun getOptionSetRingtoneFragement(): FragmentOptionSetRingtone
 
     @ActivityScope
@@ -46,10 +46,10 @@ public abstract class ActivityBindingModule {
     public abstract fun getDisplayAlarmActivity(): DisplayAlarmActivity
 
     @DisplayAlarmServiceScope
-    @ContributesAndroidInjector(modules = [(DisplayAlarmServiceModule::class), (DisplayHelperModule::class)])
+    @ContributesAndroidInjector(modules = [(DisplayAlarmServiceModule::class), (DisplayHelperModule::class), (MediaPlayerHelperModule::class)])
     public abstract fun getDisplayAlarmService(): DisplayAlarmService
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [(OptionSetDeepWakeUpModule::class)])
+    @ContributesAndroidInjector(modules = [(OptionSetDeepWakeUpModule::class), (MediaPlayerHelperModule::class)])
     public abstract fun getFragmentOptionSetDeepWakeUp(): FragmentOptionSetDeepWakeUp
 }

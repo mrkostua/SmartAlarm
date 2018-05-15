@@ -20,6 +20,7 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
+//TODO write test for this class
 //TODO update design (style) of Preview views colors,size etc.
 class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                                                  private val mainViewModel: MainAlarmViewModel,

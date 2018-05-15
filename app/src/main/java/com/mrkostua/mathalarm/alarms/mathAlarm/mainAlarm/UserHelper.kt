@@ -13,6 +13,11 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/26/2018.
  */
+//TODO write test for this class
+/**TODO maybe do the refactoring
+ *(those fun is only for use in MainAlarmActivity, it is not save to give access to other classes)
+ * find the way to protect it or just move it to some inner class.
+ */
 class UserHelper @Inject constructor(private val context: Context,
                                      private val mainActivity: Activity,
                                      private val alarmSettingsIntent: Intent) {

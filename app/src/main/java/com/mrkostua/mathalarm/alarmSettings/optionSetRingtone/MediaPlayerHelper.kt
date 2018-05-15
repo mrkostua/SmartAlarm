@@ -9,25 +9,21 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Message
-import android.support.annotation.RequiresApi
+import android.support.annotation.VisibleForTesting
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.ShowLogs
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 17.01.2018.
  */
-class MediaPlayerHelper @Inject constructor(private val context: Context) : MediaPlayer.OnErrorListener {
+class MediaPlayerHelper(private val context: Context, mp: MediaPlayer?) : MediaPlayer.OnErrorListener {
+    init {
+        mediaPlayer = mp
+    }
     private val TAG = this.javaClass.simpleName
     private var isMpPlaying = false
-    private var mediaPlayer: MediaPlayer? = null
-
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private var userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
-
     private val handlerAdjustVolume = 3
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
@@ -42,7 +38,32 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         }
     }
 
-    fun playRingtoneFromRingtoneOb(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
+    companion object {
+        private var mediaPlayer: MediaPlayer? = null
+        private var playingRingtoneName: String = ""
+        @VisibleForTesting()
+        @JvmStatic
+        fun getMediaPlayer(): MediaPlayer {
+            if (mediaPlayer != null) {
+                return mediaPlayer!!
+            } else {
+                throw NullPointerException("mediaPlayer is null don't use this method before creating MediaPlayerHelper")
+            }
+        }
+
+        @VisibleForTesting()
+        @JvmStatic
+        fun getPlayingRingtoneName(): String {
+            if (playingRingtoneName.isEmpty()) {
+                throw UnsupportedOperationException("playingRingtoneName is empty")
+            } else {
+                return playingRingtoneName
+            }
+        }
+
+    }
+
+    fun playRingtone(ringtoneOb: RingtoneObject, isAlarmStreamType: Boolean = false) {
         if (ringtoneOb.uri == null) {
             playRingtoneFromStringResource(ringtoneOb.name, isAlarmStreamType)
 
@@ -50,6 +71,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
             playRingtoneFromUri(ringtoneOb.uri, isAlarmStreamType)
 
         }
+        playingRingtoneName = ringtoneOb.name
     }
 
     /**
@@ -58,19 +80,19 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
     fun playDeepWakeUpRingtone(ringtoneOb: RingtoneObject) {
         userVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 1, 0)
-        playRingtoneFromRingtoneOb(ringtoneOb, true)
+        playRingtone(ringtoneOb, true)
         sendHandlerDelayAdjustVolume()
 
     }
 
-    fun stopRingtone() {
+    fun stopPlaying() {
         if (isMpPlaying) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
             isMpPlaying = false
         }
         disableHandlerMessages(handlerAdjustVolume)
-
+        playingRingtoneName = ""
     }
 
     fun releaseMediaPlayer() {
@@ -86,7 +108,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
         }
         mediaPlayer = getNewMediaPlayer(ringtoneResourceName)
-        startPlayingMusic(mediaPlayer, isAlarmStreamType)
+        startPlayingMusic(isAlarmStreamType)
         isMpPlaying = true
 
     }
@@ -99,7 +121,7 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
         }
         mediaPlayer = getNewMediaPlayer(ringtoneUri)
-        startPlayingMusic(mediaPlayer, isAlarmStreamType)
+        startPlayingMusic(isAlarmStreamType)
         isMpPlaying = true
 
     }
@@ -110,15 +132,16 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
         mp.release()
         mediaPlayer = null
         isMpPlaying = false
+        playingRingtoneName = ""
         return true
     }
 
-    private fun startPlayingMusic(mp: MediaPlayer?, isAlarmStreamType: Boolean = false) {
+    private fun startPlayingMusic(isAlarmStreamType: Boolean = false) {
         if (isAlarmStreamType) {
             setAlarmStream()
 
         }
-        mp?.isLooping = true
+        mediaPlayer?.isLooping = true
         mediaPlayer?.setOnPreparedListener({
             it.start()
         })
@@ -128,7 +151,8 @@ class MediaPlayerHelper @Inject constructor(private val context: Context) : Medi
 
     private fun setAlarmStream() {
         if (Build.VERSION.SDK_INT >= 26) {
-            mediaPlayer?.setAudioAttributes(audioAttributes)
+            mediaPlayer?.setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
         } else {
             @Suppress("DEPRECATION")
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_ALARM)
