@@ -39,10 +39,11 @@ class OptionSetRingtonePresenter @Inject constructor(
     }
 
 
-    override fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean) {
+    override fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                      actionSetFalse: (RingtoneObject) -> Unit) {
         ringtonePopulationList.forEachIndexed { index, ringtoneObject ->
             if (actionIsCheckedOrPlaying(ringtoneObject)) {
-                ringtoneObject.isPlaying = false
+                actionSetFalse(ringtoneObject)
                 optionSetRingtoneView.itemChangedRefreshRecycleView(index)
                 return
 

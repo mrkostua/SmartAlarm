@@ -14,7 +14,7 @@ import javax.inject.Singleton
  * @author Kostiantyn Prysiazhnyi on 3/12/2018.
  */
 @Singleton
-class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
+open class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedPreferences, private val ringtoneManagerHelper: RingtoneManagerHelper) {
     fun getAlarmDataObject(): AlarmObject {
         val time = getTimeFromSP()
         return AlarmObject(time.first, time.second, getTextMessageFromSP(), getRingtoneFromSP())
@@ -55,7 +55,7 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
     fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
             ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
-    fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
+    open fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1))
@@ -65,7 +65,7 @@ class AlarmDataHelper @Inject constructor(private val sharedPreferences: SharedP
         return ringtonesList
     }
 
-    fun getSavedRingtoneAlarmOb(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
+    open fun getSavedRingtoneAlarmOb(ringtoneList: ArrayList<RingtoneObject> = getRingtonesForPopulation()): RingtoneObject {
         val ringtoneName: String = getRingtoneFromSP()
         return ringtoneList.find { ao -> ao.name == ringtoneName }
                 ?: ringtoneList[1]

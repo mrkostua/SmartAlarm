@@ -1,12 +1,11 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
-import android.content.SharedPreferences
-import com.mrkostua.mathalarm.data.AlarmDataHelper
+import com.mrkostua.mathalarm.testingTools.AlarmDataHelperStub
 import junit.framework.Assert.assertFalse
+import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
@@ -19,56 +18,75 @@ class OptionSetRingtonePresenterTest {
     @JvmField
     @Rule
     public val mockitoRule: MockitoRule = MockitoJUnit.rule()
-
     @Mock
     lateinit var playerHelper: MediaPlayerHelper
-    @Mock
-    lateinit var sp: SharedPreferences
-    @Mock
-    lateinit var ringtoneManager: RingtoneManagerHelper
-    @Mock
-    lateinit var alarmDataHelper: AlarmDataHelper
-    lateinit var ringtonePresenter: OptionSetRingtonePresenter
 
-
-    private var ringtonesList = ArrayList<RingtoneObject>()
-
+    private val lastSavedRingtoneIndex = 1
+    private lateinit var ringtonePresenter: OptionSetRingtonePresenter
+    private lateinit var dataHelperStub: AlarmDataHelperStub
 
     @Before
     fun setUp() {
-        //alarmDataHelper = mock(AlarmDataHelper::class.java)
-        ringtonePresenter = OptionSetRingtonePresenter(initializeRingtonesList(), playerHelper)
-        //ringtonePresenter.takeView(RingtoneView())
+        dataHelperStub = AlarmDataHelperStub(initializeRingtonesList(), lastSavedRingtoneIndex)
+        ringtonePresenter = OptionSetRingtonePresenter(dataHelperStub, playerHelper)
+        ringtonePresenter.takeView(RingtoneViewStub())
 
     }
 
-    private fun initializeRingtonesList(): AlarmDataHelper {
+    private fun initializeRingtonesList(): ArrayList<RingtoneObject> {
+        val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2, false, false))
         ringtonesList.add(RingtoneObject("ringtone_energy", 1, false, false))
         ringtonesList.add(RingtoneObject("ringtone_loud", 3, false, false))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 4, false, true))
-        given(alarmDataHelper.getRingtonesForPopulation()).willReturn(ringtonesList)
-        return alarmDataHelper
+        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 4, false, false))
+        return ringtonesList
     }
 
     @Test
-    fun setAllIndexesToFalse() {
-        ringtonesList[0].isChecked = true
-        ringtonePresenter.setCheckedOrPlayingToFalse({ it.isChecked })
-        assertFalse(ringtonesList[0].isChecked)
-        ringtonesList.forEach { assertFalse(it.isChecked) }
+    fun setCheckedOrPlayingToFalse() {
+        ringtonePresenter.ringtonePopulationList[2].isChecked = true
+        ringtonePresenter.setCheckedOrPlayingToFalse({ it.isChecked }, { it.isChecked = false })
+        ringtonePresenter.ringtonePopulationList.forEach { assertFalse(it.isChecked) }
 
+        ringtonePresenter.ringtonePopulationList[2].isPlaying = true
+        ringtonePresenter.setCheckedOrPlayingToFalse({ it.isPlaying }, { it.isPlaying = false })
+        ringtonePresenter.ringtonePopulationList.forEach { assertFalse(it.isPlaying) }
     }
 
     @Test
     fun setClickedIndexToTrue() {
+        val playPosition = 2
+        ringtonePresenter.setClickedIndexToTrue({ it.isPlaying = true }, { it.isPlaying = false },
+                { it.isPlaying }, playPosition)
+        assertTrue(ringtonePresenter.ringtonePopulationList[playPosition].isPlaying)
+        ringtonePresenter.ringtonePopulationList.forEachIndexed { index, it ->
+            if (index != playPosition) {
+                assertFalse(it.isPlaying)
+            }
+        }
+        val checkPosition = 3
+        ringtonePresenter.setClickedIndexToTrue({ it.isChecked = true }, { it.isChecked = false },
+                { it.isChecked }, checkPosition)
+        assertTrue(ringtonePresenter.ringtonePopulationList[checkPosition].isChecked)
+        ringtonePresenter.ringtonePopulationList.forEachIndexed { index, it ->
+            if (index != checkPosition) {
+                assertFalse(it.isChecked)
+            }
+        }
     }
 
     @Test
     fun initializeLastSavedRingtone() {
+        ringtonePresenter.initializeLastSavedRingtone()
+        assertTrue(ringtonePresenter.ringtonePopulationList[lastSavedRingtoneIndex].isChecked)
+        ringtonePresenter.ringtonePopulationList.forEachIndexed { index, it ->
+            if (index != lastSavedRingtoneIndex) {
+                assertFalse(it.isChecked)
+            }
+        }
     }
 
-    inner class RingtoneView : OptionSetRingtoneContract.View {
+    inner class RingtoneViewStub : OptionSetRingtoneContract.View {
         override var positionOfPlayingButtonItem: Int
             get() = 0
             set(value) {}

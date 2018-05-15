@@ -10,7 +10,7 @@ import org.hamcrest.Matcher
  */
 class AdditionalViewActions {
     companion object {
-        public fun clickChildView(id: Int) = object : ViewAction {
+        fun actionAtChildView(id: Int, itemAction: ViewAction) = object : ViewAction {
             override fun getDescription(): String {
                 return "Click on a child view with specified id: $id."
             }
@@ -19,9 +19,9 @@ class AdditionalViewActions {
                 return null
             }
 
-            override fun perform(uiController: UiController?, view: View?) {
-                val view: View? = view?.findViewById(id)
-                view?.performClick()
+            override fun perform(uiController: UiController?, v: View?) {
+                val view: View? = v?.findViewById(id)
+                itemAction.perform(uiController, view)
             }
 
         }

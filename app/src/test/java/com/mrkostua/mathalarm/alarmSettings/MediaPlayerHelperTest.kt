@@ -31,9 +31,7 @@ class MediaPlayerHelperTest {
      * The only possible solution to unitTest MediaPlayerHelper is by using Robolectric mainly,
      * Mocking MediaPlayer require additional mocking all usage of android import in this class, it is too complex and some method are static so PowerMock is required.
      * The easiest solution is to write instrumental test using Espresso framework, but it is not so clean as unitTesting and require emulator/physicalDevice.
-     *
-     * Fight until the end!
-     * 1) try to find the problem in ShadowMediaPlayer
+     ** 1) try to find the problem in ShadowMediaPlayer
      * 2) try to override method which invokes errors in MyShadowMediaPlayer and test it
      * 3) find the real problem in MyShadowMediaPlayer and create issues in github repo
      */
@@ -91,7 +89,7 @@ class MediaPlayerHelperTest {
 
     @Test
     fun playDeepWakeUpRingtoneTest() {
-        //TODO learn how to simulate handler work
+
     }
 
     @Test

@@ -14,11 +14,12 @@ class AdditionalViewMatcher {
         fun atPosition(position: Int, itemMatcher: Matcher<View>): Matcher<View> {
             return object : BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
                 override fun describeTo(description: Description?) {
-                    description?.appendText("is cb checked")
+                    description?.appendText("atPosition")
                 }
 
                 override fun matchesSafely(view: RecyclerView): Boolean {
-                    val viewHolder = view.findViewHolderForAdapterPosition(position) ?: throw UnsupportedOperationException("no item on position $position")
+                    val viewHolder = view.findViewHolderForAdapterPosition(position)
+                            ?: throw UnsupportedOperationException("no item on position $position")
                     return itemMatcher.matches(viewHolder.itemView)
                 }
 

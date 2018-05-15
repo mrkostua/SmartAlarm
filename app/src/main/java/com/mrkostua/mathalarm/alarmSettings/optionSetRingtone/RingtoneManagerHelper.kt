@@ -3,13 +3,11 @@ package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 import android.content.Context
 import android.media.RingtoneManager
 import com.mrkostua.mathalarm.injections.annotation.ApplicationContext
-import javax.inject.Inject
 
 /**
  * @author Kostiantyn Prysiazhnyi on 23.01.2018.
- * TODO write Instrumentation test
  */
-class RingtoneManagerHelper @Inject constructor(@ApplicationContext private val context: Context) {
+class RingtoneManagerHelper constructor(@ApplicationContext private val context: Context) {
     fun getDefaultAlarmRingtonesList(): ArrayList<RingtoneObject> {
         val ringtoneManager = RingtoneManager(context)
         ringtoneManager.setType(RingtoneManager.TYPE_ALARM)

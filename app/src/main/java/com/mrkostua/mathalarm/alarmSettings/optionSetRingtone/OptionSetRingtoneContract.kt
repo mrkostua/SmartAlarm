@@ -18,7 +18,8 @@ interface OptionSetRingtoneContract {
         fun setIsPlayingToFalse(whichIndex: Int)
         fun stopPlayingRingtone()
 
-        fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean)
+        fun setCheckedOrPlayingToFalse(actionIsCheckedOrPlaying: (RingtoneObject) -> Boolean,
+                                 actionSetFalse: (RingtoneObject) -> Unit)
 
         fun setClickedIndexToTrue(actionSetTrue: (RingtoneObject) -> Unit,
                                   actionSetFalse: (RingtoneObject) -> Unit,

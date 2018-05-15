@@ -13,6 +13,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
+import com.mrkostua.mathalarm.tools.ConstantValues
 import junit.framework.Assert.*
 import org.hamcrest.Matchers.allOf
 import org.junit.Before
@@ -107,7 +108,7 @@ class MediaPlayerHelperTest {
         for (i in 1 until maxVolume) {
             assertEquals("streamVolume is different form expected", i, audioManager.getStreamVolume(AudioManager.STREAM_ALARM))
             assertTrue("ringtone is not playing ", mediaPlayer.isPlaying)
-            Thread.sleep(10000)
+            Thread.sleep(ConstantValues.DEEP_WAKE_UP_VOLUME_ADJUSTMENT_MILLISECONDS)
 
         }
     }
