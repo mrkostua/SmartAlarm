@@ -102,6 +102,7 @@
     <style name="AlarmSettingImagineButtonTheme" parent="android:Theme">
         <item name="android:imageButtonStyle">@style/alarmSettingImagineButtonStyle</item>
     </style>
+
     <style name="alarmSettingImagineButtonStyle" parent="android:Widget.ImageButton">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -138,5 +139,7 @@
         <item name="colorControlActivated">#27ff00</item>
         <item name="android:colorForeground">#f70000</item>
     </style>
+
+    <style name="displayedTasksTextStyle" parent="android:Widget.TextView"></style>
 
 </resources>

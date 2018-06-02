@@ -24,4 +24,8 @@ class AlarmDataHelperStub(private val ringtonesList: ArrayList<RingtoneObject>, 
         return ringtonesList[lastSavedRingtoneIndex]
     }
 
+    override fun getTextMessageFromSP(): String {
+        return ""
+    }
+
 }

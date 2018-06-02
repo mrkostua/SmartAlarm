@@ -20,7 +20,6 @@ import kotlin.collections.ArrayList
 @RunWith(Parameterized::class)
 class AlarmToolsTest(private val calendarTime: Pair<Int, Int>, private val alarmTime: Pair<Int, Int>,
                      private val expected: Pair<Int, Int>) {
-
     @JvmField
     @Rule
     public val mockitoRule: MockitoRule = MockitoJUnit.rule()

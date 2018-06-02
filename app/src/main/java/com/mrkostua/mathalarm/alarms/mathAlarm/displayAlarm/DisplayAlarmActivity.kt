@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.View
@@ -22,8 +23,10 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.WakeLockService
 import com.mrkostua.mathalarm.alarms.mathAlarm.services.displayAlarmService.DisplayAlarmService
 import com.mrkostua.mathalarm.databinding.ActivityDisplayAlarmBinding
+import com.mrkostua.mathalarm.extensions.setTextAppearance
 import com.mrkostua.mathalarm.extensions.startMyDragAndDrop
 import com.mrkostua.mathalarm.tools.ConstantValues
+import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_display_alarm.*
 import java.util.*
@@ -44,23 +47,40 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
         with(DataBindingUtil.setContentView(this, R.layout.activity_display_alarm) as ActivityDisplayAlarmBinding) {
             viewModel = displayViewModel
             executePendingBindings()
-            initializeTasksViews()
         }
+        initializeTasksViews()
         stopService(Intent(this, WakeLockService::class.java))
         anabelWindowsFlags()
 
     }
 
     private fun initializeTasksViews() {
-        val r = Random()
         var view: TextView
-        for (i in 0..4) {
-            view = getTaskView(ViewLocation.BottomRight.getRepresentation(r.nextInt(4)), r.nextInt(130), r.nextInt(130))
-            view.text = "yo $i"
+        val randomLocation = displayViewModel.getUniqueRandomValues(0, 3, 4)
+        val rTopBottomMargin = displayViewModel.getUniqueRandomValues(140, 250, 4)
+        val rRightLeftMargin = displayViewModel.getUniqueRandomValues(40, 150, 4)
+        //adding 5th task view
+        randomLocation.add(1)
+        rTopBottomMargin.add(250)
+        rRightLeftMargin.add(150)
+        ShowLogs.log(TAG, "initializeTasksViews 1: ${Arrays.toString(randomLocation.toArray())}")
+        ShowLogs.log(TAG, "initializeTasksViews 2: ${Arrays.toString(rTopBottomMargin.toArray())}")
+        ShowLogs.log(TAG, "initializeTasksViews 3: ${Arrays.toString(rRightLeftMargin.toArray())}")
+        for (index in 0 until randomLocation.size) {
+            view = getTaskView(ViewLocation.BottomRight.getRepresentation(randomLocation[index]),
+                    getPixelValue(rTopBottomMargin[index]),
+                    getPixelValue((rRightLeftMargin[index])))
+            view.text = "$index" //TODO generate this value randomly
+            view.id = index
+            view.setTextAppearance(R.style.displayedTasksTextStyle, this)
             taskViewsList.add(view)
             rlDisplayAlarm.addView(view)
+            rlDisplayAlarm.requestLayout()
         }
+
     }
+
+    private fun getPixelValue(dp: Int) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), this.resources.displayMetrics).toInt()
 
     fun bStopAlarmOnClickListener(view: View) {
         finishDisplayingAlarm()
@@ -105,7 +125,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
                 or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
     }
-
 
     private fun testDragAndDrop(view1: View, view2: View) {
         view1.setOnLongClickListener {
@@ -170,20 +189,22 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun getTaskView(location: ViewLocation, topButtonMargin: Int, rightLeftMargin: Int): TextView {
+    //TODO write Espresso test for this method!!! much easier than stupid physical testing
+    //TODO only after being sure this method works properly use it populating random tasks with random layout params
+    private fun getTaskView(location: ViewLocation, topBottomMarginPixels: Int, rightLeftMarginPixels: Int): TextView {
         val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         when (location) {
             ViewLocation.TopLeft -> {
-                layoutParams.setMargins(rightLeftMargin, topButtonMargin, 0, 0)
+                layoutParams.setMargins(rightLeftMarginPixels, topBottomMarginPixels, 0, 0)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE)
+                    layoutParams.marginStart = rightLeftMarginPixels
                 }
             }
             ViewLocation.TopRight -> {
-                layoutParams.setMargins(0, topButtonMargin, rightLeftMargin, 0)
-                layoutParams.setMargins(rightLeftMargin, topButtonMargin, 0, 0)
+                layoutParams.setMargins(0, topBottomMarginPixels, rightLeftMarginPixels, 0)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -191,8 +212,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
                 }
             }
             ViewLocation.BottomLeft -> {
-                layoutParams.setMargins(rightLeftMargin, 0, 0, topButtonMargin)
-                layoutParams.setMargins(rightLeftMargin, topButtonMargin, 0, 0)
+                layoutParams.setMargins(rightLeftMarginPixels, 0, 0, topBottomMarginPixels)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -200,7 +220,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
                 }
             }
             ViewLocation.BottomRight -> {
-                layoutParams.setMargins(0, 0, rightLeftMargin, topButtonMargin)
+                layoutParams.setMargins(0, 0, rightLeftMarginPixels, topBottomMarginPixels)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -230,7 +250,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
             1 -> ViewLocation.TopRight
             2 -> ViewLocation.BottomLeft
             3 -> ViewLocation.BottomRight
-            else -> throw UnsupportedOperationException("fuck")
+            else -> throw UnsupportedOperationException("fuck number is $viewLocation")
 
         }
 

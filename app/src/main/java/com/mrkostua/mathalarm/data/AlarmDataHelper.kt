@@ -52,7 +52,7 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
             sharedPreferences[ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue(),
                     ConstantsPreferences.ALARM_RINGTONE_NAME.defaultRingtoneName]
 
-    fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
+    open fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
             ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
     open fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
