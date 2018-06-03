@@ -3,9 +3,6 @@ package com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm
 import android.content.ClipDescription
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
@@ -13,10 +10,8 @@ import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
 import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
@@ -35,10 +30,10 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/29/2018.
  */
-class DisplayAlarmActivity : DaggerAppCompatActivity() {
+
+class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
     private val TAG = this.javaClass.simpleName
     private val taskViewsList = ArrayList<TextView>()
-
     @Inject
     public lateinit var displayViewModel: DisplayAlarmViewModel
 
@@ -49,9 +44,135 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
             executePendingBindings()
         }
         initializeTasksViews()
+        initializeDragDropListeners()
         stopService(Intent(this, WakeLockService::class.java))
         anabelWindowsFlags()
 
+    }
+
+    private var draggingElementNumber = -1
+    private fun initializeDragDropListeners() {
+        taskViewsList.sortBy { it.text.toString().toInt() }
+        taskViewsList.forEach { view ->
+            view.setOnDragListener(this)
+            view.setOnLongClickListener {
+                setViewAppearance(view, R.drawable.task_shape_moving)
+                it.startMyDragAndDrop(view.text.toString(), View.DragShadowBuilder(it))
+                draggingElementNumber = view.text.toString().toInt()
+                true
+            }
+        }
+    }
+
+    override fun onDrag(v: View, event: DragEvent) = when (event.action) {
+        DragEvent.ACTION_DRAG_STARTED -> {
+            if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                if (draggingElementNumber != (v as TextView).text.toString().toInt()) {
+                    setViewAppearance(v, R.drawable.task_shape_posible_options)
+                }
+                isProperTaskChosen(v)
+            } else {
+                false
+            }
+
+        }
+        DragEvent.ACTION_DRAG_ENTERED -> {
+            if (draggingElementNumber != (v as TextView).text.toString().toInt()) {
+                actionDragEntered(v)
+            }
+            true
+        }
+        DragEvent.ACTION_DRAG_LOCATION -> {
+            true
+        }
+        DragEvent.ACTION_DRAG_EXITED -> {
+            if (draggingElementNumber != (v as TextView).text.toString().toInt()) {
+                setViewAppearance(v, R.drawable.task_shape_posible_options)
+            }
+            true
+        }
+        DragEvent.ACTION_DROP -> {
+
+            if (isProperTaskChosen(v)) {
+                drawLineFromTaskToTask(v, taskViewsList[getTaskIndexByNumber(draggingElementNumber) + 1])
+                //TODO set done tasks listeners to NULL so user can't drag it
+            }
+            true
+
+
+        }
+        DragEvent.ACTION_DRAG_ENDED -> {
+            //TODO Drag Ended will be called always after dragStarted
+
+            if (event.result) {
+                ShowLogs.log(TAG, "The drop was handled.")
+
+            } else {
+                ShowLogs.log(TAG, "The drop didn't work.")
+            }
+            resetDraggingColorsStates()
+
+            true
+
+
+        }
+        else -> false
+
+    }
+
+    private fun drawLineFromTaskToTask(v1: View, v2: View) {
+        //TODO("not implemented")
+        ShowLogs.log(TAG, "drawLineFromTaskToTask() Draw something ??? ")
+
+    }
+
+    private fun resetDraggingColorsStates() {
+        draggingElementNumber = -1
+        taskViewsList.forEach {
+            setViewAppearance(it, R.drawable.shape_oval)
+        }
+    }
+
+    private fun isProperTaskChosen(v: View): Boolean {
+        if (draggingElementNumber == -1) {
+            throw UnsupportedOperationException("Something is wrong")
+        }
+        return when (draggingElementNumber) {
+            taskViewsList[taskViewsList.lastIndex].text.toString().toInt() -> {
+                false
+            }
+            else -> {
+                taskViewsList[getTaskIndexByNumber(draggingElementNumber) + 1].text.toString().toInt() == (v as TextView).text.toString().toInt()
+            }
+        }
+    }
+
+    private fun actionDragEntered(v: View) {
+        if (draggingElementNumber == -1) {
+            throw UnsupportedOperationException("Something is wrong")
+        }
+        when (draggingElementNumber) {
+            taskViewsList[taskViewsList.lastIndex].text.toString().toInt() -> {
+                setViewAppearance(v, R.drawable.task_shape_wrong)
+            }
+            else -> {
+                if (taskViewsList[getTaskIndexByNumber(draggingElementNumber) + 1].text.toString().toInt() == (v as TextView).text.toString().toInt()) {
+                    setViewAppearance(v, R.drawable.task_shape_correct)
+                } else {
+                    setViewAppearance(v, R.drawable.task_shape_wrong)
+
+                }
+            }
+        }
+    }
+
+    private fun getTaskIndexByNumber(number: Int): Int {
+        taskViewsList.forEachIndexed { index, textView ->
+            if (number == textView.text.toString().toInt()) {
+                return index
+            }
+        }
+        throw UnsupportedOperationException("getTaskIndexByNumber() wrong argument, taskViewList don't contain this element")
     }
 
     private fun initializeTasksViews() {
@@ -59,28 +180,23 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
         val randomLocation = displayViewModel.getUniqueRandomValues(0, 3, 4)
         val rTopBottomMargin = displayViewModel.getUniqueRandomValues(140, 250, 4)
         val rRightLeftMargin = displayViewModel.getUniqueRandomValues(40, 150, 4)
+        val randomTasksNumber = displayViewModel.getUniqueRandomValues(0, 10, 5)
         //adding 5th task view
         randomLocation.add(1)
         rTopBottomMargin.add(250)
         rRightLeftMargin.add(150)
-        ShowLogs.log(TAG, "initializeTasksViews 1: ${Arrays.toString(randomLocation.toArray())}")
-        ShowLogs.log(TAG, "initializeTasksViews 2: ${Arrays.toString(rTopBottomMargin.toArray())}")
-        ShowLogs.log(TAG, "initializeTasksViews 3: ${Arrays.toString(rRightLeftMargin.toArray())}")
         for (index in 0 until randomLocation.size) {
-            view = getTaskView(ViewLocation.BottomRight.getRepresentation(randomLocation[index]),
-                    getPixelValue(rTopBottomMargin[index]),
-                    getPixelValue((rRightLeftMargin[index])))
-            view.text = "$index" //TODO generate this value randomly
+            view = getTaskView(TaskViewLocation.TopLeft.getRepresentation(randomLocation[index]),
+                    getPixelValue(rTopBottomMargin[index]), getPixelValue((rRightLeftMargin[index])))
+            view.text = randomTasksNumber[index].toString()
             view.id = index
-            view.setTextAppearance(R.style.displayedTasksTextStyle, this)
-            taskViewsList.add(view)
+
             rlDisplayAlarm.addView(view)
             rlDisplayAlarm.requestLayout()
+            taskViewsList.add(view)
         }
 
     }
-
-    private fun getPixelValue(dp: Int) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), this.resources.displayMetrics).toInt()
 
     fun bStopAlarmOnClickListener(view: View) {
         finishDisplayingAlarm()
@@ -126,75 +242,15 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
 
     }
 
-    private fun testDragAndDrop(view1: View, view2: View) {
-        view1.setOnLongClickListener {
-            it.startMyDragAndDrop("how do you do?", View.DragShadowBuilder(it))
-            true
-        }
-
-        view2.setOnDragListener { v, event ->
-            when (event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                    if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                        v.setBackgroundColor(Color.BLUE)
-                        v.invalidate()
-                        true
-                    } else {
-                        false
-                    }
-
-                }
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    v.setBackgroundColor(Color.GREEN)
-                    v.invalidate()
-                    true
-                }
-                DragEvent.ACTION_DRAG_LOCATION -> {
-                    true
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    v.setBackgroundColor(Color.YELLOW)
-                    v.invalidate()
-                    true
-                }
-
-                DragEvent.ACTION_DROP -> {
-                    Toast.makeText(this, event.clipData.getItemAt(0).text, Toast.LENGTH_LONG).show()
-                    v.setBackgroundColor(Color.TRANSPARENT)
-                    v.invalidate()
-
-                    true
-
-                }
-
-                DragEvent.ACTION_DRAG_ENDED -> {
-
-                    v.setBackgroundColor(Color.TRANSPARENT)
-                    v.invalidate()
-                    if (event.result) {
-                        Toast.makeText(this, "The drop was handled.", Toast.LENGTH_LONG).show()
-
-                    } else {
-                        Toast.makeText(this, "The drop didn't work.", Toast.LENGTH_LONG).show()
-
-                    }
-                    true
-
-
-                }
-
-                else -> false
-
-            }
-        }
+    private fun setViewAppearance(view: View, resId: Int) {
+        view.setBackgroundResource(resId)
+        view.invalidate()
     }
 
-    //TODO write Espresso test for this method!!! much easier than stupid physical testing
-    //TODO only after being sure this method works properly use it populating random tasks with random layout params
-    private fun getTaskView(location: ViewLocation, topBottomMarginPixels: Int, rightLeftMarginPixels: Int): TextView {
+    private fun getTaskView(location: TaskViewLocation, topBottomMarginPixels: Int, rightLeftMarginPixels: Int): TextView {
         val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         when (location) {
-            ViewLocation.TopLeft -> {
+            TaskViewLocation.TopLeft -> {
                 layoutParams.setMargins(rightLeftMarginPixels, topBottomMarginPixels, 0, 0)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
@@ -203,136 +259,43 @@ class DisplayAlarmActivity : DaggerAppCompatActivity() {
                     layoutParams.marginStart = rightLeftMarginPixels
                 }
             }
-            ViewLocation.TopRight -> {
+            TaskViewLocation.TopRight -> {
                 layoutParams.setMargins(0, topBottomMarginPixels, rightLeftMarginPixels, 0)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+                    layoutParams.marginEnd = rightLeftMarginPixels
+
                 }
             }
-            ViewLocation.BottomLeft -> {
+            TaskViewLocation.BottomLeft -> {
                 layoutParams.setMargins(rightLeftMarginPixels, 0, 0, topBottomMarginPixels)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE)
+                    layoutParams.marginStart = rightLeftMarginPixels
                 }
             }
-            ViewLocation.BottomRight -> {
+            TaskViewLocation.BottomRight -> {
                 layoutParams.setMargins(0, 0, rightLeftMarginPixels, topBottomMarginPixels)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+                    layoutParams.marginEnd = rightLeftMarginPixels
                 }
             }
         }
         val tvTask = TextView(this)
         tvTask.layoutParams = layoutParams
         tvTask.setBackgroundResource(R.drawable.shape_oval)
-        tvTask.setPadding(10, 10, 10, 10)
+        tvTask.setPadding(getPixelValue(10), getPixelValue(10), getPixelValue(10), getPixelValue(10))
+        tvTask.setTextAppearance(R.style.displayedTasksTextStyle, this)
         return tvTask
     }
 
-    private enum class ViewLocation {
-        TopLeft, TopRight, BottomLeft, BottomRight;
+    private fun getPixelValue(dp: Int) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), this.resources.displayMetrics).toInt()
 
-        fun getRepresentation(viewLocation: ViewLocation) = when (viewLocation) {
-            ViewLocation.TopLeft -> 0
-            ViewLocation.TopRight -> 1
-            ViewLocation.BottomLeft -> 2
-            ViewLocation.BottomRight -> 3
-        }
-
-        fun getRepresentation(viewLocation: Int) = when (viewLocation) {
-            0 -> ViewLocation.TopLeft
-            1 -> ViewLocation.TopRight
-            2 -> ViewLocation.BottomLeft
-            3 -> ViewLocation.BottomRight
-            else -> throw UnsupportedOperationException("fuck number is $viewLocation")
-
-        }
-
-
-    }
-
-    private fun setOnDragListenerOf(listenerView: View, movingView: View) {
-        listenerView.setOnDragListener { v, event ->
-            when (event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                    if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                        v.setBackgroundColor(Color.BLUE)
-                        v.invalidate()
-                        true
-                    } else {
-                        false
-                    }
-
-                }
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    v.setBackgroundColor(Color.GREEN)
-                    v.invalidate()
-                    true
-                }
-                DragEvent.ACTION_DRAG_LOCATION -> {
-                    true
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    v.setBackgroundColor(Color.YELLOW)
-                    v.invalidate()
-                    true
-                }
-
-                DragEvent.ACTION_DROP -> {
-                    Toast.makeText(this, event.clipData.getItemAt(0).text, Toast.LENGTH_LONG).show()
-                    v.setBackgroundColor(Color.TRANSPARENT)
-                    v.invalidate()
-
-                    true
-
-                }
-
-                DragEvent.ACTION_DRAG_ENDED -> {
-
-                    v.setBackgroundColor(Color.TRANSPARENT)
-                    v.invalidate()
-                    if (event.result) {
-                        Toast.makeText(this, "The drop was handled.", Toast.LENGTH_LONG).show()
-
-                    } else {
-                        Toast.makeText(this, "The drop didn't work.", Toast.LENGTH_LONG).show()
-
-                    }
-                    true
-
-
-                }
-
-                else -> false
-
-            }
-        }
-    }
-
-    private fun setViewAppereance(view: View, color: Int) {
-        view.setBackgroundColor(color)
-        view.invalidate()
-    }
-
-
-    inner class MyDragShadowBuilder(it: View) : View.DragShadowBuilder(it) {
-        private val shadow = (it as ImageView).drawable
-        override fun onDrawShadow(canvas: Canvas?) {
-            shadow.draw(canvas)
-        }
-
-        override fun onProvideShadowMetrics(outShadowSize: Point?, outShadowTouchPoint: Point?) {
-            val height = view.height / 2
-            val width = view.width / 2
-            shadow.setBounds(0, 0, width, height)
-            outShadowSize?.set(width, height)
-            outShadowTouchPoint?.set(width / 2, height / 2)
-        }
-    }
 }

@@ -35,4 +35,7 @@ public class MainAlarmModule {
     fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, viewModule: MainAlarmViewModel,
                                       notificationsTools: NotificationTools) =
             PreviewOfAlarmSettings(activity, viewModule, notificationsTools)
+
+
+
 }

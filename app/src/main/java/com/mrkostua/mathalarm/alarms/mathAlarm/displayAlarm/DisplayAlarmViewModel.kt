@@ -13,13 +13,12 @@ class DisplayAlarmViewModel @Inject constructor(dataHelper: AlarmDataHelper) : V
     private val random = Random()
 
     fun getUniqueRandomValues(minBound: Int, maxInclusiveBound: Int, size: Int = 1): ArrayList<Int> {
-        val uniqueRandomList = ArrayList<Int>()
         if (size > maxInclusiveBound - minBound + 1) {
             throw UnsupportedOperationException("getUniqueRandomValues impossible to generate more unique values," +
                     " than (maxInclusiveBound + 1) - minBound")
         }
+        val uniqueRandomList = ArrayList<Int>()
         var result: Int
-        uniqueRandomList.clear()
         while (uniqueRandomList.size < size) {
             result = random.nextInt((maxInclusiveBound - minBound) + 1) + minBound
             if (!uniqueRandomList.contains(result)) {
@@ -28,4 +27,5 @@ class DisplayAlarmViewModel @Inject constructor(dataHelper: AlarmDataHelper) : V
         }
         return uniqueRandomList
     }
+
 }

@@ -65,6 +65,21 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </ScrollView>
+
+       <!-- <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="#f5f106"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginEnd="86dp"
+            android:layout_marginTop="198dp"
+            android:text="TextView"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="86dp" />-->
     </RelativeLayout>
 </layout>
 
