@@ -28,7 +28,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/shape_circle_bstop"
-            android:onClick="bStopAlarmOnClickListener"
             android:text="@string/displayAlarmActivity_bStopAlarm"
             android:textColor="@color/white"
             android:textSize="35sp"
