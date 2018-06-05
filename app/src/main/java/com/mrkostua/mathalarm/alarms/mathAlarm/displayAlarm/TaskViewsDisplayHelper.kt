@@ -2,6 +2,8 @@ package com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm
 
 import android.content.Context
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
@@ -19,6 +21,7 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
     private val taskViewsList = getInitializedTasksViews(tasksAmount)
     private val initialTasksCount: Int = taskViewsList.size
     private var draggingTaskViewId = -1
+    private val vibrator = activityContext.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
     fun actionDragStarted(toDropView: TextView) = if (draggingTaskViewId != toDropView.id) {
         setViewAppearance(toDropView, R.drawable.task_shape_posible_options)
@@ -70,6 +73,7 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
     fun actionDragEnded(onDropView: View) {
         if (taskViewsList.size == initialTasksCount) {
             resetDraggingColorsStates()
+            vibrator.cancel()
         }
     }
 
@@ -170,11 +174,19 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
 
     private fun initializeDragDropListeners(view: TextView) {
         view.setOnLongClickListener {
-            //TODO maybe add some vibration on making long click
+            vibrateFor(200)
             setViewAppearance(view, R.drawable.task_shape_moving)
             draggingTaskViewId = view.id
             it.startMyDragAndDrop(view.text.toString(), View.DragShadowBuilder(it))
             true
+        }
+    }
+
+    private fun vibrateFor(millSeconds: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(millSeconds.toLong(), VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(millSeconds.toLong())
         }
     }
 
