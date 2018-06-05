@@ -209,4 +209,21 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
             setViewAppearance(it, R.drawable.shape_oval)
         }
     }
+
+    private fun drawLine(onDropView: TextView, layout: RelativeLayout) {
+        ShowLogs.log(this.javaClass.simpleName, "draw something? from ${taskViewsList[getTaskIndexByViewId(draggingTaskViewId)].text} + to ${onDropView.text}")
+        val lineView = drawLineFromTaskToTask(taskViewsList[getTaskIndexByViewId(draggingTaskViewId)], onDropView)
+        val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+        layoutParams.addRule(RelativeLayout.BELOW, onDropView.id)
+        layoutParams.addRule(RelativeLayout.ALIGN_LEFT, onDropView.id)
+        lineView.layoutParams = layoutParams
+        layout.addView(lineView)
+        layout.requestLayout()
+    }
+
+    private fun drawLineFromTaskToTask(v1: View, v2: View): View {
+        val lineView = LineDrawerView(activityContext)
+        lineView.setCoordinates(v1, v2)
+        return lineView
+    }
 }
