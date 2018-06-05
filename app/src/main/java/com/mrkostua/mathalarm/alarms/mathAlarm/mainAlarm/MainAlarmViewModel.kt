@@ -18,7 +18,7 @@ class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHe
     private val calendar = Calendar.getInstance()
     private val time = dataHelper.getTimeFromSP()
 
-    val alarmTime = ObservableField<String>() //no sens in using observable (just practicing)
+    val alarmTime = ObservableField<String>()
     val isDarkTime = ObservableBoolean()
 
     val alarmHour = AlarmTools.getReadableHour(time.first)

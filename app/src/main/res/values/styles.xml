@@ -132,7 +132,7 @@
     <style name="displayAlarmButtonsStyle" parent="android:Widget.Button">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:padding">40dp</item>
+        <item name="android:padding">20dp</item>
     </style>
 
     <style name="switchColorsTheme" parent="Theme.AppCompat.Light">

@@ -1,5 +1,4 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity">
 
@@ -21,64 +20,33 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <Button
-            android:id="@+id/bStopAlarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/shape_circle_bstop"
-            android:text="@string/displayAlarmActivity_bStopAlarm"
-            android:textColor="@color/white"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:theme="@style/displayAlarmButtonsStyle"
-            android:visibility="invisible" />
-
-        <Button
             android:id="@+id/bSnoozeAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bStopAlarm"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/shape_circle_bsnooze"
-            android:onClick="bSnoozeAlarmOnClickListener"
             android:text="@string/displayAlarmActivity_bSnooze"
             android:textColor="@color/snoozeButtonColor"
             android:textSize="20sp"
             android:theme="@style/displayAlarmButtonsStyle"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
-        <ScrollView
-            android:id="@+id/scrollViewContainerStartedAlarmMessage"
+        <TextView
+            android:id="@+id/tvStartedAlarmMessageText"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:id="@+id/tvStartedAlarmMessageText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.userTextMessage}"
-                android:textColor="@color/displayMessageTextColor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </ScrollView>
-
-       <!-- <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="#f5f106"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_marginEnd="86dp"
-            android:layout_marginTop="198dp"
-            android:text="TextView"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="86dp" />-->
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rectangle_borders"
+            android:lines="4"
+            android:scrollbars="vertical"
+            android:text="@{viewModel.userTextMessage}"
+            android:textColor="@color/displayMessageTextColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </layout>
 

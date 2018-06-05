@@ -30,6 +30,10 @@ enum class ConstantsPreferences {
         override fun getKeyValue(): String = "deep_wake_up_state"
         override fun getDefaultIntValue(): Int = 0 //0 false, 1 true
     },
+    TASKS_EXPLANATION_SHOW_STATE() {
+        override fun getKeyValue(): String = "tasks_explanation_show_state"
+        override fun getDefaultIntValue(): Int = 1 //0 false, 1 true
+    },
     ALARM_DEEP_WAKE_UP_RINGTONE() {
         override fun getKeyValue(): String = "deep_wake_up_ringtone"
         override fun getDefaultIntValue(): Int = -1

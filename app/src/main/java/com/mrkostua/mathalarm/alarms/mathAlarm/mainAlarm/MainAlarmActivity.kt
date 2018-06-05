@@ -9,7 +9,6 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
@@ -103,10 +102,8 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
     }
 
     private fun showAlarmSettingsActivity() {
-        //TODO for testing purpose
-        //startActivity(intentSettingActivity)
-        startActivity(Intent(this, DisplayAlarmActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        startActivity(intentSettingActivity)
+
     }
 
 }

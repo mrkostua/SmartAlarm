@@ -1,9 +1,11 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm
 
+import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.View
@@ -25,7 +27,6 @@ import javax.inject.Inject
  */
 
 class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
-    private val TAG = this.javaClass.simpleName
     @Inject
     public lateinit var displayViewModel: DisplayAlarmViewModel
 
@@ -37,17 +38,21 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             viewModel = displayViewModel
             executePendingBindings()
         }
+        initializeViews()
+        showTaskExplanationDialog()
         tasksHelper = TaskViewsDisplayHelper(this, 5)
         tasksHelper.addTasksViewsToLayout(rlDisplayAlarm, this)
 
         stopService(Intent(this, WakeLockService::class.java))
         anabelWindowsFlags()
-
     }
 
-    fun bSnoozeAlarmOnClickListener(view: View) {
-        sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
-                .setClass(this, AlarmReceiver::class.java))
+    private fun initializeViews() {
+        tvStartedAlarmMessageText.movementMethod = ScrollingMovementMethod()
+        bSnoozeAlarm.setOnLongClickListener {
+            bSnooze()
+            true
+        }
     }
 
     override fun onDrag(v: View, event: DragEvent) = when (event.action) {
@@ -64,7 +69,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             true
         }
         DragEvent.ACTION_DRAG_LOCATION -> {
-            //TODO draw line during dragging or after successful dropping
             true
         }
         DragEvent.ACTION_DRAG_EXITED -> {
@@ -93,6 +97,27 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
                 KeyEvent.KEYCODE_VOLUME_DOWN -> true
                 else -> super.onKeyDown(keyCode, event)
             }
+
+    private fun showTaskExplanationDialog() {
+        //TODO make it more design friendly and add custom view with textView and CheckBox in the future
+        if (displayViewModel.isShowExplanationDialog.get()) {
+            AlertDialog.Builder(this)
+                    .setTitle("what to do?")
+                    .setMessage("move lowest number to next and continue until the end to STOP alarm")
+                    //TODO maybe add some picture or animation of dragging and dropping one view on next
+                    .setPositiveButton("got it", { dialog, which -> dialog.dismiss() })
+                    .setNeutralButton("Don't show it again", { dialog, which ->
+                        displayViewModel.setIsShowExplanationDialog(false)
+                        dialog.dismiss()
+                    }).create().show()
+
+        }
+    }
+
+    private fun bSnooze() {
+        sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
+                .setClass(this, AlarmReceiver::class.java))
+    }
 
     private fun finishDisplayingAlarm() {
         stopDisplayAlarmService()

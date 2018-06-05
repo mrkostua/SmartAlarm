@@ -80,4 +80,10 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
 
     fun isFirstAlarmSaving() = sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue] ==
             ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue
+
+    fun saveIsTaskExplanationShow(isShow: Boolean) {
+        sharedPreferences[ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getKeyValue()] = isShow
+    }
+
+    fun getIsTaskExplanationShow(): Boolean = sharedPreferences[ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getKeyValue(), ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getDefaultIntValue() == 1]
 }

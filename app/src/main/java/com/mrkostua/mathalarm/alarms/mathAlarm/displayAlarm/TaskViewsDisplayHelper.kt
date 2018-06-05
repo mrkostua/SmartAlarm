@@ -20,7 +20,6 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
     private val initialTasksCount: Int = taskViewsList.size
     private var draggingTaskViewId = -1
 
-
     fun actionDragStarted(toDropView: TextView) = if (draggingTaskViewId != toDropView.id) {
         setViewAppearance(toDropView, R.drawable.task_shape_posible_options)
         true
@@ -56,7 +55,6 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
 
     fun actionDrop(onDropView: TextView) {
         if (isProperTaskChosen(onDropView)) {
-            drawLineFromTaskToTask(onDropView, taskViewsList[getTaskIndexByViewId(draggingTaskViewId) + 1])
             setTaskViewToDone(getTaskIndexByViewId(draggingTaskViewId))
         }
 
@@ -178,11 +176,6 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
             it.startMyDragAndDrop(view.text.toString(), View.DragShadowBuilder(it))
             true
         }
-    }
-
-    private fun drawLineFromTaskToTask(v1: View, v2: View) {
-        //TODO("not implemented")
-
     }
 
     private fun getTaskIndexByViewId(id: Int): Int {
