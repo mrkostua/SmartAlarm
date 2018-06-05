@@ -123,7 +123,8 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
         val tvTask = TextView(activityContext)
         tvTask.layoutParams = layoutParams
         tvTask.setBackgroundResource(R.drawable.shape_oval)
-        tvTask.setPadding(getPixelValue(10), getPixelValue(10), getPixelValue(10), getPixelValue(10))
+        tvTask.setPadding(getPixelValue(20), getPixelValue(10), getPixelValue(20), getPixelValue(10))
+        tvTask.setTextAppearance(R.style.displayedTasksTextStyle, activityContext)
         return tvTask
     }
 
@@ -147,13 +148,12 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
         }
         val rTopBottomMargin = AlarmTools.getUniqueRandomValues(140, 250, tasksAmount)
         val rRightLeftMargin = AlarmTools.getUniqueRandomValues(40, 150, tasksAmount)
-        val randomTasksNumber = AlarmTools.getUniqueRandomValues(0, 10, tasksAmount)
+        val randomTasksNumber = AlarmTools.getUniqueRandomValues(0, 9, tasksAmount)
 
         for (index in 0 until randomLocation.size) {
             view = getTaskView(TaskViewLocation.TopLeft.getRepresentation(randomLocation[index]),
                     getPixelValue(rTopBottomMargin[index]),
                     getPixelValue((rRightLeftMargin[index])))
-            view.setTextAppearance(R.style.displayedTasksTextStyle, activityContext)
             view.text = randomTasksNumber[index].toString()
             view.id = index
             taskViewsList.add(view)

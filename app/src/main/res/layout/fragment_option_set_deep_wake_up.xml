@@ -23,9 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
         android:text="@string/deepSleepOptionTitle"
-        android:textColor="#c97c00"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         tools:ignore="RelativeOverlap" />
@@ -36,6 +38,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ibSleepIcon"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:background="#32bdbdbd"
         android:padding="10dp"
@@ -46,15 +50,25 @@
         android:id="@+id/swDeepWakeUpOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/layoutDeepWakeUpPlayer"
+        android:layout_above="@+id/vDividingLine"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="35dp"
         android:scaleX="2"
         android:scaleY="2"
         android:text="@string/deepWakeUpSwitchText"
         android:textColor="@color/white"
         android:textStyle="italic"
         android:theme="@style/switchColorsTheme" />
+
+    <View
+        android:id="@+id/vDividingLine"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_above="@id/layoutDeepWakeUpPlayer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:background="#32bdbdbd" />
 
     <include
         android:id="@+id/layoutDeepWakeUpPlayer"
@@ -64,6 +78,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        android:textColor="#642b05" />
+        android:layout_marginBottom="10dp" />
+
+
 </RelativeLayout>

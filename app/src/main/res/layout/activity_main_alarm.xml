@@ -16,8 +16,7 @@
     <RelativeLayout
         android:id="@+id/rlBackgroundLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@{viewModel.isDarkTime() ? @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/rlBackgroundHelper"
