@@ -15,7 +15,6 @@ import java.util.*
  */
 object AlarmTools {
     private val TAG = this.javaClass.simpleName
-    private val random = Random()
 
     @Suppress("DEPRECATION")
     fun getDrawable(resources: Resources, drawableId: Int): Drawable {
@@ -90,21 +89,4 @@ object AlarmTools {
         return Pair(resultH, minToAlarmStart - resultH * 60)
 
     }
-
-    fun getUniqueRandomValues(minBound: Int, maxInclusiveBound: Int, size: Int = 1): ArrayList<Int> {
-        if (size > maxInclusiveBound - minBound + 1) {
-            throw UnsupportedOperationException("getUniqueRandomValues impossible to generate more unique values," +
-                    " than (maxInclusiveBound + 1) - minBound")
-        }
-        val uniqueRandomList = ArrayList<Int>()
-        var result: Int
-        while (uniqueRandomList.size < size) {
-            result = random.nextInt((maxInclusiveBound - minBound) + 1) + minBound
-            if (!uniqueRandomList.contains(result)) {
-                uniqueRandomList.add(result)
-            }
-        }
-        return uniqueRandomList
-    }
-
 }

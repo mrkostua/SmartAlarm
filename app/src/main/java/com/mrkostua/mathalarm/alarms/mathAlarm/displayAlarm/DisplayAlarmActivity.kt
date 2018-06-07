@@ -20,6 +20,7 @@ import com.mrkostua.mathalarm.databinding.ActivityDisplayAlarmBinding
 import com.mrkostua.mathalarm.tools.ConstantValues
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_display_alarm.*
+import kotlinx.android.synthetic.main.custom_dialog_tasks_explenation.view.*
 import javax.inject.Inject
 
 /**
@@ -99,15 +100,13 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             }
 
     private fun showTaskExplanationDialog() {
-        //TODO make it more design friendly and add custom view with textView and CheckBox in the future
         if (displayViewModel.isShowExplanationDialog.get()) {
-            AlertDialog.Builder(this)
-                    .setTitle("what to do?")
-                    .setMessage("move lowest number to next and continue until the end to STOP alarm")
-                    //TODO maybe add some picture or animation of dragging and dropping one view on next
-                    .setPositiveButton("got it", { dialog, which -> dialog.dismiss() })
-                    .setNeutralButton("Don't show it again", { dialog, which ->
-                        displayViewModel.setIsShowExplanationDialog(false)
+            val explanationView = layoutInflater.inflate(R.layout.custom_dialog_tasks_explenation, null)
+            AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
+                    .setTitle("How to stop the the alarm?")
+                    .setView(explanationView)
+                    .setPositiveButton("got it", { dialog, which ->
+                        displayViewModel.setIsShowExplanationDialog(!explanationView.cbShowDialogAgain.isChecked)
                         dialog.dismiss()
                     }).create().show()
 

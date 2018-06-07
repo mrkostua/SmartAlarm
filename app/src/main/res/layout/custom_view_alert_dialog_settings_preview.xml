@@ -27,38 +27,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:text="@string/preview_dialog_boom_time"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:theme="@style/previewTitleViewStyle" />
 
             <TextView
-                android:id="@+id/tvHourPreview"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvTimePreview"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvBoomTimeText"
                 android:layout_alignLeft="@+id/tvRingtonePreview"
                 android:layout_alignStart="@+id/tvRingtonePreview"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#ffff"
-                android:text="@{viewModel.alarmHour}"
-                android:textColor="#6771ff"
-                android:textSize="20sp"
-                android:theme="@style/previewTextViewStyle" />
-
-
-            <TextView
-                android:id="@+id/tvMinutePreview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tvBoomTimeText"
-                android:layout_toEndOf="@+id/tvHourPreview"
-                android:layout_toRightOf="@+id/tvHourPreview"
-                android:text="@{viewModel.alarmMinute}"
-                android:textColor="#6771ff"
+                android:text="@{viewModel.alarmTime}"
+                android:textColor="@color/alertDialogMainMathAlarmAccentColor"
                 android:textSize="20sp"
                 android:theme="@style/previewTextViewStyle" />
 
@@ -71,8 +54,7 @@
                 android:layout_below="@+id/tvBoomTimeText"
                 android:layout_marginTop="30dp"
                 android:text="@string/preview_dialog_ringtone"
-                android:textColor="#ffd84a"
-                android:textStyle="bold" />
+                android:theme="@style/previewTitleViewStyle" />
 
             <TextView
                 android:id="@+id/tvRingtonePreview"
@@ -86,7 +68,7 @@
                 android:layout_toEndOf="@+id/tvRingtoneText"
                 android:layout_toRightOf="@+id/tvRingtoneText"
                 android:text="@{viewModel.alarmRingtone}"
-                android:textColor="#c21e1e"
+                android:textColor="@color/alertDialogMainMathAlarmAccentColor"
                 android:theme="@style/previewTextViewStyle" />
 
 
@@ -99,8 +81,7 @@
                 android:layout_below="@+id/tvRingtonePreview"
                 android:layout_marginTop="30dp"
                 android:text="@string/preview_dialog_message"
-                android:textColor="#d292d2"
-                android:textStyle="bold" />
+                android:theme="@style/previewTitleViewStyle" />
 
             <TextView
                 android:id="@+id/tvTextMessagePreview"
@@ -124,18 +105,17 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/preview_dialog_deep_wake_up"
-                android:textColor="#933b01"
-                android:textStyle="bold" />
+                android:theme="@style/previewTitleViewStyle" />
 
             <Switch
                 android:id="@+id/swDeepWakeUpPreview"
-                android:layout_width="94dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvDeepWakeUpText"
                 android:layout_alignLeft="@+id/tvTextMessagePreview"
                 android:layout_alignStart="@+id/tvTextMessagePreview"
                 android:checked="@{viewModel.alarmDeepWakeUp}"
-                android:textColor="#642b05"
+                android:textColor="@color/alertDialogMainMathAlarmAccentColor"
                 android:theme="@style/switchColorsTheme" />
         </RelativeLayout>
     </ScrollView>

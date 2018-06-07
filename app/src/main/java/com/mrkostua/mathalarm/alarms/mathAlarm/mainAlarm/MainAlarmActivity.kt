@@ -9,7 +9,6 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,7 +18,6 @@ import javax.inject.Inject
 /**
  * @author Prysiazhnyi Kostiantyn on 21.11.2017.
  */
-//TODO write test for this class
 class MainAlarmActivity : DaggerAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
 
@@ -103,11 +101,7 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
     }
 
     private fun showAlarmSettingsActivity() {
-//        startActivity(intentSettingActivity)
-        //TODO for testing
-        startActivity(Intent(this, DisplayAlarmActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-
+        startActivity(intentSettingActivity)
     }
 
 }

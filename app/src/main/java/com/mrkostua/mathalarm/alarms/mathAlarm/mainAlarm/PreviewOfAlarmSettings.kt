@@ -20,8 +20,6 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 05.12.2017.
  */
-//TODO write test for this class
-//TODO update design (style) of Preview views colors,size etc.
 class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
                                                  private val mainViewModel: MainAlarmViewModel,
                                                  private val notificationsTools: NotificationTools) : View.OnClickListener {
@@ -58,7 +56,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
     override fun onClick(v: View?) {
         with(binding) {
             when (v) {
-                tvHourPreview, tvMinutePreview -> {
+                tvTimePreview -> {
                     showChosenSettingsFragment(AlarmSettingsNames.OPTION_SET_TIME.getKeyValue())
                 }
                 tvRingtonePreview -> {
@@ -92,8 +90,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
 
     private fun setOnClickListeners() {
         with(binding) {
-            tvHourPreview.setOnClickListener(this@PreviewOfAlarmSettings)
-            tvMinutePreview.setOnClickListener(this@PreviewOfAlarmSettings)
+            tvTimePreview.setOnClickListener(this@PreviewOfAlarmSettings)
             tvRingtonePreview.setOnClickListener(this@PreviewOfAlarmSettings)
             tvTextMessagePreview.setOnClickListener(this@PreviewOfAlarmSettings)
             swDeepWakeUpPreview.setOnClickListener(this@PreviewOfAlarmSettings)

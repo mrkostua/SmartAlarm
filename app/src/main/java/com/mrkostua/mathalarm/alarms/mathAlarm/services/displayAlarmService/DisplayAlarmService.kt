@@ -17,8 +17,6 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 4/1/2018.
  */
-//TODO write test for this Class maybe check if notification is visible etc
-//TODO read more about static Handler etc. find proper solution
 @DisplayAlarmServiceScope
 public class DisplayAlarmService : DaggerService() {
     private val TAG = this.javaClass.simpleName
@@ -90,7 +88,7 @@ public class DisplayAlarmService : DaggerService() {
     private inner class CustomHandler : Handler() {
         override fun handleMessage(msg: Message?) {
             when (msg?.what) {
-                handleServiceSilent -> {
+                handleServiceSilent -> {    
                     ShowLogs.log(TAG, "handleMessage : stop")
                     snoozeAlarm()
                     stopSelf()

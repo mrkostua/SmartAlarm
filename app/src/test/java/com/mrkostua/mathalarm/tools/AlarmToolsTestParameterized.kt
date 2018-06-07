@@ -18,8 +18,8 @@ import kotlin.collections.ArrayList
  * @author Kostiantyn Prysiazhnyi on 4/18/2018.
  */
 @RunWith(Parameterized::class)
-class AlarmToolsTest(private val calendarTime: Pair<Int, Int>, private val alarmTime: Pair<Int, Int>,
-                     private val expected: Pair<Int, Int>) {
+class AlarmToolsTestParameterized(private val calendarTime: Pair<Int, Int>, private val alarmTime: Pair<Int, Int>,
+                                  private val expected: Pair<Int, Int>) {
     @JvmField
     @Rule
     public val mockitoRule: MockitoRule = MockitoJUnit.rule()

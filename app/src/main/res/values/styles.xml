@@ -129,6 +129,11 @@
         <item name="android:background">@drawable/background_preview_text_views</item>
     </style>
 
+    <style name="previewTitleViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="displayAlarmButtonsStyle" parent="android:Widget.Button">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -147,5 +152,9 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
     </style>
+
+<!--
+    <style name="previewTextViewStyle"
+-->
 
 </resources>

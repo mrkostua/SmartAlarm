@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import com.mrkostua.mathalarm.extensions.startMyDragAndDrop
-import com.mrkostua.mathalarm.tools.AlarmTools
+import com.mrkostua.mathalarm.tools.CustomRandom
 import com.mrkostua.mathalarm.tools.ShowLogs
 
 /**
@@ -138,17 +138,17 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
         val taskViewsList = ArrayList<TextView>()
         val randomLocation: ArrayList<Int>
         if (tasksAmount > 4) {
-            randomLocation = AlarmTools.getUniqueRandomValues(0, 3, 4)
+            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, 4)
             for (i in 0 until (tasksAmount - 4)) {
                 ShowLogs.log(this.javaClass.simpleName, "in for loop : " + randomLocation.size)
-                randomLocation.add(AlarmTools.getUniqueRandomValues(0, 3, 1)[0])
+                randomLocation.add(CustomRandom.getUniqueRandomValues(0, 3, 1)[0])
             }
         } else {
-            randomLocation = AlarmTools.getUniqueRandomValues(0, 3, tasksAmount)
+            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, tasksAmount)
         }
-        val rTopBottomMargin = AlarmTools.getUniqueRandomValues(140, 250, tasksAmount)
-        val rRightLeftMargin = AlarmTools.getUniqueRandomValues(40, 150, tasksAmount)
-        val randomTasksNumber = AlarmTools.getUniqueRandomValues(0, 9, tasksAmount)
+        val rTopBottomMargin = CustomRandom.getUniqueRandomValues(140, 250, tasksAmount)
+        val rRightLeftMargin = CustomRandom.getUniqueRandomValues(40, 150, tasksAmount)
+        val randomTasksNumber = CustomRandom.getUniqueRandomValues(0, 9, tasksAmount)
 
         for (index in 0 until randomLocation.size) {
             view = getTaskView(TaskViewLocation.TopLeft.getRepresentation(randomLocation[index]),
