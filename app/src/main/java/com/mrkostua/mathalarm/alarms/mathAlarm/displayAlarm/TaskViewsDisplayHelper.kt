@@ -12,12 +12,13 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import com.mrkostua.mathalarm.extensions.startMyDragAndDrop
 import com.mrkostua.mathalarm.tools.CustomRandom
-import com.mrkostua.mathalarm.tools.ShowLogs
+import java.util.*
 
 /**
  * @author Kostiantyn Prysiazhnyi on 6/4/2018.
  */
 class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: Int) {
+    private val TAG = this.javaClass.simpleName
     private val taskViewsList = getInitializedTasksViews(tasksAmount)
     private val initialTasksCount: Int = taskViewsList.size
     private var draggingTaskViewId = -1
@@ -77,6 +78,16 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
         }
     }
 
+    fun addTasksViewsToLayout(rl: RelativeLayout, dragDropListener: View.OnDragListener) {
+        taskViewsList.forEach {
+            initializeDragDropListeners(it)
+            it.setOnDragListener(dragDropListener)
+            rl.addView(it)
+            rl.requestLayout()
+        }
+
+    }
+
     private fun getPixelValue(dp: Int) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), activityContext.resources.displayMetrics).toInt()
 
     private fun getTaskView(location: TaskViewLocation, topBottomMarginPixels: Int, rightLeftMarginPixels: Int): TextView {
@@ -134,22 +145,15 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
     }
 
     private fun getInitializedTasksViews(tasksAmount: Int): ArrayList<TextView> {
+        if (tasksAmount > 5) {
+            throw UnsupportedOperationException("could be too much tasks for small screens (error for generating elements with borders)")
+        }
         var view: TextView
         val taskViewsList = ArrayList<TextView>()
-        val randomLocation: ArrayList<Int>
-        if (tasksAmount > 4) {
-            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, 4)
-            for (i in 0 until (tasksAmount - 4)) {
-                ShowLogs.log(this.javaClass.simpleName, "in for loop : " + randomLocation.size)
-                randomLocation.add(CustomRandom.getUniqueRandomValues(0, 3, 1)[0])
-            }
-        } else {
-            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, tasksAmount)
-        }
-        val rTopBottomMargin = CustomRandom.getUniqueRandomValues(140, 250, tasksAmount)
-        val rRightLeftMargin = CustomRandom.getUniqueRandomValues(40, 150, tasksAmount)
+        val randomLocation: ArrayList<Int> = getArrayOfRandomViewLocation(tasksAmount)
         val randomTasksNumber = CustomRandom.getUniqueRandomValues(0, 9, tasksAmount)
-
+        val rTopBottomMargin = CustomRandom.getUniqueRandomBorderedValues(120, 250, tasksAmount, 25)
+        val rRightLeftMargin = CustomRandom.getUniqueRandomBorderedValues(40, 150, tasksAmount, 20)
         for (index in 0 until randomLocation.size) {
             view = getTaskView(TaskViewLocation.TopLeft.getRepresentation(randomLocation[index]),
                     getPixelValue(rTopBottomMargin[index]),
@@ -162,14 +166,17 @@ class TaskViewsDisplayHelper(private val activityContext: Context, tasksAmount: 
         return taskViewsList
     }
 
-    fun addTasksViewsToLayout(rl: RelativeLayout, dragDropListener: View.OnDragListener) {
-        taskViewsList.forEach {
-            initializeDragDropListeners(it)
-            it.setOnDragListener(dragDropListener)
-            rl.addView(it)
-            rl.requestLayout()
+    private fun getArrayOfRandomViewLocation(tasksAmount: Int): ArrayList<Int> {
+        val randomLocation: ArrayList<Int>
+        if (tasksAmount > 4) {
+            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, 4)
+            for (i in 0 until (tasksAmount - 4)) {
+                randomLocation.add(CustomRandom.getUniqueRandomValues(0, 3, 1)[0])
+            }
+        } else {
+            randomLocation = CustomRandom.getUniqueRandomValues(0, 3, tasksAmount)
         }
-
+        return randomLocation
     }
 
     private fun initializeDragDropListeners(view: TextView) {

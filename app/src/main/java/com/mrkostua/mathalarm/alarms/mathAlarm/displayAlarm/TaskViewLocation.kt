@@ -18,7 +18,7 @@ enum class TaskViewLocation {
         1 -> TaskViewLocation.TopRight
         2 -> TaskViewLocation.BottomLeft
         3 -> TaskViewLocation.BottomRight
-        else -> throw UnsupportedOperationException("fuck number is $viewLocation")
+        else -> throw UnsupportedOperationException("Wrong action is $viewLocation")
 
     }
 }
