@@ -74,10 +74,6 @@ class OptionSetRingtonePresenter @Inject constructor(
 
     }
 
-    override fun saveRingtoneFromExternalPath() {
-        TODO("not implemented")
-    }
-
     override fun saveChosenRingtoneNameSP(elementIndex: Int) {
         alarmDataHelper.saveRingtoneInSP(ringtonePopulationList[elementIndex].name)
 

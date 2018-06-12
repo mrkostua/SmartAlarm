@@ -92,4 +92,5 @@
     <string name="true_text">true</string>
     <string name="false_text">false</string>
     <string name="deepWakeUpSwitchText">Do you want to try? </string>
+    <string name="tasksExplanationText">Move all circles one by one from lowest number to next highest number.</string>
 </resources>

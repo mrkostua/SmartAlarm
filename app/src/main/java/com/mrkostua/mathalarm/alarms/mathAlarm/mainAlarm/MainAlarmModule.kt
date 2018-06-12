@@ -28,11 +28,13 @@ public class MainAlarmModule {
     @ActivityScope
     @Provides
     fun provideUserHelper(activity: MainAlarmActivity, intent: Intent) =
-            UserHelper(activity, activity, intent)
+            UserHelper(activity, intent)
 
     @ActivityScope
     @Provides
     fun providePreviewOfAlarmSettings(activity: MainAlarmActivity, viewModule: MainAlarmViewModel,
                                       notificationsTools: NotificationTools) =
             PreviewOfAlarmSettings(activity, viewModule, notificationsTools)
+
+
 }

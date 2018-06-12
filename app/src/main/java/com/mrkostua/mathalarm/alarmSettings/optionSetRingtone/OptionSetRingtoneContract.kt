@@ -28,8 +28,6 @@ interface OptionSetRingtoneContract {
 
         fun playChosenRingtone(position: Int)
 
-        fun saveRingtoneFromExternalPath()
-
         fun saveChosenRingtoneNameSP(elementIndex : Int)
 
         fun getSavedRingtonePosition() : RingtoneObject

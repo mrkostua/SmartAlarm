@@ -1,7 +1,5 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -13,25 +11,19 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/26/2018.
  */
-//TODO write test for this class
-/**TODO maybe do the refactoring
- *(those fun is only for use in MainAlarmActivity, it is not save to give access to other classes)
- * find the way to protect it or just move it to some inner class.
- */
-class UserHelper @Inject constructor(private val context: Context,
-                                     private val mainActivity: Activity,
+class UserHelper @Inject constructor(private val mainActivity: MainAlarmActivity,
                                      private val alarmSettingsIntent: Intent) {
     private val helpingViewsList: MutableList<View> = ArrayList()
     fun showHelpingAlertDialog() {
-        AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
-                .setTitle(context.getString(R.string.helperFirstDialogTitle))
-                .setMessage(context.getString(R.string.helperFirstDialogMessage))
-                .setPositiveButton(context.getString(R.string.letsDoIt), { dialog, which ->
+        AlertDialog.Builder(mainActivity, R.style.AlertDialogCustomStyle)
+                .setTitle(mainActivity.getString(R.string.helperFirstDialogTitle))
+                .setMessage(mainActivity.getString(R.string.helperFirstDialogMessage))
+                .setPositiveButton(mainActivity.getString(R.string.letsDoIt), { dialog, which ->
                     showFirstHelpingTextMessage()
                     dialog.dismiss()
                 })
-                .setNegativeButton(context.getString(R.string.back), { dialog, which ->
-                    Toast.makeText(context, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
+                .setNegativeButton(mainActivity.getString(R.string.back), { dialog, which ->
+                    Toast.makeText(mainActivity, "If you need some help just go to settings", Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 }).create().show()
     }
@@ -57,7 +49,7 @@ class UserHelper @Inject constructor(private val context: Context,
         mainActivity.tvSecondHelpingMessage.visibility = View.VISIBLE
         mainActivity.tvSecondHelpingMessage.setOnClickListener { view ->
             view.visibility = View.GONE
-            context.startActivity(alarmSettingsIntent)
+            mainActivity.startActivity(alarmSettingsIntent)
             helpingViewsList.clear()
 
         }

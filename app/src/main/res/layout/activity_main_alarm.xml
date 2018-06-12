@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
-    <!--TODO fix design problems and test on few APi's-->
+
     <data>
 
         <import type="com.mrkostua.mathalarm.R" />
@@ -16,8 +16,7 @@
     <RelativeLayout
         android:id="@+id/rlBackgroundLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@{viewModel.isDarkTime() ? @color/main_layout_backgroundEvening : @color/main_layout_backgroundDay}">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/rlBackgroundHelper"
@@ -179,10 +178,10 @@
             android:layout_margin="10dp"
             android:background="@color/customTransparentColor"
             android:clickable="true"
+            android:contentDescription="settings"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"
-            app:srcCompat="@drawable/ic_settings_white_36dp"
-            android:contentDescription="settings" />
+            app:srcCompat="@drawable/ic_settings_white_36dp" />
     </RelativeLayout>
 
 </layout>

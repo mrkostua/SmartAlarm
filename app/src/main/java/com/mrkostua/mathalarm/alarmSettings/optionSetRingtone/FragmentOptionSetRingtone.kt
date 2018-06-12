@@ -1,8 +1,6 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
@@ -88,32 +86,6 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
 
     override fun saveSettingsInSharedPreferences() {
         //saving is implemented in OnClickListener for CheckBox and ImageButton
-    }
-
-    //TODO add button so user can trigger Presenter fun for adding ringtoneFromEP and after ringtone uri will be saved in Model DB
-    private fun addRingtoneFromExternalPath(): Int {
-        val openFileActionIntent: Intent
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            openFileActionIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)
-            openFileActionIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        } else {
-            openFileActionIntent = Intent("android.intent.action.MUSIC_PLAYER")
-        }
-
-        presenter.saveRingtoneFromExternalPath()
-        startActivity(openFileActionIntent)
-
-        // to do it faster we can just add one ringtone and save in SharedPreferences so one last added
-        // ringtone will be available all the time or SharedPreferences Set<String>
-        /**
-         * return the path to this file and probably this list need to be saved somewhere (local DB ) SharedPreferences
-         *  1 need to be some ListView populated by some ArrayList of music that can be updated by user
-         *
-         * user can click the button and search throw files tree to music location and by choosing ->
-         * file with proper type it will be added to the list of ringtone's.
-         */
-
-        return 0
     }
 
     inner class SetRingtoneClickListener : RingtoneClickListeners {

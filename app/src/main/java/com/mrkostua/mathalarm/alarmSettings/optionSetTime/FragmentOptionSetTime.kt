@@ -16,9 +16,6 @@ import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 import javax.inject.Inject
 
-/**
- * TODO test on with 2 timePicker styles and maybe improve some design
- */
 @FragmentScope
 class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {
     private val TAG = this.javaClass.simpleName

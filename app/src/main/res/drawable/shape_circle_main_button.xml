@@ -3,17 +3,20 @@
     <item android:state_pressed="false">
         <shape android:shape="oval">
             <solid
-                android:color="@color/color_alarm_not_set"/>
+                android:color="@color/color_alarm_not_pressed"/>
             <size
                 android:width="120dp"
                 android:height="120dp" />
+            <stroke
+                android:width="4dp"
+                android:color="@color/color_alarm_pressed"/>
 
 
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/color_alarm_set"/>
+            <solid android:color="@color/color_alarm_pressed"/>
             <size
                 android:width="120dp"
                 android:height="120dp" />

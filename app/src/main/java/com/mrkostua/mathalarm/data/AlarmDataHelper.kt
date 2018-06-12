@@ -52,7 +52,7 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
             sharedPreferences[ConstantsPreferences.ALARM_RINGTONE_NAME.getKeyValue(),
                     ConstantsPreferences.ALARM_RINGTONE_NAME.defaultRingtoneName]
 
-    fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
+    open fun getTextMessageFromSP(): String = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(),
             ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage]
 
     open fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
@@ -80,4 +80,10 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
 
     fun isFirstAlarmSaving() = sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue] ==
             ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue
+
+    fun saveIsTaskExplanationShow(isShow: Boolean) {
+        sharedPreferences[ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getKeyValue()] = isShow
+    }
+
+    fun getIsTaskExplanationShow(): Boolean = sharedPreferences[ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getKeyValue(), ConstantsPreferences.TASKS_EXPLANATION_SHOW_STATE.getDefaultIntValue() == 1]
 }

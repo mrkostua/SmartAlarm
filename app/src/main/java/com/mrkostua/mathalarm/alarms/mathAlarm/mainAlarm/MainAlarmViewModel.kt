@@ -12,19 +12,16 @@ import javax.inject.Inject
 /**
  * @author Kostiantyn Prysiazhnyi on 3/21/2018.
  */
-//TODO write test for this class
 class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHelper) : ViewModel() {
     private val TAG = this.javaClass.simpleName
     private val calendar = Calendar.getInstance()
     private val time = dataHelper.getTimeFromSP()
 
-    val alarmTime = ObservableField<String>() //no sens in using observable (just practicing)
+    val alarmTime = ObservableField<String>()
     val isDarkTime = ObservableBoolean()
 
-    val alarmHour = AlarmTools.getReadableHour(time.first)
-    val alarmMinute = AlarmTools.getReadableMinute(time.second)
     val alarmRingtone = dataHelper.getRingtoneFromSP()
-    val alarmMessage = dataHelper.getTextMessageFromSP()
+    val alarmMessage = "\"" + dataHelper.getTextMessageFromSP() + "\""
     val alarmDeepWakeUp = dataHelper.getDeepWakeUpStateFromSP()
 
     init {

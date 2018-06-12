@@ -89,5 +89,4 @@ object AlarmTools {
         return Pair(resultH, minToAlarmStart - resultH * 60)
 
     }
-
 }
