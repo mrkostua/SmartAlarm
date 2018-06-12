@@ -85,6 +85,7 @@ class NotificationTools @Inject constructor(private val context: Context) {
 
     }
 
+
     //TODO this chanel need to be created only once
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChanel() {
