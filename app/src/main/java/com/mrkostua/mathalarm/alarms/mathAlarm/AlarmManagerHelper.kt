@@ -19,8 +19,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val newAlarmPendingIntent = PendingIntent.getBroadcast(context,
             0,
-            Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(context, AlarmReceiver::class.java),
-            PendingIntent.FLAG_CANCEL_CURRENT)
+            Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(context, AlarmReceiver::class.java), 0)
 
     fun setNewAlarm(alarmObject: AlarmObject) {
         calendar.timeInMillis = System.currentTimeMillis()

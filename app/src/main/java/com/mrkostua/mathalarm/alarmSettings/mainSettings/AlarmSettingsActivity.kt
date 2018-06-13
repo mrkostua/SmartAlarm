@@ -17,16 +17,6 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 01.12.2017.
  */
 
-/**
- * Consider adding schedule intent to Alarm Service which will fully secure user of waking up.
-1. Check the battery level every 2 h (depends on last results and if ti was plugged in ).
-2. Check if the alarm turn on and scheduled intent.
-3. Check if Alarm volume is turn off (or very low).
-
-In all this cases inform user by mail or etc.
-Also there can 2-3 level of argent (importance of this alarm) (in some case app will automatically changed Settings or start Playing music to attract user attention to low battery level).
-
- */
 class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.View {
     private val TAG = this.javaClass.simpleName
 
@@ -41,7 +31,8 @@ class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         presenter.showChosenFragment(savedInstanceState?.getInt(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                0) ?: 0)
+                AlarmSettingsNames.OPTION_SET_TIME.getKeyValue())
+                ?: AlarmSettingsNames.OPTION_SET_TIME.getKeyValue())
 
     }
 

@@ -77,7 +77,6 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
     }
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
-        //todo think about  : stop set alarm if exist(in the future after testing)
         AlarmManagerHelper(context).setNewAlarm(alarmObject)
         notificationsTools.showToastMessage("Service was activated")
 

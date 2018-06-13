@@ -7,7 +7,6 @@ import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.InOrder
@@ -18,7 +17,8 @@ import org.mockito.Mockito.*
  */
 class AlarmDataHelperTest {
     /**
-     * MockitoJUnit.rule() can't be static so we can't use @Mock annotation to create mocked objects and to use @BeforeClass
+     * MockitoJUnit.rule() can't be static so we can't use @Mock annotation to create mocked objects
+     * and to use @BeforeClass at the same time
      */
     companion object {
         private const val mockedRingtoneName = "don't worry, be happy"
@@ -137,12 +137,10 @@ class AlarmDataHelperTest {
 
     }
 
-    @Ignore
     @Test
     fun getSavedDeepWakeUpRingtoneObTest() {
-        TODO("fix this test")
         dataHelper.saveDeepWakeUpRingtoneInSP(mockedRingtoneName + "2")
-        given(mSharedPreferences.getString(ConstantsPreferences.ALARM_DEEP_WAKE_UP_STATE.getKeyValue(),
+        given(mSharedPreferences.getString(ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.getKeyValue(),
                 ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.defaultDeepWakeUpRingtone)).willReturn(mockedRingtoneName)
         given(dataHelper.getRingtonesForPopulation()).willReturn(mockedRingtoneArray)
 

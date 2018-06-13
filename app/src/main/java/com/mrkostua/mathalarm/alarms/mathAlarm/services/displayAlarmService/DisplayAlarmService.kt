@@ -12,6 +12,7 @@ import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerService
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 /**
@@ -19,11 +20,10 @@ import javax.inject.Inject
  */
 @DisplayAlarmServiceScope
 public class DisplayAlarmService : DaggerService() {
-    private val TAG = this.javaClass.simpleName
     private val notificationId = 2
     private val handleServiceSilent = 1
     private val handleDeepWakeUpFinishedPlaying = 2
-    private val handler = CustomHandler()
+    private val handler = CustomHandler(this)
 
     @Inject
     public lateinit var notificationsTools: NotificationTools
@@ -39,7 +39,6 @@ public class DisplayAlarmService : DaggerService() {
     }
 
     override fun onDestroy() {
-        ShowLogs.log(TAG, "onDestroy")
         super.onDestroy()
         disableHandlerSilenceKiller(handleServiceSilent)
         disableHandlerSilenceKiller(handleDeepWakeUpFinishedPlaying)
@@ -75,7 +74,6 @@ public class DisplayAlarmService : DaggerService() {
     }
 
     private fun enableHandlerDeepWakeUp() {
-        ShowLogs.log(TAG, "enableHandlerDeepWakeUp()")
         handler.sendMessageDelayed(handler.obtainMessage(handleDeepWakeUpFinishedPlaying),
                 ConstantValues.ALARM_DEEP_WAKE_UP_TIMEOUT_MILLISECONDS)
     }
@@ -85,21 +83,24 @@ public class DisplayAlarmService : DaggerService() {
 
     }
 
-    private inner class CustomHandler : Handler() {
+    private class CustomHandler(displayAlarmService: DisplayAlarmService) : Handler() {
+        private val TAG = this.javaClass.simpleName
+        private var weakReference: WeakReference<DisplayAlarmService> = WeakReference(displayAlarmService)
         override fun handleMessage(msg: Message?) {
             when (msg?.what) {
-                handleServiceSilent -> {    
+                weakReference.get()?.handleServiceSilent -> {
                     ShowLogs.log(TAG, "handleMessage : stop")
-                    snoozeAlarm()
-                    stopSelf()
+                    weakReference.get()?.snoozeAlarm()
+                    weakReference.get()?.stopSelf()
                 }
-                handleDeepWakeUpFinishedPlaying -> {
-                    ShowLogs.log(TAG,"handleMessage -> handleDeepWakeUPFinishedPlaying()")
-                    presenter.stopPlayingRingtone()
-                    enableHandlerSilenceKiller()
-                    presenter.playRingtone()
+                weakReference.get()?.handleDeepWakeUpFinishedPlaying -> {
+                    ShowLogs.log(TAG, "handleMessage -> handleDeepWakeUPFinishedPlaying()")
+                    weakReference.get()?.presenter?.stopPlayingRingtone()
+                    weakReference.get()?.enableHandlerSilenceKiller()
+                    weakReference.get()?.presenter?.playRingtone()
                 }
             }
+
         }
     }
 

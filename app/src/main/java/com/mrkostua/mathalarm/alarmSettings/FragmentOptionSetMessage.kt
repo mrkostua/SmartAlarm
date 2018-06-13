@@ -15,7 +15,6 @@ import com.mrkostua.mathalarm.Interfaces.AddInjection
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarmSettings.optionSetTime.FragmentOptionSetTime
 import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
 import com.mrkostua.mathalarm.tools.ConstantsPreferences
@@ -29,7 +28,7 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
     //can be only set after onAttach() otherwise getContext() return null
     override lateinit var fragmentContext: Context
 
-    private val TAG = FragmentOptionSetTime::class.java.simpleName
+    private val TAG = this.javaClass.simpleName
 
     public lateinit var sharedPreferences: SharedPreferences
 
