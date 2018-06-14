@@ -14,7 +14,7 @@ Simple rule - only one alarm can be set at time. Contains basic features for typ
 |drag-drop animation task to stop alarm| 5 numbers <=10 dynamically added to layout with random layoutParams (top and left margin from calculated bounds), algorithm to generate random values with bounds, borders(not overlap each other) returns result from AsyncTask.
 
 ### Used technologies :
-  * main languages
+  * main languages :
     * Kotlin
     * Java (10%)
     * Xml
