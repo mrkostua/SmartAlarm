@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_option_set_time.*
 import javax.inject.Inject
 
 @FragmentScope
-class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {
+class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, OptionSetTimeContract.View {
     private val TAG = this.javaClass.simpleName
     override lateinit var fragmentContext: Context
     @Inject
@@ -29,7 +28,6 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragmentContext = activity!!.applicationContext
-        initializeDependOnContextVariables(fragmentContext)
 
     }
 
@@ -50,10 +48,6 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
         super.onResume()
         initializeTimePicker(presenter.getSavedHour(), presenter.getSavedMinute())
         saveSettingsInSharedPreferences()
-    }
-
-    override fun initializeDependOnContextVariables(context: Context) {
-
     }
 
     override fun initializeDependOnViewVariables(view: View?) {

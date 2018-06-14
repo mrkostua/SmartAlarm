@@ -43,7 +43,6 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
     fun rlBackgroundHelperOnClickListener(view: View) {
         if (!userHelper.isHelpingViewsHidden()) {
             clickOutsideOfHelpingViews()
-
         }
     }
 
@@ -102,6 +101,9 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
 
     private fun showAlarmSettingsActivity() {
         startActivity(intentSettingActivity)
+     /*   startActivity(Intent(this, DisplayAlarmActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+*/
     }
 
 }

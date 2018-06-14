@@ -60,62 +60,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         }
     }
 
-    private class AsyncTasksPopulater(displayAlarmActivity: DisplayAlarmActivity) : AsyncTask<Int, Boolean, List<TextView>>() {
-        private val weakRef = WeakReference(displayAlarmActivity)
-        override fun onPreExecute() {
-            super.onPreExecute()
-            weakRef.get()?.pbLoadTasks?.visibility = View.VISIBLE
-        }
-
-        override fun doInBackground(vararg params: Int?): List<TextView> {
-            return if (weakRef.get() != null) {
-                while (weakRef.get()!!.bSnoozeAlarm.measuredHeight == 0 || weakRef.get()!!.tvStartedAlarmMessageText.measuredHeight == 0) {
-                    Thread.sleep(50)
-                }
-                if (params[0] != null) {
-                    weakRef.get()!!.tasksHelper.getInitializedTasksViews(params[0]!!, getTopBoundsInDp(30, 80), getLeftBoundsInDp(40, 80))
-
-                } else {
-                    throw UnsupportedOperationException("doInBackground params argument is empty")
-                }
-            } else {
-                ShowLogs.log(this.javaClass.simpleName, "weakReference to this is empty.")
-                ArrayList()
-            }
-        }
-
-        override fun onPostExecute(result: List<TextView>?) {
-            super.onPostExecute(result)
-            if (weakRef.get() != null) {
-                weakRef.get()!!.pbLoadTasks.visibility = View.GONE
-                if (result != null && result.isNotEmpty()) {
-                    weakRef.get()!!.tasksHelper.addTasksViewsToLayout(weakRef.get()!!.rlDisplayAlarm, result, weakRef.get()!!)
-                } else {
-                    NotificationTools(weakRef.get()!!).showToastMessage("please push snooze button")
-                }
-            }
-        }
-
-        private fun getTopBoundsInDp(taskHeightTopDp: Int, taskHeightBottomDp: Int): Pair<Int, Int> {
-            return if (weakRef.get() != null) {
-                Pair(convertPixelToDp(weakRef.get()!!.tvStartedAlarmMessageText.measuredHeight) + taskHeightTopDp,
-                        weakRef.get()!!.resources.configuration.screenHeightDp - (convertPixelToDp(weakRef.get()!!.bSnoozeAlarm.measuredHeight) + taskHeightBottomDp))
-            } else {
-                throw UnsupportedOperationException("weakReference to this is empty.")
-            }
-        }
-
-        private fun getLeftBoundsInDp(taskLeftStartDp: Int, taskLeftEndDp: Int): Pair<Int, Int> = Pair(taskLeftStartDp, weakRef.get()?.resources?.configuration?.screenWidthDp
-                ?: 0-taskLeftEndDp)
-
-        private fun convertPixelToDp(pixels: Int): Int {
-
-            val metrics = weakRef.get()!!.resources.displayMetrics
-            val dp = pixels / (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-            return dp.toInt()
-        }
-    }
-
     override fun onDrag(v: View, event: DragEvent) = when (event.action) {
         DragEvent.ACTION_DRAG_STARTED -> {
             if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
@@ -202,6 +146,66 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
                 or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+    }
+
+    private class AsyncTasksPopulater(displayAlarmActivity: DisplayAlarmActivity) : AsyncTask<Int, Boolean, List<TextView>>() {
+        private val weakRef = WeakReference(displayAlarmActivity)
+        override fun onPreExecute() {
+            super.onPreExecute()
+            weakRef.get()?.pbLoadTasks?.visibility = View.VISIBLE
+        }
+
+        override fun doInBackground(vararg params: Int?): List<TextView> {
+            val displayAlarmActivity: DisplayAlarmActivity? = weakRef.get()
+            return if (displayAlarmActivity != null) {
+                while (displayAlarmActivity.bSnoozeAlarm.measuredHeight == 0 || displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight == 0) {
+                    Thread.sleep(50)
+                }
+                if (params[0] != null) {
+                    displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, getTopBoundsInDp(30, 80), getLeftBoundsInDp(40, 80))
+
+                } else {
+                    throw UnsupportedOperationException("doInBackground params argument is empty")
+                }
+            } else {
+                ShowLogs.log(this.javaClass.simpleName, "weakReference to this is empty.")
+                ArrayList()
+            }
+        }
+
+        override fun onPostExecute(result: List<TextView>?) {
+            super.onPostExecute(result)
+            val displayAlarmActivity: DisplayAlarmActivity? = weakRef.get()
+            if (displayAlarmActivity != null) {
+                displayAlarmActivity.pbLoadTasks.visibility = View.GONE
+                if (result != null && result.isNotEmpty()) {
+                    displayAlarmActivity.tasksHelper.addTasksViewsToLayout(displayAlarmActivity.rlDisplayAlarm, result, displayAlarmActivity)
+                } else {
+                    NotificationTools(displayAlarmActivity).showToastMessage("please push snooze button")
+                }
+            }
+        }
+
+        private fun getTopBoundsInDp(taskHeightTopDp: Int, taskHeightBottomDp: Int): Pair<Int, Int> {
+            val displayAlarmActivity: DisplayAlarmActivity? = weakRef.get()
+            return if (displayAlarmActivity != null) {
+                Pair(convertPixelToDp(displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight) + taskHeightTopDp,
+                        displayAlarmActivity.resources.configuration.screenHeightDp - (convertPixelToDp(displayAlarmActivity.bSnoozeAlarm.measuredHeight) + taskHeightBottomDp))
+            } else {
+                throw UnsupportedOperationException("weakReference to this is empty.")
+            }
+        }
+
+        private fun getLeftBoundsInDp(taskLeftStartDp: Int, taskLeftEndDp: Int): Pair<Int, Int> = Pair(taskLeftStartDp, weakRef.get()?.resources?.configuration?.screenWidthDp
+                ?: 0-taskLeftEndDp)
+
+        private fun convertPixelToDp(pixels: Int): Int {
+            val metrics = weakRef.get()?.resources?.displayMetrics
+            val dp = pixels / (metrics?.densityDpi?.toFloat() ?: 0f
+            / DisplayMetrics.DENSITY_DEFAULT)
+            return dp.toInt()
+
+        }
     }
 
 }

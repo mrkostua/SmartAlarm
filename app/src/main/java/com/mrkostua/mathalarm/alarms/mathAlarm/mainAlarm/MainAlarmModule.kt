@@ -22,7 +22,6 @@ public class MainAlarmModule {
     @Provides
     fun provideAlarmSettingIntent(activity: MainAlarmActivity): Intent {
         return Intent(activity, AlarmSettingsActivity::class.java)
-                .putExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST, 0)
     }
 
     @ActivityScope

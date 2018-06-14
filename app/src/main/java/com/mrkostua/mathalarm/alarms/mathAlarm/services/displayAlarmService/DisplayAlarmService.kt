@@ -10,7 +10,6 @@ import com.mrkostua.mathalarm.alarms.mathAlarm.receivers.AlarmReceiver
 import com.mrkostua.mathalarm.injections.scope.DisplayAlarmServiceScope
 import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationTools
-import com.mrkostua.mathalarm.tools.ShowLogs
 import dagger.android.DaggerService
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -84,23 +83,22 @@ public class DisplayAlarmService : DaggerService() {
     }
 
     private class CustomHandler(displayAlarmService: DisplayAlarmService) : Handler() {
-        private val TAG = this.javaClass.simpleName
-        private var weakReference: WeakReference<DisplayAlarmService> = WeakReference(displayAlarmService)
+        private val weakReference: WeakReference<DisplayAlarmService> = WeakReference(displayAlarmService)
         override fun handleMessage(msg: Message?) {
-            when (msg?.what) {
-                weakReference.get()?.handleServiceSilent -> {
-                    ShowLogs.log(TAG, "handleMessage : stop")
-                    weakReference.get()?.snoozeAlarm()
-                    weakReference.get()?.stopSelf()
-                }
-                weakReference.get()?.handleDeepWakeUpFinishedPlaying -> {
-                    ShowLogs.log(TAG, "handleMessage -> handleDeepWakeUPFinishedPlaying()")
-                    weakReference.get()?.presenter?.stopPlayingRingtone()
-                    weakReference.get()?.enableHandlerSilenceKiller()
-                    weakReference.get()?.presenter?.playRingtone()
+            val displayAlarmService = weakReference.get()
+            if (displayAlarmService != null) {
+                when (msg?.what) {
+                    displayAlarmService.handleServiceSilent -> {
+                        displayAlarmService.snoozeAlarm()
+                        displayAlarmService.stopSelf()
+                    }
+                    displayAlarmService.handleDeepWakeUpFinishedPlaying -> {
+                        displayAlarmService.presenter.stopPlayingRingtone()
+                        displayAlarmService.enableHandlerSilenceKiller()
+                        displayAlarmService.presenter.playRingtone()
+                    }
                 }
             }
-
         }
     }
 

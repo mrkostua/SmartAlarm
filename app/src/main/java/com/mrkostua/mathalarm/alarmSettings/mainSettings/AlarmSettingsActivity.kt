@@ -31,8 +31,8 @@ class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container_for_alarm_setttings)
         presenter.showChosenFragment(savedInstanceState?.getInt(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                AlarmSettingsNames.OPTION_SET_TIME.getKeyValue())
-                ?: AlarmSettingsNames.OPTION_SET_TIME.getKeyValue())
+                AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue())
+                ?: AlarmSettingsNames.OPTION_SET_RINGTONE.getKeyValue())
 
     }
 
@@ -80,6 +80,7 @@ class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.V
     }
 
     override fun loadChosenFragment(fragmentName: AlarmSettingsNames) {
+        ShowLogs.log(TAG,"loadChosenFragment ${fragmentName.getKeyValue()}")
         fragmentCreationHelper.loadFragment(ConstantValues.alarmSettingsOptionsList[fragmentName.getKeyValue()])
 
     }

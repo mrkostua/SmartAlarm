@@ -20,7 +20,7 @@ enum class AlarmSettingsNames {
         override fun getKeyValue(): Int = 3
 
     },
-    WRONG_OPTION {
+    OPTION_WRONG {
         override fun getKeyValue(): Int = -1
     };
 
@@ -32,6 +32,7 @@ enum class AlarmSettingsNames {
             OPTION_SET_RINGTONE.getKeyValue() -> OPTION_SET_RINGTONE
             OPTION_SET_MESSAGE.getKeyValue() -> OPTION_SET_MESSAGE
             OPTION_SET_DEEP_WAKE_UP.getKeyValue() -> OPTION_SET_DEEP_WAKE_UP
+            OPTION_WRONG.getKeyValue() -> OPTION_WRONG
             else -> OPTION_SET_TIME
         }
     }
