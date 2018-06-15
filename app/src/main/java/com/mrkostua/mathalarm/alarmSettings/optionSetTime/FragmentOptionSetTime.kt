@@ -11,7 +11,7 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
-import dagger.android.DaggerFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 import javax.inject.Inject
 

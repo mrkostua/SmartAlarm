@@ -1,9 +1,9 @@
 package com.mrkostua.mathalarm.alarmSettings
 
-import android.app.Fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -34,13 +34,13 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentContext = activity.applicationContext
+        fragmentContext = activity!!.applicationContext
         initializeDependOnContextVariables(fragmentContext)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         ShowLogs.log(TAG, "onCreateView")
-        return inflater?.inflate(R.layout.fragment_option_set_message, container, false)
+        return inflater.inflate(R.layout.fragment_option_set_message, container, false)
     }
 
     override fun onResume() {

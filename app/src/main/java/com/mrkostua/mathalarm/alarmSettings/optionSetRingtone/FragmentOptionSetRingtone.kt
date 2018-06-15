@@ -13,10 +13,10 @@ import android.widget.ImageButton
 import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.injections.CustomDaggerFragment
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ShowLogs
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ import javax.inject.Inject
  *  @author Kostiantyn Prysiazhnyi on 07-12-17.
  */
 @FragmentScope
-class FragmentOptionSetRingtone @Inject constructor() : CustomDaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetRingtoneContract.View {
+class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetRingtoneContract.View {
     private val TAG = this.javaClass.simpleName
     private lateinit var ringtonesRecycleViewAdapter: RingtonesRecycleViewAdapter
     override lateinit var fragmentContext: Context
@@ -41,8 +41,9 @@ class FragmentOptionSetRingtone @Inject constructor() : CustomDaggerFragment(), 
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_option_set_ringtone, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
