@@ -153,8 +153,4 @@
         <item name="android:clickable">true</item>
     </style>
 
-<!--
-    <style name="previewTextViewStyle"
--->
-
 </resources>

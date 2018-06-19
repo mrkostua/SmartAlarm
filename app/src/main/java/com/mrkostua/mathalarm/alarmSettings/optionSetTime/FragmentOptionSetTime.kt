@@ -54,9 +54,9 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
     }
 
     override fun saveSettingsInSharedPreferences() {
-        tpSetAlarmTime.setOnTimeChangedListener({ tp, hourOfDay, minute ->
+        tpSetAlarmTime.setOnTimeChangedListener { tp, hourOfDay, minute ->
             presenter.saveTime(hourOfDay, minute)
-        })
+        }
     }
 
     override fun showTimeUntilAlarmBoom(hourOfDay: Int, minutes: Int) {

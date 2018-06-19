@@ -50,12 +50,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="basicAlarmViewsTheme" parent="android:Theme">
-        <item name="android:textViewStyle">@style/basicTextViewStyle</item>
-        <item name="android:timePickerStyle">@style/basicTimePickerStyle</item>
-    </style>
-
-    <style name="basicTimePickerStyle" parent="android:Widget.Material.TimePicker">
+    <style name="switchColorsTheme" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#27ff00</item>
+        <item name="android:colorForeground">#f70000</item>
+        <item name="android:scaleY">2</item>
+        <item name="android:scaleX">2</item>
     </style>
 
 </resources>

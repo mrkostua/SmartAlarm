@@ -4,7 +4,6 @@ import android.content.Intent
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsActivity
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
-import com.mrkostua.mathalarm.tools.ConstantValues
 import com.mrkostua.mathalarm.tools.NotificationTools
 import dagger.Module
 import dagger.Provides

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".alarms.mathAlarm.mainAlarm.MainAlarmActivity">
-    <!--TODO fix problem with small size of mainButton-->
     <data>
 
         <import type="com.mrkostua.mathalarm.R" />
