@@ -120,6 +120,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
     private fun bSnooze() {
         sendBroadcast(Intent(ConstantValues.SNOOZE_ACTION)
                 .setClass(this, AlarmReceiver::class.java))
+
     }
 
     private fun finishDisplayingAlarm() {
@@ -149,6 +150,7 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
     }
 
     private class AsyncTasksPopulater(displayAlarmActivity: DisplayAlarmActivity) : AsyncTask<Int, Boolean, List<TextView>>() {
+        private val TAG = this.javaClass.simpleName
         private val weakRef = WeakReference(displayAlarmActivity)
         override fun onPreExecute() {
             super.onPreExecute()
@@ -158,17 +160,27 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         override fun doInBackground(vararg params: Int?): List<TextView> {
             val displayAlarmActivity: DisplayAlarmActivity? = weakRef.get()
             return if (displayAlarmActivity != null) {
-                while (displayAlarmActivity.bSnoozeAlarm.measuredHeight == 0 || displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight == 0) {
-                    Thread.sleep(50)
-                }
                 if (params[0] != null) {
-                    displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, getTopBoundsInDp(30, 80), getLeftBoundsInDp(40, 80))
+                    var topBoundsInDp = getTopBoundsInDp(displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight,
+                            displayAlarmActivity.bSnoozeAlarm.measuredHeight, 30, 80)
+                    var leftBoundsInDp = getLeftBoundsInDp(40, 80)
+
+                    while (topBoundsInDp.first == 0 || topBoundsInDp.second == 0 ||
+                            leftBoundsInDp.first == 0 || leftBoundsInDp.second == 0) {
+                        Thread.sleep(2)
+                        topBoundsInDp = getTopBoundsInDp(displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight,
+                                displayAlarmActivity.bSnoozeAlarm.measuredHeight, 30, 80)
+                        leftBoundsInDp = getLeftBoundsInDp(40, 80)
+
+                    }
+                    displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, topBoundsInDp,
+                            leftBoundsInDp)
 
                 } else {
                     throw UnsupportedOperationException("doInBackground params argument is empty")
                 }
             } else {
-                ShowLogs.log(this.javaClass.simpleName, "weakReference to this is empty.")
+                ShowLogs.log(TAG, "weakReference to this is empty.")
                 ArrayList()
             }
         }
@@ -186,24 +198,29 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             }
         }
 
-        private fun getTopBoundsInDp(taskHeightTopDp: Int, taskHeightBottomDp: Int): Pair<Int, Int> {
+        private fun getTopBoundsInDp(tvStartedAlarmMessageTextHeight: Int, bSnoozeAlarmHeight: Int, taskHeightTopDp: Int, taskHeightBottomDp: Int): Pair<Int, Int> {
+            if (tvStartedAlarmMessageTextHeight == 0 || bSnoozeAlarmHeight == 0) {
+                return Pair(0, 0)
+            }
             val displayAlarmActivity: DisplayAlarmActivity? = weakRef.get()
             return if (displayAlarmActivity != null) {
-                Pair(convertPixelToDp(displayAlarmActivity.tvStartedAlarmMessageText.measuredHeight) + taskHeightTopDp,
-                        displayAlarmActivity.resources.configuration.screenHeightDp - (convertPixelToDp(displayAlarmActivity.bSnoozeAlarm.measuredHeight) + taskHeightBottomDp))
+                Pair(convertPixelToDp(tvStartedAlarmMessageTextHeight) + taskHeightTopDp,
+                        displayAlarmActivity.resources.configuration.screenHeightDp - (convertPixelToDp(bSnoozeAlarmHeight) + taskHeightBottomDp))
             } else {
-                throw UnsupportedOperationException("weakReference to this is empty.")
+                ShowLogs.log(TAG, "weakReference to $TAG is empty.")
+                return Pair(0, 0)
             }
         }
 
-        private fun getLeftBoundsInDp(taskLeftStartDp: Int, taskLeftEndDp: Int): Pair<Int, Int> = Pair(taskLeftStartDp, weakRef.get()?.resources?.configuration?.screenWidthDp
-                ?: 0-taskLeftEndDp)
+        private fun getLeftBoundsInDp(taskLeftStartDp: Int, taskLeftEndDp: Int): Pair<Int, Int> {
+            val screenWidthDp = weakRef.get()?.resources?.configuration?.screenWidthDp
+                    ?: throw UnsupportedOperationException("weakReference to $TAG is empty.")
+            return Pair(taskLeftStartDp, screenWidthDp - taskLeftEndDp)
+        }
 
         private fun convertPixelToDp(pixels: Int): Int {
-            val metrics = weakRef.get()?.resources?.displayMetrics
-            val dp = pixels / (metrics?.densityDpi?.toFloat() ?: 0f
-            / DisplayMetrics.DENSITY_DEFAULT)
-            return dp.toInt()
+            val densityDpi = weakRef.get()?.resources?.displayMetrics?.densityDpi?.toFloat() ?: 0f
+            return (pixels / (densityDpi / DisplayMetrics.DENSITY_DEFAULT)).toInt()
 
         }
     }

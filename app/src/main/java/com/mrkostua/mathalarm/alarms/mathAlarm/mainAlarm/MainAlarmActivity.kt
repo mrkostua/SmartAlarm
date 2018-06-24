@@ -9,6 +9,7 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
+import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
@@ -61,7 +62,6 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
 
     fun ibAdditionalSettingsOnClickListener(view: View) {
         showAlarmSettingsActivity()
-
     }
 
     private fun clickOutsideOfHelpingViews() {
