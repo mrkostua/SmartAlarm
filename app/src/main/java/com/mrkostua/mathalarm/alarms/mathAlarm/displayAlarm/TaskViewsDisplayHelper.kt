@@ -12,7 +12,6 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import com.mrkostua.mathalarm.extensions.startMyDragAndDrop
 import com.mrkostua.mathalarm.tools.CustomRandom
-import com.mrkostua.mathalarm.tools.ShowLogs
 import java.util.*
 
 
@@ -20,7 +19,6 @@ import java.util.*
  * @author Kostiantyn Prysiazhnyi on 6/4/2018.
  */
 class TaskViewsDisplayHelper(private val activityContext: Context) {
-    private val TAG = this.javaClass.simpleName
     private val taskViewsList = ArrayList<TextView>()
     private val initialTasksCount: Int = taskViewsList.size
     private var draggingTaskViewId = -1
@@ -39,7 +37,6 @@ class TaskViewsDisplayHelper(private val activityContext: Context) {
         borderInDp = (leftBounds.second - leftBounds.first) / tasksAmount
         val rLeftMargin = CustomRandom.getUniqueRandomBorderedValues(leftBounds.first, leftBounds.second,
                 tasksAmount, borderInDp - borderInDp / 2)
-        ShowLogs.log(TAG, "rLeftMargin " + Arrays.toString(rLeftMargin.toArray()))
         for (index in 0 until randomTasksNumber.size) {
             view = getTaskView(convertDpToPixel(rTopMargin[index]),
                     convertDpToPixel((rLeftMargin[index])))
