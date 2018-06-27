@@ -1,6 +1,6 @@
 package com.mrkostua.mathalarm.tools
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import com.mrkostua.mathalarm.alarmSettings.FragmentOptionSetMessage
 import com.mrkostua.mathalarm.alarmSettings.mainSettings.AlarmSettingsNames
 import com.mrkostua.mathalarm.alarmSettings.optionDeepWakeUp.FragmentOptionSetDeepWakeUp

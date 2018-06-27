@@ -11,7 +11,7 @@ import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.AlarmTools
-import dagger.android.DaggerFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_deep_wake_up.*
 import kotlinx.android.synthetic.main.ringtone_list_row_layout.view.*
 import javax.inject.Inject
@@ -28,14 +28,15 @@ class FragmentOptionSetDeepWakeUp @Inject constructor() : DaggerFragment(), Sett
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentContext = activity.applicationContext
+        fragmentContext = activity!!.applicationContext
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_option_set_deep_wake_up, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_option_set_deep_wake_up, container, false)
+
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.start()
         initializeDependOnViewVariables(view)

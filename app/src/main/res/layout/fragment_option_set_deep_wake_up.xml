@@ -53,8 +53,6 @@
         android:layout_above="@+id/vDividingLine"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:scaleX="2"
-        android:scaleY="2"
         android:text="@string/deepWakeUpSwitchText"
         android:textColor="@color/white"
         android:textStyle="italic"
@@ -73,7 +71,7 @@
     <include
         android:id="@+id/layoutDeepWakeUpPlayer"
         layout="@layout/ringtone_list_row_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

@@ -16,7 +16,7 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.AlarmTools
 import com.mrkostua.mathalarm.tools.ShowLogs
-import dagger.android.DaggerFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_ringtone.*
 import javax.inject.Inject
 
@@ -41,8 +41,9 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_option_set_ringtone, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_option_set_ringtone, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

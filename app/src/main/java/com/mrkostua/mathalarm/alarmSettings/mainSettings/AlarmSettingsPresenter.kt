@@ -17,14 +17,15 @@ class AlarmSettingsPresenter @Inject constructor(private var fragmentToLoadFirst
     }
 
     override fun start() {
-
+        ShowLogs.log(TAG, "AlarmSettingPresenter start()")
     }
 
     override fun showChosenFragment(fragmentIndex: Int) {
-        if (fragmentToLoadFirst == AlarmSettingsNames.WRONG_OPTION) {
+        if (fragmentToLoadFirst == AlarmSettingsNames.OPTION_WRONG) {
             fragmentToLoadFirst = AlarmSettingsNames.OPTION_SET_TIME.getAlarmSettingName(fragmentIndex)
 
         }
+        ShowLogs.log(TAG,"showChosenFragment ${fragmentToLoadFirst.getKeyValue()}")
         alarmSettingsView.loadChosenFragment(fragmentToLoadFirst)
         alarmSettingsView.blockInitialButton(fragmentToLoadFirst)
 

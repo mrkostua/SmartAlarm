@@ -25,5 +25,5 @@ class AlarmSettingsModule {
     fun provideIndexOfFragmentToLoad(activity: AlarmSettingsActivity): AlarmSettingsNames =
             AlarmSettingsNames.OPTION_SET_TIME.getAlarmSettingName(
                     activity.intent.getIntExtra(ConstantValues.INTENT_KEY_WHICH_FRAGMENT_TO_LOAD_FIRST,
-                            AlarmSettingsNames.WRONG_OPTION.getKeyValue()))
+                            AlarmSettingsNames.OPTION_WRONG.getKeyValue()))
 }

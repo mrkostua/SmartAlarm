@@ -14,8 +14,6 @@ import java.util.*
  * @author Kostiantyn Prysiazhnyi on 06.12.2017.
  */
 object AlarmTools {
-    private val TAG = this.javaClass.simpleName
-
     @Suppress("DEPRECATION")
     fun getDrawable(resources: Resources, drawableId: Int): Drawable {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -46,8 +44,6 @@ object AlarmTools {
         calendar.timeInMillis = System.currentTimeMillis()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
-        ShowLogs.log(TAG, " h currentTimeInMinutes: " + currentHour + "  alarm hour: " + alarmHour)
-        ShowLogs.log(TAG, " min currentTimeInMinutes: " + currentMinute + "  alarm min: " + alarmMinute)
 
         val alarmTimeInMinutes = alarmHour * 60 + alarmMinute
         val currentTimeInMinutes: Int = currentHour * 60 + currentMinute
@@ -72,13 +68,13 @@ object AlarmTools {
 
     fun getReadableTime(hour: Int, min: Int) = getReadableHour(hour) + " : " + getReadableMinute(min)
 
-    fun getReadableHour(hour: Int) = if (hour == 0) {
+    private fun getReadableHour(hour: Int) = if (hour == 0) {
         hour.toString() + "0"
     } else {
         hour.toString()
     }
 
-    fun getReadableMinute(min: Int) = if (min < 10) {
+    private fun getReadableMinute(min: Int) = if (min < 10) {
         "0" + min.toString()
     } else {
         min.toString()

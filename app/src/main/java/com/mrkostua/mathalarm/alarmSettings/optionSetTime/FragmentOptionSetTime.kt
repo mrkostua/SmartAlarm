@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mrkostua.mathalarm.Interfaces.KotlinActivitiesInterface
 import com.mrkostua.mathalarm.Interfaces.SettingsFragmentInterface
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.injections.scope.FragmentScope
 import com.mrkostua.mathalarm.tools.NotificationTools
 import com.mrkostua.mathalarm.tools.ShowLogs
-import dagger.android.DaggerFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_option_set_time.*
 import javax.inject.Inject
 
 @FragmentScope
-class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, KotlinActivitiesInterface, OptionSetTimeContract.View {
+class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFragmentInterface, OptionSetTimeContract.View {
     private val TAG = this.javaClass.simpleName
     override lateinit var fragmentContext: Context
     @Inject
@@ -29,7 +28,6 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragmentContext = activity!!.applicationContext
-        initializeDependOnContextVariables(fragmentContext)
 
     }
 
@@ -52,17 +50,13 @@ class FragmentOptionSetTime @Inject constructor() : DaggerFragment(), SettingsFr
         saveSettingsInSharedPreferences()
     }
 
-    override fun initializeDependOnContextVariables(context: Context) {
-
-    }
-
     override fun initializeDependOnViewVariables(view: View?) {
     }
 
     override fun saveSettingsInSharedPreferences() {
-        tpSetAlarmTime.setOnTimeChangedListener({ tp, hourOfDay, minute ->
+        tpSetAlarmTime.setOnTimeChangedListener { tp, hourOfDay, minute ->
             presenter.saveTime(hourOfDay, minute)
-        })
+        }
     }
 
     override fun showTimeUntilAlarmBoom(hourOfDay: Int, minutes: Int) {

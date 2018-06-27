@@ -19,8 +19,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val newAlarmPendingIntent = PendingIntent.getBroadcast(context,
             0,
-            Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(context, AlarmReceiver::class.java),
-            PendingIntent.FLAG_CANCEL_CURRENT)
+            Intent(ConstantValues.START_NEW_ALARM_ACTION).setClass(context, AlarmReceiver::class.java), 0)
 
     fun setNewAlarm(alarmObject: AlarmObject) {
         calendar.timeInMillis = System.currentTimeMillis()
@@ -39,7 +38,7 @@ class AlarmManagerHelper constructor(private val context: Context) {
             }
             alarmHour < currentHour -> {
                 ShowLogs.log(TAG, "h current: $currentHour  alarm hour: $alarmHour Next Day")
-                ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Next Day")
+                ShowLogs.log(TAG, "min current: $currentMinute alarm min: $alarmMin  Next    Day")
                 setCalendarDay(1)
 
             }
@@ -68,7 +67,8 @@ class AlarmManagerHelper constructor(private val context: Context) {
     }
 
     fun snoozeAlarm(snoozeMinutes: Int) {
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + snoozeMinutes * 60 * 1000,
+        calendar.timeInMillis = System.currentTimeMillis() + snoozeMinutes * 60 * 1000
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
                 newAlarmPendingIntent)
         startWakeLockService(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
 

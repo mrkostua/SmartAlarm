@@ -12,13 +12,13 @@ import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import com.mrkostua.mathalarm.extensions.startMyDragAndDrop
 import com.mrkostua.mathalarm.tools.CustomRandom
+import java.util.*
 
 
 /**
  * @author Kostiantyn Prysiazhnyi on 6/4/2018.
  */
 class TaskViewsDisplayHelper(private val activityContext: Context) {
-    private val TAG = this.javaClass.simpleName
     private val taskViewsList = ArrayList<TextView>()
     private val initialTasksCount: Int = taskViewsList.size
     private var draggingTaskViewId = -1
@@ -30,9 +30,13 @@ class TaskViewsDisplayHelper(private val activityContext: Context) {
         }
         taskViewsList.clear()
         var view: TextView
+        var borderInDp = (topBounds.second - topBounds.first) / tasksAmount
         val randomTasksNumber = CustomRandom.getUniqueRandomValues(0, 9, tasksAmount)
-        val rTopMargin = CustomRandom.getUniqueRandomBorderedValues(topBounds.first, topBounds.second, tasksAmount, ((topBounds.second - topBounds.first) / tasksAmount) - 10)
-        val rLeftMargin = CustomRandom.getUniqueRandomBorderedValues(leftBounds.first, leftBounds.second, tasksAmount, ((leftBounds.second - leftBounds.first) / tasksAmount) - 10)
+        val rTopMargin = CustomRandom.getUniqueRandomBorderedValues(topBounds.first, topBounds.second,
+                tasksAmount, borderInDp - borderInDp / 2)
+        borderInDp = (leftBounds.second - leftBounds.first) / tasksAmount
+        val rLeftMargin = CustomRandom.getUniqueRandomBorderedValues(leftBounds.first, leftBounds.second,
+                tasksAmount, borderInDp - borderInDp / 2)
         for (index in 0 until randomTasksNumber.size) {
             view = getTaskView(convertDpToPixel(rTopMargin[index]),
                     convertDpToPixel((rLeftMargin[index])))

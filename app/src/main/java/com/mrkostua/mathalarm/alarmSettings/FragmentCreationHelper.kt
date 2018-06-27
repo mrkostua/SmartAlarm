@@ -1,8 +1,8 @@
 package com.mrkostua.mathalarm.alarmSettings
 
-import android.app.Activity
-import android.app.Fragment
-import android.app.FragmentManager
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.alarmSettings.optionSetRingtone.FragmentOptionSetRingtone
 import com.mrkostua.mathalarm.injections.scope.ActivityScope
@@ -13,8 +13,8 @@ import javax.inject.Inject
  * @author Kostiantyn Prysiazhnyi on 02.12.2017.
  */
 @ActivityScope
-class FragmentCreationHelper @Inject constructor(activity: Activity) {
-    private val fragmentManager: FragmentManager = activity.fragmentManager
+class FragmentCreationHelper @Inject constructor(activity: FragmentActivity) {
+    private val fragmentManager: FragmentManager = activity.supportFragmentManager
     private val TAG: String = this.javaClass.simpleName
 
     fun loadFragment(fragment: Fragment) {

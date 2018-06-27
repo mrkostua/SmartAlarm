@@ -19,10 +19,9 @@ class WakeLockService : Service() {
     private lateinit var notificationTools: NotificationTools
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val alarmMin = intent.getIntExtra(ConstantValues.WAKE_LOCK_HOUR_KEY, 59)
         val alarmHour = intent.getIntExtra(ConstantValues.WAKE_LOCK_HOUR_KEY, 23)
+        val alarmMin = intent.getIntExtra(ConstantValues.WAKE_LOCK_MINUTE_KEY, 59)
         createWakeLock().acquire(alarmHour * alarmMin * 60 * 1000L)
-
         notificationTools = NotificationTools(this)
         startForeground(notificationID,
                 notificationTools.alarmNotification(AlarmTools.getReadableTime(alarmHour, alarmMin)))
