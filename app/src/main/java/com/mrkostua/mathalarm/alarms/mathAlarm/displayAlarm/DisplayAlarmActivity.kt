@@ -109,10 +109,10 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
                     .setTitle("How to stop the the alarm?")
                     .setView(explanationView)
-                    .setPositiveButton("got it", { dialog, which ->
+                    .setPositiveButton("got it") { dialog, which ->
                         displayViewModel.setIsShowExplanationDialog(!explanationView.cbShowDialogAgain.isChecked)
                         dialog.dismiss()
-                    }).create().show()
+                    }.create().show()
 
         }
     }

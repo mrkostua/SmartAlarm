@@ -62,7 +62,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    compile "com.android.support.constraint:constraint-layout:1.1.1"
+    compile "com.android.support.constraint:constraint-layout:1.1.2"
 
     annotationProcessor "com.android.databinding:compiler:$rootProject.gradlePluginVersion"
 

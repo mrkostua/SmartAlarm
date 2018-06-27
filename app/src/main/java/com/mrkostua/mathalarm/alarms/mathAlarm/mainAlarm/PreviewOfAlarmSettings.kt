@@ -40,10 +40,10 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
         alertDialog = AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setView(binding.root)
-                .setPositiveButton(R.string.settingsPreviewPostiveButtonText, { dialogInterface, i ->
+                .setPositiveButton(R.string.settingsPreviewPositiveButtonText, { dialogInterface, i ->
                     scheduleNewAlarm(alarmObject)
                 })
-                .setNegativeButton(R.string.setttingsPreviewNegativeButtonText, { dialogInterface, i ->
+                .setNegativeButton(R.string.settingsPreviewNegativeButtonText, { dialogInterface, i ->
                     dialogInterface.dismiss()
                 }).create()
 

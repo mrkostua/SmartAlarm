@@ -26,7 +26,7 @@ enum class AlarmSettingsNames {
 
     abstract fun getKeyValue(): Int
 
-    public fun getAlarmSettingName(keyValue: Int): AlarmSettingsNames {
+    fun getAlarmSettingName(keyValue: Int): AlarmSettingsNames {
         return when (keyValue) {
             OPTION_SET_TIME.getKeyValue() -> OPTION_SET_TIME
             OPTION_SET_RINGTONE.getKeyValue() -> OPTION_SET_RINGTONE

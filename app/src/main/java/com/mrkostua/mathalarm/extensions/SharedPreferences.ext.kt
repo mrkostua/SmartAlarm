@@ -6,7 +6,7 @@ import android.content.SharedPreferences
  * @author Kostiantyn Prysiazhnyi on 3/5/2018.
  */
 
-public inline fun SharedPreferences.edit(action: (SharedPreferences.Editor) -> Unit) {
+ inline fun SharedPreferences.edit(action: (SharedPreferences.Editor) -> Unit) {
     val editor = this.edit()
     action(editor)
     editor.apply()
@@ -15,7 +15,7 @@ public inline fun SharedPreferences.edit(action: (SharedPreferences.Editor) -> U
 /**
  * to use extension in different package this fun need to be imported like .get or .*
  */
-public operator fun SharedPreferences.set(key: String, value: Any?) {
+ operator fun SharedPreferences.set(key: String, value: Any?) {
     when (value) {
         is String? ->
             edit({ it.putString(key, value) })
@@ -31,7 +31,7 @@ public operator fun SharedPreferences.set(key: String, value: Any?) {
 /**
  * to use extension in different package this fun need to be imported like .get or .*
  */
-public inline operator fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T): T {
+ inline operator fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T): T {
     return when (T::class) {
         String::class ->
             getString(key, defaultValue as String) as T

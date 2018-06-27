@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="MON"
+                    android:text="@string/mon"
                     android:theme="@style/dayOfWeekStyle" />
 
                 <TextView
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="TUE"
+                    android:text="@string/tue"
                     android:theme="@style/dayOfWeekStyle" />
 
                 <TextView
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="WED"
+                    android:text="@string/wed"
                     android:theme="@style/dayOfWeekStyle" />
 
                 <TextView
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="THU"
+                    android:text="@string/thu"
                     android:theme="@style/dayOfWeekStyle" />
 
                 <TextView
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="FRI"
+                    android:text="@string/fri"
                     android:theme="@style/dayOfWeekStyle" />
             </LinearLayout>
 
@@ -158,14 +158,14 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="SUT"
+                    android:text="@string/sut"
                     android:theme="@style/dayOfWeekStyle" />
 
                 <TextView
                     android:id="@+id/tvSunday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SUN"
+                    android:text="@string/sun"
                     android:theme="@style/dayOfWeekStyle" />
             </LinearLayout>
 
@@ -182,7 +182,7 @@
             android:layout_margin="10dp"
             android:background="@color/customTransparentColor"
             android:clickable="true"
-            android:contentDescription="settings"
+            android:contentDescription="@string/action_settings"
             android:focusable="true"
             android:onClick="ibAdditionalSettingsOnClickListener"
             app:srcCompat="@drawable/ic_settings_white_36dp" />
