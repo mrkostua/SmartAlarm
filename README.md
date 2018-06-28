@@ -2,7 +2,7 @@
 ### Description
   Fully working alarm clock tested from API 16 -> API 28.
 Simple rule - only one alarm can be set at time. Contains basic features for typical alarm clock with simple animated task in the end to stop the alarm (which prevents user from stopping  alarm in the first 2 seconds and gives some time to wake up).
-
+#### Google Play link : [SmartAlarm](https://play.google.com/store/apps/details?id=com.mrkostua.mathalarm)
 ### Functionality 
 | Name | Description |
 | ------------- | ------------- |
