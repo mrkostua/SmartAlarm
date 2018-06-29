@@ -35,6 +35,8 @@ import javax.inject.Inject
 class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
     @Inject
     public lateinit var displayViewModel: DisplayAlarmViewModel
+    @Inject
+    public lateinit var notificationTools: NotificationTools
 
     private lateinit var tasksHelper: TaskViewsDisplayHelper
 
@@ -57,6 +59,10 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         bSnoozeAlarm.setOnLongClickListener {
             bSnooze()
             true
+        }
+        bSnoozeAlarm.setOnClickListener {
+            notificationTools.showToastMessage(getString(R.string.shortSnoozeClickMessage))
+
         }
     }
 
@@ -107,9 +113,9 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         if (displayViewModel.isShowExplanationDialog.get()) {
             val explanationView = layoutInflater.inflate(R.layout.custom_dialog_tasks_explenation, null)
             AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
-                    .setTitle("How to stop the the alarm?")
+                    .setTitle(getString(R.string.explenationDialogTitle))
                     .setView(explanationView)
-                    .setPositiveButton("got it") { dialog, which ->
+                    .setPositiveButton(getString(R.string.positiveButtonText)) { dialog, which ->
                         displayViewModel.setIsShowExplanationDialog(!explanationView.cbShowDialogAgain.isChecked)
                         dialog.dismiss()
                     }.create().show()
@@ -173,8 +179,13 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
                         leftBoundsInDp = getLeftBoundsInDp(40, 80)
 
                     }
-                    displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, topBoundsInDp,
-                            leftBoundsInDp)
+                    return try {
+                        displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, topBoundsInDp,
+                                leftBoundsInDp)
+                    } catch (exception: UnsupportedOperationException) {
+                        ArrayList()
+                    }
+
 
                 } else {
                     throw UnsupportedOperationException("doInBackground params argument is empty")
@@ -193,7 +204,8 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
                 if (result != null && result.isNotEmpty()) {
                     displayAlarmActivity.tasksHelper.addTasksViewsToLayout(displayAlarmActivity.rlDisplayAlarm, result, displayAlarmActivity)
                 } else {
-                    NotificationTools(displayAlarmActivity).showToastMessage("please push snooze button")
+                    displayAlarmActivity.notificationTools.showToastMessage(displayAlarmActivity.getString(R.string.noTasksToDisplayMessage))
+
                 }
             }
         }

@@ -34,7 +34,6 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
     public lateinit var presenter: OptionSetRingtoneContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ShowLogs.log(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         fragmentContext = activity!!.applicationContext
         initializeDependOnContextVariables(fragmentContext)
@@ -47,7 +46,6 @@ class FragmentOptionSetRingtone @Inject constructor() : DaggerFragment(), Settin
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ShowLogs.log(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         presenter.takeView(this)
         initializeDependOnViewVariables(view)

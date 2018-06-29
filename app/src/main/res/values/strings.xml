@@ -16,7 +16,7 @@
     <string name="settingsPreviewTitle">Preview</string>
     <string name="settingsPreviewPositiveButtonText">Confirm</string>
     <string name="settingsPreviewNegativeButtonText">Back</string>
-    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Until alarm start : <xliff:g id="timeToAlarmStartToast">%s</xliff:g></string>
     <string name="yes">yes</string>
     <string name="letsDoIt">Let\'s do it</string>
     <string name="back">Back</string>
@@ -26,21 +26,20 @@
     <string name="helperFirstDialogMessage">Hi if you want to see how the Alarm work just follow appearing text and touch them to continue</string>
     <string name="helperFirstDialogTitle">Smart helper :)</string>
 
-    <string name="timeUntilAlarmBoom">You will sleep only : <xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> h <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> m</string>
+    <string name="timeUntilAlarmBoom">Alarm will rang after : <xliff:g id="hoursUntilAlarmBoom">%1$d</xliff:g> h <xliff:g id="minutesUntilAlarmBoom">%2$d</xliff:g> m</string>
     <string name="blockedButtonMessage">Hi, this option is last one :(, please try moving other direction.</string>
     <string name="helperHideDialogTitle">Do you want to continue without helping messages?</string>
     <string name="alarmTimeLimitationMessage">Remember, you can set alarm only for next 23 hours and 59 minutes :)</string>
     <string name="contentDescription_playRingtone">Play ringtone</string>
     <string name="contentDescription_pauseRingtone">Pause ringtone</string>
-    <string name="hint_for_tvSetAlarmMessage">Type some message for future yourself here (will appear on alarm screen).</string>
+    <string name="hint_for_tvSetAlarmMessage">Type some message for yourself here (will appear on the screen together with the alarm).</string>
     <string name="toast_message_was_saved">Message was successfully saved.</string>
     <string name="preview_dialog_boom_time">Boom time :</string>
     <string name="preview_dialog_ringtone">Ringtone :</string>
     <string name="preview_dialog_message">Message :</string>
     <string name="deepSleepOptionTitle">Deep sleep wake up</string>
-    <string name="deepSleepOptionDescription">DeepWakeUp option gives you a way to wake up calmly as it was in natural way.
-         It just plays some calm music in the background and slowly increase it is volume until you will wake up.</string>
-    <string name="contentDescriptionSleepIcon">sleep zzz icon</string>
+    <string name="deepSleepOptionDescription">DeepWakeUp option gives you a way to wake up calmly as it was in natural way. It just plays some calm music in the background and slowly increase it is volume.</string>
+    <string name="contentDescriptionSleepIcon" translatable="false">sleep zzz icon</string>
     <string name="preview_dialog_deep_wake_up">Deep wake up :</string>
     <string name="deepWakeUpSwitchText">Do you want to try? </string>
     <string name="tasksExplanationText">Move all circles one by one from lowest number to next highest number.</string>
@@ -55,4 +54,9 @@
     <string name="forward" translatable="false">forward</string>
     <string name="backtomain" translatable="false">backToMain</string>
     <string name="don_t_show_it_again">Don\'t show it again?</string>
+    <string name="shortSnoozeClickMessage">To snooze make a click a bit longer.</string>
+    <string name="positiveButtonText">got it</string>
+    <string name="explenationDialogTitle">How to stop the alarm?</string>
+    <string name="noTasksToDisplayMessage">Houston we have a problem, click snooze button to continue</string>
+    <string name="alarmActivatedMessage">Alarm was activated.</string>
 </resources>

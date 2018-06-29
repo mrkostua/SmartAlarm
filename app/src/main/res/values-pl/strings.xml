@@ -21,7 +21,7 @@
     <string name="settingsPreviewPositiveButtonText">Potwierdzić</string>
     <string name="settingsPreviewNegativeButtonText">Powrót</string>
 
-    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom : <xliff:g id="timeToAlarmStartToast">%s</xliff:g></string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Do startu budzika zostało : <xliff:g id="timeToAlarmStartToast">%s</xliff:g></string>
 
     <string name="yes">tak</string>
     <string name="letsDoIt">Zrobimy to</string>
@@ -39,5 +39,25 @@
     <string name="toast_message_was_saved">Wiadomość została zapisana.</string>
     <string name="contentDescription_pauseRingtone">Wstrzymać odtwarzanie</string>
     <string name="contentDescription_playRingtone">Graj nutę</string>
+    <string name="alarmTimeLimitationMessage">Помни ты можешь установить будильник только на следующие 23 часа и 59 минут.</string>
+    <string name="don_t_show_it_again">Nie wyświetlać więcej</string>
+    <string name="tasksExplanationText">Przenies wszystkie żetony jeden po drugim od najmniejszego numerku do największego.</string>
+    <string name="deepWakeUpSwitchText">Chcesz spróbować?</string>
+    <string name="preview_dialog_deep_wake_up">Głęboka pobudka :</string>
+    <string name="deepSleepOptionDescription">Głęboka pobudka to opcja która daje możliwość obudzić się w spokojnie w naturalny sposób. Po prostu gra spokojną muzykę w tle i powoli zwiększa głośność.</string>
+    <string name="shortSnoozeClickMessage">Żeby odłożyć alarm potrzymaj przycisk troszeczke dłużej</string>
+    <string name="positiveButtonText">ok</string>
+    <string name="explenationDialogTitle">Jak wyłączyć alarm?</string>
+    <string name="noTasksToDisplayMessage">Houston, mamy problem, wciśnij odłożyć przycisk aby wyłączyć budzik</string>
+    <string name="alarmActivatedMessage">Alarm został aktywowany</string>
+    <string name="deepSleepOptionTitle">Głęboka pobudka</string>
+    <string name="hint_for_tvSetAlarmMessage">Napisz wiadomość dla siebie (zostanie wyświetlona na ekranie budzika).</string>
+    <string name="helperHideDialogTitle">Chcesz kontynuować bez pomocnika?</string>
+    <string name="blockedButtonMessage">To jest ostatnia opcja :(</string>
+    <string name="timeUntilAlarmBoom">Budzik zadzwoni za : <xliff:g id="hoursUntilAlarmBoom">%1$d</xliff:g> h <xliff:g id="minutesUntilAlarmBoom">%2$d</xliff:g> m</string>
+    <string name="helperFirstDialogTitle">Mądry pomocnik</string>
+    <string name="helperFirstDialogMessage">Jeżeli chcesz zobaczyć w jaki sposób działa ta aplikacja poprostu śledź za tekstem który będzie się pojawiać na ekranie po wczyśnięciu poprzedniego.</string>
+    <string name="helpingMessageTwo">Żeby w przyszłości ustawić budzik z ostatnimi konfiguracjami -> wciśnij duży okrągły przycisk.</string>
+    <string name="helpingMessageOne">Każdego następnego razu tutaj będzie wyświetlone konfiguracje twojego ostatniego ustawianego budzika.</string>
 
 </resources>

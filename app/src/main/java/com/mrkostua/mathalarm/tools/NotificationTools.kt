@@ -54,7 +54,7 @@ class NotificationTools @Inject constructor(private val context: Context) {
                 .setContentTitle(context.getString(R.string.AN_dismissContentTitle))
                 .setSmallIcon(R.drawable.ic_alarm_white_36dp)
                 .setTicker(context.getString(R.string.AN_dismissContentText, time))
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.alarm_icon_test))
+                .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.alarm_icon_test))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
                 .addAction(R.drawable.ic_alarm_off_white_36dp,

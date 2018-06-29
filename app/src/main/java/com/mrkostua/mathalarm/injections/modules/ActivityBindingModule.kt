@@ -42,7 +42,7 @@ public abstract class ActivityBindingModule {
     public abstract fun getMainAlarmActivity(): MainAlarmActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [(DisplayAlarmModule::class)])
+    @ContributesAndroidInjector(modules = [(DisplayAlarmModule::class), (DisplayHelperModule::class)])
     public abstract fun getDisplayAlarmActivity(): DisplayAlarmActivity
 
     @DisplayAlarmServiceScope

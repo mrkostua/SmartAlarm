@@ -5,7 +5,6 @@ import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.mrkostua.mathalarm.data.AlarmDataHelper
 import com.mrkostua.mathalarm.tools.AlarmTools
-import com.mrkostua.mathalarm.tools.ShowLogs
 import java.util.*
 import javax.inject.Inject
 
@@ -36,7 +35,6 @@ class MainAlarmViewModel @Inject constructor(private val dataHelper: AlarmDataHe
 
     private fun setDayOrNight() {
         isDarkTime.set(calendar.get(Calendar.HOUR_OF_DAY) !in 6 until 20)
-        ShowLogs.log(TAG, "setDayOrNight : " + isDarkTime.get())
 
     }
 

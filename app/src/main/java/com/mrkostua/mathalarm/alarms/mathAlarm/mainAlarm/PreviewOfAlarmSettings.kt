@@ -40,12 +40,12 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
         alertDialog = AlertDialog.Builder(context, R.style.AlertDialogCustomStyle)
                 .setTitle(R.string.settingsPreviewTitle)
                 .setView(binding.root)
-                .setPositiveButton(R.string.settingsPreviewPositiveButtonText, { dialogInterface, i ->
+                .setPositiveButton(R.string.settingsPreviewPositiveButtonText) { dialogInterface, i ->
                     scheduleNewAlarm(alarmObject)
-                })
-                .setNegativeButton(R.string.settingsPreviewNegativeButtonText, { dialogInterface, i ->
+                }
+                .setNegativeButton(R.string.settingsPreviewNegativeButtonText) { dialogInterface, i ->
                     dialogInterface.dismiss()
-                }).create()
+                }.create()
 
         alertDialog.show()
 
@@ -76,7 +76,7 @@ class PreviewOfAlarmSettings @Inject constructor(private val context: Context,
 
     private fun scheduleNewAlarm(alarmObject: AlarmObject) {
         AlarmManagerHelper(context).setNewAlarm(alarmObject)
-        notificationsTools.showToastMessage("Service was activated")
+        notificationsTools.showToastMessage(context.getString(R.string.alarmActivatedMessage))
 
     }
 

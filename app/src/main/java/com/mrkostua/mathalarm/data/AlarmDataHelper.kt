@@ -57,10 +57,11 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
 
     open fun getRingtonesForPopulation(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
-        ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2))
-        ringtonesList.add(RingtoneObject("ringtone_energy", 1))
-        ringtonesList.add(RingtoneObject("ringtone_loud", 3))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 4))
+        ringtonesList.add(RingtoneObject("mechanic_clock", 2))
+        ringtonesList.add(RingtoneObject("energy", 1))
+        ringtonesList.add(RingtoneObject("loud", 3))
+        ringtonesList.add(RingtoneObject("digital_clock", 4))
+        ringtonesList.add(RingtoneObject("calm", 5))
         ringtonesList.addAll(ringtoneManagerHelper.getDefaultAlarmRingtonesList())
         return ringtonesList
     }
@@ -75,7 +76,7 @@ open class AlarmDataHelper @Inject constructor(private val sharedPreferences: Sh
         val ringtoneList = getRingtonesForPopulation()
         val ringtoneName = sharedPreferences[ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.getKeyValue(), ConstantsPreferences.ALARM_DEEP_WAKE_UP_RINGTONE.defaultDeepWakeUpRingtone]
         return ringtoneList.find { ao -> ao.name == ringtoneName }
-                ?: ringtoneList[1]
+                ?: RingtoneObject("calm", 5)
     }
 
     fun isFirstAlarmSaving() = sharedPreferences[ConstantsPreferences.ALARM_HOURS.getKeyValue(), ConstantsPreferences.ALARM_HOURS.emptyPreferencesValue] ==

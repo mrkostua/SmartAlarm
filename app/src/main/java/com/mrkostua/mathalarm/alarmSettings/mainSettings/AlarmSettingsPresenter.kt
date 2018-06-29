@@ -17,7 +17,6 @@ class AlarmSettingsPresenter @Inject constructor(private var fragmentToLoadFirst
     }
 
     override fun start() {
-        ShowLogs.log(TAG, "AlarmSettingPresenter start()")
     }
 
     override fun showChosenFragment(fragmentIndex: Int) {
@@ -33,7 +32,6 @@ class AlarmSettingsPresenter @Inject constructor(private var fragmentToLoadFirst
 
     override fun showNextPreviousFragment(isNextFragment: Boolean) {
         val currentFragmentIndex = alarmSettingsView.getCurrentFragmentIndex()
-        ShowLogs.log(TAG, "currentFragmentIndex " + currentFragmentIndex)
         when (currentFragmentIndex) {
             0 -> {
                 alarmSettingsView.moveToNextFragment(currentFragmentIndex)

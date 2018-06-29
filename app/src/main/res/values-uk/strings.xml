@@ -9,10 +9,9 @@
     <string name="wed">СЕР</string>
     <string name="tue">ВІВ</string>
     <string name="mon">ПОН</string>
-    <string name="tasksExplanationText">Перенеси всі фішки одна за одною від малої на наступну за розміром фішку.</string>
+    <string name="tasksExplanationText">Перенеси всі фішки одна за одною від найменшої на наступну за розміром фішку.</string>
     <string name="preview_dialog_deep_wake_up">Глубока побутка :</string>
-    <string name="contentDescriptionSleepIcon">спати zzz іконка</string>
-    <string name="deepSleepOptionDescription">ГлубокаПобутка функція дає тобі можливість прокинутися у спокійний природній спосіб. Ця функція просто запускаю спокійну мелодію і повільно збільшує гучність аж ви спокійно прокинитеся.</string>
+    <string name="deepSleepOptionDescription">ГлубокаПобутка функція дає тобі можливість прокинутися у спокійний природній спосіб. Ця функція просто запускаю спокійну мелодію і повільно збільшує гучність.</string>
     <string name="preview_dialog_message">Повідомлення :</string>
     <string name="preview_dialog_ringtone">Мелодія :</string>
     <string name="preview_dialog_boom_time">Час будильника :</string>
@@ -26,7 +25,7 @@
     <string name="helpingMessageOne">Кожний наступний раз тут буду висвітлюватися твій останній встановлений будильник.</string>
     <string name="helpingMessageTwo">Щоб встановити будильник з останніми налуштуваннями, просто нажми на овальну кнопку.</string>
     <string name="helperFirstDialogMessage">Якщо хочеш побачити як користуватися будильником просто слідую за текстом який буде зявлятись по натисненню.</string>
-    <string name="helperFirstDialogTitle">Розумний помічник.</string>
+    <string name="helperFirstDialogTitle">Розумний помічник</string>
     <string name="timeUntilAlarmBoom">Будильник задзвонить через : <xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> годин <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> хвилин.</string>
     <string name="blockedButtonMessage">Це остання опція налаштувань :(</string>
     <string name="helperHideDialogTitle">Хочеш продовжити без допоміжних повідомлень?</string>
@@ -50,6 +49,12 @@
     <string name="settingsPreviewPositiveButtonText">Норм</string>
     <string name="settingsPreviewNegativeButtonText">Назад</string>
 
-    <string name="MAP_Toast_timeLeftToAlarmStart">Until boom h. <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">"До старту будильника залишилося : <xliff:g id="timeToAlarmStartToast">%s</xliff:g> "</string>
+    <string name="don_t_show_it_again">"Більше не показувати "</string>
+    <string name="positiveButtonText">ок</string>
+    <string name="shortSnoozeClickMessage">Щоб відкласти будильник потримай кнопку трохи довше.</string>
+    <string name="explenationDialogTitle">Як зупинити будильник?</string>
+    <string name="noTasksToDisplayMessage">Хюстон у нас проблемы, натисни кнопку \"Відкласти\" щоб виключити будильник.</string>
+    <string name="alarmActivatedMessage">Будильник активовано.</string>
 
 </resources>

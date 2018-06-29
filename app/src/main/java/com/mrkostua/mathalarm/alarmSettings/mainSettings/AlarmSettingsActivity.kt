@@ -37,7 +37,6 @@ class AlarmSettingsActivity : DaggerAppCompatActivity(), AlarmSettingsContract.V
     }
 
     override fun onResume() {
-        ShowLogs.log(TAG, "onResume")
         super.onResume()
 
     }
