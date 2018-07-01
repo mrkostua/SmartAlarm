@@ -24,12 +24,6 @@
         <item name="android:windowTitleStyle">@style/alertDialogTitleStyle</item>
     </style>
 
-    <style name="alertDialogTitleStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:textColor">@color/alertDialogMainMathAlarmTitleColor</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="switchColorsTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">#27ff00</item>
         <item name="android:colorForeground">#f70000</item>

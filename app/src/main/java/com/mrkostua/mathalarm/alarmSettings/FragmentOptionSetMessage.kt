@@ -70,6 +70,10 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
 
     private fun initializeTextViewWithLastMessage() {
         val savedMessage = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(), ""]
-        etSetAlarmMessage.setText(savedMessage, TextView.BufferType.EDITABLE)
+        if (savedMessage == ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage) {
+            etSetAlarmMessage.setText("", TextView.BufferType.EDITABLE)
+        } else {
+            etSetAlarmMessage.setText(savedMessage, TextView.BufferType.EDITABLE)
+        }
     }
 }
