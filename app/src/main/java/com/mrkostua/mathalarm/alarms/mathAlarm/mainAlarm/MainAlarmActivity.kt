@@ -9,7 +9,6 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import com.mrkostua.mathalarm.R
-import com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm.DisplayAlarmActivity
 import com.mrkostua.mathalarm.databinding.ActivityMainAlarmBinding
 import com.mrkostua.mathalarm.extensions.setTextAppearance
 import dagger.android.support.DaggerAppCompatActivity
@@ -67,12 +66,12 @@ class MainAlarmActivity : DaggerAppCompatActivity() {
     private fun clickOutsideOfHelpingViews() {
         AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
                 .setTitle(getString(R.string.helperHideDialogTitle))
-                .setPositiveButton(getString(R.string.yes), { dialog, which ->
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                     dialog.dismiss()
                     userHelper.hideHelpingViews()
                     showAlarmSettingsActivity()
 
-                })
+                }
                 .setNegativeButton(getString(R.string.back), { dialog, which -> dialog.dismiss() })
                 .create().show()
     }

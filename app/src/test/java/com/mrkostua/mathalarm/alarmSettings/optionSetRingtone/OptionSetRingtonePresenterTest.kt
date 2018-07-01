@@ -36,9 +36,9 @@ class OptionSetRingtonePresenterTest {
     private fun initializeRingtonesList(): ArrayList<RingtoneObject> {
         val ringtonesList = ArrayList<RingtoneObject>()
         ringtonesList.add(RingtoneObject("ringtone_mechanic_clock", 2, false, false))
-        ringtonesList.add(RingtoneObject("ringtone_energy", 1, false, false))
-        ringtonesList.add(RingtoneObject("ringtone_loud", 3, false, false))
-        ringtonesList.add(RingtoneObject("ringtone_digital_clock", 4, false, false))
+        ringtonesList.add(RingtoneObject("energy", 1, false, false))
+        ringtonesList.add(RingtoneObject("loud", 3, false, false))
+        ringtonesList.add(RingtoneObject("digital_clock", 4, false, false))
         return ringtonesList
     }
 

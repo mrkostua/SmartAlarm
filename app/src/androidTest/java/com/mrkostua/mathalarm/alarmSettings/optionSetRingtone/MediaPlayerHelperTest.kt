@@ -44,7 +44,7 @@ class MediaPlayerHelperTest {
 
     @Test
     fun playRingtone() {
-        playSomeRingtone("ringtone_loud")
+        playSomeRingtone("loud")
         mediaPlayer = MediaPlayerHelper.getMediaPlayer()
         assertTrue("mediaPlayer is not playing", mediaPlayer.isPlaying)
         assertTrue("mediaPlayer is not looping", mediaPlayer.isLooping)
@@ -66,16 +66,16 @@ class MediaPlayerHelperTest {
         mediaPlayer = MediaPlayerHelper.getMediaPlayer()
         assertTrue("mediaPlayer is not playing", mediaPlayer.isPlaying)
 
-        onData(withText("ringtone_loud"))
-        onView(allOf(withId(R.id.ibPlayPauseRingtone), hasSibling(withText("ringtone_loud"))))
+        onData(withText("loud"))
+        onView(allOf(withId(R.id.ibPlayPauseRingtone), hasSibling(withText("loud"))))
                 .perform(click())
         assertFalse("mediaPlayer is playing", mediaPlayer.isPlaying)
     }
 
     @Test
     fun playMultipleTimes() {
-        val firstRingtone = "ringtone_energy"
-        val secondRingtone = "ringtone_loud"
+        val firstRingtone = "energy"
+        val secondRingtone = "loud"
         val thirdRingtone = "ringtone_mechanic_clock"
         playSomeRingtone(firstRingtone)
         mediaPlayer = MediaPlayerHelper.getMediaPlayer()
@@ -113,7 +113,7 @@ class MediaPlayerHelperTest {
         }
     }
 
-    private fun playSomeRingtone(someRingtone: String = "ringtone_energy") {
+    private fun playSomeRingtone(someRingtone: String = "energy") {
         onData(withText(someRingtone))
         onView(allOf(withId(R.id.ibPlayPauseRingtone),
                 hasSibling(withText(someRingtone))))

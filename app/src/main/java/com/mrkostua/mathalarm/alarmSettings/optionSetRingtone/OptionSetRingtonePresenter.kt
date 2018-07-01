@@ -1,7 +1,6 @@
 package com.mrkostua.mathalarm.alarmSettings.optionSetRingtone
 
 import com.mrkostua.mathalarm.data.AlarmDataHelper
-import com.mrkostua.mathalarm.tools.ShowLogs
 import javax.inject.Inject
 
 /**
@@ -86,7 +85,6 @@ class OptionSetRingtonePresenter @Inject constructor(
         val ringtonePosition = ringtonePopulationList.indexOf(getSavedRingtonePosition())
         ringtonePopulationList[ringtonePosition].isChecked = true
         optionSetRingtoneView.itemChangedRefreshRecycleView(ringtonePosition)
-        ShowLogs.log(TAG, "initializeLastSavedRingtone()  ringtone position : " + ringtonePosition)
 
     }
 

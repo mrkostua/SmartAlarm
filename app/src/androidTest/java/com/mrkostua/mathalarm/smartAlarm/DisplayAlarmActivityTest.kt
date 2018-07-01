@@ -11,7 +11,6 @@ import android.support.test.rule.ActivityTestRule
 import com.mrkostua.mathalarm.R
 import com.mrkostua.mathalarm.SmartAlarmApp
 import com.mrkostua.mathalarm.alarms.mathAlarm.mainAlarm.MainAlarmActivity
-import com.mrkostua.mathalarm.tools.ShowLogs
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -38,17 +37,8 @@ class DisplayAlarmActivityTest {
     @Test
     fun testing() {
         for (i in 0..20) {
-            ShowLogs.log(TAG, "SPARTA : $i")
             onView(withId(R.id.ibAdditionalSettings)).perform(click())
             Thread.sleep(1000)
-            onView(withId(R.id.bSnoozeAlarm)).perform(longClick())
-
-        }
-
-        for (i in 0..10) {
-            ShowLogs.log(TAG, "FAST SPARTA : $i")
-            onView(withId(R.id.ibAdditionalSettings)).perform(click())
-            Thread.sleep(50)
             onView(withId(R.id.bSnoozeAlarm)).perform(longClick())
 
         }

@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mrkostua.mathalarm">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -32,18 +28,9 @@
         </activity>
 
         <activity
-            android:name=".appSettingsPreference.SettingsPreference"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:icon="@drawable/ic_settings_white_36dp"
-            android:label="@string/preference_settings"
-            android:screenOrientation="portrait"
-            android:theme="@style/Preference_style" />
-        <activity
             android:name=".alarms.mathAlarm.displayAlarm.DisplayAlarmActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".alarms.mathAlarm.historyOfAlarms.SetAlarmFromHistory" />
 
         <activity
             android:name=".alarmSettings.mainSettings.AlarmSettingsActivity"
@@ -60,14 +47,14 @@
 
         <receiver
             android:name=".alarms.mathAlarm.receivers.AlarmReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="alarm_snooze" />
                 <action android:name="alarm_dismiss" />
                 <action android:name="alarm_start_new" />
             </intent-filter>
         </receiver>
-
 
     </application>
 

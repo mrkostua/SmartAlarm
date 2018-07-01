@@ -15,7 +15,6 @@ import com.mrkostua.mathalarm.extensions.get
 import com.mrkostua.mathalarm.extensions.set
 import com.mrkostua.mathalarm.tools.ConstantsPreferences
 import com.mrkostua.mathalarm.tools.NotificationTools
-import com.mrkostua.mathalarm.tools.ShowLogs
 import kotlinx.android.synthetic.main.fragment_option_set_message.*
 
 /**
@@ -26,7 +25,7 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
 
     private val TAG = this.javaClass.simpleName
 
-    public lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,6 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ShowLogs.log(TAG, "onCreateView")
         return inflater.inflate(R.layout.fragment_option_set_message, container, false)
     }
 
@@ -52,7 +50,6 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
 
     private fun saveMessage() {
         var message = etSetAlarmMessage.text.toString()
-        ShowLogs.log(TAG, "message is : " + message)
         NotificationTools(fragmentContext).showToastMessage(getString(R.string.toast_message_was_saved))
         if (message.isEmpty()) {
             message = ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage
@@ -73,6 +70,10 @@ class FragmentOptionSetMessage : Fragment(), SettingsFragmentInterface, KotlinAc
 
     private fun initializeTextViewWithLastMessage() {
         val savedMessage = sharedPreferences[ConstantsPreferences.ALARM_TEXT_MESSAGE.getKeyValue(), ""]
-        etSetAlarmMessage.setText(savedMessage, TextView.BufferType.EDITABLE)
+        if (savedMessage == ConstantsPreferences.ALARM_TEXT_MESSAGE.defaultTextMessage) {
+            etSetAlarmMessage.setText("", TextView.BufferType.EDITABLE)
+        } else {
+            etSetAlarmMessage.setText(savedMessage, TextView.BufferType.EDITABLE)
+        }
     }
 }

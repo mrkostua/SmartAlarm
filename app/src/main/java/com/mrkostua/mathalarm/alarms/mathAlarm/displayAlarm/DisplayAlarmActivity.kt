@@ -1,11 +1,11 @@
 package com.mrkostua.mathalarm.alarms.mathAlarm.displayAlarm
 
-import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.text.method.ScrollingMovementMethod
 import android.util.DisplayMetrics
 import android.view.DragEvent
@@ -35,6 +35,8 @@ import javax.inject.Inject
 class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
     @Inject
     public lateinit var displayViewModel: DisplayAlarmViewModel
+    @Inject
+    public lateinit var notificationTools: NotificationTools
 
     private lateinit var tasksHelper: TaskViewsDisplayHelper
 
@@ -45,7 +47,6 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             executePendingBindings()
         }
         initializeViews()
-        showTaskExplanationDialog()
         tasksHelper = TaskViewsDisplayHelper(this)
         AsyncTasksPopulater(this).execute(5)
         stopService(Intent(this, WakeLockService::class.java))
@@ -57,6 +58,10 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         bSnoozeAlarm.setOnLongClickListener {
             bSnooze()
             true
+        }
+        bSnoozeAlarm.setOnClickListener {
+            notificationTools.showToastMessage(getString(R.string.shortSnoozeClickMessage))
+
         }
     }
 
@@ -107,12 +112,12 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
         if (displayViewModel.isShowExplanationDialog.get()) {
             val explanationView = layoutInflater.inflate(R.layout.custom_dialog_tasks_explenation, null)
             AlertDialog.Builder(this, R.style.AlertDialogCustomStyle)
-                    .setTitle("How to stop the the alarm?")
+                    .setTitle(getString(R.string.explanationDialogTitle))
                     .setView(explanationView)
-                    .setPositiveButton("got it", { dialog, which ->
+                    .setPositiveButton(getString(R.string.positiveButtonText)) { dialog, which ->
                         displayViewModel.setIsShowExplanationDialog(!explanationView.cbShowDialogAgain.isChecked)
                         dialog.dismiss()
-                    }).create().show()
+                    }.create().show()
 
         }
     }
@@ -173,8 +178,13 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
                         leftBoundsInDp = getLeftBoundsInDp(40, 80)
 
                     }
-                    displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, topBoundsInDp,
-                            leftBoundsInDp)
+                    return try {
+                        displayAlarmActivity.tasksHelper.getInitializedTasksViews(params[0]!!, topBoundsInDp,
+                                leftBoundsInDp)
+                    } catch (exception: UnsupportedOperationException) {
+                        ArrayList()
+                    }
+
 
                 } else {
                     throw UnsupportedOperationException("doInBackground params argument is empty")
@@ -191,9 +201,17 @@ class DisplayAlarmActivity : DaggerAppCompatActivity(), View.OnDragListener {
             if (displayAlarmActivity != null) {
                 displayAlarmActivity.pbLoadTasks.visibility = View.GONE
                 if (result != null && result.isNotEmpty()) {
+                    displayAlarmActivity.showTaskExplanationDialog()
                     displayAlarmActivity.tasksHelper.addTasksViewsToLayout(displayAlarmActivity.rlDisplayAlarm, result, displayAlarmActivity)
                 } else {
-                    NotificationTools(displayAlarmActivity).showToastMessage("please push snooze button")
+                    AlertDialog.Builder(displayAlarmActivity, R.style.AlertDialogCustomStyle)
+                            .setTitle(displayAlarmActivity.getString(R.string.noTasksToDisplayDialogTitle))
+                            .setMessage(displayAlarmActivity.getString(R.string.noTasksToDisplayDialogMessage))
+                            .setPositiveButton(displayAlarmActivity.getString(R.string.noTasksToDisplayDialogPosButton))
+                            { _, _ -> AsyncTasksPopulater(displayAlarmActivity).execute(4) }
+                            .setNegativeButton(displayAlarmActivity.getString(R.string.noTasksToDisplayDialogNegButton))
+                            { _, _ -> displayAlarmActivity.finishDisplayingAlarm() }.create().show()
+
                 }
             }
         }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">SmartAlarm</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="displayAlarmActivity_bSnooze">Odłożyć</string>
+    <string name="AN_snoozeContentText">Cześć to ja twój ulubiony budzik :)</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
+    <string name="AN_snoozeTicker">Dotknij żeby odłożyć budzik</string>
+    <string name="AN_snoozeAction">odłożyć</string>
+    <string name="AN_dismissContentTitle">SmartAlarm</string>
+    <string name="AN_dismissActionText">wyłączyć</string>
+    <string name="AN_dismissContentText">Budzik był ustawiony na <xliff:g id="alarmSetTime">%s</xliff:g></string>
+    <string name="settingsPreviewTitle">Przegłąd</string>
+    <string name="settingsPreviewPositiveButtonText">Potwierdzić</string>
+    <string name="settingsPreviewNegativeButtonText">Powrót</string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">Do startu budzika zostało : <xliff:g id="timeToAlarmStartToast">%s</xliff:g></string>
+    <string name="yes">tak</string>
+    <string name="letsDoIt">Zrobimy to</string>
+    <string name="back">Wstecz</string>
+    <string name="sun">NIE</string>
+    <string name="sut">SUB</string>
+    <string name="fri">PIĄ</string>
+    <string name="thu">CZW</string>
+    <string name="wed">ŚRO</string>
+    <string name="tue">WTO</string>
+    <string name="mon">PON</string>
+    <string name="preview_dialog_message">Wiadomość :</string>
+    <string name="preview_dialog_ringtone">Nuta :</string>
+    <string name="preview_dialog_boom_time">Czas budzika :</string>
+    <string name="toast_message_was_saved">Wiadomość została zapisana.</string>
+    <string name="contentDescription_pauseRingtone">Wstrzymać odtwarzanie</string>
+    <string name="contentDescription_playRingtone">Graj nutę</string>
+    <string name="alarmTimeLimitationMessage">Pamiętaj że możesz ustawic budzik tylko na następne 23 godizny i 59 min.</string>
+    <string name="don_t_show_it_again">Nie wyświetlać więcej</string>
+    <string name="tasksExplanationText">Przenieść wszystkie żetony jeden po drugim od najmniejszego numerku do największego.</string>
+    <string name="deepWakeUpSwitchText">Chcesz spróbować?</string>
+    <string name="preview_dialog_deep_wake_up">Głęboka pobudka :</string>
+    <string name="deepSleepOptionDescription">Głęboka pobudka to opcja która daje możliwość obudzić się w naturalny sposób. W tle leci spokojna muzyka i powoli zwiększa się głośność.</string>
+    <string name="shortSnoozeClickMessage">Żeby odłożyć budzik potrzymaj przycisk troszeczke dłużej</string>
+    <string name="positiveButtonText">ok</string>
+    <string name="explanationDialogTitle">Jak wyłączyć budzik?</string>
+    <string name="noTasksToDisplayDialogTitle">Houston, mamy problem</string>
+    <string name="alarmActivatedMessage">Budzik został aktywowany</string>
+    <string name="deepSleepOptionTitle">Głęboka pobudka</string>
+    <string name="hint_for_tvSetAlarmMessage">Napisz wiadomość dla siebie która zostanie wyświetlona na ekranie budzika.</string>
+    <string name="helperHideDialogTitle">Chcesz kontynuować bez pomocnika?</string>
+    <string name="blockedButtonMessage">To jest ostatnia opcja :(</string>
+    <string name="timeUntilAlarmBoom">Budzik zadzwoni za : <xliff:g id="hoursUntilAlarmBoom">%1$d</xliff:g> g. <xliff:g id="minutesUntilAlarmBoom">%2$d</xliff:g> min.</string>
+    <string name="helperFirstDialogTitle">Mądry pomocnik</string>
+    <string name="helperFirstDialogMessage">Jeżeli chcesz zobaczyć w jaki sposób działa ta aplikacja po prostu śledź za tekstem który będzie się pojawiać na ekranie po wczyśnięciu poprzedniego.</string>
+    <string name="helpingMessageTwo">Żeby w przyszłości ustawić budzik z ostatnimi konfiguracjami -> wciśnij duży okrągły przycisk.</string>
+    <string name="helpingMessageOne">Każdego następnego razu tutaj będzie wyświetlone konfiguracje twojego ostatniego ustawionego budzika.</string>
+    <string name="noTasksToDisplayDialogPosButton">spróbuj ponownie</string>
+    <string name="noTasksToDisplayDialogNegButton">wyłącz budzik</string>
+    <string name="noTasksToDisplayDialogMessage">Pojawiły się małe problemy z generacją losowych liczb.</string>
+</resources>

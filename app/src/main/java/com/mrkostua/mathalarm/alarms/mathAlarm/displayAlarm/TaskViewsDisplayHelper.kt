@@ -113,6 +113,7 @@ class TaskViewsDisplayHelper(private val activityContext: Context) {
     }
 
     private fun convertDpToPixel(dp: Int) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), activityContext.resources.displayMetrics).toInt()
+
     private fun getTaskView(topMarginPixels: Int, leftMarginPixels: Int): TextView {
         val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         val tvTask = TextView(activityContext)
@@ -140,7 +141,7 @@ class TaskViewsDisplayHelper(private val activityContext: Context) {
 
     private fun initializeDragDropListeners(view: TextView) {
         view.setOnLongClickListener {
-            vibrateFor(200)
+            vibrateFor(100)
             setViewAppearance(view, R.drawable.task_shape_moving)
             draggingTaskViewId = view.id
             it.startMyDragAndDrop(view.text.toString(), View.DragShadowBuilder(it))

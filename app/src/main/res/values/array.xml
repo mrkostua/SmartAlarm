@@ -1,26 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="deepSleepMusic_list">
-        <item>OFF</item>
-        <item>ON</item>
-    </string-array>
-    <string-array name="music_list">
-        <item>mechanic clock ringtone</item>
-        <item>energy ringtone</item>
-        <item>alarm ringtone</item>
-        <item>digital clock ringtone</item>
-    </string-array>
 
-    <string-array name="alarm_complexity_list">
-        <item>easy</item>
-        <item>medium</item>
-        <item>hard</item>
-    </string-array>
-
-    <string-array name="alarmOptionsPreviewText">
-        <item>Time : </item>
-        <item>Ringtone : </item>
-        <item>Message : </item>
-        <item>On/Off deep sleep music : </item>
-    </string-array>
 </resources>

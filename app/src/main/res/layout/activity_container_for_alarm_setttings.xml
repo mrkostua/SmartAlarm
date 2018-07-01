@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rlContainerForAlarmSettings"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,7 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/ibMoveBack"
-            android:contentDescription="forward"
+            android:contentDescription="@string/forward"
             android:onClick="ibMoveForwardClickListener"
             android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_right" />
@@ -45,7 +44,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:contentDescription="back"
+            android:contentDescription="@string/back"
             android:onClick="ibMoveBackClickListener"
             android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_left" />
@@ -56,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ibMoveBack"
             android:layout_centerHorizontal="true"
-            android:contentDescription="backToMain"
+            android:contentDescription="@string/backToMain"
             android:onClick="ibBackToMainActivityClickListener"
             android:theme="@style/AlarmSettingImagineButtonTheme"
             app:srcCompat="@drawable/arrow_down" />

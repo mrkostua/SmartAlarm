@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="deepSleepOptionTitle">Глубокая побудка</string>
+    <string name="app_name">Будильник</string>
+    <string name="action_settings">Настройки</string>
+    <string name="displayAlarmActivity_bSnooze">Отложыть</string>
+    <string name="AN_snoozeContentText">Приветствую я будильник.</string>
+    <string name="AN_snoozeContentTitle">SmartAlarm</string>
+    <string name="AN_snoozeTicker">Нажмите чтобы отложить будильник</string>
+    <string name="AN_snoozeAction">отложыть</string>
+    <string name="AN_dismissContentTitle">Будильник</string>
+    <string name="AN_dismissActionText">выключить</string>
+    <string name="AN_dismissContentText">Будильник был установлен на <xliff:g id="alarmSetTime">%s</xliff:g></string>
+    <string name="settingsPreviewTitle">Предварительный просмотр</string>
+    <string name="settingsPreviewPositiveButtonText">Подтвердить</string>
+    <string name="settingsPreviewNegativeButtonText">Назад</string>
+    <string name="MAP_Toast_timeLeftToAlarmStart">До старта будильника осталось : <xliff:g id="timeToAlarmStartToast">%s</xliff:g> min.</string>
+    <string name="mon">ПОН</string>
+    <string name="tue">ВТО</string>
+    <string name="wed">СРЕ</string>
+    <string name="thu">ЧЕТ</string>
+    <string name="fri">П\'ЯТ</string>
+    <string name="sut">СУБ</string>
+    <string name="sun">ВОС</string>
+    <string name="yes">да</string>
+    <string name="letsDoIt">Попробую</string>
+    <string name="back">Назад</string>
+    <string name="helpingMessageOne">Каждый следующий раз здесь будет виден твой последний установлений будильник.</string>
+    <string name="helpingMessageTwo">Чтобы установить будильник с последними настройками, просто нажми на овальную кнопку.</string>
+    <string name="helperFirstDialogMessage">Если хочешь увидеть как пользоваться будильником просто следую по тексту который будет появляться по нажатию.</string>
+    <string name="helperFirstDialogTitle">"Умный помощник "</string>
+    <string name="timeUntilAlarmBoom">Будильник зазвонит через: : <xliff:g id="hoursUntilAlarmBoom">%d</xliff:g> ч. <xliff:g id="minutesUntilAlarmBoom">%d</xliff:g> мин.</string>
+    <string name="don_t_show_it_again">Не показывать снова</string>
+    <string name="blockedButtonMessage">Этот вариант последний :(</string>
+    <string name="alarmTimeLimitationMessage">Помни ты можешь установить будильник только на следующие 23 часа и 59 минут.</string>
+    <string name="helperHideDialogTitle">Хотите продолжить без помощника?</string>
+    <string name="contentDescription_playRingtone">Запустить мелодию</string>
+    <string name="contentDescription_pauseRingtone">Приостановить мелодию</string>
+    <string name="hint_for_tvSetAlarmMessage">Напишите сообщение для себя (оно будет показано на экране вместе с будильником)</string>
+    <string name="toast_message_was_saved">Сообщение было успешно сохранено.</string>
+    <string name="preview_dialog_boom_time">Время будильника :</string>
+    <string name="preview_dialog_ringtone">Мелодия :</string>
+    <string name="preview_dialog_message">Сообщение :</string>
+    <string name="deepSleepOptionDescription">ГлубокаяПобудка функция дает тебе возможность проснуться в спокойный естественный способ. Она просто запускает спокойную мелодию и медленно увеличивает громкость.</string>
+    <string name="preview_dialog_deep_wake_up">Глубокая побудка :</string>
+    <string name="deepWakeUpSwitchText">Хочешь попробовать?</string>
+    <string name="tasksExplanationText">Перетащи все фишки одна за другой от наименьшей цифры на следующую по величине.</string>
+    <string name="positiveButtonText">ок</string>
+    <string name="shortSnoozeClickMessage">Что бы отложыть будильник придержи кнопку немного дольше.</string>
+    <string name="explanationDialogTitle">Как остановить будильник?</string>
+    <string name="noTasksToDisplayDialogTitle">Хьюстон у нас проблемы</string>
+    <string name="alarmActivatedMessage">Будильник активирован.</string>
+    <string name="noTasksToDisplayDialogNegButton">выключи будильник</string>
+    <string name="noTasksToDisplayDialogPosButton">попробуй снова</string>
+    <string name="noTasksToDisplayDialogMessage">Появились некоторые проблемы с генерацией случайных заданий для тебя.</string>
+</resources>

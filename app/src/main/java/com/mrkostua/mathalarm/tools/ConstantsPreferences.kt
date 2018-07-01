@@ -42,9 +42,9 @@ enum class ConstantsPreferences {
     abstract fun getKeyValue(): String
     abstract fun getDefaultIntValue(): Int
 
-    val defaultTextMessage = "It is nice to see you alive."
-    val defaultRingtoneName = "ringtone_energy"
-    val defaultDeepWakeUpRingtone = "ringtone_energy"
+    val defaultTextMessage = "Hello"
+    val defaultRingtoneName = "energy"
+    val defaultDeepWakeUpRingtone = "calm"
     val emptyPreferencesValue = -1
 
 

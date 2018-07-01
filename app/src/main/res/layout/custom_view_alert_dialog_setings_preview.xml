@@ -13,49 +13,61 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvBoomTimeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:text="@string/preview_dialog_boom_time"
             android:theme="@style/previewTitleViewStyle"
             app:layout_constraintEnd_toStartOf="@+id/tvTimePreview"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTimePreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:text="@{viewModel.alarmTime}"
             android:textColor="@color/alertDialogMainMathAlarmAccentColor"
             android:textSize="20sp"
             android:theme="@style/previewTextViewStyle"
-            app:layout_constraintStart_toEndOf="@+id/tvBoomTimeText"
+            app:layout_constraintBottom_toTopOf="@+id/tvRingtonePreview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrier2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvRingtoneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:text="@string/preview_dialog_ringtone"
             android:theme="@style/previewTitleViewStyle"
             app:layout_constraintEnd_toStartOf="@+id/tvRingtonePreview"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/tvBoomTimeText" />
 
 
@@ -63,70 +75,111 @@
             android:id="@+id/tvRingtonePreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="49dp"
-            android:layout_marginStart="49dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:text="@{viewModel.alarmRingtone}"
             android:textColor="@color/alertDialogMainMathAlarmAccentColor"
             android:theme="@style/previewTextViewStyle"
-            app:layout_constraintStart_toEndOf="@+id/tvRingtoneText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrier2"
             app:layout_constraintTop_toBottomOf="@+id/tvTimePreview" />
 
         <TextView
             android:id="@+id/tvMessageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:text="@string/preview_dialog_message"
             android:theme="@style/previewTitleViewStyle"
             app:layout_constraintEnd_toStartOf="@+id/tvTextMessagePreview"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/tvRingtoneText" />
 
         <TextView
             android:id="@+id/tvTextMessagePreview"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="52dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@{viewModel.alarmMessage}"
             android:textColor="@color/white"
             android:textStyle="italic"
             android:theme="@style/previewTextViewStyle"
-            app:layout_constraintStart_toEndOf="@+id/tvMessageText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrier2"
             app:layout_constraintTop_toBottomOf="@+id/tvRingtonePreview" />
 
         <TextView
             android:id="@+id/tvDeepWakeUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="8dp"
             android:text="@string/preview_dialog_deep_wake_up"
             android:theme="@style/previewTitleViewStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/swDeepWakeUpPreview"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMessageText" />
+            app:layout_constraintStart_toStartOf="@+id/guideline" />
 
         <Switch
             android:id="@+id/swDeepWakeUpPreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
             android:checked="@{viewModel.alarmDeepWakeUp}"
+
             android:textColor="@color/alertDialogMainMathAlarmAccentColor"
             android:theme="@style/switchColorsTheme"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvDeepWakeUpText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrier2"
             app:layout_constraintTop_toBottomOf="@+id/tvTextMessagePreview" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="5dp" />
+
+        <android.support.constraint.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvBoomTimeText,tvRingtoneText,tvMessageText,tvDeepWakeUpText" />
+
+        <android.support.constraint.Barrier
+            android:id="@+id/barrier3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="tvBoomTimeText,tvRingtoneText,tvMessageText,tvDeepWakeUpText" />
     </android.support.constraint.ConstraintLayout>
 </layout>
