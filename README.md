@@ -1,4 +1,6 @@
- # SmartAlarm <img src="https://github.com/mrkostua/SmartAlarm/blob/master/app/src/main/res/mipmap-hdpi/alarm_icon_test.png" alt="smartAlarm icon"/> :
+<p align="center"><img src="app/src/main/res/drawable/SmartAlarm.png" alt="SmartAlarm" height="100px"></p>
+
+
 ### Description
   Fully working alarm clock tested from API 16 -> API 28.
 Simple rule - only one alarm can be set at time. Contains basic features for typical alarm clock with simple animated task in the end to stop the alarm (which prevents user from stopping  alarm in the first 2 seconds and gives some time to wake up).
