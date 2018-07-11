@@ -1,4 +1,4 @@
-<p align="center"><img src="app/src/main/res/drawable/SmartAlarm.png" alt="SmartAlarm" height="100px"></p>
+<p align="center"><img src="https://github.com/mrkostua/SmartAlarm/blob/master/app/src/main/res/drawable/smart_alarm_text_logo.png" alt="SmartAlarm" height="100px"></p>
 
 
 ### Description
