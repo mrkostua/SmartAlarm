@@ -39,5 +39,7 @@ Simple rule - only one alarm can be set at time. Contains basic features for typ
   
 ### Future releases plans :
   * [Perform remote actions in case of not stopping alarm or others scenarios](https://github.com/mrkostua/SmartAlarm/issues/4)
-  * [adding ringtone from external path](https://github.com/mrkostua/SmartAlarm/issues/15)
+  * [Adding ringtone from an external path](https://github.com/mrkostua/SmartAlarm/issues/15)
+  * [To create the amazing design]
+  * [To do something with UI/UX]
   
